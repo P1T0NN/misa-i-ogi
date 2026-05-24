@@ -1,0 +1,996 @@
+{
+	"$schema": "https://inlang.com/schema/inlang-message-format",
+
+	"Header": {
+		"login": "Login"
+	},
+
+	"LanguageSelector": {
+		"english": "English",
+		"serbian": "Serbian",
+		"englishShort": "EN",
+		"serbianShort": "SR",
+		"ariaLabel": "Choose language"
+	},
+
+	"LoginButton": {
+		"login": "Login"
+	},
+
+	"LogoutButton": {
+		"logout": "Logout",
+		"logoutSuccess": "Logged out successfully."
+	},
+
+	"LoginPage": {
+		"continueWithGoogle": "Continue with Google"
+	},
+
+	"CreatedByOmnilabs": {
+		"label": "Created by"
+	},
+
+	"ProtectedSidebar": {
+		"dashboard": "Dashboard",
+		"myAccommodations": "My Accommodations",
+		"myHospitalities": "My Hospitalities",
+		"goToAdminPage": "Go to Admin Page",
+		"backToHome": "Back to Home"
+	},
+
+	"AdminSidebar": {
+		"backToUserDashboard": "Back to User Dashboard"
+	},
+
+	"TestimonialsSection": {
+		"testimonial1": "Testimonial 1",
+		"testimonial2": "Testimonial 2",
+		"testimonial3": "Testimonial 3",
+		"testimonial4": "Testimonial 4",
+		"testimonial5": "Testimonial 5",
+		"testimonial6": "Testimonial 6",
+		"testimonial7": "Testimonial 7",
+		"testimonial8": "Testimonial 8",
+		"testimonial9": "Testimonial 9",
+		"testimonial10": "Testimonial 10",
+		"testimonial11": "Testimonial 11",
+		"testimonial12": "Testimonial 12",
+		"testimonial13": "Testimonial 13",
+		"UpDownAnimation": {
+			"view": "View",
+			"socialProof": "Social proof",
+			"seeWhyClientsKeepComingBack": "See Why Clients Keep Coming Back"
+		},
+		"LeftRightAnimation": {
+			"eyebrow": "Client Results",
+			"title": "Don't take our word for it."
+		},
+		"PremiumDesign": {
+			"eyebrow": "Real clients",
+			"title": "What clients say"
+		}
+	},
+
+	"ContactSection": {
+		"ContactRightContent": {
+			"sendMessage": "Send a message",
+			"shareEnquiry": "Share your enquiry and Teresa will reply as soon as she can — usually within 24 hours.",
+			"yourName": "Your name",
+			"yourFullName": "Your full name",
+			"email": "Email",
+			"yourEmail": "you@example.com",
+			"message": "Message",
+			"messagePlaceholder": "Dates, venue, vibe, allergies — whatever helps Teresa prepare.",
+			"noSpam": "No spam — just a thoughtful reply when she is back at her desk."
+		},
+		"ContactSubmitButton": {
+			"sendMessage": "Send message"
+		},
+		"ContactLeftContent": {
+			"contact": "Contact",
+			"preferEmail": "Prefer email?"
+		}
+	},
+
+	"LoginForm": {
+		"LoginFormNoImage": {
+			"title": "Login",
+			"description": "Enter your email below to login to your account",
+			"email": "Email",
+			"password": "Password",
+			"forgotPassword": "Forgot your password?",
+			"submit": "Login",
+			"dontHaveAccount": "Don't have an account?",
+			"signUp": "Sign up",
+			"signInFailed": "Sign in failed. Please check your credentials and try again.",
+			"signedInToast": "Signed in successfully."
+		},
+		"LoginFormWithImage": {
+			"title": "Login to your account",
+			"description": "Enter your email below to login to your account",
+			"email": "Email",
+			"password": "Password",
+			"forgotPassword": "Forgot your password?",
+			"submit": "Login",
+			"orContinueWith": "Or continue with",
+			"dontHaveAccount": "Don't have an account?",
+			"signUp": "Sign up",
+			"signInFailed": "Sign in failed. Please check your credentials and try again.",
+			"signedInToast": "Signed in successfully."
+		}
+	},
+
+	"EmailVerificationForm": {
+		"title": "Check your email",
+		"description": "We sent a verification code to {email}. Enter it below to continue.",
+		"code": "Verification code",
+		"codeHint": "Enter the 8-digit code from your email.",
+		"resendPrompt": "Didn't receive the code?",
+		"resend": "Resend",
+		"resendIn": "Resend in {seconds}s",
+		"continue": "Continue",
+		"cancel": "Cancel",
+		"verificationFailed": "Invalid or expired code. Please try again."
+	},
+
+	"PasswordResetForm": {
+		"titleRequest": "Reset your password",
+		"descriptionRequest": "Enter the email for your account. We will send you a one-time code you can use to choose a new password.",
+		"titleReset": "Choose a new password",
+		"descriptionReset": "We sent a code to {email}. Enter it below along with your new password. The code is valid for 5 minutes.",
+		"email": "Email",
+		"sendCode": "Send code",
+		"code": "Code",
+		"newPassword": "New password",
+		"confirmNewPassword": "Confirm new password",
+		"continue": "Continue",
+		"cancel": "Cancel",
+		"passwordResetToast": "Password reset successfully."
+	},
+
+	"PasswordInput": {
+		"showPassword": "Show password",
+		"hidePassword": "Hide password"
+	},
+
+	"AccommodationsData": {
+		"typeApartment": "Apartment",
+		"typeHotel": "Hotel",
+		"typeVilla": "Villa",
+		"typeHostel": "Hostel",
+		"typeOther": "Other"
+	},
+
+	"HospitalityData": {
+		"typeRestaurant": "Restaurant",
+		"typeCafe": "Café",
+		"typeBar": "Bar",
+		"typeNightClub": "Night club",
+		"typeHorseRide": "Horse ride",
+		"typeSpa": "Spa",
+		"typeTour": "Tour",
+		"typeOtherVenue": "Other"
+	},
+
+	"ScanPage": {
+		"metaBrand": "Konak",
+		"eyebrow": "Your stay",
+		"perksTitle": "Your perks in {city}",
+		"perksLead": "Show this page to staff at any partner venue. No app, no account.",
+		"perkRedeemHint": "Show this screen to staff",
+		"perkOff": "off",
+		"addressFooterEyebrow": "Need to share where you are?",
+		"addressFooterLabel": "Address",
+		"ScanLoading": {
+			"announce": "Loading your stay…"
+		},
+		"ScanEmpty": {
+			"title": "Stay not found",
+			"body": "This QR points to a stay that isn’t active. Double-check the code or ask your host.",
+			"cta": "Back to home"
+		},
+		"ScanAccommodationPartnershipsEmpty": {
+			"title": "No perks linked yet",
+			"body": "Your host hasn’t connected this stay to a partner venue yet. Ask them about it — they can add perks in seconds."
+		},
+		"ScanError": {
+			"title": "Couldn’t load your perks",
+			"body": "Check your connection and try again.",
+			"cta": "Back to home"
+		},
+		"ScanSessionExpired": {
+			"title": "Your stay session has expired",
+			"body": "Scan the QR in your room to unlock your perks again."
+		},
+		"ScanUnlockRequired": {
+			"requiredTitle": "Unlock your stay perks",
+			"requiredBody": "Scan the QR code in your room to see partner discounts and offers for your stay."
+		},
+		"ScanAlreadyActive": {
+			"title": "Your stay is already unlocked",
+			"body": "You cannot activate again until your stay period ends. Your perks are on this page if you're using the same browser.",
+			"lockedBody": "This stay was already unlocked and is still active. Wait until the stay period ends, or open your perks from the browser where you first scanned."
+		}
+	},
+
+	"HospitalityPage": {
+		"metaBrand": "Konak",
+		"navHome": "Home",
+		"navHowItWorks": "How it works",
+		"navDemo": "Try the demo",
+		"navPartners": "For partners",
+		"navCta": "Try the demo",
+		"crumbKonak": "Konak",
+		"crumbVenues": "Venues",
+		"statusPartner": "Konak partner · perks accepted here",
+		"coverFallbackLabel": "Venue",
+		"coverFallbackAria": "Placeholder image for this venue",
+		"addressLineMeta": "{address} · {city} · {country}",
+		"heroLeadFallback": "A Konak partner venue — see your guest perk below.",
+		"contactCall": "Call",
+		"contactEmail": "Email",
+		"contactWeb": "Website",
+		"factType": "Type",
+		"factAddress": "Address",
+		"factArea": "Location",
+		"ctaSeePerk": "View Konak perk",
+		"ctaFindStay": "Find a stay",
+		"aboutEyebrow": "About",
+		"aboutTitle": "About this venue",
+		"aboutSideNote": "Details from the venue’s listing.",
+		"perkEyebrow": "Sample perk",
+		"perkMedallionLabel": "Sample",
+		"perkMedallionSub": "off the full bill",
+		"perkMedallionSubNodiscount": "Partner offer",
+		"perkFootnote": "The exact offer depends on which Konak stay you scan from.",
+		"perkFallbackLine1": "Show your Konak stay on arrival.",
+		"perkFallbackLine2": "Staff confirm the stay with one tap.",
+		"perkFallbackLine3": "Discount follows what’s agreed for your stay.",
+		"redeemEyebrow": "Redeem",
+		"redeemTitle": "Three quick steps at the door.",
+		"redeem1Step": "At the stay",
+		"redeem1Title": "Scan the QR at the entrance.",
+		"redeemBody1": "Opens the perk list for your exact stay. {venueName} appears when your host has linked this venue.",
+		"redeem2Step": "At the venue",
+		"redeem2Title": "Show your screen to staff.",
+		"redeemBody2": "Your host confirms the stay — no printouts, no extra app.",
+		"redeem3Step": "At checkout",
+		"redeem3Title": "The offer is applied at the till.",
+		"redeemBody3": "Pay however the venue accepts; the perk follows what your Konak page shows.",
+		"practicalEyebrow": "Book",
+		"practicalTitle": "Reserve or get in touch",
+		"reserveEyebrow": "Reservations",
+		"reserveTitle": "How to reserve",
+		"reserveLead": "This venue handles bookings directly. Use their website when available, or call or email them.",
+		"reserveBulletWebsite": "Open their official site to check availability and book.",
+		"reserveBulletPhone": "Call to ask about availability or to reserve.",
+		"reserveBulletEmail": "Email for reservations or other questions.",
+		"reserveWebsiteCta": "Visit website",
+		"reserveNoChannels": "No website or contact details are listed yet.",
+		"venueDetailsTitle": "Venue details",
+		"dlType": "Type",
+		"dlAddress": "Address",
+		"dlPhone": "Phone",
+		"dlEmail": "Email",
+		"dlWebsite": "Website",
+		"dlPartner": "Active partner",
+		"partnerYes": "Yes — accepts Konak perks",
+		"partnerNo": "Not accepting perks at the moment",
+		"staysEyebrow": "Featured at",
+		"staysTitle": "Stays that unlock this venue",
+		"staysAll": "All stays",
+		"staysLead": "Guests of these Konak stays get a perk here. Scan the QR in your room to see your specific offer.",
+		"staysPerkActive": "Perk active",
+		"staysPerkCount": "{count} active perks",
+		"staysPerkCountOne": "1 active perk",
+		"staysCardCta": "View stay",
+		"staysFootnote": "{venueName} offers this for guests of linked Konak stays.",
+		"staysEmpty": "When hosts connect their places to this venue, they’ll show up here.",
+		"ctaStripEyebrow": "Guest view",
+		"ctaStripTitle": "The QR journey from start to finish.",
+		"ctaStripLead": "Explore Konak from home — scan at the door for the full perk list.",
+		"ctaStripPrimary": "Konak home",
+		"ctaStripSecondary": "Sign in",
+		"footerTagline": "Stay anywhere. Unlock the city.",
+		"footerGuests": "Guests",
+		"footerGuestsHow": "How Konak works",
+		"footerGuestsDemo": "Try the demo",
+		"footerPartners": "Partners",
+		"footerPartnersHosts": "For hosts",
+		"footerPartnersVenues": "For venues",
+		"footerPartnersLogin": "Partner login",
+		"footerCompany": "Company",
+		"footerCompanyContact": "Contact",
+		"footerCopy": "© {brand} · {year}",
+		"footerDisclaimer": "Names and offers on this page come from your listings.",
+		"HospitalityError": {
+			"title": "Couldn’t load this page",
+			"body": "Check your connection and try again.",
+			"cta": "Back to home"
+		},
+		"HospitalityEmpty": {
+			"title": "Venue not available",
+			"body": "This partner page is missing or no longer active.",
+			"cta": "Back to home"
+		},
+		"HospitalityLoading": {
+			"announce": "Loading venue…"
+		},
+		"shareAria": "Share this venue",
+		"shareLabel": "Share"
+	},
+
+	"SignUpForm": {
+		"SignUpFormNoImage": {
+			"title": "Create an account",
+			"description": "Enter your information below to create your account",
+			"fullName": "Full Name",
+			"email": "Email",
+			"emailHelp": "We'll use this to contact you. We will not share your email with anyone else.",
+			"password": "Password",
+			"passwordHelp": "Must be at least 8 characters long.",
+			"confirmPassword": "Confirm Password",
+			"confirmPasswordHelp": "Please confirm your password.",
+			"submit": "Create Account",
+			"alreadyHaveAccount": "Already have an account?",
+			"signIn": "Sign in",
+			"signUpFailed": "We couldn't create your account. Check your details and try again, or sign in if you already have one.",
+			"accountCreatedToast": "Account created successfully."
+		},
+		"SignUpFormWithImage": {
+			"title": "Create your account",
+			"description": "Fill in the form below to create your account",
+			"fullName": "Full Name",
+			"email": "Email",
+			"emailHelp": "We'll use this to contact you. We will not share your email with anyone else.",
+			"password": "Password",
+			"passwordHelp": "Must be at least 8 characters long.",
+			"confirmPassword": "Confirm Password",
+			"confirmPasswordHelp": "Please confirm your password.",
+			"submit": "Create Account",
+			"orContinueWith": "Or continue with",
+			"alreadyHaveAccount": "Already have an account?",
+			"signIn": "Sign in",
+			"signUpFailed": "We couldn't create your account. Check your details and try again, or sign in if you already have one.",
+			"accountCreatedToast": "Account created successfully."
+		}
+	},
+
+	"DatePicker": {
+		"dateOfBirth": "Date of birth",
+		"selectDate": "Select date",
+		"date": "Date",
+		"time": "Time",
+		"scheduleDate": "Schedule date",
+		"scheduleDatePlaceholder": "Tomorrow or next week"
+	},
+
+	"LocalizedCalendar": {
+		"title": "Book an appointment",
+		"description": "Select the dates for your appointment"
+	},
+
+	"UploadFile": {
+		"UploadFileMultiple": {
+			"dropzoneDescription": "Use the drop zone to add files — it stays put while previews show in a grid below. Remove any file with the",
+			"instruction": "control on the top-right of each preview card",
+			"placeholder": "Uploaded files. Drop more files here to add.",
+			"unknown": "Unknown",
+			"remove": "Remove {name}"
+		},
+		"UploadFileSingle": {
+			"dropzoneDescription": "Choose or drop a file, preview it, then save. Use",
+			"remove": "Remove",
+			"or": "or",
+			"replace": "Replace",
+			"existingCover": "Current cover",
+			"existingCoverHint": "Pick a new file below to replace it on save.",
+			"ifYouChangeYourMind": "on the file card if you change your mind.",
+			"placeholder": "File preview. Drop a file here to replace.",
+			"unknownType": "Unknown type"
+		},
+		"UploadFileEmpty": {
+			"choose": "Choose",
+			"orDrag": "or drag",
+			"here": "here",
+			"files": "files",
+			"file": "file",
+			"them": "them",
+			"it": "it",
+			"accepted": "Accepted"
+		}
+	},
+
+	"PaginatedData": {
+		"paginationText": "Page {page} of {totalPages}",
+		"paginationTextCursor": "Page {page}"
+	},
+
+	"AccommodationQrDialog": {
+		"title": "QR for {name}",
+		"description": "Print this code in the unit. Guests scan it to unlock perks for this stay.",
+		"imageAlt": "QR code for {name}",
+		"generating": "Generating QR…",
+		"activateUrl": "Activate URL",
+		"copyUrl": "Copy activate URL",
+		"download": "Download PNG",
+		"close": "Close",
+		"localhostWarning": "PUBLIC_SITE_URL points to localhost. Printed codes will not work for real guests until you set your production domain."
+	},
+
+	"DataTable": {
+		"itemsSelected": "{count} selected",
+		"clearSelection": "Clear",
+		"selectAllOnPage": "Select all on page",
+		"selectAllRowsOnThisPage": "Select all rows on this page",
+		"selectRow": "Select row",
+		"deselectRow": "Deselect row",
+		"ariaDataTable": "Data table",
+		"ariaDataRows": "Data rows",
+		"emptyTitle": "No results",
+		"emptyDescription": "Nothing to show yet. Try adjusting filters or add new data.",
+		"delete": "Delete",
+		"searchPlaceholder": "Search…",
+		"sortAscending": "Sort ascending",
+		"sortDescending": "Sort descending",
+		"clearSort": "Clear sort",
+		"sortBy": "Sort by",
+		"sortDefault": "Default order"
+	},
+
+	"AlertDialogButton": {
+		"title": "Action cannot be reversed",
+		"description": "Are you sure you want to do this? This action cannot be undone.",
+		"cancel": "Cancel",
+		"proceed": "Proceed"
+	},
+
+	"AdminAccommodationsPage": {
+		"title": "Accommodations",
+		"description": "Places guests stay — apartments, hotels, villas, and more. Each row gets an auto-generated scan token for printed QRs.",
+		"caption": "Accommodations",
+		"columnName": "Name",
+		"columnType": "Type",
+		"columnCity": "City / country",
+		"columnScanToken": "Scan token",
+		"columnAddress": "Address",
+		"columnStatus": "Status",
+		"columnCreated": "Created",
+		"statusActive": "Active",
+		"statusInactive": "Inactive",
+		"addAccommodation": "Add accommodation",
+		"columnQr": "QR",
+		"openQr": "Show QR code for {name}"
+	},
+
+	"AdminAccommodationAddPage": {
+		"title": "Add accommodation",
+		"description": "Create a new property. A secret scan token for the wall QR is generated automatically.",
+		"back": "Back to list",
+		"sectionBasicsTitle": "Basics",
+		"sectionBasicsDescription": "What guests and staff will see at a glance.",
+		"sectionLocationTitle": "Location",
+		"sectionLocationDescription": "Used on the guest scan landing page and admin filtering.",
+		"sectionCoverTitle": "Cover image",
+		"sectionCoverDescription": "Shown on the guest scan landing page. PNG or JPG recommended; aim for a wide aspect ratio.",
+		"sectionDetailsTitle": "Details",
+		"sectionDetailsDescription": "Optional notes and visibility.",
+		"fieldName": "Name",
+		"fieldNamePlaceholder": "Sunset Loft #12",
+		"fieldType": "Type",
+		"fieldTypePlaceholder": "Pick a type",
+		"fieldAddress": "Address",
+		"fieldAddressPlaceholder": "Calle Mayor 14, 2nd floor",
+		"fieldCity": "City",
+		"fieldCityPlaceholder": "Madrid",
+		"fieldCountry": "Country",
+		"fieldCountryPlaceholder": "Spain",
+
+		"fieldDescription": "Description",
+		"fieldDescriptionPlaceholder": "Short description shown on the benefits page (optional).",
+		"fieldIsActive": "Active",
+		"fieldIsActiveDescription": "Inactive accommodations stay in the database but their QR page won't render benefits.",
+		"fieldCoverImage": "Cover image",
+		"submit": "Create accommodation"
+	},
+
+	"EditAccommodationPage": {
+		"title": "Edit accommodation",
+		"description": "Update how this stay appears to guests. The in-room QR code stays the same.",
+		"back": "Back to my accommodations",
+		"notFoundTitle": "Accommodation not found",
+		"notFoundDescription": "This stay may have been removed or is not assigned to your account.",
+		"loadErrorTitle": "Could not load accommodation",
+		"loadErrorDescription": "Please try again in a moment.",
+		"sectionGuestAccessTitle": "Guest access",
+		"sectionGuestAccessDescription": "The QR code is tied to this unit. Print it from here if you need a new copy.",
+		"showQr": "Show QR code",
+		"sectionBasicsTitle": "Basics",
+		"sectionBasicsDescription": "What guests and staff will see at a glance.",
+		"sectionLocationTitle": "Location",
+		"sectionLocationDescription": "Shown on the guest benefits page.",
+		"sectionCoverTitle": "Cover image",
+		"sectionCoverDescription": "Leave empty to keep the current image. PNG or JPG recommended.",
+		"currentCoverAlt": "Current cover for {name}",
+		"sectionDetailsTitle": "Details",
+		"sectionDetailsDescription": "Optional notes and visibility.",
+		"fieldName": "Name",
+		"fieldNamePlaceholder": "Sunset Loft #12",
+		"fieldType": "Type",
+		"fieldTypePlaceholder": "Pick a type",
+		"fieldAddress": "Address",
+		"fieldAddressPlaceholder": "Calle Mayor 14, 2nd floor",
+		"fieldCity": "City",
+		"fieldCityPlaceholder": "Madrid",
+		"fieldCountry": "Country",
+		"fieldCountryPlaceholder": "Spain",
+		"fieldDescription": "Description",
+		"fieldDescriptionPlaceholder": "Short description shown on the benefits page (optional).",
+		"fieldIsActive": "Active",
+		"fieldIsActiveDescription": "Inactive accommodations stay in the database but their QR page won't render benefits.",
+		"fieldCoverImage": "Replace cover image",
+		"submit": "Save changes"
+	},
+
+	"AdminPartnershipsPage": {
+		"title": "Partnerships",
+		"description": "Links between accommodations and partner venues. Each row is one perk guests unlock after scanning the in-room QR.",
+		"caption": "Partnerships",
+		"columnAccommodation": "Accommodation ID",
+		"columnAccommodationScanToken": "Accommodation scan token",
+		"columnHospitality": "Hospitality ID",
+		"columnDiscount": "Discount",
+		"columnStatus": "Status",
+		"columnCreated": "Created",
+		"statusActive": "Active",
+		"statusInactive": "Inactive",
+		"discountNone": "No discount",
+		"discountValue": "{percent}% off",
+		"addPartnership": "Add partnership"
+	},
+
+	"AdminPartnershipAddPage": {
+		"title": "Add partnership",
+		"description": "Connect a stay to a partner venue. Guests of that accommodation see the offer after scanning the QR.",
+		"back": "Back to list",
+		"submit": "Create partnerships",
+		"sectionPartnersTitle": "Partners",
+		"sectionPartnersDescription": "Paste Convex document IDs from the accommodations and hospitalities admin lists.",
+		"fieldAccommodation": "Accommodation",
+		"selectAccommodation": "Select Accommodation",
+		"selectAccommodationDialogTitle": "Select accommodation",
+		"selectAccommodationLoading": "Loading accommodations…",
+		"selectAccommodationEmpty": "No accommodations yet.",
+		"selectAccommodationTruncated": "Showing the first {count} — add more from the accommodations admin list.",
+		"modifyAccommodation": "Modify",
+		"fieldAccommodationPlaceholder": "e.g. jx7…",
+		"fieldHospitality": "Hospitalities",
+		"selectHospitality": "Select hospitalities",
+		"selectHospitalityDialogTitle": "Select hospitalities",
+		"selectHospitalityDone": "Done",
+		"selectHospitalitySelectedCount": "{count} selected",
+		"selectHospitalityLoading": "Loading hospitalities…",
+		"selectHospitalityEmpty": "No hospitalities yet.",
+		"selectHospitalityTruncated": "Showing the first {count} — add more from the hospitalities admin list.",
+		"modifyHospitality": "Modify",
+		"fieldHospitalityPlaceholder": "e.g. kh2…",
+		"sectionOfferTitle": "Offer",
+		"sectionOfferDescription": "Optional percent-off; leave blank for non-percent perks.",
+		"fieldDiscount": "Discount % (optional)",
+		"fieldDiscountPlaceholder": "e.g. 10",
+		"fieldDiscountDescription": "Shown on the guest perks list when set.",
+		"fieldActive": "Active",
+		"fieldActiveDescription": "Inactive partnerships stay in admin but guests won't see them."
+	},
+
+	"AdminHospitalitiesPage": {
+		"title": "Hospitalities",
+		"description": "Partner venues — dining, experiences, and services linked to accommodations via partnerships.",
+		"caption": "Hospitalities",
+		"columnName": "Name",
+		"columnType": "Type",
+		"columnCity": "City / country",
+		"columnContact": "Contact",
+		"columnAddress": "Address",
+		"columnStatus": "Status",
+		"columnCreated": "Created",
+		"statusActive": "Active",
+		"statusInactive": "Inactive",
+		"contactNone": "—",
+		"addHospitality": "Add hospitality"
+	},
+
+	"AdminHospitalityAddPage": {
+		"title": "Add hospitality",
+		"description": "Register a new partner venue. You can edit any field later.",
+		"back": "Back to list",
+		"sectionBasicsTitle": "Basics",
+		"sectionBasicsDescription": "What guests will see in the benefits list.",
+		"sectionLocationTitle": "Location",
+		"sectionLocationDescription": "Used for the public benefits page and admin filtering.",
+		"sectionContactTitle": "Contact",
+		"sectionContactDescription": "Optional — shown to guests on the benefits page when present.",
+		"sectionCoverTitle": "Cover image",
+		"sectionCoverDescription": "Shown on the public benefits page. PNG or JPG recommended; aim for a wide aspect ratio.",
+		"sectionDetailsTitle": "Details",
+		"sectionDetailsDescription": "Optional notes and visibility.",
+		"fieldName": "Name",
+		"fieldNamePlaceholder": "La Tapería",
+		"fieldType": "Type",
+		"fieldTypePlaceholder": "Pick a type",
+		"fieldAddress": "Address",
+		"fieldAddressPlaceholder": "Plaza del Sol 3",
+		"fieldCity": "City",
+		"fieldCityPlaceholder": "Madrid",
+		"fieldCountry": "Country",
+		"fieldCountryPlaceholder": "Spain",
+		"fieldContactPhone": "Phone",
+		"fieldContactPhonePlaceholder": "+34 600 000 000",
+		"fieldContactEmail": "Email",
+		"fieldContactEmailPlaceholder": "hello@venue.com",
+		"fieldWebsite": "Website",
+		"fieldWebsitePlaceholder": "https://venue.com",
+		"fieldReservationRequestsEnabled": "Reservation requests",
+		"fieldReservationRequestsEnabledDescription": "Let guests request reservations through Konak so the venue can accept or decline them in the dashboard.",
+		"fieldDescription": "Description",
+		"fieldDescriptionPlaceholder": "Short description shown on the benefits page (optional).",
+		"fieldIsActive": "Active",
+		"fieldIsActiveDescription": "Inactive venues stay in the database but won't appear in benefit lists.",
+		"fieldCoverImage": "Cover image",
+		"submit": "Create hospitality"
+	},
+
+	"EditHospitalityPage": {
+		"title": "Edit hospitality",
+		"description": "Update how your venue appears to guests on partner benefit pages.",
+		"back": "Back to my hospitalities",
+		"notFoundTitle": "Venue not found",
+		"notFoundDescription": "This venue may have been removed or is not assigned to your account.",
+		"loadErrorTitle": "Could not load venue",
+		"loadErrorDescription": "Please try again in a moment.",
+		"sectionBasicsTitle": "Basics",
+		"sectionBasicsDescription": "What guests will see in the benefits list.",
+		"sectionLocationTitle": "Location",
+		"sectionLocationDescription": "Shown on your public venue page.",
+		"sectionContactTitle": "Contact",
+		"sectionContactDescription": "How guests can reach you.",
+		"sectionCoverTitle": "Cover image",
+		"sectionCoverDescription": "Leave empty to keep the current image. PNG or JPG recommended.",
+		"currentCoverAlt": "Current cover for {name}",
+		"sectionDetailsTitle": "Details",
+		"sectionDetailsDescription": "Description, reservations, and visibility.",
+		"fieldName": "Name",
+		"fieldNamePlaceholder": "La Tapería",
+		"fieldType": "Type",
+		"fieldTypePlaceholder": "Pick a type",
+		"fieldAddress": "Address",
+		"fieldAddressPlaceholder": "Plaza del Sol 3",
+		"fieldCity": "City",
+		"fieldCityPlaceholder": "Madrid",
+		"fieldCountry": "Country",
+		"fieldCountryPlaceholder": "Spain",
+		"fieldContactPhone": "Phone",
+		"fieldContactPhonePlaceholder": "+34 600 000 000",
+		"fieldContactEmail": "Email",
+		"fieldContactEmailPlaceholder": "hello@venue.com",
+		"fieldWebsite": "Website",
+		"fieldWebsitePlaceholder": "https://venue.com",
+		"fieldReservationRequestsEnabled": "Reservation requests",
+		"fieldReservationRequestsEnabledDescription": "Let guests request reservations through Konak so you can accept or decline them in the dashboard.",
+		"fieldDescription": "Description",
+		"fieldDescriptionPlaceholder": "Short description shown on the benefits page.",
+		"fieldIsActive": "Active",
+		"fieldIsActiveDescription": "Inactive venues stay in the database but won't appear in benefit lists.",
+		"fieldCoverImage": "Replace cover image",
+		"submit": "Save changes"
+	},
+
+	"SearchInput": {
+		"placeholder": "Search...",
+		"ariaLabel": "Search",
+		"resultsLabel": "Search results",
+		"loading": "Searching...",
+		"searchFailed": "Search failed. Please try again.",
+		"tooManyRequests": "Too many search requests. Please try again shortly.",
+		"unknownSource": "Unknown search source.",
+		"rateLimitKeyUnavailable": "Search rate limit key could not be resolved.",
+		"rateLimitNotConfigured": "Search rate limit is not configured.",
+		"clientAddressRequired": "Client address is required for public search.",
+		"SearchEmpty": {
+			"title": "No results found",
+			"description": "Try a different search term."
+		},
+		"SearchPage": {
+			"title": "Search input",
+			"description": "Search public test rows through the remote source.",
+			"placeholder": "Search test rows...",
+			"selected": "Selected:"
+		}
+	},
+
+	"AdminUsersPage": {
+		"title": "Users",
+		"description": "Search, filter, and manage user accounts.",
+		"caption": "Users",
+		"searchPlaceholder": "Search by {field}…",
+		"columnUser": "User",
+		"columnEmail": "Email",
+		"columnRole": "Role",
+		"columnVerified": "Verified",
+		"columnStatus": "Status",
+		"columnCreated": "Created",
+		"verifiedYes": "Yes",
+		"verifiedNo": "No",
+		"statusBanned": "Banned",
+		"statusActive": "Active",
+		"addUser": "Add user",
+		"UsersFilters": {
+			"searchLabel": "Search: {field}",
+			"searchEmail": "Email",
+			"searchName": "Name",
+			"roleLabel": "Role: {role}",
+			"anyRole": "Any role",
+			"roleUser": "User",
+			"roleAdmin": "Admin",
+			"anyStatus": "Any status",
+			"statusBanned": "Banned",
+			"statusActive": "Active",
+			"anyVerification": "Any verification",
+			"verified": "Verified",
+			"unverified": "Unverified",
+			"clear": "Clear"
+		}
+	},
+
+	"AdminUserAddPage": {
+		"title": "Add user",
+		"description": "Create an account that can later own accommodations or hospitalities.",
+		"back": "Back to users",
+		"submit": "Create user",
+		"sectionAccountTitle": "Account",
+		"sectionAccountDescription": "Use the person's real name and the email they will sign in with.",
+		"fieldName": "Full name",
+		"fieldNamePlaceholder": "Mila Petrovic",
+		"fieldEmail": "Email",
+		"fieldEmailPlaceholder": "mila@example.com",
+		"sectionCredentialsTitle": "Credentials",
+		"sectionCredentialsDescription": "Set a temporary password. The user can change it after signing in.",
+		"fieldPassword": "Temporary password",
+		"fieldPasswordDescription": "Use at least 8 characters and share it through a private channel.",
+		"fieldConfirmPassword": "Confirm password",
+		"sectionAccessTitle": "Access",
+		"sectionAccessDescription": "Keep the default user role unless this account should manage the admin area.",
+		"fieldRole": "Role",
+		"fieldRolePlaceholder": "Select role",
+		"roleUser": "User",
+		"roleAdmin": "Admin",
+		"fieldEmailVerified": "Email verified",
+		"fieldEmailVerifiedDescription": "Enable only when you have already confirmed this address. Otherwise the user must verify before signing in."
+	},
+
+	"AdminUserPage": {
+		"UserTabs": {
+			"overview": "Overview",
+			"sessions": "Sessions",
+			"accounts": "Accounts",
+			"activity": "Activity",
+			"danger": "Danger zone"
+		},
+		"UserOverview": {
+			"verified": "Verified",
+			"unverified": "Unverified",
+			"role": "Role",
+			"status": "Status",
+			"banReason": "Ban reason",
+			"created": "Created",
+			"updated": "Updated",
+			"userId": "User ID",
+			"copyUserId": "Copy user ID",
+			"bannedUntil": "Banned until {date}",
+			"bannedPermanent": "Banned (permanent)",
+			"active": "Active"
+		},
+		"UserSessions": {
+			"title": "Active sessions",
+			"description": "Devices currently signed in. Revoking signs the device out immediately.",
+			"revokeAll": "Revoke all",
+			"failedLoad": "Failed to load sessions.",
+			"noSessions": "No active sessions.",
+			"unknownDevice": "Unknown device",
+			"ip": "IP",
+			"created": "Created",
+			"expires": "Expires",
+			"revoke": "Revoke"
+		},
+		"UserAccounts": {
+			"title": "Linked accounts",
+			"description": "Sign-in providers connected to this user.",
+			"failedLoad": "Failed to load accounts.",
+			"noAccounts": "No linked accounts.",
+			"passwordSet": "Password set",
+			"noPassword": "No password",
+			"id": "ID",
+			"created": "Created",
+			"scope": "Scope"
+		},
+		"UserActivity": {
+			"title": "Activity",
+			"description": "Audit log entries scoped to this user. Newest first.",
+			"caption": "Activity",
+			"colAction": "Action",
+			"colStatus": "Status",
+			"colResource": "Resource",
+			"colIp": "IP",
+			"colWhen": "When",
+			"statusFailed": "Failed",
+			"statusSuccess": "Success"
+		},
+		"UserDangerZone": {
+			"title": "Danger zone",
+			"description": "Account-level actions. Changes here are audited and may be irreversible.",
+			"role": "Role: {role}",
+			"removeAdmin": "Remove admin privileges from this account.",
+			"grantAdmin": "Grant admin privileges to this account.",
+			"banned": "Banned",
+			"active": "Active",
+			"liftBan": "Lift the ban so the user can sign in again.",
+			"signOutPrevent": "Sign the user out and prevent further sign-ins.",
+			"deleteRowTitle": "Delete account",
+			"deleteRowDescription": "Permanently remove this user, their sessions, and linked provider accounts. This cannot be undone."
+		},
+		"BanUserDialog": {
+			"ban": "Ban",
+			"title": "Ban {email}",
+			"description": "The user is signed out and cannot sign in again until unbanned. The optional reason is shown on next sign-in attempt.",
+			"reason": "Reason (optional)",
+			"reasonPlaceholder": "Violation of terms…",
+			"expires": "Expires",
+			"permanent": "Permanent",
+			"oneDay": "1 day",
+			"sevenDays": "7 days",
+			"thirtyDays": "30 days"
+		},
+		"UnbanUserButton": {
+			"unban": "Unban"
+		},
+		"ChangeRoleButton": {
+			"demote": "Demote to user",
+			"promote": "Promote to admin",
+			"demoteTitle": "Demote {email} to user?",
+			"promoteTitle": "Promote {email} to admin?",
+			"demoteDescription": "Are you sure you want to do this? The user will immediately lose admin privileges.",
+			"promoteDescription": "Are you sure you want to do this? The user will gain full admin privileges, including the ability to ban and delete other accounts."
+		},
+		"DeleteUserDialog": {
+			"delete": "Delete…",
+			"title": "Delete {email}?",
+			"description": "This is permanent and cascades to sessions and accounts. Type the email below to confirm.",
+			"adminTitle": "Cannot delete {email}",
+			"adminDescription": "Admins must be demoted to \"user\" before they can be deleted."
+		},
+		"UserPageEmpty": {
+			"title": "User not found",
+			"description": "The user you're looking for doesn't exist or may have been deleted.",
+			"backToUsers": "Back to users"
+		},
+		"UserPageError": {
+			"title": "Failed to load user",
+			"description": "Something went wrong while fetching this user. Please try again.",
+			"retry": "Retry"
+		}
+	},
+
+	"ValidationMessages": {
+		"LoginForm": {
+			"emailRequired": "Enter your email.",
+			"invalidEmail": "Invalid email.",
+			"passwordRequired": "Enter your password.",
+			"passwordMinLength": "At least 8 characters."
+		},
+		"PasswordResetRequestForm": {
+			"emailRequired": "Enter your email.",
+			"invalidEmail": "Invalid email."
+		},
+		"PasswordResetVerifyForm": {
+			"codeRequired": "Enter the code.",
+			"codeFormat": "Use the 8-digit code from your email.",
+			"newPasswordRequired": "Enter a new password.",
+			"newPasswordMinLength": "At least 8 characters.",
+			"passwordTooCommon": "That password is too common. Please choose a stronger one.",
+			"confirmPasswordRequired": "Confirm your new password.",
+			"passwordsMustMatch": "Passwords must match.",
+			"invalidEmail": "Invalid email."
+		},
+		"SignUpForm": {
+			"nameRequired": "Enter your full name.",
+			"emailRequired": "Enter your email.",
+			"invalidEmail": "Invalid email.",
+			"passwordRequired": "Enter your password.",
+			"passwordMinLength": "At least 8 characters.",
+			"passwordTooCommon": "That password is too common. Please choose a stronger one.",
+			"confirmPasswordRequired": "Confirm your password.",
+			"passwordsMustMatch": "Passwords must match."
+		},
+		"EmailVerificationForm": {
+			"codeRequired": "Enter the code.",
+			"codeFormat": "Use the 8-digit code from your email.",
+			"invalidEmail": "Invalid email."
+		},
+		"CreateAccommodationSchema": {
+			"nameRequired": "Name is required.",
+			"typeRequired": "Pick a type.",
+			"addressRequired": "Address is required.",
+			"cityRequired": "City is required.",
+			"countryRequired": "Country is required.",
+			"coverRequired": "Add a cover image."
+		},
+		"CreateHospitalitySchema": {
+			"nameRequired": "Name is required.",
+			"typeRequired": "Pick a type.",
+			"addressRequired": "Address is required.",
+			"cityRequired": "City is required.",
+			"countryRequired": "Country is required.",
+			"descriptionRequired": "Description is required.",
+			"phoneRequired": "Phone number is required.",
+			"emailInvalid": "Enter a valid email.",
+			"websiteInvalid": "Enter a valid URL (https://…).",
+			"coverRequired": "Add a cover image."
+		},
+		"CreatePartnershipSchema": {
+			"accommodationRequired": "Pick an accommodation.",
+			"hospitalityRequired": "Pick at least one hospitality venue.",
+			"discountRange": "Discount must be between 1 and 100, or leave blank."
+		}
+	},
+
+	"GenericMessages": {
+		"PASSWORD_TOO_SHORT": "Password must be at least {min} characters.",
+		"PASSWORD_TOO_LONG": "Password is too long.",
+		"PASSWORD_TOO_COMMON": "That password is too common. Please choose a stronger one.",
+
+		"NO_ITEMS_PROVIDED": "No items provided.",
+		"NO_MATCHING_ITEMS": "No matching items found.",
+		"DATA_TABLE_DELETED_ALL": "Deleted {count} item(s).",
+		"DATA_TABLE_DELETED_WITH_MISSING": "Deleted {count} item(s); {missing} were already gone.",
+
+		"STORAGE_DELETE_FAILED": "Couldn't delete the file from storage. Nothing was removed.",
+		"STORAGE_URL_UNAVAILABLE": "Couldn't resolve the file URL.",
+		"UPLOAD_SAVE_FAILED": "Could not save the uploaded file. Please try again.",
+		"UPLOAD_URL_READY": "Upload URL generated.",
+
+		"EMAIL_SENT_SUCCESSFULLY": "Email sent successfully.",
+		"TEST_ROW_CREATED": "Test row created.",
+
+		"YOU_NEED_TO_CORRECT_FORM_ERRORS": "You need to correct form errors",
+		"BATCH_TOO_LARGE": "Too many items in a single request (max {limit}).",
+		"FORBIDDEN": "You're not allowed to perform this action.",
+		"NOT_AUTHENTICATED": "Please sign in to continue.",
+		"ADMIN_ACCESS_REQUIRED": "This action requires admin privileges.",
+		"ADMIN_CANNOT_BE_DELETED": "Admins can't be deleted. Demote to \"user\" first.",
+		"USER_NOT_FOUND": "User not found.",
+		"ACCOMMODATION_CREATED": "Accommodation created.",
+		"ACCOMMODATION_UPDATED": "Accommodation updated successfully!",
+		"ACCOMMODATION_SCAN_TOKEN_FAILED": "Could not generate a scan token. Please try again.",
+		"HOSPITALITY_CREATED": "Hospitality created.",
+		"HOSPITALITY_UPDATED": "Hospitality updated successfully!",
+		"ACCOMMODATION_NOT_FOUND": "Accommodation not found.",
+		"ACCOMMODATION_CANNOT_DELETE_ACTIVE_GUEST": "This accommodation cannot be deleted. There is an active guest in it using the app, please wait for it to expire and then try again!",
+		"GUEST_CREATED": "Guest stay unlocked.",
+		"GUEST_ALREADY_ACTIVE": "This stay is already unlocked.",
+		"HOSPITALITY_NOT_FOUND": "Hospitality not found.",
+		"PARTNERSHIP_CREATED": "Partnership created.",
+		"PARTNERSHIPS_CREATED": "Created {count} partnerships.",
+		"PARTNERSHIP_PAIR_EXISTS": "This accommodation is already linked to that venue.",
+		"PARTNERSHIP_DISCOUNT_INVALID": "Discount must be between 1 and 100.",
+		"USER_DELETED": "User deleted.",
+		"USER_CREATED": "User created.",
+		"USER_BANNED": "User banned.",
+		"USER_UNBANNED": "User unbanned.",
+		"USER_ROLE_UPDATED": "User role updated.",
+		"SESSION_REVOKED": "Session revoked.",
+		"ALL_SESSIONS_REVOKED": "All sessions revoked.",
+		"TOO_MANY_REQUESTS": "Too many requests. Please try again later.",
+		"TOO_MANY_REQUESTS_SECONDS": "Too many requests. Try again in {seconds}s.",
+		"TOO_MANY_REQUESTS_MINUTES": "Too many requests. Try again in {minutes} min."
+	}
+}

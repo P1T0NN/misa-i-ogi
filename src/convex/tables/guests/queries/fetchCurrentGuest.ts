@@ -1,0 +1,30 @@
+// LIBRARIES
+import { query } from '@/convex/_generated/server';
+
+// HELPERS
+import { getActiveGuestSessionFromAuth } from '@/convex/tables/guests/helpers/getGuestSession';
+
+// TYPES
+import type { CurrentGuest } from '@/convex/tables/guests/types/guestsTypes';
+
+/** Resolves the current guest session from Convex guest auth context. */
+export const fetchCurrentGuest = query({
+	args: {},
+	handler: async (ctx): Promise<CurrentGuest> => {
+		const guest = await getActiveGuestSessionFromAuth(ctx);
+		if (!guest) {
+			return { status: 'missing', guest: null };
+		}
+
+		return {
+			status: 'active',
+			guest: {
+				_id: guest._id,
+				accommodationId: guest.accommodationId,
+				expiresAt: guest.expiresAt,
+				createdAt: guest.createdAt,
+				lastSeenAt: guest.lastSeenAt
+			}
+		};
+	}
+});

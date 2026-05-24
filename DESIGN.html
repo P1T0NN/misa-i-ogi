@@ -1,0 +1,945 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Konak — Design System</title>
+  <style>
+    :root {
+      --bg:      #f5f4ed;
+      --surface: #faf9f5;
+      --surface-2: #ffffff;
+      --fg:      #141413;
+      --muted:   #5e5d59;
+      --muted-2: #87867f;
+      --border:  #f0eee6;
+      --border-2:#e8e6dc;
+      --accent:  #c96442;
+      --accent-2:#d97757;
+      --accent-soft: color-mix(in oklch, var(--accent) 14%, transparent);
+      --accent-tint: color-mix(in oklch, var(--accent) 8%, var(--bg));
+      --dark:    #141413;
+      --dark-2:  #30302e;
+      --ivory:   #faf9f5;
+      --silver:  #b0aea5;
+      --warm-sand: #e8e6dc;
+      --charcoal-warm: #4d4c48;
+      --error: #b53333;
+      --focus: #3898ec;
+
+      --font-display: 'Iowan Old Style', 'Charter', 'Source Serif Pro', Georgia, 'Times New Roman', serif;
+      --font-body:    -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      --font-mono:    ui-monospace, 'JetBrains Mono', 'SF Mono', Menlo, monospace;
+
+      --container: 1080px;
+      --gutter: 32px;
+      --radius: 12px;
+      --radius-lg: 16px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--fg);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    code, pre { font-family: var(--font-mono); }
+    pre {
+      background: var(--dark);
+      color: var(--silver);
+      padding: 20px 24px;
+      border-radius: var(--radius);
+      overflow-x: auto;
+      font-size: 13px;
+      line-height: 1.65;
+      margin: 16px 0;
+    }
+    code:not(pre code) {
+      background: var(--accent-tint);
+      color: var(--accent);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.92em;
+    }
+    pre code { background: transparent; color: inherit; padding: 0; font-size: inherit; }
+
+    h1, h2, h3, h4 {
+      font-family: var(--font-display);
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      margin: 0;
+      text-wrap: balance;
+    }
+    h1 { font-size: clamp(40px, 5vw, 64px); line-height: 1.1; }
+    h2 { font-size: clamp(28px, 3vw, 36px); line-height: 1.2; margin-bottom: 12px; }
+    h3 { font-size: 22px; line-height: 1.3; margin-bottom: 8px; }
+    h4 { font-size: 17px; line-height: 1.4; margin-bottom: 6px; }
+    p  { text-wrap: pretty; margin: 0 0 12px; max-width: 68ch; color: var(--fg); }
+    p.lead { font-size: 19px; color: var(--muted); max-width: 60ch; }
+
+    .container { max-width: var(--container); margin-inline: auto; padding-inline: var(--gutter); }
+
+    /* topnav */
+    .topnav {
+      position: sticky; top: 0; z-index: 10;
+      background: color-mix(in oklch, var(--bg) 88%, transparent);
+      backdrop-filter: saturate(150%) blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+    .topnav-inner {
+      max-width: var(--container);
+      margin-inline: auto;
+      padding: 16px var(--gutter);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .brand {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .brand .dot { width: 8px; height: 8px; background: var(--accent); border-radius: 50%; }
+    .topnav nav { display: flex; gap: 28px; font-size: 14px; }
+    .topnav nav a { color: var(--muted); }
+    .topnav nav a:hover { color: var(--fg); text-decoration: none; }
+
+    /* hero */
+    .hero { padding: clamp(72px, 9vw, 120px) 0 clamp(56px, 7vw, 88px); }
+    .eyebrow {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin: 0 0 20px;
+    }
+    .hero-meta {
+      margin-top: 28px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--muted-2);
+      letter-spacing: 0.04em;
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    /* section */
+    section { padding: clamp(56px, 8vw, 96px) 0; border-top: 1px solid var(--border-2); }
+    section > .container > h2 + p.lead { margin-bottom: 32px; }
+
+    /* swatches */
+    .swatch-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 16px;
+      margin: 24px 0 8px;
+    }
+    .swatch {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .swatch .chip {
+      height: 84px;
+      border-bottom: 1px solid var(--border);
+    }
+    .swatch .meta {
+      padding: 12px 14px 14px;
+    }
+    .swatch .name {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--fg);
+      margin-bottom: 2px;
+    }
+    .swatch .hex {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--muted);
+      letter-spacing: 0.02em;
+    }
+    .swatch .role {
+      font-size: 12px;
+      color: var(--muted-2);
+      margin-top: 4px;
+    }
+
+    /* type specimen */
+    .type-row {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 24px;
+      align-items: baseline;
+      padding: 20px 0;
+      border-top: 1px solid var(--border-2);
+    }
+    .type-row:first-child { border-top: 0; }
+    .type-row .label {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--muted-2);
+      letter-spacing: 0.04em;
+    }
+    .type-row .label small { display: block; color: var(--muted); margin-top: 4px; font-size: 11px; }
+
+    .specimen-h1 { font-family: var(--font-display); font-size: 64px; line-height: 1.06; font-weight: 500; letter-spacing: -0.01em; }
+    .specimen-h2 { font-family: var(--font-display); font-size: 44px; line-height: 1.12; font-weight: 500; }
+    .specimen-h3 { font-family: var(--font-display); font-size: 28px; line-height: 1.2; font-weight: 500; }
+    .specimen-h4 { font-family: var(--font-display); font-size: 22px; line-height: 1.3; font-weight: 500; }
+    .specimen-lead { font-size: 19px; line-height: 1.6; color: var(--muted); }
+    .specimen-body { font-size: 16px; line-height: 1.6; }
+    .specimen-meta { font-family: var(--font-mono); font-size: 13px; color: var(--muted); }
+    .specimen-eyebrow { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); }
+
+    /* buttons specimen */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 18px;
+      border-radius: var(--radius);
+      font-size: 15px;
+      font-weight: 500;
+      border: 1px solid transparent;
+      transition: background .15s, color .15s, box-shadow .15s, transform .12s;
+      cursor: pointer;
+      font-family: var(--font-body);
+    }
+    .btn-primary { background: var(--accent); color: var(--ivory); border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
+    .btn-primary:hover { background: color-mix(in oklch, var(--accent) 88%, black); }
+    .btn-secondary { background: var(--surface); color: var(--fg); border-color: var(--border-2); box-shadow: 0 0 0 1px var(--border-2); }
+    .btn-secondary:hover { border-color: var(--fg); box-shadow: 0 0 0 1px var(--fg); }
+    .btn-ghost { background: transparent; color: var(--fg); padding-inline: 6px; }
+    .btn-ghost:hover { color: var(--accent); }
+    .btn-dark { background: var(--dark); color: var(--ivory); border-color: var(--dark); }
+    .btn-dark:hover { background: var(--dark-2); }
+
+    .btn-row { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; margin: 16px 0 4px; }
+
+    /* card specimen */
+    .demo-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; margin-top: 24px; }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+    }
+    .card-elev { box-shadow: 0 4px 24px rgba(20, 20, 19, .05); }
+    .card-dark { background: var(--dark-2); color: var(--ivory); border-color: var(--dark-2); }
+    .card-tint { background: var(--accent-tint); border-color: transparent; }
+    .card h4 { margin-bottom: 8px; }
+    .card p { color: var(--muted); font-size: 14px; margin: 0; }
+    .card-dark p { color: var(--silver); }
+
+    /* spacing / radius scale */
+    .scale-row {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      padding: 14px 0;
+      border-top: 1px solid var(--border-2);
+      font-size: 14px;
+    }
+    .scale-row:first-child { border-top: 0; }
+    .scale-row .name { width: 80px; font-family: var(--font-mono); color: var(--muted); font-size: 12px; }
+    .scale-row .val { width: 80px; font-family: var(--font-mono); color: var(--fg); font-size: 12px; }
+    .scale-bar { background: var(--accent); height: 12px; border-radius: 2px; }
+    .radius-box { background: var(--warm-sand); width: 64px; height: 64px; border: 1px solid var(--border-2); }
+
+    /* dark band */
+    .band-dark {
+      background: var(--dark);
+      color: var(--ivory);
+      padding: clamp(56px, 8vw, 96px) 0;
+      border-top: 0;
+    }
+    .band-dark h2 { color: var(--ivory); }
+    .band-dark p.lead { color: var(--silver); }
+    .band-dark .eyebrow { color: var(--accent-2); }
+
+    /* file map */
+    .filemap {
+      background: var(--dark);
+      color: var(--silver);
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      line-height: 1.8;
+    }
+    .filemap .root { color: var(--ivory); }
+    .filemap .note { color: var(--muted-2); }
+
+    /* table */
+    .tbl {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 16px;
+      font-size: 14px;
+    }
+    .tbl th, .tbl td {
+      text-align: left;
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border-2);
+    }
+    .tbl th {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted-2);
+      font-weight: 500;
+    }
+    .tbl td.mono { font-family: var(--font-mono); font-size: 13px; color: var(--muted); }
+
+    /* footer */
+    .pagefoot {
+      background: var(--dark);
+      color: var(--silver);
+      padding: 56px 0 40px;
+      border-top: 0;
+    }
+    .pagefoot a { color: var(--silver); }
+    .pagefoot .row {
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+      align-items: end;
+      flex-wrap: wrap;
+    }
+    .pagefoot .brand { color: var(--ivory); }
+    .pagefoot small { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.05em; color: var(--muted-2); }
+
+    @media (max-width: 720px) {
+      .type-row { grid-template-columns: 1fr; gap: 8px; }
+      .specimen-h1 { font-size: 44px; }
+      .specimen-h2 { font-size: 32px; }
+      .topnav nav { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="topnav">
+  <div class="topnav-inner">
+    <a href="#top" class="brand"><span class="dot"></span><span>Konak — Design</span></a>
+    <nav>
+      <a href="#brand">Brand</a>
+      <a href="#color">Color</a>
+      <a href="#type">Type</a>
+      <a href="#components">Components</a>
+      <a href="#component-reuse">Reuse</a>
+      <a href="#files">Files</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero" style="border-top:0;">
+    <div class="container">
+      <p class="eyebrow">Design system · v1 · 2026</p>
+      <h1>Konak runs on warm parchment, a serif voice, and a single terracotta accent.</h1>
+      <p class="lead">This document is the canonical reference for the Konak website (Belgrade). It mirrors the active Claude / Anthropic visual language and adapts it for a boutique-hospitality product. Anything you build here — landing pages, demos, partner pages — should pass through this guide first.</p>
+      <div class="hero-meta">
+        <span>Pages · index.html · how-it-works.html · demo.html</span>
+        <span>Foundation · Claude (Anthropic)</span>
+        <span>Tone · Modern hospitality</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- BRAND PRINCIPLES -->
+  <section id="brand">
+    <div class="container">
+      <p class="eyebrow">01 · Principles</p>
+      <h2>Five rules that override everything else.</h2>
+      <p class="lead">If a design choice contradicts one of these, the choice is wrong — not the rule.</p>
+
+      <div class="demo-grid">
+        <div class="card">
+          <h4>Warm only</h4>
+          <p>Every neutral has a yellow-brown undertone. No cool blue-grays. The page background is parchment (<code>#f5f4ed</code>), not white.</p>
+        </div>
+        <div class="card">
+          <h4>Serif for authority</h4>
+          <p>All headlines are Iowan Old Style / Charter / Georgia at weight 500. Body is system sans. Mono for metadata, captions, code.</p>
+        </div>
+        <div class="card">
+          <h4>One accent, twice max</h4>
+          <p>Terracotta (<code>#c96442</code>) belongs to eyebrows and the primary CTA. Anything else competes with it and loses.</p>
+        </div>
+        <div class="card">
+          <h4>Editorial pacing</h4>
+          <p>Sections breathe like a magazine spread. Body line-height 1.6. Dark and light bands alternate to give the page chapters.</p>
+        </div>
+        <div class="card">
+          <h4>Honest content</h4>
+          <p>No invented numbers, no stat-slop, no generic "Feature One." Belgrade specifics (Dorćol, Skadarlija, DOR-014) or a real placeholder — never filler.</p>
+        </div>
+        <div class="card card-tint">
+          <h4>Restraint over ornament</h4>
+          <p>One decisive flourish per page. Landing gets the entryway illustration, how-it-works gets the dark quote band, demo gets the live phone walkthrough. That's the budget.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COLOR -->
+  <section id="color">
+    <div class="container">
+      <p class="eyebrow">02 · Color</p>
+      <h2>One brand color. Everything else is warm neutral.</h2>
+      <p class="lead">Bind these six tokens into <code>:root</code> on every new file. Derive any extras with <code>color-mix(in oklch, …)</code> — never invent new hex values.</p>
+
+      <h3 style="margin-top:40px;">Brand & accent</h3>
+      <div class="swatch-grid">
+        <div class="swatch">
+          <div class="chip" style="background:#c96442;"></div>
+          <div class="meta"><div class="name">Terracotta</div><div class="hex">#c96442</div><div class="role">--accent · primary CTA, eyebrow</div></div>
+        </div>
+        <div class="swatch">
+          <div class="chip" style="background:#d97757;"></div>
+          <div class="meta"><div class="name">Coral</div><div class="hex">#d97757</div><div class="role">--accent-2 · accent on dark surfaces</div></div>
+        </div>
+      </div>
+
+      <h3 style="margin-top:32px;">Surfaces</h3>
+      <div class="swatch-grid">
+        <div class="swatch">
+          <div class="chip" style="background:#f5f4ed;"></div>
+          <div class="meta"><div class="name">Parchment</div><div class="hex">#f5f4ed</div><div class="role">--bg · page background</div></div>
+        </div>
+        <div class="swatch">
+          <div class="chip" style="background:#faf9f5;"></div>
+          <div class="meta"><div class="name">Ivory</div><div class="hex">#faf9f5</div><div class="role">--surface · cards, lifted blocks</div></div>
+        </div>
+        <div class="swatch">
+          <div class="chip" style="background:#ffffff; outline:1px solid #f0eee6; outline-offset:-1px;"></div>
+          <div class="meta"><div class="name">Pure White</div><div class="hex">#ffffff</div><div class="role">--surface-2 · sparingly, max contrast</div></div>
+        </div>
+        <div class="swatch">
+          <div class="chip" style="background:#e8e6dc;"></div>
+          <div class="meta"><div class="name">Warm Sand</div><div class="hex">#e8e6dc</div><div class="role">--border-2 · prominent borders, button bg</div></div>
+        </div>
+        <div class="swatch">
+          <div class="chip" style="background:#30302e;"></div>
+          <div class="meta"><div class="name">Dark Surface</div><div class="hex">#30302e</div><div class="role">--dark-2 · dark card, nav border</div></div>
+        </div>
+        <div class="swatch">
+          <div class="chip" style="background:#141413;"></div>
+          <div class="meta"><div class="name">Near Black</div><div class="hex">#141413</div><div class="role">--fg / --dark · text, dark band background</div></div>
+        </div>
+      </div>
+
+      <h3 style="margin-top:32px;">Text & borders</h3>
+      <div class="swatch-grid">
+        <div class="swatch">
+          <div class="chip" style="background:#5e5d59;"></div>
+          <div class="meta"><div class="name">Olive Gray</div><div class="hex">#5e5d59</div><div class="role">--muted · secondary body</div></div>
+        </div>
+        <div class="swatch">
+          <div class="chip" style="background:#87867f;"></div>
+          <div class="meta"><div class="name">Stone Gray</div><div class="hex">#87867f</div><div class="role">--muted-2 · captions, metadata</div></div>
+        </div>
+        <div class="swatch">
+          <div class="chip" style="background:#b0aea5;"></div>
+          <div class="meta"><div class="name">Warm Silver</div><div class="hex">#b0aea5</div><div class="role">--silver · text on dark</div></div>
+        </div>
+        <div class="swatch">
+          <div class="chip" style="background:#f0eee6;"></div>
+          <div class="meta"><div class="name">Border Cream</div><div class="hex">#f0eee6</div><div class="role">--border · standard divider</div></div>
+        </div>
+      </div>
+
+      <h3 style="margin-top:32px;">Semantic</h3>
+      <div class="swatch-grid">
+        <div class="swatch">
+          <div class="chip" style="background:#b53333;"></div>
+          <div class="meta"><div class="name">Error Crimson</div><div class="hex">#b53333</div><div class="role">--error · error states only</div></div>
+        </div>
+        <div class="swatch">
+          <div class="chip" style="background:#3898ec;"></div>
+          <div class="meta"><div class="name">Focus Blue</div><div class="hex">#3898ec</div><div class="role">--focus · input focus ring (only cool color)</div></div>
+        </div>
+      </div>
+
+      <h3 style="margin-top:40px;">Drop into :root</h3>
+<pre><code>:root {
+  --bg:      #f5f4ed;
+  --surface: #faf9f5;
+  --fg:      #141413;
+  --muted:   #5e5d59;
+  --border:  #f0eee6;
+  --accent:  #c96442;
+
+  --font-display: 'Iowan Old Style', 'Charter', Georgia, serif;
+  --font-body:    -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  --font-mono:    ui-monospace, 'JetBrains Mono', 'SF Mono', Menlo, monospace;
+}</code></pre>
+
+      <h3 style="margin-top:40px;">Svelte app · <code>src/routes/layout.css</code></h3>
+      <p>The SvelteKit app uses the same palette through <strong>shadcn semantic names</strong> (do not rename). Map DESIGN tokens like this:</p>
+      <table class="tbl" style="margin-top:16px;">
+        <tr><th>DESIGN.html</th><th>layout.css (<code>:root</code>)</th></tr>
+        <tr><td class="mono">--bg</td><td class="mono">--background</td></tr>
+        <tr><td class="mono">--surface</td><td class="mono">--card</td></tr>
+        <tr><td class="mono">--fg</td><td class="mono">--foreground</td></tr>
+        <tr><td class="mono">--muted</td><td class="mono">--muted-foreground</td></tr>
+        <tr><td class="mono">--border</td><td class="mono">--border</td></tr>
+        <tr><td class="mono">--accent (terracotta)</td><td class="mono">--primary</td></tr>
+        <tr><td class="mono">--accent-2 (coral)</td><td class="mono">--primary</td> in <code>.dark</code></td></tr>
+        <tr><td class="mono">--error</td><td class="mono">--destructive</td></tr>
+        <tr><td class="mono">--focus</td><td class="mono">--ring</td></tr>
+        <tr><td class="mono">--border-2 / warm sand</td><td class="mono">--input</td></tr>
+      </table>
+      <p style="margin-top:12px;">Use Tailwind classes (<code>bg-background</code>, <code>text-primary</code>, <code>border-border</code>) — they read these variables via <code>@theme inline</code>.</p>
+    </div>
+  </section>
+
+  <!-- DARK QUOTE BAND -->
+  <section class="band-dark">
+    <div class="container">
+      <p class="eyebrow">Posture</p>
+      <h2 style="max-width:24ch;">Most AI-product sites shout. Konak speaks at conversational volume — and trusts the reader to lean in.</h2>
+      <p class="lead" style="margin-top:24px;">The warmth of the palette, the weight of the serif, and the rhythm of the sections are the design — not the decoration on top of it.</p>
+    </div>
+  </section>
+
+  <!-- TYPOGRAPHY -->
+  <section id="type">
+    <div class="container">
+      <p class="eyebrow">03 · Typography</p>
+      <h2>Serif headlines, sans body, mono for metadata.</h2>
+      <p class="lead">Single weight (500) across every serif size. The size scale carries the hierarchy — never the weight.</p>
+
+      <div style="margin-top:32px;">
+        <div class="type-row">
+          <div class="label">H1 / Display<small>Serif · 500 · 1.06 · -0.01em</small></div>
+          <div class="specimen-h1">A quiet welcome to Belgrade.</div>
+        </div>
+        <div class="type-row">
+          <div class="label">H2 / Section<small>Serif · 500 · 1.12</small></div>
+          <div class="specimen-h2">Scan once. Walk in welcomed.</div>
+        </div>
+        <div class="type-row">
+          <div class="label">H3 / Card<small>Serif · 500 · 1.2</small></div>
+          <div class="specimen-h3">You arrive at a Konak stay</div>
+        </div>
+        <div class="type-row">
+          <div class="label">H4 / Feature<small>Serif · 500 · 1.3</small></div>
+          <div class="specimen-h4">Curated by walk, not by ads.</div>
+        </div>
+        <div class="type-row">
+          <div class="label">Lead<small>Sans · 400 · 19px · 1.6</small></div>
+          <div class="specimen-lead">When you stay at a Konak apartment, the city's best places are already expecting you — and that single fact is the whole product.</div>
+        </div>
+        <div class="type-row">
+          <div class="label">Body<small>Sans · 400 · 16px · 1.6</small></div>
+          <div class="specimen-body">Every Konak apartment carries its own curated set of partners, walking-distance first. Numbers vary by neighborhood and season. The QR code by the door does the rest.</div>
+        </div>
+        <div class="type-row">
+          <div class="label">Meta<small>Mono · 13px · tabular</small></div>
+          <div class="specimen-meta">DOR-014 · Dorćol · 23 partners within 400m</div>
+        </div>
+        <div class="type-row">
+          <div class="label">Eyebrow<small>Mono · 12px · 0.12em · UPPER</small></div>
+          <div class="specimen-eyebrow">01 · How it works</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCALE -->
+  <section>
+    <div class="container">
+      <p class="eyebrow">04 · Scale</p>
+      <h2>Spacing, radius, container.</h2>
+      <p class="lead">One container, an 8px base unit, and a small radius scale. Section vertical padding scales fluidly so the rhythm holds at every breakpoint.</p>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:40px; margin-top:32px;">
+        <div>
+          <h3>Spacing scale</h3>
+          <div class="scale-row"><span class="name">--gap-xs</span><span class="val">8px</span><span class="scale-bar" style="width:8px;"></span></div>
+          <div class="scale-row"><span class="name">--gap-sm</span><span class="val">12px</span><span class="scale-bar" style="width:12px;"></span></div>
+          <div class="scale-row"><span class="name">--gap-md</span><span class="val">20px</span><span class="scale-bar" style="width:20px;"></span></div>
+          <div class="scale-row"><span class="name">--gap-lg</span><span class="val">32px</span><span class="scale-bar" style="width:32px;"></span></div>
+          <div class="scale-row"><span class="name">--gap-xl</span><span class="val">56px</span><span class="scale-bar" style="width:56px;"></span></div>
+          <div class="scale-row"><span class="name">--gap-2xl</span><span class="val">96px</span><span class="scale-bar" style="width:96px;"></span></div>
+        </div>
+
+        <div>
+          <h3>Radius scale</h3>
+          <div style="display:flex; gap:24px; align-items:end; flex-wrap:wrap; margin-top:16px;">
+            <div style="text-align:center;">
+              <div class="radius-box" style="border-radius:4px;"></div>
+              <div style="font-family:var(--font-mono); font-size:11px; color:var(--muted); margin-top:8px;">4px<br><span style="color:var(--muted-2);">inline</span></div>
+            </div>
+            <div style="text-align:center;">
+              <div class="radius-box" style="border-radius:8px;"></div>
+              <div style="font-family:var(--font-mono); font-size:11px; color:var(--muted); margin-top:8px;">8px<br><span style="color:var(--muted-2);">badge</span></div>
+            </div>
+            <div style="text-align:center;">
+              <div class="radius-box" style="border-radius:12px;"></div>
+              <div style="font-family:var(--font-mono); font-size:11px; color:var(--muted); margin-top:8px;">12px<br><span style="color:var(--muted-2);">button, input</span></div>
+            </div>
+            <div style="text-align:center;">
+              <div class="radius-box" style="border-radius:16px;"></div>
+              <div style="font-family:var(--font-mono); font-size:11px; color:var(--muted); margin-top:8px;">16px<br><span style="color:var(--muted-2);">card</span></div>
+            </div>
+            <div style="text-align:center;">
+              <div class="radius-box" style="border-radius:24px;"></div>
+              <div style="font-family:var(--font-mono); font-size:11px; color:var(--muted); margin-top:8px;">24px<br><span style="color:var(--muted-2);">hero, media</span></div>
+            </div>
+          </div>
+
+          <h3 style="margin-top:40px;">Layout</h3>
+          <table class="tbl">
+            <tr><td>Container</td><td class="mono">1080–1160px</td></tr>
+            <tr><td>Gutter</td><td class="mono">32px (20px @ &lt;600)</td></tr>
+            <tr><td>Section padding</td><td class="mono">clamp(56px, 9vw, 96px)</td></tr>
+            <tr><td>Body line-height</td><td class="mono">1.6</td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPONENTS -->
+  <section id="components">
+    <div class="container">
+      <p class="eyebrow">05 · Components</p>
+      <h2>The five primitives that build every page.</h2>
+      <p class="lead">If a page needs a component that isn't here, add it to this document before using it twice.</p>
+
+      <h3 style="margin-top:40px;">Buttons</h3>
+      <p>One primary per view. Secondary and ghost can repeat freely.</p>
+      <div class="btn-row">
+        <button class="btn btn-primary">Try the demo →</button>
+        <button class="btn btn-secondary">Read how it works</button>
+        <button class="btn btn-ghost">Learn more →</button>
+        <button class="btn btn-dark">Become a partner</button>
+      </div>
+<pre><code>&lt;a class="btn btn-primary"&gt;Try the demo&lt;/a&gt;
+&lt;a class="btn btn-secondary"&gt;Read how it works&lt;/a&gt;
+&lt;a class="btn btn-ghost btn-arrow"&gt;Learn more&lt;/a&gt;</code></pre>
+
+      <h3 style="margin-top:40px;">Cards</h3>
+      <p>Three tiers: flat (no chrome), standard (Ivory + cream border), elevated (whisper shadow). Dark and tint variants exist for rhythm.</p>
+      <div class="demo-grid">
+        <div class="card">
+          <h4>Standard card</h4>
+          <p>Ivory background, 1px Border Cream, 16px radius. The default container for feature blocks and content groups.</p>
+        </div>
+        <div class="card card-elev">
+          <h4>Elevated</h4>
+          <p>Adds a whisper shadow (<code>0 4px 24px rgba(20,20,19,.05)</code>). Reserve for one highlighted card per row.</p>
+        </div>
+        <div class="card card-tint">
+          <h4>Tint</h4>
+          <p>Subtle terracotta wash. Use for a single brand-moment card per section — never a grid of them.</p>
+        </div>
+        <div class="card card-dark">
+          <h4 style="color:var(--ivory);">Dark</h4>
+          <p>Used inside dark bands or as a quote/featured block. Body in Warm Silver.</p>
+        </div>
+      </div>
+
+      <h3 style="margin-top:40px;">Eyebrow + section header</h3>
+      <p>The opening move of every section. Mono uppercase eyebrow, serif h2, optional lead paragraph.</p>
+      <div class="card" style="background:transparent; border:1px dashed var(--border-2);">
+        <p class="eyebrow">03 · Partners</p>
+        <h3 style="font-size:32px; margin-bottom:12px;">A curated set, walking-distance first.</h3>
+        <p style="color:var(--muted); margin:0;">Every Konak apartment carries its own list. Numbers vary by neighborhood and season.</p>
+      </div>
+
+      <h3 style="margin-top:40px;">Light / dark alternation</h3>
+      <p>The page rhythm. A typical landing flows: <code>hero (light)</code> → <code>features (light)</code> → <code>quote band (dark)</code> → <code>logos (light)</code> → <code>CTA (light)</code>. Never three same-theme sections in a row.</p>
+    </div>
+  </section>
+
+  <!-- COMPONENT REUSE (SVELTE APP) -->
+  <section id="component-reuse">
+    <div class="container">
+      <p class="eyebrow">06 · Component reuse</p>
+      <h2>Compose from what exists. Never rebuild primitives.</h2>
+      <p class="lead"><strong>Scope:</strong> every change under <code>src/</code> (SvelteKit). Static HTML prototypes (<code>index.html</code>, etc.) follow section 05. The app follows this section.</p>
+
+      <div class="card card-tint" style="margin-top:28px;">
+        <h4 style="margin-top:0;">Instruction for LLMs</h4>
+        <p style="margin:0;">Before writing or editing any Svelte UI, run the <strong>mandatory workflow</strong> below. Import from the paths listed here. If nothing matches, add via <strong>shadcn-svelte</strong> into <code>src/shared/components/ui/</code> — do not hand-roll table, form, dialog, or button primitives.</p>
+      </div>
+
+      <h3 style="margin-top:40px;">Mandatory workflow</h3>
+      <ol style="color:var(--muted); line-height:1.7; padding-left:1.25rem; margin:12px 0 0;">
+        <li><strong style="color:var(--fg);">State the UI need</strong> (e.g. paginated table with row delete).</li>
+        <li><strong style="color:var(--fg);">Search existing code</strong> — list or grep <code>src/shared/components/ui/</code>, <code>src/features/*/components/</code>, and similar pages under <code>src/routes/</code> or <code>src/shared/components/pages/</code>.</li>
+        <li><strong style="color:var(--fg);">Reuse the closest match</strong> — import it; extend via props and snippets; compose multiple existing pieces.</li>
+        <li><strong style="color:var(--fg);">Only if nothing fits:</strong> run <code>bunx shadcn-svelte@latest add …</code> (see <code>components.json</code>) or add a thin feature wrapper — never duplicate table/form/dialog logic.</li>
+        <li><strong style="color:var(--fg);">Copy a reference implementation</strong> when wiring Convex + UI (see decision table).</li>
+      </ol>
+
+      <h3 style="margin-top:40px;">Canonical locations</h3>
+<div class="filemap" style="margin-top:16px;">
+<span class="root">src/shared/components/ui/</span>       <span class="note">// shadcn-svelte + app composites (Button, DataTable, MutationForm, …)</span>
+<span class="root">src/features/auth/components/</span>     <span class="note">// login, sign-up, OTP, password reset, OAuth, logout</span>
+<span class="root">src/features/uploadFile/components/</span> <span class="note">// single/multiple upload dropzones and file items</span>
+<span class="root">components.json</span>                   <span class="note">// shadcn aliases — ui → @/shared/components/ui</span>
+</div>
+
+      <h3 style="margin-top:40px;">Need → use this (decision table)</h3>
+      <p>Start here. Open the referenced file and copy its import and usage pattern before writing new markup.</p>
+
+      <table class="tbl" style="margin-top:20px;">
+        <tr><th>You need…</th><th>Use (do not rebuild)</th><th>Reference</th></tr>
+        <tr>
+          <td>Paginated table with search, sort, selection, Convex-backed rows</td>
+          <td class="mono">@/shared/components/ui/data-table/data-table.svelte</td>
+          <td class="mono">src/routes/(unprotected)/table/+page.svelte</td>
+        </tr>
+        <tr>
+          <td>Destructive or confirmed row action (delete, ban, revoke)</td>
+          <td class="mono">action-button → alert-dialog-button</td>
+          <td class="mono">src/shared/components/pages/(protected)/admin/users/[id]/user-danger-zone/</td>
+        </tr>
+        <tr>
+          <td>Create/edit form backed by a Convex mutation</td>
+          <td class="mono">mutation-form/mutation-form.svelte</td>
+          <td class="mono">mutation-form/types.ts (field kinds)</td>
+        </tr>
+        <tr>
+          <td>Internal navigation link (in-app routes)</td>
+          <td class="mono">@/shared/components/ui/link/link.svelte</td>
+          <td>Paraglide-localized <code>href</code> — never a raw <code>&lt;a&gt;</code> for app routes</td>
+        </tr>
+        <tr>
+          <td>Button, input, select, checkbox, dialog, sheet, tabs, tooltip</td>
+          <td class="mono">@/shared/components/ui/{primitive}/index.js</td>
+          <td>shadcn-svelte CLI if folder missing</td>
+        </tr>
+        <tr>
+          <td>Raw table markup only (no Convex/pagination)</td>
+          <td class="mono">table/*</td>
+          <td>Prefer <code>data-table</code> for real screens</td>
+        </tr>
+        <tr>
+          <td>Pagination / paginated list shell</td>
+          <td class="mono">paginated-data/, pagination/</td>
+          <td>Composed inside <code>data-table</code></td>
+        </tr>
+        <tr>
+          <td>Page section wrapper</td>
+          <td class="mono">section/section.svelte</td>
+          <td class="mono">table/+page.svelte</td>
+        </tr>
+        <tr>
+          <td>App shell / sidebar</td>
+          <td class="mono">app-sidebar/, sidebar/</td>
+          <td>Protected layouts</td>
+        </tr>
+        <tr>
+          <td>Loading state</td>
+          <td class="mono">skeleton/, spinner/</td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td>Toasts</td>
+          <td class="mono">sonner/ + svelte-sonner</td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td>Login, sign-up, verify email, reset password</td>
+          <td class="mono">src/features/auth/components/*</td>
+          <td><code>login-form-*</code>, <code>sign-up-form-*</code>, <code>email-verification-form</code>, <code>password-reset-form</code></td>
+        </tr>
+        <tr>
+          <td>Password field, OTP</td>
+          <td class="mono">password-input/, input-otp/</td>
+          <td>auth/components</td>
+        </tr>
+        <tr>
+          <td>Google sign-in, logout</td>
+          <td class="mono">google-login-button/, logout-button/</td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td>File upload (single or multiple)</td>
+          <td class="mono">upload-file-single/, upload-file-multiple/</td>
+          <td class="mono">src/features/uploadFile/components/</td>
+        </tr>
+        <tr>
+          <td>Upload inside a mutation form</td>
+          <td class="mono">mutation-form/upload-field.svelte</td>
+          <td>Compose with upload feature components</td>
+        </tr>
+        <tr>
+          <td>Landing sections (hero, testimonials, contact)</td>
+          <td class="mono">sections/*, header/, footer/</td>
+          <td>Reuse an existing variant</td>
+        </tr>
+      </table>
+
+      <h3 style="margin-top:40px;">shadcn-svelte</h3>
+      <p>Primitives live under <code>@/shared/components/ui</code> per <code>components.json</code>. Package manager: <strong>Bun</strong> — use <code>bunx</code>, not <code>npx</code>.</p>
+<pre><code>bunx shadcn-svelte@latest add button
+
+import { Button } from '@/shared/components/ui/button/index.js';
+
+import Link from '@/shared/components/ui/link/link.svelte';
+&lt;Link href="/en/dashboard"&gt;Dashboard&lt;/Link&gt;</code></pre>
+      <p>If <code>button/</code>, <code>dialog/</code>, or similar already exists, use it — do not add a parallel implementation. For in-app routes, always <code>Link</code> (locale-aware). Plain <code>&lt;a&gt;</code> only for external URLs (<code>https://</code>, <code>mailto:</code>).</p>
+
+      <h3 style="margin-top:40px;">Browse before inventing</h3>
+      <p>List <code>src/shared/components/ui/</code> when the table is not enough. Folders include: action-button, alert-dialog, alert-dialog-button, app-sidebar, avatar, breadcrumb, button, calendar, card, chart, checkbox, copy-button, data-table, date-picker, drawer, dropdown-menu, field, footer, header, input, label, mutation-form, paginated-data, pagination, popover, progress, section, sections, select, sheet, sidebar, skeleton, sonner, spinner, table, tabs, textarea, time-input, tooltip, and others.</p>
+
+      <h3 style="margin-top:40px;">Do / don't</h3>
+      <div class="demo-grid" style="margin-top:16px;">
+        <div class="card">
+          <h4>Do</h4>
+          <ul style="margin:0; padding-left:18px; color:var(--muted);">
+            <li>Import from <code>@/shared/components/ui/…</code> or feature component paths.</li>
+            <li>Extend via props, snippets, and composition.</li>
+            <li>Copy patterns from <code>table/+page.svelte</code> and admin user pages.</li>
+            <li>Add missing shadcn primitives with the CLI into <code>ui/</code>.</li>
+            <li>Use <code>Link</code> from <code>link/link.svelte</code> for in-app navigation (locale-aware).</li>
+          </ul>
+        </div>
+        <div class="card card-tint">
+          <h4>Don't</h4>
+          <ul style="margin:0; padding-left:18px; color:var(--muted);">
+            <li>Use a plain <code>&lt;a href="…"&gt;</code> for internal routes — use <code>Link</code> instead.</li>
+            <li>Hand-roll tables + delete buttons when <code>DataTable</code> + <code>ActionButton</code> exist.</li>
+            <li>Inline login, upload, or form markup in routes when feature components exist.</li>
+            <li>Install alternate UI kits or one-off dialog/form CSS in pages.</li>
+            <li>Add <code>MyButton.svelte</code> next to a route when <code>Button</code> already exists.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ANTI-PATTERNS -->
+  <section>
+    <div class="container">
+      <p class="eyebrow">07 · Anti-patterns</p>
+      <h2>Things that look right at first glance and aren't.</h2>
+
+      <table class="tbl" style="margin-top:24px;">
+        <tr><th>Trap</th><th>Why it's wrong</th><th>Do instead</th></tr>
+        <tr><td>Bold serif headings</td><td class="mono">All serifs stay at weight 500. Bold breaks the literary voice.</td><td>Use size for hierarchy, not weight.</td></tr>
+        <tr><td>Drop shadows on cards</td><td class="mono">Heavy shadows feel SaaS-y. Konak uses ring shadows or none.</td><td><code>box-shadow: 0 4px 24px rgba(20,20,19,.05)</code> max.</td></tr>
+        <tr><td>Pure white page background</td><td class="mono">Pure white kills the parchment personality.</td><td>Always Parchment <code>#f5f4ed</code>.</td></tr>
+        <tr><td>Cool gray text</td><td class="mono">Every gray must have a yellow-brown tint.</td><td>Olive Gray <code>#5e5d59</code> or Stone Gray <code>#87867f</code>.</td></tr>
+        <tr><td>Inter as a display face</td><td class="mono">Inter is body. Iowan/Charter/Georgia is display.</td><td>Always <code>--font-display</code> for headlines.</td></tr>
+        <tr><td>Three accents on a screen</td><td class="mono">Burns the accent budget.</td><td>Eyebrow + one primary CTA. That's two. Stop.</td></tr>
+        <tr><td>Filler section to extend the page</td><td class="mono">Empty sections feel padded.</td><td>Cut the section. A shorter page beats a longer hollow one.</td></tr>
+        <tr><td>Hand-rolled Svelte UI</td><td class="mono">Duplicates behavior and drifts from shadcn patterns.</td><td>Section 06 — reuse <code>DataTable</code>, <code>ActionButton</code>, <code>MutationForm</code>, or add shadcn via CLI.</td></tr>
+      </table>
+    </div>
+  </section>
+
+  <!-- FILE MAP -->
+  <section id="files">
+    <div class="container">
+      <p class="eyebrow">08 · Files</p>
+      <h2>What lives where.</h2>
+      <p class="lead">Three pages today, each fully self-contained. Tokens are duplicated into each file's <code>:root</code> — that's intentional, so any file can be opened on its own.</p>
+
+<div class="filemap">
+<span class="root">konak/</span>
+├─ index.html            <span class="note">// landing — hero, the moment, partner types, quote, footer CTA</span>
+├─ how-it-works.html     <span class="note">// the four-step QR flow + FAQ + neighborhood examples</span>
+├─ demo.html             <span class="note">// interactive phone-frame walkthrough of the guest scan</span>
+└─ DESIGN.html           <span class="note">// this file — single source of truth for tokens, type, components</span>
+</div>
+
+      <h3 style="margin-top:40px;">Boilerplate for a new page</h3>
+      <p>Copy this into a fresh file before writing any content.</p>
+<pre><code>&lt;!doctype html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="utf-8" /&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1" /&gt;
+  &lt;title&gt;Konak · [Page title]&lt;/title&gt;
+  &lt;style&gt;
+    :root {
+      --bg:      #f5f4ed;
+      --surface: #faf9f5;
+      --fg:      #141413;
+      --muted:   #5e5d59;
+      --border:  #f0eee6;
+      --border-2:#e8e6dc;
+      --accent:  #c96442;
+      --dark:    #141413;
+      --silver:  #b0aea5;
+      --font-display: 'Iowan Old Style', 'Charter', Georgia, serif;
+      --font-body:    -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+      --font-mono:    ui-monospace, 'JetBrains Mono', Menlo, monospace;
+    }
+    /* …copy the class system from index.html… */
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;!-- topnav · sections · footer --&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+    </div>
+  </section>
+
+  <!-- LLM HINTS -->
+  <section>
+    <div class="container">
+      <p class="eyebrow">09 · For an LLM editing this site</p>
+      <h2>Quick reference if you only read one section.</h2>
+      <p class="lead">Editing <code>src/</code> (Svelte)? Read <a href="#component-reuse">06 · Component reuse</a> first — search existing components before writing UI.</p>
+
+      <div class="demo-grid">
+        <div class="card">
+          <h4>Svelte app (<code>src/</code>)</h4>
+          <p>Reuse <code>@/shared/components/ui</code>, auth and upload feature components. Tables → <code>DataTable</code>. Deletes → <code>ActionButton</code>. In-app links → <code>Link</code> (<code>link/link.svelte</code>), never raw <code>&lt;a&gt;</code>. Tokens → <code>layout.css</code>. See section 06.</p>
+        </div>
+        <div class="card">
+          <h4>Static HTML / marketing</h4>
+          <p>Parchment background, Iowan/Charter serif headlines at weight 500, terracotta <code>#c96442</code> as the only chromatic accent (eyebrow + one CTA per view), warm-toned grays only, 1.6 body line-height.</p>
+        </div>
+        <div class="card">
+          <h4>Never</h4>
+          <p>Hand-rolled tables/forms/dialogs in Svelte; pure white background; bold serifs; cool blue-grays; generic SaaS gradients; emoji feature icons; invented stats; three accents on one screen.</p>
+        </div>
+        <div class="card">
+          <h4>If unsure</h4>
+          <p>Svelte: open <code>src/routes/(unprotected)/table/+page.svelte</code> and copy its patterns. HTML: open <code>index.html</code> and copy its <code>:root</code> and class system.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="pagefoot">
+  <div class="container">
+    <div class="row">
+      <div>
+        <div class="brand" style="margin-bottom:8px;"><span class="dot"></span><span>Konak — Design System</span></div>
+        <small>v1 · 2026 · Belgrade</small>
+      </div>
+      <small>Foundation: Claude (Anthropic). Adapted for boutique hospitality.</small>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
