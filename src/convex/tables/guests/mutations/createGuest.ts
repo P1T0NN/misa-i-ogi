@@ -13,10 +13,10 @@ import { getAccommodationByScanTokenSafe } from '@/convex/tables/accommodations/
 
 // UTILS
 import {
-	generateGuestSessionToken,
-	hashGuestSessionToken,
-	signGuestStayCookie
+	generateGuestCredential,
+	hashGuestCredential
 } from '@/convex/tables/guests/utils/guestSessionToken';
+import { signGuestStayCookie } from '@/convex/tables/guests/utils/guestStayCookieCrypto';
 
 // SCHEMAS
 import { mutationResultValidator } from '@/convex/schemas/mutationResult';
@@ -62,11 +62,24 @@ export const createGuest = mutation({
 			};
 		}
 
-		const sessionToken = generateGuestSessionToken();
+		const sessionToken = generateGuestCredential('sessionToken');
 		const expiresAt = now + GUEST_STAY_DURATION_MS;
+		let sharingCode = generateGuestCredential('sharingCode');
+		let sharingCodeHash = hashGuestCredential('sharingCode', sharingCode);
+
+		while (
+			await ctx.db
+				.query('guests')
+				.withIndex('by_sharing_code_hash', (q) => q.eq('sharingCodeHash', sharingCodeHash))
+				.first()
+		) {
+			sharingCode = generateGuestCredential('sharingCode');
+			sharingCodeHash = hashGuestCredential('sharingCode', sharingCode);
+		}
 
 		await ctx.db.insert('guests', {
-			sessionTokenHash: hashGuestSessionToken(sessionToken),
+			sessionTokenHash: hashGuestCredential('sessionToken', sessionToken),
+			sharingCodeHash,
 			accommodationId: accommodation._id,
 			expiresAt,
 			createdAt: now,
@@ -77,7 +90,7 @@ export const createGuest = mutation({
 			success: true,
 			message: { key: 'GenericMessages.GUEST_CREATED' },
 			data: {
-				signedCookie: await signGuestStayCookie(sessionToken, expiresAt)
+				signedCookie: await signGuestStayCookie({ sessionToken, expiresAt, sharingCode })
 			}
 		};
 	}

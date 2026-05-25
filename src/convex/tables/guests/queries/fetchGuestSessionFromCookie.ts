@@ -3,10 +3,10 @@ import { v } from 'convex/values';
 import { query } from '@/convex/_generated/server';
 
 // HELPERS
-import { getActiveGuestSession } from '@/convex/tables/guests/helpers/getGuestSession';
+import { getActiveGuestSession } from '@/convex/tables/guests/helpers/getActiveGuestSession';
 
 // UTILS
-import { verifyGuestSessionCookie } from '@/convex/tables/guests/utils/guestSessionToken';
+import { verifyGuestSessionCookie } from '@/convex/tables/guests/utils/guestStayCookieCrypto';
 
 // TYPES
 import type { CurrentGuest } from '@/convex/tables/guests/types/guestsTypes';

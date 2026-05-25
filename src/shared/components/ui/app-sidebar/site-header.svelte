@@ -9,7 +9,7 @@
 	import { COMPANY_DATA, PROTECTED_PAGE_ENDPOINTS } from '@/shared/constants.js';
 
 	// CLASSES
-	import { breadcrumbLabel } from '@/shared/classes/breadcrumb-label.svelte.js';
+	import { breadcrumbLabel } from '@/shared/components/ui/breadcrumb/breadcrumbClass.svelte.js';
 
 	// COMPONENTS
 	import * as Breadcrumb from '@/shared/components/ui/breadcrumb/index.js';

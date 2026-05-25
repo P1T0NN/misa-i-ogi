@@ -116,17 +116,19 @@ const schema = defineSchema({
 		.index('by_pair', ['accommodationId', 'hospitalityId']),
 
 	/**
-	 * Anonymous guest session after scanning the in-room QR. The browser holds the
-	 * raw token in a signed HttpOnly cookie; only `sessionTokenHash` is stored here.
+	 * Anonymous guest session after scanning the in-room QR. Browsers hold signed
+	 * HttpOnly bearer grants; only activation and sharing-code hashes are stored here.
 	 */
 	guests: defineTable({
 		sessionTokenHash: v.string(),
+		sharingCodeHash: v.string(),
 		accommodationId: v.id('accommodations'),
 		expiresAt: v.number(),
 		createdAt: v.number(),
 		lastSeenAt: v.number()
 	})
 		.index('by_session_token_hash', ['sessionTokenHash'])
+		.index('by_sharing_code_hash', ['sharingCodeHash'])
 		.index('by_accommodation', ['accommodationId']),
 
 	/** Cloudflare R2 file reference + cached download URL. Owner-stamped at upload. */

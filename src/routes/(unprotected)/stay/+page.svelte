@@ -7,32 +7,26 @@
 	import { getConvexClient, useQuery } from '@mmailaender/convex-svelte';
 	import { useAuth as useBetterAuth } from '@mmailaender/convex-better-auth-svelte/svelte';
 	import { api } from '@/convex/_generated/api';
-	import { m } from '@/shared/lib/paraglide/messages';
 
 	// COMPONENTS
 	import SvelteHead from '@/shared/components/ui/svelte-head/svelte-head.svelte';
 	import ScanError from '@/shared/components/pages/(unprotected)/scan/error/scan-error.svelte';
 	import ScanLoading from '@/shared/components/pages/(unprotected)/scan/loading/scan-loading.svelte';
-	import ScanPartnershipsSection from '@/shared/components/pages/(unprotected)/scan/scan-partnerships-section/scan-partnerships-section.svelte';
-	import ScanSessionExpired from '@/shared/components/pages/(unprotected)/scan/scan-session-expired.svelte';
-	import ScanAlreadyActive from '@/shared/components/pages/(unprotected)/scan/scan-already-active.svelte';
-	import ScanUnlockRequired from '@/shared/components/pages/(unprotected)/scan/scan-unlock-required.svelte';
-
-	// DATA
-	import { labelAccommodationType } from '@/features/accommodations/data/accommodationsData';
+	import StayAccommodationData from '@/shared/components/pages/(unprotected)/scan/stay-accommodation-data/stay-accommodation-data.svelte';
+	import StayExpiredAccess from '@/shared/components/pages/(unprotected)/scan/stay-expired-access/stay-expired-access.svelte';
+	import StayJoinAccess from '@/shared/components/pages/(unprotected)/scan/stay-join-access/stay-join-access.svelte';
 
 	// TYPES
 	import type { AccommodationStayDetailsSafe } from '@/convex/tables/accommodations/types/accommodationsTypes';
 	import type { CurrentGuest } from '@/convex/tables/guests/types/guestsTypes';
-
-	// LUCIDE ICONS
-	import MapPinIcon from '@lucide/svelte/icons/map-pin';
 
 	type GuestConvexAuthStatus = 'loading' | 'authenticated' | 'missing' | 'expired' | 'error';
 
 	const activationBlocked = $derived(page.url.searchParams.get('activation') === 'already_active');
 	const betterAuth = useBetterAuth();
 	let guestAuthStatus = $state<GuestConvexAuthStatus>('loading');
+	let guestAuthEstablished = $state(false);
+	let sharingCode = $state('');
 
 	onMount(() => {
 		const convexClient = getConvexClient();
@@ -46,30 +40,35 @@
 					});
 					const body = (await response.json().catch(() => null)) as {
 						token?: unknown;
+						sharingCode?: unknown;
 						status?: unknown;
 					} | null;
 
 					if (response.status === 401) {
 						guestAuthStatus = body?.status === 'expired' ? 'expired' : 'missing';
+						guestAuthEstablished = false;
 						return null;
 					}
 
-					if (!response.ok || typeof body?.token !== 'string') {
+					if (!response.ok || typeof body?.token !== 'string' || typeof body?.sharingCode !== 'string') {
 						guestAuthStatus = 'error';
+						guestAuthEstablished = false;
 						return null;
 					}
 
+					sharingCode = body.sharingCode;
+					guestAuthStatus = 'authenticated';
+					guestAuthEstablished = true;
 					return body.token;
 				} catch {
-					guestAuthStatus = 'error';
+					guestAuthStatus = guestAuthEstablished ? 'error' : 'missing';
 					return null;
 				}
 			},
 			(isAuthenticated) => {
 				if (isAuthenticated) {
 					guestAuthStatus = 'authenticated';
-				} else if (guestAuthStatus === 'loading') {
-					guestAuthStatus = 'missing';
+					guestAuthEstablished = true;
 				}
 			}
 		);
@@ -83,7 +82,8 @@
 
 	const currentGuestQuery = useQuery(
 		api.tables.guests.queries.fetchCurrentGuest.fetchCurrentGuest,
-		() => (guestAuthStatus === 'authenticated' ? {} : 'skip')
+		() => (guestAuthStatus === 'authenticated' ? {} : 'skip'),
+		() => ({ keepPreviousData: true })
 	);
 
 	const accommodationQuery = useQuery(
@@ -92,7 +92,8 @@
 			if (guestAuthStatus !== 'authenticated') return 'skip';
 			if (currentGuestQuery.data?.status !== 'active') return 'skip';
 			return {};
-		}
+		},
+		() => ({ keepPreviousData: true })
 	);
 
 	const currentGuest = $derived.by((): CurrentGuest | undefined => {
@@ -103,8 +104,13 @@
 	const accommodation = $derived(
 		accommodationQuery.data as AccommodationStayDetailsSafe | null | undefined
 	);
+	const isReconcilingGuestAuth = $derived(
+		guestAuthStatus === 'authenticated' &&
+			(currentGuest === undefined || currentGuest.status === 'missing')
+	);
 	const isLoading = $derived(
 		guestAuthStatus === 'loading' ||
+			isReconcilingGuestAuth ||
 			currentGuest === undefined ||
 			(currentGuest.status === 'active' && accommodation === undefined)
 	);
@@ -123,87 +129,11 @@
 		<ScanLoading />
 	{:else if currentGuest?.status === 'active' && accommodation === null}
 		<ScanError />
-	{:else if currentGuest?.status === 'active' && accommodation}
-		<div class="mx-auto flex w-full max-w-2xl flex-col gap-8 px-4 py-8 sm:px-6 sm:py-10">
-			{#if activationBlocked}
-				<ScanAlreadyActive variant="reminder" />
-			{/if}
-
-			<div class="relative aspect-2/1 w-full overflow-hidden rounded-2xl bg-muted">
-				<img
-					src={accommodation.coverImageUrl}
-					alt=""
-					class="absolute inset-0 size-full object-cover"
-					decoding="async"
-					fetchpriority="high"
-				/>
-			</div>
-
-			<header class="flex flex-col gap-2">
-				<p class="font-mono text-[11px] tracking-[0.14em] text-primary uppercase">
-					{m['ScanPage.eyebrow']()} · {labelAccommodationType(accommodation.type)}
-				</p>
-
-				<h1
-					class="font-serif text-3xl leading-[1.15] font-medium tracking-tight text-balance sm:text-4xl"
-				>
-					{accommodation.name}
-				</h1>
-
-				<p class="mt-1 text-base text-muted-foreground sm:text-lg">
-					{m['ScanPage.perksTitle']({ city: accommodation.city })}
-				</p>
-
-				<p class="max-w-prose text-sm leading-relaxed text-muted-foreground">
-					{m['ScanPage.perksLead']()}
-				</p>
-			</header>
-
-			{#if accommodation.description}
-				<p class="max-w-prose text-sm leading-relaxed whitespace-pre-wrap text-foreground/90">
-					{accommodation.description}
-				</p>
-			{/if}
-
-			<ScanPartnershipsSection city={accommodation.city} enabled={perksUnlocked} />
-
-			<footer class="mt-4 border-t border-border/60 pt-6">
-				<p class="font-mono text-[10px] tracking-widest text-muted-foreground uppercase">
-					{m['ScanPage.addressFooterEyebrow']()}
-				</p>
-
-				<p class="mt-1 flex items-start gap-2 text-sm">
-					<MapPinIcon class="mt-0.5 size-4 shrink-0 text-muted-foreground" aria-hidden="true" />
-
-					<span>{accommodation.address}, {accommodation.city}, {accommodation.country}</span>
-				</p>
-			</footer>
-		</div>
+	{:else if currentGuest?.status === 'active' && accommodation && sharingCode}
+		<StayAccommodationData {accommodation} {sharingCode} {perksUnlocked} />
 	{:else if currentGuest?.status === 'expired'}
-		<div class="mx-auto flex w-full max-w-2xl flex-col gap-8 px-4 py-8 sm:px-6 sm:py-10">
-			<header class="flex flex-col gap-3">
-				<h1
-					class="font-serif text-3xl leading-[1.15] font-medium tracking-tight text-balance sm:text-4xl"
-				>
-					{m['ScanPage.eyebrow']()}
-				</h1>
-				<ScanSessionExpired />
-			</header>
-		</div>
+		<StayExpiredAccess />
 	{:else}
-		<div class="mx-auto flex w-full max-w-2xl flex-col gap-8 px-4 py-8 sm:px-6 sm:py-10">
-			<header class="flex flex-col gap-3">
-				<h1
-					class="font-serif text-3xl leading-[1.15] font-medium tracking-tight text-balance sm:text-4xl"
-				>
-					{m['ScanPage.eyebrow']()}
-				</h1>
-				{#if activationBlocked}
-					<ScanAlreadyActive />
-				{:else}
-					<ScanUnlockRequired />
-				{/if}
-			</header>
-		</div>
+		<StayJoinAccess activeScan={activationBlocked} />
 	{/if}
 </div>

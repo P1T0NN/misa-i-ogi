@@ -7,7 +7,7 @@
 	import { useQuery } from 'convex-svelte';
 
 	// CLASSES
-	import { breadcrumbLabel } from '@/shared/classes/breadcrumb-label.svelte.js';
+	import { breadcrumbLabel } from '@/shared/components/ui/breadcrumb/breadcrumbClass.svelte.js';
 
 	// COMPONENTS
 	import SvelteHead from '@/shared/components/ui/svelte-head/svelte-head.svelte';

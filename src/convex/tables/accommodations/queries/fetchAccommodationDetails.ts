@@ -2,7 +2,7 @@ import { query } from '@/convex/_generated/server';
 
 // HELPERS
 import { getAccommodationByIdSafe } from '@/convex/tables/accommodations/helpers/getAccommodationByIdSafe';
-import { getActiveGuestSessionFromAuth } from '@/convex/tables/guests/helpers/getGuestSession';
+import { getActiveGuestSessionFromAuth } from '@/convex/tables/guests/helpers/getActiveGuestSessionFromAuth';
 
 // TYPES
 import type { AccommodationStayDetailsSafe } from '@/convex/tables/accommodations/types/accommodationsTypes';

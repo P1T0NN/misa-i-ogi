@@ -175,12 +175,36 @@
 	"ScanPage": {
 		"metaBrand": "Konak",
 		"eyebrow": "Your stay",
-		"perksTitle": "Your perks in {city}",
-		"perksLead": "Show this page to staff at any partner venue. No app, no account.",
+		"partnerBenefitsEyebrow": "Included with your stay",
+		"partnersTitle": "Your partners in {city}",
+		"partnersLead": "Show this page to staff at any partner venue. No app, no account.",
 		"perkRedeemHint": "Show this screen to staff",
 		"perkOff": "off",
+		"perkViewDetails": "View details",
 		"addressFooterEyebrow": "Need to share where you are?",
 		"addressFooterLabel": "Address",
+		"ScanSharingCode": {
+			"eyebrow": "Share this stay",
+			"title": "Let your room companions in",
+			"body": "Anyone staying with you can scan the room QR code, then enter this sharing code.",
+			"privacy": "Share this code only with people in your accommodation.",
+			"copy": "Copy sharing code"
+		},
+		"ScanShareAccess": {
+			"title": "Join an unlocked stay",
+			"activeTitle": "Someone has already unlocked this stay",
+			"body": "If you are staying together, enter the sharing code from their partners page to open the same benefits on this device.",
+			"directBody": "Already staying with someone who has unlocked partners? Ask for the sharing code shown on their stay page.",
+			"label": "Sharing code",
+			"placeholder": "ABCD",
+			"hint": "The code appears at the top of the unlocked stay page.",
+			"submit": "Open partners",
+			"required": "Enter the sharing code.",
+			"invalid": "That sharing code is invalid or has expired.",
+			"rateLimited": "Too many attempts. Please wait a moment and try again.",
+			"unavailable": "Could not check that code. Check your connection and try again.",
+			"scanInstead": "You can also scan the QR code in your room to start a new stay."
+		},
 		"ScanLoading": {
 			"announce": "Loading your stay…"
 		},
@@ -190,26 +214,17 @@
 			"cta": "Back to home"
 		},
 		"ScanAccommodationPartnershipsEmpty": {
-			"title": "No perks linked yet",
-			"body": "Your host hasn’t connected this stay to a partner venue yet. Ask them about it — they can add perks in seconds."
+			"title": "No partners linked yet",
+			"body": "Your host hasn’t connected this stay to a partner venue yet. Ask them about it — they can add partners in seconds."
 		},
 		"ScanError": {
-			"title": "Couldn’t load your perks",
+			"title": "Couldn’t load your partners",
 			"body": "Check your connection and try again.",
 			"cta": "Back to home"
 		},
 		"ScanSessionExpired": {
 			"title": "Your stay session has expired",
-			"body": "Scan the QR in your room to unlock your perks again."
-		},
-		"ScanUnlockRequired": {
-			"requiredTitle": "Unlock your stay perks",
-			"requiredBody": "Scan the QR code in your room to see partner discounts and offers for your stay."
-		},
-		"ScanAlreadyActive": {
-			"title": "Your stay is already unlocked",
-			"body": "You cannot activate again until your stay period ends. Your perks are on this page if you're using the same browser.",
-			"lockedBody": "This stay was already unlocked and is still active. Wait until the stay period ends, or open your perks from the browser where you first scanned."
+			"body": "Scan the QR in your room to unlock your partners again."
 		}
 	},
 
@@ -940,6 +955,9 @@
 			"accommodationRequired": "Pick an accommodation.",
 			"hospitalityRequired": "Pick at least one hospitality venue.",
 			"discountRange": "Discount must be between 1 and 100, or leave blank."
+		},
+		"JoinGuestStaySchema": {
+			"sharingCodeInvalid": "That sharing code is invalid."
 		}
 	},
 
@@ -977,6 +995,8 @@
 		"ACCOMMODATION_CANNOT_DELETE_ACTIVE_GUEST": "This accommodation cannot be deleted. There is an active guest in it using the app, please wait for it to expire and then try again!",
 		"GUEST_CREATED": "Guest stay unlocked.",
 		"GUEST_ALREADY_ACTIVE": "This stay is already unlocked.",
+		"GUEST_SHARING_CODE_INVALID": "That sharing code is invalid or has expired.",
+		"GUEST_SHARED_ACCESS_GRANTED": "Stay access shared.",
 		"HOSPITALITY_NOT_FOUND": "Hospitality not found.",
 		"PARTNERSHIP_CREATED": "Partnership created.",
 		"PARTNERSHIPS_CREATED": "Created {count} partnerships.",

@@ -1,5 +1,4 @@
 // SVELTEKIT IMPORTS
-import { dev } from '$app/environment';
 import { redirect } from '@sveltejs/kit';
 
 // LIBRARIES
@@ -10,6 +9,9 @@ import { isRateLimitError } from '@convex-dev/rate-limiter';
 // CONFIG
 import { COOKIE_NAMES, GUEST_STAY } from '@/shared/config';
 import { UNPROTECTED_PAGE_ENDPOINTS } from '@/shared/constants';
+
+// UTILS
+import { createCookie } from '@/shared/utils/cookieUtils';
 
 // TYPES
 import type { PageServerLoad } from './$types';
@@ -31,11 +33,9 @@ export const load: PageServerLoad = async (event) => {
 		);
 
 		if (result.success && result.data?.signedCookie) {
-			cookies.set(COOKIE_NAMES.GUEST_STAY, result.data.signedCookie, {
-				path: '/',
-				httpOnly: true,
-				sameSite: 'lax',
-				secure: !dev,
+			createCookie(cookies, {
+				name: COOKIE_NAMES.GUEST_STAY,
+				value: result.data.signedCookie,
 				maxAge: GUEST_STAY.DURATION_SECONDS
 			});
 		} else if (result.message.key === 'GenericMessages.GUEST_ALREADY_ACTIVE') {

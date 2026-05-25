@@ -158,12 +158,36 @@
 	"ScanPage": {
 		"metaBrand": "Konak",
 		"eyebrow": "Vaš boravak",
-		"perksTitle": "Your perks in {city}",
-		"perksLead": "Show this page to staff at any partner venue. No app, no account.",
+		"partnerBenefitsEyebrow": "Uključeno u vaš boravak",
+		"partnersTitle": "Vaši partneri u gradu {city}",
+		"partnersLead": "Pokažite ovu stranicu osoblju partnerskog objekta. Nije potrebna aplikacija ni nalog.",
 		"perkRedeemHint": "Show this screen to staff",
-		"perkOff": "off",
+		"perkOff": "popusta",
+		"perkViewDetails": "Pogledaj detalje",
 		"addressFooterEyebrow": "Need to share where you are?",
 		"addressFooterLabel": "Adresa",
+		"ScanSharingCode": {
+			"eyebrow": "Podelite boravak",
+			"title": "Omogućite pristup osobama u smeštaju",
+			"body": "Osobe koje borave sa vama mogu skenirati QR kod u sobi, zatim uneti ovaj kod za deljenje.",
+			"privacy": "Podelite ovaj kod samo sa osobama koje borave u vašem smeštaju.",
+			"copy": "Kopiraj kod za deljenje"
+		},
+		"ScanShareAccess": {
+			"title": "Pristupite otključanom boravku",
+			"activeTitle": "Neko je već otključao ovaj boravak",
+			"body": "Ako boravite zajedno, unesite kod za deljenje sa stranice partnera da pristupite istim partnerima na ovom uređaju.",
+			"directBody": "Boravite sa nekim ko je već otključao partnere? Zatražite kod za deljenje prikazan na njihovoj stranici boravka.",
+			"label": "Kod za deljenje",
+			"placeholder": "ABCD",
+			"hint": "Kod se nalazi na vrhu stranice otključanog boravka.",
+			"submit": "Otvori partnere",
+			"required": "Unesite kod za deljenje.",
+			"invalid": "Kod za deljenje nije ispravan ili je istekao.",
+			"rateLimited": "Previše pokušaja. Sačekajte trenutak i pokušajte ponovo.",
+			"unavailable": "Provera koda nije uspela. Proverite vezu i pokušajte ponovo.",
+			"scanInstead": "Možete i skenirati QR kod u sobi da biste započeli novi boravak."
+		},
 		"ScanLoading": {
 			"announce": "Loading your stay…"
 		},
@@ -173,26 +197,17 @@
 			"cta": "Nazad na početnu"
 		},
 		"ScanAccommodationPartnershipsEmpty": {
-			"title": "No perks linked yet",
-			"body": "Your host hasn’t connected this stay to a partner venue yet. Ask them about it — they can add perks in seconds."
+			"title": "Još nema povezanih partnera",
+			"body": "Domaćin još nije povezao ovaj boravak sa partnerskim objektom. Pitajte ga — partnere može dodati za nekoliko sekundi."
 		},
 		"ScanError": {
-			"title": "Couldn’t load your perks",
+			"title": "Učitavanje partnera nije uspelo",
 			"body": "Check your connection and try again.",
 			"cta": "Nazad na početnu"
 		},
 		"ScanSessionExpired": {
 			"title": "Your stay session has expired",
-			"body": "Scan the QR in your room to unlock your perks again."
-		},
-		"ScanUnlockRequired": {
-			"requiredTitle": "Unlock your stay perks",
-			"requiredBody": "Scan the QR code in your room to see partner discounts and offers for your stay."
-		},
-		"ScanAlreadyActive": {
-			"title": "Your stay is already unlocked",
-			"body": "You cannot activate again until your stay period ends. Your perks are on this page if you're using the same browser.",
-			"lockedBody": "This stay was already unlocked and is still active. Wait until the stay period ends, or open your perks from the browser where you first scanned."
+			"body": "Skenirajte QR kod u sobi da ponovo otključate partnere."
 		}
 	},
 	"HospitalityPage": {
@@ -902,6 +917,9 @@
 			"accommodationRequired": "Pick an accommodation.",
 			"hospitalityRequired": "Pick at least one hospitality venue.",
 			"discountRange": "Discount must be between 1 and 100, or leave blank."
+		},
+		"JoinGuestStaySchema": {
+			"sharingCodeInvalid": "Kod za deljenje nije ispravan."
 		}
 	},
 	"GenericMessages": {
@@ -934,6 +952,8 @@
 		"ACCOMMODATION_CANNOT_DELETE_ACTIVE_GUEST": "Ovaj smeštaj se ne može obrisati. U njemu je aktivan gost koji koristi aplikaciju — sačekajte da mu boravak istekne pa pokušajte ponovo.",
 		"GUEST_CREATED": "Boravak gosta je otključan.",
 		"GUEST_ALREADY_ACTIVE": "Ovaj boravak je već otključan.",
+		"GUEST_SHARING_CODE_INVALID": "Kod za deljenje nije ispravan ili je istekao.",
+		"GUEST_SHARED_ACCESS_GRANTED": "Pristup boravku je podeljen.",
 		"HOSPITALITY_NOT_FOUND": "Hospitality not found.",
 		"PARTNERSHIP_CREATED": "Partnership created.",
 		"PARTNERSHIPS_CREATED": "Created {count} partnerships.",

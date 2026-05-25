@@ -2,7 +2,7 @@
 import { query } from '@/convex/_generated/server';
 
 // HELPERS
-import { getActiveGuestSessionFromAuth } from '@/convex/tables/guests/helpers/getGuestSession';
+import { getActiveGuestSessionFromAuth } from '@/convex/tables/guests/helpers/getActiveGuestSessionFromAuth';
 
 // TYPES
 import type { CurrentGuest } from '@/convex/tables/guests/types/guestsTypes';

@@ -3,6 +3,14 @@ import type { GuestCookiePayload } from '@/convex/tables/guests/types/guestsType
 
 const encoder = new TextEncoder();
 
+function _guestSessionSecret(): string {
+	const secret = process.env.GUEST_STAY_COOKIE_SECRET?.trim();
+	if (!secret) {
+		throw new Error('GUEST_STAY_COOKIE_SECRET is not set in Convex environment');
+	}
+	return secret;
+}
+
 export function bufferToBase64Url(bytes: Uint8Array): string {
 	let binary = '';
 	for (const byte of bytes) binary += String.fromCharCode(byte);
@@ -27,7 +35,11 @@ export function decodeGuestSessionPayload(encoded: string): GuestCookiePayload |
 		const bytes = base64UrlToBuffer(encoded);
 		const json = new TextDecoder().decode(bytes);
 		const parsed = JSON.parse(json) as GuestCookiePayload;
-		if (typeof parsed.sessionToken !== 'string' || typeof parsed.exp !== 'number') {
+		const hasSharingCode = typeof parsed.sharingCode === 'string' && parsed.sharingCode.length > 0;
+		if (!hasSharingCode || typeof parsed.exp !== 'number') {
+			return null;
+		}
+		if (parsed.sessionToken !== undefined && typeof parsed.sessionToken !== 'string') {
 			return null;
 		}
 		return parsed;
@@ -36,7 +48,7 @@ export function decodeGuestSessionPayload(encoded: string): GuestCookiePayload |
 	}
 }
 
-export async function signGuestSessionValue(value: string, secret: string): Promise<string> {
+async function _signGuestSessionValue(value: string, secret: string): Promise<string> {
 	const key = await crypto.subtle.importKey(
 		'raw',
 		encoder.encode(secret),
@@ -48,7 +60,7 @@ export async function signGuestSessionValue(value: string, secret: string): Prom
 	return bufferToBase64Url(new Uint8Array(signature));
 }
 
-export async function verifyGuestSessionValue(
+async function _verifyGuestSessionValue(
 	value: string,
 	signature: string,
 	secret: string
@@ -68,19 +80,35 @@ export async function verifyGuestSessionValue(
 	}
 }
 
-/** Verifies the raw signed guest cookie value. Returns payload or `null`. */
-export async function verifyGuestSessionCookieValue(
-	rawCookie: string,
-	secret: string
+/** Verifies the raw signed guest cookie. Returns payload or `null`. */
+export async function verifyGuestSessionCookie(
+	rawCookie: string
 ): Promise<GuestCookiePayload | null> {
 	const dot = rawCookie.lastIndexOf('.');
 	if (dot <= 0) return null;
 
 	const encoded = rawCookie.slice(0, dot);
 	const signature = rawCookie.slice(dot + 1);
-	if (!(await verifyGuestSessionValue(encoded, signature, secret))) return null;
+	const secret = _guestSessionSecret();
+	if (!(await _verifyGuestSessionValue(encoded, signature, secret))) return null;
 
 	return decodeGuestSessionPayload(encoded);
+}
+
+/** Builds the signed HttpOnly cookie value for SvelteKit to `Set-Cookie`. */
+export async function signGuestStayCookie(options: {
+	expiresAt: number;
+	sharingCode: string;
+	sessionToken?: string;
+}): Promise<string> {
+	const { expiresAt, sessionToken, sharingCode } = options;
+	const encoded = encodeGuestSessionPayload({
+		sharingCode,
+		...(sessionToken ? { sessionToken } : {}),
+		exp: expiresAt
+	});
+	const signature = await _signGuestSessionValue(encoded, _guestSessionSecret());
+	return `${encoded}.${signature}`;
 }
 
 export function isGuestSessionCookieActive(
@@ -89,4 +117,10 @@ export function isGuestSessionCookieActive(
 ): boolean {
 	if (!payload) return false;
 	return payload.exp >= now;
+}
+
+/** True when the cookie signature is valid and `exp` has not passed. */
+export async function isGuestSessionCookieActiveRaw(rawCookie: string): Promise<boolean> {
+	const payload = await verifyGuestSessionCookie(rawCookie);
+	return isGuestSessionCookieActive(payload);
 }

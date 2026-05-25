@@ -8,14 +8,17 @@ import { createConvexHttpClient } from '@mmailaender/convex-better-auth-svelte/s
 // CONFIG
 import { COOKIE_NAMES } from '@/shared/config';
 
+// UTILS
+import { createCookie, deleteCookie } from '@/shared/utils/cookieUtils';
+
 // TYPES
 import type { CurrentGuest } from '@/convex/tables/guests/types/guestsTypes';
 import type { FunctionReturnType } from 'convex/server';
 import type { RequestHandler } from './$types';
 
-type MintGuestConvexAuthToken =
-	typeof api.tables.guests.actions.mintGuestConvexAuthToken.mintGuestConvexAuthToken;
-type MintGuestConvexAuthTokenResult = FunctionReturnType<MintGuestConvexAuthToken>;
+type CreateGuestConvexAuthToken =
+	typeof api.tables.guests.actions.createGuestConvexAuthToken.createGuestConvexAuthToken;
+type CreateGuestConvexAuthTokenResult = FunctionReturnType<CreateGuestConvexAuthToken>;
 
 const noStoreHeaders = {
 	'cache-control': 'no-store'
@@ -37,13 +40,32 @@ export const GET: RequestHandler = async ({ cookies }) => {
 	}
 
 	const client = createConvexHttpClient();
-	const result: MintGuestConvexAuthTokenResult = await client.action(
-		api.tables.guests.actions.mintGuestConvexAuthToken.mintGuestConvexAuthToken,
+	const result: CreateGuestConvexAuthTokenResult = await client.action(
+		api.tables.guests.actions.createGuestConvexAuthToken.createGuestConvexAuthToken,
 		{ guestStayCookie }
 	);
 
 	if ('token' in result) {
-		return json({ token: result.token }, { headers: noStoreHeaders });
+		if (!result.sharingCode) {
+			return unauthorized('missing');
+		}
+
+		if (result.signedCookie && result.expiresAt) {
+			createCookie(cookies, {
+				name: COOKIE_NAMES.GUEST_STAY,
+				value: result.signedCookie,
+				expires: result.expiresAt
+			});
+		}
+
+		return json(
+			{ token: result.token, sharingCode: result.sharingCode },
+			{ headers: noStoreHeaders }
+		);
+	}
+
+	if (result.status === 'expired') {
+		deleteCookie(cookies, COOKIE_NAMES.GUEST_STAY);
 	}
 
 	return unauthorized(result.status);

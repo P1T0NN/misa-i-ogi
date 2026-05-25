@@ -42,6 +42,12 @@ export const limitPresets = {
 		period: MINUTE,
 		capacity: 20
 	},
+	guestStayShareJoin: {
+		kind: 'token bucket' as const,
+		rate: 5,
+		period: MINUTE,
+		capacity: 5
+	},
 	authSignIn: {
 		kind: 'token bucket' as const,
 		rate: 5,
@@ -90,6 +96,7 @@ export const limitPresets = {
 export const convexRateLimitRegistry = {
 	// Guest QR activation (public mutation, IP-keyed at call site)
 	createGuest: limitPresets.guestStayActivate,
+	joinGuestBySharingCode: limitPresets.guestStayShareJoin,
 
 	// Domain admin writes
 	createAccommodation: limitPresets.interactiveWrite,

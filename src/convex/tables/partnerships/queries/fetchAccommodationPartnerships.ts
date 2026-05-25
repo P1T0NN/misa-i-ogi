@@ -1,7 +1,7 @@
 import { query } from '@/convex/_generated/server';
 
 // HELPERS
-import { getActiveGuestSessionFromAuth } from '@/convex/tables/guests/helpers/getGuestSession';
+import { getActiveGuestSessionFromAuth } from '@/convex/tables/guests/helpers/getActiveGuestSessionFromAuth';
 import { getAccommodationPartnershipsByAccommodationIdSafe } from '@/convex/tables/partnerships/helpers/getAccommodationPartnerships';
 
 // TYPES

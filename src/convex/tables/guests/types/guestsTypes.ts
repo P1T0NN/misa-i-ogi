@@ -6,7 +6,10 @@ export type GuestStatus = 'active' | 'expired' | 'missing';
 
 /** Signed HttpOnly cookie payload — raw `sessionToken` never stored in Convex. */
 export type GuestCookiePayload = {
-	sessionToken: string;
+	/** Primary QR activation grant; raw value is never stored in Convex. */
+	sessionToken?: string;
+	/** Sharing grant and display code; only its hash is stored in Convex. */
+	sharingCode: string;
 	exp: number;
 };
 
@@ -23,3 +26,7 @@ export type CurrentGuest = {
 };
 
 export type CreateGuestResult = ConvexMutationResult<{ signedCookie: string }>;
+export type JoinGuestBySharingCodeResult = ConvexMutationResult<{
+	signedCookie: string;
+	expiresAt: number;
+}>;
