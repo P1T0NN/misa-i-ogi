@@ -27,6 +27,7 @@
 		"dashboard": "Kontrolna tabla",
 		"myAccommodations": "Moji smeštaji",
 		"myHospitalities": "Moji ugostiteljski objekti",
+		"reservations": "Rezervacije",
 		"goToAdminPage": "Idi na admin stranicu",
 		"backToHome": "Nazad na početnu"
 	},
@@ -146,6 +147,8 @@
 		"typeOther": "Ostalo"
 	},
 	"HospitalityData": {
+		"managedReservationsTitle": "Upravljane rezervacije",
+		"managedReservationsDescription": "Gosti putem aplikacije šalju zahtev za termin rezervacije. Svaki zahtev možete pregledati, prihvatiti ili odbiti, a zahtev ostaje zabeležen u vašoj kontrolnoj tabli.",
 		"typeRestaurant": "Restoran",
 		"typeCafe": "Kafić",
 		"typeBar": "Bar",
@@ -155,25 +158,21 @@
 		"typeTour": "Tura",
 		"typeOtherVenue": "Ostalo"
 	},
-	"ScanPage": {
-		"metaBrand": "Konak",
-		"eyebrow": "Vaš boravak",
-		"partnerBenefitsEyebrow": "Uključeno u vaš boravak",
-		"partnersTitle": "Vaši partneri u gradu {city}",
-		"partnersLead": "Pokažite ovu stranicu osoblju partnerskog objekta. Nije potrebna aplikacija ni nalog.",
-		"perkRedeemHint": "Show this screen to staff",
-		"perkOff": "popusta",
-		"perkViewDetails": "Pogledaj detalje",
-		"addressFooterEyebrow": "Need to share where you are?",
-		"addressFooterLabel": "Adresa",
-		"ScanSharingCode": {
+	"StayPage": {
+		"StayAccommodationData": {
+			"eyebrow": "Vaš boravak"
+		},
+		"StaySharingCode": {
 			"eyebrow": "Podelite boravak",
 			"title": "Omogućite pristup osobama u smeštaju",
 			"body": "Osobe koje borave sa vama mogu skenirati QR kod u sobi, zatim uneti ovaj kod za deljenje.",
 			"privacy": "Podelite ovaj kod samo sa osobama koje borave u vašem smeštaju.",
 			"copy": "Kopiraj kod za deljenje"
 		},
-		"ScanShareAccess": {
+		"StayJoinAccess": {
+			"eyebrow": "Vaš boravak"
+		},
+		"StayJoinAccessForm": {
 			"title": "Pristupite otključanom boravku",
 			"activeTitle": "Neko je već otključao ovaj boravak",
 			"body": "Ako boravite zajedno, unesite kod za deljenje sa stranice partnera da pristupite istim partnerima na ovom uređaju.",
@@ -188,113 +187,120 @@
 			"unavailable": "Provera koda nije uspela. Proverite vezu i pokušajte ponovo.",
 			"scanInstead": "Možete i skenirati QR kod u sobi da biste započeli novi boravak."
 		},
-		"ScanLoading": {
-			"announce": "Loading your stay…"
+		"StayLoading": {
+			"announce": "Učitavanje boravka…"
 		},
-		"ScanEmpty": {
-			"title": "Stay not found",
-			"body": "This QR points to a stay that isn’t active. Double-check the code or ask your host.",
+		"StayEmpty": {
+			"title": "Boravak nije pronađen",
+			"body": "Ovaj QR vodi ka boravku koji nije aktivan. Proverite kod ili pitajte domaćina.",
 			"cta": "Nazad na početnu"
 		},
-		"ScanAccommodationPartnershipsEmpty": {
+		"StayPartnershipsEmpty": {
 			"title": "Još nema povezanih partnera",
 			"body": "Domaćin još nije povezao ovaj boravak sa partnerskim objektom. Pitajte ga — partnere može dodati za nekoliko sekundi."
 		},
-		"ScanError": {
+		"StayError": {
 			"title": "Učitavanje partnera nije uspelo",
-			"body": "Check your connection and try again.",
+			"body": "Proverite internet vezu i pokušajte ponovo.",
 			"cta": "Nazad na početnu"
 		},
-		"ScanSessionExpired": {
-			"title": "Your stay session has expired",
+		"StayPartnershipsError": {
+			"title": "Učitavanje partnera nije uspelo",
+			"body": "Proverite internet vezu i pokušajte ponovo."
+		},
+		"StayPartnershipsLoading": {
+			"announce": "Učitavanje partnera…"
+		},
+		"StayExpiredAccess": {
+			"eyebrow": "Vaš boravak",
+			"title": "Sesija boravka je istekla",
 			"body": "Skenirajte QR kod u sobi da ponovo otključate partnere."
+		},
+		"StayPartnershipsSection": {
+			"partnerBenefitsEyebrow": "Uključeno u vaš boravak",
+			"partnersTitle": "Vaši partneri u gradu {city}",
+			"partnersLead": "Pokažite ovu stranicu osoblju partnerskog objekta. Nije potrebna aplikacija ni nalog."
+		},
+		"StayPartnershipsSectionItem": {
+			"off": "popusta",
+			"viewDetails": "Pogledaj detalje"
 		}
 	},
 	"HospitalityPage": {
-		"metaBrand": "Konak",
 		"navHome": "Početna",
 		"navHowItWorks": "How it works",
 		"navDemo": "Try the demo",
 		"navPartners": "For partners",
 		"navCta": "Try the demo",
-		"crumbKonak": "Konak",
-		"crumbVenues": "Venues",
-		"statusPartner": "Konak partner · perks accepted here",
-		"coverFallbackLabel": "Venue",
-		"coverFallbackAria": "Placeholder image for this venue",
+		"crumbVenues": "Ugostiteljski objekti",
+		"statusPartner": "{companyName} partner · perks accepted here",
+		"coverFallbackLabel": "Ugostiteljski objekat",
+		"coverFallbackAria": "Placeholder image for this hospitality",
 		"addressLineMeta": "{address} · {city} · {country}",
-		"heroLeadFallback": "A Konak partner venue — see your guest perk below.",
+		"heroLeadFallback": "A {companyName} partner hospitality — see your guest perk below.",
 		"contactCall": "Call",
-		"contactEmail": "Email",
-		"contactWeb": "Website",
 		"factType": "Tip",
 		"factAddress": "Adresa",
 		"factArea": "Location",
-		"ctaSeePerk": "View Konak perk",
+		"ctaSeePerk": "View {companyName} perk",
 		"ctaFindStay": "Find a stay",
 		"aboutEyebrow": "About",
-		"aboutTitle": "About this venue",
-		"aboutSideNote": "Details from the venue’s listing.",
+		"aboutTitle": "O ovom objektu",
+		"aboutSideNote": "Detalji iz objave ugostiteljskog objekta.",
 		"perkEyebrow": "Sample perk",
 		"perkMedallionLabel": "Sample",
 		"perkMedallionSub": "off the full bill",
 		"perkMedallionSubNodiscount": "Partner offer",
-		"perkFootnote": "The exact offer depends on which Konak stay you scan from.",
-		"perkFallbackLine1": "Show your Konak stay on arrival.",
+		"perkFootnote": "The exact offer depends on which {companyName} stay you scan from.",
+		"perkFallbackLine1": "Show your {companyName} stay on arrival.",
 		"perkFallbackLine2": "Staff confirm the stay with one tap.",
 		"perkFallbackLine3": "Discount follows what’s agreed for your stay.",
 		"redeemEyebrow": "Redeem",
 		"redeemTitle": "Three quick steps at the door.",
 		"redeem1Step": "At the stay",
 		"redeem1Title": "Scan the QR at the entrance.",
-		"redeemBody1": "Opens the perk list for your exact stay. {venueName} appears when your host has linked this venue.",
-		"redeem2Step": "At the venue",
-		"redeem2Title": "Show your screen to staff.",
-		"redeemBody2": "Your host confirms the stay — no printouts, no extra app.",
-		"redeem3Step": "At checkout",
-		"redeem3Title": "The offer is applied at the till.",
-		"redeemBody3": "Pay however the venue accepts; the perk follows what your Konak page shows.",
-		"practicalEyebrow": "Book",
-		"practicalTitle": "Reserve or get in touch",
+		"redeemBody1": "Otvara listu pogodnosti za vaš boravak. {venueName} se prikazuje kada domaćin poveže ovaj ugostiteljski objekat.",
+		"redeem2Step": "U ugostiteljskom objektu",
+		"redeem2Title": "Pokažite ekran osoblju.",
+		"redeemBody2": "Domaćin potvrđuje boravak — bez štampanja i dodatne aplikacije.",
+		"redeem3Step": "Pri plaćanju",
+		"redeem3Title": "Ponuda se primenjuje na računu.",
+		"redeemBody3": "Platite kako ugostiteljski objekat prihvata; pogodnost prati ono što piše na vašoj {companyName} stranici.",
+		"practicalEyebrow": "Kontakt",
+		"practicalTitle": "Kontaktirajte ugostiteljski objekat",
 		"reserveEyebrow": "Reservations",
 		"reserveTitle": "How to reserve",
-		"reserveLead": "This venue handles bookings directly. Use their website when available, or call or email them.",
-		"reserveBulletWebsite": "Open their official site to check availability and book.",
 		"reserveBulletPhone": "Call to ask about availability or to reserve.",
-		"reserveBulletEmail": "Email for reservations or other questions.",
-		"reserveWebsiteCta": "Visit website",
-		"reserveNoChannels": "No website or contact details are listed yet.",
-		"venueDetailsTitle": "Venue details",
+		"reserveNoChannels": "Broj telefona još nije naveden.",
+		"hospitalityDetailsTitle": "Detalji ugostiteljskog objekta",
 		"dlType": "Tip",
 		"dlAddress": "Adresa",
 		"dlPhone": "Phone",
-		"dlEmail": "Email",
-		"dlWebsite": "Website",
 		"dlPartner": "Active partner",
-		"partnerYes": "Yes — accepts Konak perks",
+		"partnerYes": "Yes — accepts {companyName} perks",
 		"partnerNo": "Not accepting perks at the moment",
 		"staysEyebrow": "Featured at",
-		"staysTitle": "Stays that unlock this venue",
+		"staysTitle": "Boravci koji otključavaju ovaj ugostiteljski objekat",
 		"staysAll": "All stays",
-		"staysLead": "Guests of these Konak stays get a perk here. Scan the QR in your room to see your specific offer.",
+		"staysLead": "Guests of these {companyName} stays get a perk here. Scan the QR in your room to see your specific offer.",
 		"staysPerkActive": "Perk active",
 		"staysPerkCount": "{count} active perks",
 		"staysPerkCountOne": "1 active perk",
 		"staysCardCta": "View stay",
-		"staysFootnote": "{venueName} offers this for guests of linked Konak stays.",
-		"staysEmpty": "When hosts connect their places to this venue, they’ll show up here.",
+		"staysFootnote": "{venueName} nudi ovo gostima povezanih {companyName} boravaka.",
+		"staysEmpty": "Kada domaćini povežu svoje smeštaje sa ovim ugostiteljskim objektom, pojaviće se ovde.",
 		"ctaStripEyebrow": "Guest view",
 		"ctaStripTitle": "The QR journey from start to finish.",
-		"ctaStripLead": "Explore Konak from home — scan at the door for the full perk list.",
-		"ctaStripPrimary": "Konak home",
+		"ctaStripLead": "Explore {companyName} from home — scan at the door for the full perk list.",
+		"ctaStripPrimary": "{companyName} home",
 		"ctaStripSecondary": "Sign in",
 		"footerTagline": "Stay anywhere. Unlock the city.",
 		"footerGuests": "Guests",
-		"footerGuestsHow": "How Konak works",
+		"footerGuestsHow": "How {companyName} works",
 		"footerGuestsDemo": "Try the demo",
 		"footerPartners": "Partners",
 		"footerPartnersHosts": "For hosts",
-		"footerPartnersVenues": "For venues",
+		"footerPartnersVenues": "Za ugostiteljske objekte",
 		"footerPartnersLogin": "Partner login",
 		"footerCompany": "Company",
 		"footerCompanyContact": "Kontakt",
@@ -306,14 +312,16 @@
 			"cta": "Nazad na početnu"
 		},
 		"HospitalityEmpty": {
-			"title": "Venue not available",
-			"body": "This partner page is missing or no longer active.",
+			"title": "Ugostiteljski objekat nije dostupan",
+			"body": "Ova stranica ugostiteljskog objekta ne postoji ili više nije aktivna.",
+			"notPartneredTitle": "Ovaj ugostiteljski objekat nije uključen u vaš boravak",
+			"notPartneredBody": "Ovaj smeštaj nije povezan sa ovim ugostiteljskim objektom. Otvorite ugostiteljski objekat sa liste partnera vašeg boravka.",
 			"cta": "Nazad na početnu"
 		},
 		"HospitalityLoading": {
-			"announce": "Loading venue…"
+			"announce": "Učitavanje ugostiteljskog objekta…"
 		},
-		"shareAria": "Share this venue",
+		"shareAria": "Podeli ovaj ugostiteljski objekat",
 		"shareLabel": "Share"
 	},
 	"SignUpForm": {
@@ -534,7 +542,7 @@
 	},
 	"AdminPartnershipAddPage": {
 		"title": "Dodaj partnerstvo",
-		"description": "Connect a stay to a partner venue. Guests of that accommodation see the offer after scanning the QR.",
+		"description": "Povežite boravak sa partnerskim ugostiteljskim objektom. Gosti tog smeštaja vide ponudu nakon skeniranja QR koda.",
 		"back": "Back to list",
 		"submit": "Create partnerships",
 		"sectionPartnersTitle": "Partners",
@@ -567,7 +575,7 @@
 	},
 	"AdminHospitalitiesPage": {
 		"title": "Ugostiteljski objekti",
-		"description": "Partner venues — dining, experiences, and services linked to accommodations via partnerships.",
+		"description": "Partnerski ugostiteljski objekti — restorani, iskustva i usluge povezani sa smeštajima kroz partnerstva.",
 		"caption": "Ugostiteljski objekti",
 		"columnName": "Naziv",
 		"columnType": "Tip",
@@ -583,18 +591,18 @@
 	},
 	"AdminHospitalityAddPage": {
 		"title": "Dodaj objekat",
-		"description": "Register a new partner venue. You can edit any field later.",
+		"description": "Registrujte novi partnerski ugostiteljski objekat. Svako polje možete kasnije izmeniti.",
 		"back": "Back to list",
 		"sectionBasicsTitle": "Basics",
 		"sectionBasicsDescription": "What guests will see in the benefits list.",
 		"sectionLocationTitle": "Location",
 		"sectionLocationDescription": "Used for the public benefits page and admin filtering.",
 		"sectionContactTitle": "Kontakt",
-		"sectionContactDescription": "Optional — shown to guests on the benefits page when present.",
+		"sectionContactDescription": "Broj telefona putem kog gosti mogu kontaktirati objekat.",
 		"sectionCoverTitle": "Cover image",
 		"sectionCoverDescription": "Shown on the public benefits page. PNG or JPG recommended; aim for a wide aspect ratio.",
 		"sectionDetailsTitle": "Details",
-		"sectionDetailsDescription": "Optional notes and visibility.",
+		"sectionDetailsDescription": "Opis, rezervacije i vidljivost.",
 		"fieldName": "Naziv",
 		"fieldNamePlaceholder": "La Tapería",
 		"fieldType": "Tip",
@@ -607,16 +615,11 @@
 		"fieldCountryPlaceholder": "Spain",
 		"fieldContactPhone": "Phone",
 		"fieldContactPhonePlaceholder": "+34 600 000 000",
-		"fieldContactEmail": "Email",
-		"fieldContactEmailPlaceholder": "hello@venue.com",
-		"fieldWebsite": "Website",
-		"fieldWebsitePlaceholder": "https://venue.com",
-		"fieldReservationRequestsEnabled": "Zahtevi za rezervacije",
-		"fieldReservationRequestsEnabledDescription": "Gosti mogu da posalju zahtev za rezervaciju kroz Konak, a objekat ga prihvata ili odbija u dashboardu.",
+		"fieldReservationMode": "Način rezervacije",
 		"fieldDescription": "Opis",
 		"fieldDescriptionPlaceholder": "Short description shown on the benefits page (optional).",
 		"fieldIsActive": "Aktivan",
-		"fieldIsActiveDescription": "Inactive venues stay in the database but won't appear in benefit lists.",
+		"fieldIsActiveDescription": "Neaktivni ugostiteljski objekti ostaju u bazi, ali se ne prikazuju na listama benefita.",
 		"fieldCoverImage": "Cover image",
 		"submit": "Create hospitality"
 	},
@@ -633,7 +636,7 @@
 		"sectionLocationTitle": "Lokacija",
 		"sectionLocationDescription": "Prikazuje se na javnoj stranici objekta.",
 		"sectionContactTitle": "Kontakt",
-		"sectionContactDescription": "Kako vas gosti mogu kontaktirati.",
+		"sectionContactDescription": "Broj telefona putem kog gosti mogu kontaktirati objekat.",
 		"sectionCoverTitle": "Naslovna slika",
 		"sectionCoverDescription": "Ostavite prazno da zadržite trenutnu sliku. Preporučeni PNG ili JPG.",
 		"currentCoverAlt": "Trenutna naslovna slika za {name}",
@@ -651,12 +654,7 @@
 		"fieldCountryPlaceholder": "Španija",
 		"fieldContactPhone": "Telefon",
 		"fieldContactPhonePlaceholder": "+381 60 000 0000",
-		"fieldContactEmail": "Email",
-		"fieldContactEmailPlaceholder": "hello@venue.com",
-		"fieldWebsite": "Vebsajt",
-		"fieldWebsitePlaceholder": "https://venue.com",
-		"fieldReservationRequestsEnabled": "Zahtevi za rezervacije",
-		"fieldReservationRequestsEnabledDescription": "Gosti mogu da pošalju zahtev kroz Konak, a vi ga prihvatate ili odbijate u dashboardu.",
+		"fieldReservationMode": "Način rezervacije",
 		"fieldDescription": "Opis",
 		"fieldDescriptionPlaceholder": "Kratak opis na stranici benefita.",
 		"fieldIsActive": "Aktivan",
@@ -719,7 +717,6 @@
 			"clear": "Clear"
 		}
 	},
-
 	"AdminUserAddPage": {
 		"title": "Dodaj korisnika",
 		"description": "Kreirajte nalog koji kasnije moze da bude vlasnik smestaja ili ugostiteljskog objekta.",
@@ -745,7 +742,6 @@
 		"fieldEmailVerified": "Email verifikovan",
 		"fieldEmailVerifiedDescription": "Ukljucite samo ako ste vec potvrdili ovu adresu. U suprotnom korisnik mora da je verifikuje pre prijave."
 	},
-
 	"AdminUserPage": {
 		"UserTabs": {
 			"overview": "Overview",
@@ -909,8 +905,6 @@
 			"countryRequired": "Country is required.",
 			"descriptionRequired": "Description is required.",
 			"phoneRequired": "Phone number is required.",
-			"emailInvalid": "Enter a valid email.",
-			"websiteInvalid": "Enter a valid URL (https://…).",
 			"coverRequired": "Add a cover image."
 		},
 		"CreatePartnershipSchema": {
@@ -920,6 +914,12 @@
 		},
 		"JoinGuestStaySchema": {
 			"sharingCodeInvalid": "Kod za deljenje nije ispravan."
+		},
+		"CreateReservationSchema": {
+			"guestNameRequired": "Ime gosta je obavezno.",
+			"timeInvalid": "Unesite ispravno vreme (HH:MM).",
+			"phoneRequired": "Broj telefona je obavezan.",
+			"emailInvalid": "Unesite ispravnu email adresu."
 		}
 	},
 	"GenericMessages": {
@@ -954,7 +954,12 @@
 		"GUEST_ALREADY_ACTIVE": "Ovaj boravak je već otključan.",
 		"GUEST_SHARING_CODE_INVALID": "Kod za deljenje nije ispravan ili je istekao.",
 		"GUEST_SHARED_ACCESS_GRANTED": "Pristup boravku je podeljen.",
-		"HOSPITALITY_NOT_FOUND": "Hospitality not found.",
+		"HOSPITALITY_NOT_FOUND": "Ugostiteljski objekat nije pronađen.",
+		"RESERVATION_CREATED": "Zahtev za rezervaciju je poslat.",
+		"RESERVATION_CONFIRMED": "Rezervacija je potvrđena.",
+		"RESERVATION_CANCELLED": "Rezervacija je otkazana.",
+		"RESERVATION_NOT_FOUND": "Rezervacija nije pronađena.",
+		"RESERVATION_ALREADY_PROCESSED": "Ova rezervacija je već obrađena.",
 		"PARTNERSHIP_CREATED": "Partnership created.",
 		"PARTNERSHIPS_CREATED": "Created {count} partnerships.",
 		"PARTNERSHIP_PAIR_EXISTS": "This accommodation is already linked to that venue.",

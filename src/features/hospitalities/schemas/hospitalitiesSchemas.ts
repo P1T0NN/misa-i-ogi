@@ -37,22 +37,16 @@ export const hospitalityAddFormSchema = v.object({
 		v.trim(),
 		v.minLength(1, m['ValidationMessages.CreateHospitalitySchema.phoneRequired']())
 	),
-	// Optional but format-checked when non-empty: empty string passes via the literal branch.
-	contactEmail: v.union([
-		v.literal(''),
-		v.pipe(v.string(), v.trim(), v.email(m['ValidationMessages.CreateHospitalitySchema.emailInvalid']()))
-	]),
-	website: v.union([
-		v.literal(''),
-		v.pipe(v.string(), v.trim(), v.url(m['ValidationMessages.CreateHospitalitySchema.websiteInvalid']()))
-	]),
+	reservationMode: v.literal('managed_request'),
 	ownerId: v.optional(v.pipe(v.string(), v.trim())),
-	reservationRequestsEnabled: v.boolean(),
 	isActive: v.boolean(),
 	// `null` until the user picks a file; validated as a real `File` on submit, then swapped for an R2 key.
 	coverImageKey: v.pipe(
 		v.union([v.null(), v.file()]),
-		v.check((input) => input instanceof File, m['ValidationMessages.CreateHospitalitySchema.coverRequired']())
+		v.check(
+			(input) => input instanceof File,
+			m['ValidationMessages.CreateHospitalitySchema.coverRequired']()
+		)
 	)
 });
 
@@ -94,15 +88,7 @@ export const hospitalityEditFormSchema = v.object({
 		v.trim(),
 		v.minLength(1, m['ValidationMessages.CreateHospitalitySchema.phoneRequired']())
 	),
-	contactEmail: v.union([
-		v.literal(''),
-		v.pipe(v.string(), v.trim(), v.email(m['ValidationMessages.CreateHospitalitySchema.emailInvalid']()))
-	]),
-	website: v.union([
-		v.literal(''),
-		v.pipe(v.string(), v.trim(), v.url(m['ValidationMessages.CreateHospitalitySchema.websiteInvalid']()))
-	]),
-	reservationRequestsEnabled: v.boolean(),
+	reservationMode: v.literal('managed_request'),
 	isActive: v.boolean(),
 	coverImageKey: v.optional(v.union([v.null(), v.file()]))
 });

@@ -1,3 +1,5 @@
+import { COMPANY_DATA } from '@/shared/constants';
+
 export const DEMO_TOTAL_STEPS = 6 as const;
 
 export type DemoVenueKey =
@@ -140,7 +142,7 @@ export type DemoNarrStep = {
 /** Keys 1..DEMO_TOTAL_STEPS */
 export const DEMO_NARR: Record<number, DemoNarrStep> = {
 	1: {
-		title: "You've just walked into a Konak apartment.",
+		title: `You've just walked into a ${COMPANY_DATA.NAME} apartment.`,
 		body: 'A small framed card sits by the entryway. The phone screen shows what a guest sees the second they arrive — a friendly hello tied to this specific unit, and a single button to open the camera.',
 		keyTag: 'NO APP',
 		key: 'No download, no signup. The opening screen lives at a regular web link the card prints out.'

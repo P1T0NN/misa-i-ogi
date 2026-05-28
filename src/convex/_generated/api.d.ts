@@ -94,9 +94,21 @@ import type * as tables_partnerships_mutations_deletePartnerships from "../table
 import type * as tables_partnerships_queries_fetchAccommodationPartnerships from "../tables/partnerships/queries/fetchAccommodationPartnerships.js";
 import type * as tables_partnerships_queries_fetchAllPartnerships from "../tables/partnerships/queries/fetchAllPartnerships.js";
 import type * as tables_partnerships_types_partnershipsTypes from "../tables/partnerships/types/partnershipsTypes.js";
+import type * as tables_reservations_helpers_createFetchReservationsQuery from "../tables/reservations/helpers/createFetchReservationsQuery.js";
+import type * as tables_reservations_helpers_getReservations from "../tables/reservations/helpers/getReservations.js";
+import type * as tables_reservations_mutations_cancelReservation from "../tables/reservations/mutations/cancelReservation.js";
+import type * as tables_reservations_mutations_confirmReservation from "../tables/reservations/mutations/confirmReservation.js";
+import type * as tables_reservations_mutations_createReservation from "../tables/reservations/mutations/createReservation.js";
+import type * as tables_reservations_queries_fetchCancelledReservations from "../tables/reservations/queries/fetchCancelledReservations.js";
+import type * as tables_reservations_queries_fetchConfirmedReservations from "../tables/reservations/queries/fetchConfirmedReservations.js";
+import type * as tables_reservations_queries_fetchNoShowReservations from "../tables/reservations/queries/fetchNoShowReservations.js";
+import type * as tables_reservations_queries_fetchPendingReservations from "../tables/reservations/queries/fetchPendingReservations.js";
+import type * as tables_reservations_queries_fetchReservationsSummary from "../tables/reservations/queries/fetchReservationsSummary.js";
+import type * as tables_reservations_types_reservationsTypes from "../tables/reservations/types/reservationsTypes.js";
 import type * as tables_users_userMutations from "../tables/users/userMutations.js";
 import type * as tables_users_userQueries from "../tables/users/userQueries.js";
 import type * as types_convexTypes from "../types/convexTypes.js";
+import type * as utils_convexValidationUtils from "../utils/convexValidationUtils.js";
 
 import type {
   ApiFromModules,
@@ -191,9 +203,21 @@ declare const fullApi: ApiFromModules<{
   "tables/partnerships/queries/fetchAccommodationPartnerships": typeof tables_partnerships_queries_fetchAccommodationPartnerships;
   "tables/partnerships/queries/fetchAllPartnerships": typeof tables_partnerships_queries_fetchAllPartnerships;
   "tables/partnerships/types/partnershipsTypes": typeof tables_partnerships_types_partnershipsTypes;
+  "tables/reservations/helpers/createFetchReservationsQuery": typeof tables_reservations_helpers_createFetchReservationsQuery;
+  "tables/reservations/helpers/getReservations": typeof tables_reservations_helpers_getReservations;
+  "tables/reservations/mutations/cancelReservation": typeof tables_reservations_mutations_cancelReservation;
+  "tables/reservations/mutations/confirmReservation": typeof tables_reservations_mutations_confirmReservation;
+  "tables/reservations/mutations/createReservation": typeof tables_reservations_mutations_createReservation;
+  "tables/reservations/queries/fetchCancelledReservations": typeof tables_reservations_queries_fetchCancelledReservations;
+  "tables/reservations/queries/fetchConfirmedReservations": typeof tables_reservations_queries_fetchConfirmedReservations;
+  "tables/reservations/queries/fetchNoShowReservations": typeof tables_reservations_queries_fetchNoShowReservations;
+  "tables/reservations/queries/fetchPendingReservations": typeof tables_reservations_queries_fetchPendingReservations;
+  "tables/reservations/queries/fetchReservationsSummary": typeof tables_reservations_queries_fetchReservationsSummary;
+  "tables/reservations/types/reservationsTypes": typeof tables_reservations_types_reservationsTypes;
   "tables/users/userMutations": typeof tables_users_userMutations;
   "tables/users/userQueries": typeof tables_users_userQueries;
   "types/convexTypes": typeof types_convexTypes;
+  "utils/convexValidationUtils": typeof utils_convexValidationUtils;
 }>;
 
 /**

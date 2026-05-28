@@ -1,3 +1,6 @@
+// LIBRARIES
+import { getLocale } from "../lib/paraglide/runtime";
+
 /**
  * Get current date/time
  */
@@ -102,3 +105,23 @@ export function formatTs(ts: number | string): string {
 	return Number.isNaN(d.getTime()) ? '—' : d.toLocaleString();
 }
 
+
+export function formatDate(iso: string) {
+    const locale = getLocale();
+	
+	return new Date(iso).toLocaleDateString(locale, {
+		month: 'short',
+		day: 'numeric',
+		year: 'numeric'
+	});
+}
+
+export function formatTime(time: string) {
+    const locale = getLocale();
+    
+	const [h, m] = time.split(':').map(Number);
+	return new Date(0, 0, 0, h, m).toLocaleTimeString(locale, {
+		hour: 'numeric',
+		minute: '2-digit'
+	});
+}

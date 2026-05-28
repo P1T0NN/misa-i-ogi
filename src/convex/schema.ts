@@ -78,10 +78,8 @@ const schema = defineSchema({
 		description: v.string(),
 
 		contactPhone: v.string(),
-		contactEmail: v.optional(v.string()),
-		website: v.optional(v.string()),
-		/** Enables Konak-hosted reservation requests that venue owners can accept or decline. */
-		reservationRequestsEnabled: v.optional(v.boolean()),
+		/** Reservation requests are managed in-app for every venue. */
+		reservationMode: v.literal('managed_request'),
 
 		ownerId: v.string(),
 
@@ -130,6 +128,40 @@ const schema = defineSchema({
 		.index('by_session_token_hash', ['sessionTokenHash'])
 		.index('by_sharing_code_hash', ['sharingCodeHash'])
 		.index('by_accommodation', ['accommodationId']),
+
+	/**
+	 * Reservation requests submitted by guests on hospitality pages. Each
+	 * reservation links a guest to a hospitality venue. Owners review and
+	 * confirm/cancel requests; analytics later join on `guestId`.
+	 */
+	reservations: defineTable({
+		hospitalityId: v.id('hospitalities'),
+		/** Denormalized from `hospitalities.name` for owner-facing reservation lists. */
+		hospitalityName: v.string(),
+		/** Denormalized from `hospitalities.ownerId` for efficient owner-scoped dashboards. */
+		hospitalityOwnerId: v.string(),
+		guestId: v.id('guests'),
+		accommodationId: v.id('accommodations'),
+
+		guestName: v.string(),
+		email: v.string(),
+		phone: v.string(),
+		/** Guest-chosen time slot ("HH:mm" in 24h format). */
+		requestedTime: v.string(),
+
+		status: v.union(
+			v.literal('pending'),
+			v.literal('confirmed'),
+			v.literal('cancelled'),
+			v.literal('no_show')
+		)
+	})
+		.index('by_hospitality', ['hospitalityId'])
+		.index('by_hospitality_owner', ['hospitalityOwnerId'])
+		.index('by_hospitality_owner_status', ['hospitalityOwnerId', 'status'])
+		.index('by_guest', ['guestId'])
+		.index('by_accommodation', ['accommodationId'])
+		.index('by_status', ['status']),
 
 	/** Cloudflare R2 file reference + cached download URL. Owner-stamped at upload. */
 	uploadedFilesR2: defineTable({

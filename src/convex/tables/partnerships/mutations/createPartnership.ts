@@ -6,6 +6,9 @@ import { AUDIT_ACTIONS } from '@/convex/tables/auditLog/auditLogConfigs';
 // VALIDATORS
 import { mutationResultValidator } from '@/convex/schemas/mutationResult';
 
+// UTILS
+import { normalizeOptionalNumber } from '@/convex/utils/convexValidationUtils';
+
 // TYPES
 import type { MutationResult } from '@/convex/schemas/mutationResult';
 
@@ -28,17 +31,15 @@ export const createPartnership = adminMutation('createPartnership')({
 			return { success: false, message: { key: 'GenericMessages.ACCOMMODATION_NOT_FOUND' } };
 		}
 
-		const rawDiscount = args.discountPercentage?.trim();
-		let discountPercentage: number | undefined;
-		if (rawDiscount) {
-			const n = Number(rawDiscount);
-			if (Number.isNaN(n) || n < 1 || n > 100) {
-				return {
-					success: false,
-					message: { key: 'GenericMessages.PARTNERSHIP_DISCOUNT_INVALID' }
-				};
-			}
-			discountPercentage = n;
+		const discountPercentage = normalizeOptionalNumber(args.discountPercentage, {
+			min: 1,
+			max: 100
+		});
+		if (discountPercentage === null) {
+			return {
+				success: false,
+				message: { key: 'GenericMessages.PARTNERSHIP_DISCOUNT_INVALID' }
+			};
 		}
 
 		for (const hospitalityId of hospitalityIds) {

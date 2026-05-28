@@ -1,4 +1,7 @@
 <script lang="ts">
+	// CONFIG
+	import { COMPANY_DATA, PROTECTED_PAGE_ENDPOINTS } from '@/shared/constants.js';
+
 	// COMPONENTS
 	import SvelteHead from '@/shared/components/ui/svelte-head/svelte-head.svelte';
 	import { Badge } from '@/shared/components/ui/badge/index.js';
@@ -13,17 +16,16 @@
 	import { Separator } from '@/shared/components/ui/separator/index.js';
 
 	// LUCIDE ICONS
+	import ArrowRightIcon from '@lucide/svelte/icons/arrow-right';
 	import BedDoubleIcon from '@lucide/svelte/icons/bed-double';
 	import Building2Icon from '@lucide/svelte/icons/building-2';
 	import CalendarCheckIcon from '@lucide/svelte/icons/calendar-check';
-	import CheckIcon from '@lucide/svelte/icons/check';
-	import ClockIcon from '@lucide/svelte/icons/clock';
+		import ClockIcon from '@lucide/svelte/icons/clock';
 	import Link2Icon from '@lucide/svelte/icons/link-2';
 	import MapPinIcon from '@lucide/svelte/icons/map-pin';
 	import SettingsIcon from '@lucide/svelte/icons/settings';
 	import StoreIcon from '@lucide/svelte/icons/store';
-	import XIcon from '@lucide/svelte/icons/x';
-
+	
 	type DashboardStat = {
 		label: string;
 		value: string;
@@ -48,7 +50,6 @@
 		location: string;
 		status: 'Active' | 'Inactive';
 		connectedStays: number;
-		reservationRequestsEnabled: boolean;
 		pendingRequests: number;
 	};
 
@@ -81,9 +82,9 @@
 			icon: Link2Icon
 		},
 		{
-			label: 'Requests',
+			label: 'Reservations',
 			value: '2',
-			detail: 'Reservation requests waiting',
+			detail: 'Pending guest requests',
 			icon: CalendarCheckIcon
 		}
 	];
@@ -117,7 +118,6 @@
 			location: 'Cetinjska, Belgrade',
 			status: 'Active',
 			connectedStays: 2,
-			reservationRequestsEnabled: true,
 			pendingRequests: 2
 		},
 		{
@@ -127,7 +127,6 @@
 			location: 'Dorchol, Belgrade',
 			status: 'Active',
 			connectedStays: 1,
-			reservationRequestsEnabled: false,
 			pendingRequests: 0
 		},
 		{
@@ -137,7 +136,6 @@
 			location: 'Kalemegdan, Belgrade',
 			status: 'Active',
 			connectedStays: 2,
-			reservationRequestsEnabled: false,
 			pendingRequests: 0
 		}
 	];
@@ -167,18 +165,20 @@
 <section class="flex w-full flex-col gap-6 py-4 md:py-6 lg:gap-8">
 	<header class="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
 		<div class="flex max-w-3xl flex-col gap-2">
-			<p class="text-primary font-mono text-xs font-medium uppercase tracking-[0.14em]">
+			<p class="font-mono text-xs font-medium tracking-[0.14em] text-primary uppercase">
 				Partner dashboard
 			</p>
 			<h1 class="text-2xl font-semibold tracking-tight sm:text-3xl">Your connected places</h1>
-			<p class="text-muted-foreground max-w-2xl text-sm leading-relaxed sm:text-base">
-				View the accommodations and venues connected to your account. Konak handles setup and
-				new listings; this space is for daily visibility and reservation decisions.
+			<p class="max-w-2xl text-sm leading-relaxed text-muted-foreground sm:text-base">
+				View the accommodations and venues connected to your account. {COMPANY_DATA.NAME} handles setup
+				and new listings; this space is for daily visibility and reservation decisions.
 			</p>
 		</div>
 
-		<div class="flex flex-col gap-1 rounded-lg border border-border bg-card px-3 py-2 text-sm lg:min-w-56">
-			<span class="text-muted-foreground text-xs">Account mode</span>
+		<div
+			class="flex flex-col gap-1 rounded-lg border border-border bg-card px-3 py-2 text-sm lg:min-w-56"
+		>
+			<span class="text-xs text-muted-foreground">Account mode</span>
 			<span class="font-medium">View only</span>
 		</div>
 	</header>
@@ -189,9 +189,9 @@
 			<Card>
 				<CardContent class="flex items-start justify-between gap-4 p-4">
 					<div class="min-w-0">
-						<p class="text-muted-foreground text-xs font-medium">{stat.label}</p>
+						<p class="text-xs font-medium text-muted-foreground">{stat.label}</p>
 						<p class="mt-2 text-2xl font-semibold tracking-tight">{stat.value}</p>
-						<p class="text-muted-foreground mt-1 text-xs leading-relaxed">{stat.detail}</p>
+						<p class="mt-1 text-xs leading-relaxed text-muted-foreground">{stat.detail}</p>
 					</div>
 					<span class="rounded-md border border-border bg-muted p-2 text-muted-foreground">
 						<Icon class="size-4" />
@@ -207,7 +207,7 @@
 				<div class="flex items-center justify-between gap-3">
 					<div>
 						<h2 class="text-lg font-semibold tracking-tight">Accommodations</h2>
-						<p class="text-muted-foreground text-sm">Guest stays connected to this account.</p>
+						<p class="text-sm text-muted-foreground">Guest stays connected to this account.</p>
 					</div>
 					<Badge variant="outline">{accommodations.length} total</Badge>
 				</div>
@@ -234,11 +234,11 @@
 							<CardContent class="flex flex-col gap-4">
 								<div class="grid grid-cols-2 gap-3 text-sm">
 									<div>
-										<p class="text-muted-foreground text-xs">Linked venues</p>
+										<p class="text-xs text-muted-foreground">Linked venues</p>
 										<p class="mt-1 font-medium">{accommodation.linkedVenues}</p>
 									</div>
 									<div>
-										<p class="text-muted-foreground text-xs">Active perks</p>
+										<p class="text-xs text-muted-foreground">Active perks</p>
 										<p class="mt-1 font-medium">{accommodation.activePerks}</p>
 									</div>
 								</div>
@@ -257,7 +257,7 @@
 				<div class="flex items-center justify-between gap-3">
 					<div>
 						<h2 class="text-lg font-semibold tracking-tight">Hospitalities</h2>
-						<p class="text-muted-foreground text-sm">
+						<p class="text-sm text-muted-foreground">
 							Venues guests can visit after scanning their stay QR.
 						</p>
 					</div>
@@ -278,36 +278,26 @@
 												<Badge variant="secondary">{hospitality.status}</Badge>
 											{/if}
 										</div>
-										<p class="text-muted-foreground mt-1 text-sm">
+										<p class="mt-1 text-sm text-muted-foreground">
 											{hospitality.type} in {hospitality.location}
 										</p>
 									</div>
 
-									{#if hospitality.reservationRequestsEnabled}
-										<Badge variant="default">Reservations on</Badge>
-									{:else}
-										<Badge variant="outline">Reservations off</Badge>
-									{/if}
+									<Badge variant="outline">Managed by Konak</Badge>
 								</div>
 
 								<div class="grid gap-3 text-sm sm:grid-cols-3">
 									<div>
-										<p class="text-muted-foreground text-xs">Connected stays</p>
+										<p class="text-xs text-muted-foreground">Connected stays</p>
 										<p class="mt-1 font-medium">{hospitality.connectedStays}</p>
 									</div>
 									<div>
-										<p class="text-muted-foreground text-xs">Pending requests</p>
+										<p class="text-xs text-muted-foreground">Pending requests</p>
 										<p class="mt-1 font-medium">{hospitality.pendingRequests}</p>
 									</div>
 									<div>
-										<p class="text-muted-foreground text-xs">Guest booking flow</p>
-										<p class="mt-1 font-medium">
-											{#if hospitality.reservationRequestsEnabled}
-												Konak request
-											{:else}
-												Direct contact
-											{/if}
-										</p>
+										<p class="text-xs text-muted-foreground">Guest booking flow</p>
+										<p class="mt-1 font-medium">Managed</p>
 									</div>
 								</div>
 							</CardContent>
@@ -322,8 +312,8 @@
 				<CardHeader>
 					<div class="flex items-start justify-between gap-3">
 						<div>
-							<CardTitle class="text-base">Reservation requests</CardTitle>
-							<CardDescription>Accept or decline guest requests from opted-in venues.</CardDescription>
+							<CardTitle class="text-base">Pending reservations</CardTitle>
+							<CardDescription>Guest requests waiting for your response.</CardDescription>
 						</div>
 						<CalendarCheckIcon class="size-5 text-primary" />
 					</div>
@@ -334,9 +324,9 @@
 							<div class="flex items-start justify-between gap-3">
 								<div class="min-w-0">
 									<p class="truncate text-sm font-medium">{request.venue}</p>
-									<p class="text-muted-foreground mt-1 text-xs">{request.guest}</p>
+									<p class="mt-1 text-xs text-muted-foreground">{request.guest}</p>
 								</div>
-								<Badge variant="outline">{request.status}</Badge>
+								<Badge variant="outline">Pending</Badge>
 							</div>
 							<div class="mt-3 grid grid-cols-2 gap-2 text-xs">
 								<div>
@@ -348,18 +338,18 @@
 									<p class="mt-1 font-medium">{request.partySize}</p>
 								</div>
 							</div>
-							<div class="mt-3 grid grid-cols-2 gap-2">
-								<Button variant="outline" size="sm" class="w-full">
-									<XIcon data-icon="inline-start" />
-									Decline
-								</Button>
-								<Button size="sm" class="w-full">
-									<CheckIcon data-icon="inline-start" />
-									Accept
-								</Button>
-							</div>
 						</div>
 					{/each}
+
+					<Button
+						href={PROTECTED_PAGE_ENDPOINTS.RESERVATIONS}
+						variant="outline"
+						size="sm"
+						class="w-full"
+					>
+						View all reservations
+						<ArrowRightIcon data-icon="inline-end" />
+					</Button>
 				</CardContent>
 			</Card>
 
@@ -368,15 +358,17 @@
 					<div class="flex items-start justify-between gap-3">
 						<div>
 							<CardTitle class="text-base">Reservation settings</CardTitle>
-							<CardDescription>Per-venue opt in. You stay in control.</CardDescription>
+							<CardDescription
+								>Guests request through the app. You review and confirm.</CardDescription
+							>
 						</div>
 						<SettingsIcon class="size-5 text-muted-foreground" />
 					</div>
 				</CardHeader>
 				<CardContent class="flex flex-col gap-4 text-sm">
-					<p class="text-muted-foreground leading-relaxed">
-						When enabled, guests request a reservation from the Konak page and you handle the
-						decision here. When disabled, the page shows normal contact options.
+					<p class="leading-relaxed text-muted-foreground">
+						Every reservation flows through your Reservations page — accept, decline, and track all
+						bookings in one place.
 					</p>
 
 					<div class="flex flex-col gap-3">
@@ -384,19 +376,9 @@
 							<div class="flex items-center justify-between gap-3">
 								<div class="min-w-0">
 									<p class="truncate font-medium">{hospitality.name}</p>
-									<p class="text-muted-foreground text-xs">
-										{#if hospitality.reservationRequestsEnabled}
-											Requests enabled
-										{:else}
-											Direct contact
-										{/if}
-									</p>
+									<p class="text-xs text-muted-foreground">Managed reservations</p>
 								</div>
-								{#if hospitality.reservationRequestsEnabled}
-									<Badge variant="success">On</Badge>
-								{:else}
-									<Badge variant="secondary">Off</Badge>
-								{/if}
+								<Badge variant="success">Active</Badge>
 							</div>
 						{/each}
 					</div>

@@ -24,8 +24,6 @@ export async function getHospitalitySafe(
 		country: h.country,
 		description: h.description,
 		contactPhone: h.contactPhone,
-		contactEmail: h.contactEmail,
-		website: h.website,
 		coverImageUrl: h.coverImageUrl
 	};
 }

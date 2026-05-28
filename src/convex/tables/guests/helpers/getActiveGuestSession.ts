@@ -37,5 +37,8 @@ export async function getActiveGuestSession(
 	if (!guest) return null;
 	if (guest.expiresAt < Date.now()) return null;
 
+	const accommodation = await ctx.db.get(guest.accommodationId);
+	if (!accommodation?.isActive) return null;
+
 	return guest;
 }

@@ -1,10 +1,8 @@
 {
 	"$schema": "https://inlang.com/schema/inlang-message-format",
-
 	"Header": {
 		"login": "Login"
 	},
-
 	"LanguageSelector": {
 		"english": "English",
 		"serbian": "Serbian",
@@ -12,36 +10,30 @@
 		"serbianShort": "SR",
 		"ariaLabel": "Choose language"
 	},
-
 	"LoginButton": {
 		"login": "Login"
 	},
-
 	"LogoutButton": {
 		"logout": "Logout",
 		"logoutSuccess": "Logged out successfully."
 	},
-
 	"LoginPage": {
 		"continueWithGoogle": "Continue with Google"
 	},
-
 	"CreatedByOmnilabs": {
 		"label": "Created by"
 	},
-
 	"ProtectedSidebar": {
 		"dashboard": "Dashboard",
 		"myAccommodations": "My Accommodations",
 		"myHospitalities": "My Hospitalities",
+		"reservations": "Reservations",
 		"goToAdminPage": "Go to Admin Page",
 		"backToHome": "Back to Home"
 	},
-
 	"AdminSidebar": {
 		"backToUserDashboard": "Back to User Dashboard"
 	},
-
 	"TestimonialsSection": {
 		"testimonial1": "Testimonial 1",
 		"testimonial2": "Testimonial 2",
@@ -70,7 +62,6 @@
 			"title": "What clients say"
 		}
 	},
-
 	"ContactSection": {
 		"ContactRightContent": {
 			"sendMessage": "Send a message",
@@ -80,7 +71,7 @@
 			"email": "Email",
 			"yourEmail": "you@example.com",
 			"message": "Message",
-			"messagePlaceholder": "Dates, venue, vibe, allergies — whatever helps Teresa prepare.",
+			"messagePlaceholder": "Dates, hospitality, vibe, allergies — whatever helps Teresa prepare.",
 			"noSpam": "No spam — just a thoughtful reply when she is back at her desk."
 		},
 		"ContactSubmitButton": {
@@ -91,7 +82,6 @@
 			"preferEmail": "Prefer email?"
 		}
 	},
-
 	"LoginForm": {
 		"LoginFormNoImage": {
 			"title": "Login",
@@ -119,7 +109,6 @@
 			"signedInToast": "Signed in successfully."
 		}
 	},
-
 	"EmailVerificationForm": {
 		"title": "Check your email",
 		"description": "We sent a verification code to {email}. Enter it below to continue.",
@@ -132,7 +121,6 @@
 		"cancel": "Cancel",
 		"verificationFailed": "Invalid or expired code. Please try again."
 	},
-
 	"PasswordResetForm": {
 		"titleRequest": "Reset your password",
 		"descriptionRequest": "Enter the email for your account. We will send you a one-time code you can use to choose a new password.",
@@ -147,12 +135,10 @@
 		"cancel": "Cancel",
 		"passwordResetToast": "Password reset successfully."
 	},
-
 	"PasswordInput": {
 		"showPassword": "Show password",
 		"hidePassword": "Hide password"
 	},
-
 	"AccommodationsData": {
 		"typeApartment": "Apartment",
 		"typeHotel": "Hotel",
@@ -160,8 +146,9 @@
 		"typeHostel": "Hostel",
 		"typeOther": "Other"
 	},
-
 	"HospitalityData": {
+		"managedReservationsTitle": "Managed reservations",
+		"managedReservationsDescription": "Guests request a reservation time through the app. You can review and accept or decline each request, so every request is recorded in your dashboard.",
 		"typeRestaurant": "Restaurant",
 		"typeCafe": "Café",
 		"typeBar": "Bar",
@@ -171,26 +158,21 @@
 		"typeTour": "Tour",
 		"typeOtherVenue": "Other"
 	},
-
-	"ScanPage": {
-		"metaBrand": "Konak",
-		"eyebrow": "Your stay",
-		"partnerBenefitsEyebrow": "Included with your stay",
-		"partnersTitle": "Your partners in {city}",
-		"partnersLead": "Show this page to staff at any partner venue. No app, no account.",
-		"perkRedeemHint": "Show this screen to staff",
-		"perkOff": "off",
-		"perkViewDetails": "View details",
-		"addressFooterEyebrow": "Need to share where you are?",
-		"addressFooterLabel": "Address",
-		"ScanSharingCode": {
+	"StayPage": {
+		"StayAccommodationData": {
+			"eyebrow": "Your stay"
+		},
+		"StaySharingCode": {
 			"eyebrow": "Share this stay",
 			"title": "Let your room companions in",
 			"body": "Anyone staying with you can scan the room QR code, then enter this sharing code.",
 			"privacy": "Share this code only with people in your accommodation.",
 			"copy": "Copy sharing code"
 		},
-		"ScanShareAccess": {
+		"StayJoinAccess": {
+			"eyebrow": "Your stay"
+		},
+		"StayJoinAccessForm": {
 			"title": "Join an unlocked stay",
 			"activeTitle": "Someone has already unlocked this stay",
 			"body": "If you are staying together, enter the sharing code from their partners page to open the same benefits on this device.",
@@ -205,114 +187,120 @@
 			"unavailable": "Could not check that code. Check your connection and try again.",
 			"scanInstead": "You can also scan the QR code in your room to start a new stay."
 		},
-		"ScanLoading": {
+		"StayLoading": {
 			"announce": "Loading your stay…"
 		},
-		"ScanEmpty": {
+		"StayEmpty": {
 			"title": "Stay not found",
 			"body": "This QR points to a stay that isn’t active. Double-check the code or ask your host.",
 			"cta": "Back to home"
 		},
-		"ScanAccommodationPartnershipsEmpty": {
+		"StayPartnershipsEmpty": {
 			"title": "No partners linked yet",
-			"body": "Your host hasn’t connected this stay to a partner venue yet. Ask them about it — they can add partners in seconds."
+			"body": "Your host hasn’t connected this stay to a partner hospitality yet. Ask them about it — they can add partners in seconds."
 		},
-		"ScanError": {
+		"StayError": {
 			"title": "Couldn’t load your partners",
 			"body": "Check your connection and try again.",
 			"cta": "Back to home"
 		},
-		"ScanSessionExpired": {
+		"StayPartnershipsError": {
+			"title": "Couldn’t load your partners",
+			"body": "Check your connection and try again."
+		},
+		"StayPartnershipsLoading": {
+			"announce": "Loading partners…"
+		},
+		"StayExpiredAccess": {
+			"eyebrow": "Your stay",
 			"title": "Your stay session has expired",
 			"body": "Scan the QR in your room to unlock your partners again."
+		},
+		"StayPartnershipsSection": {
+			"partnerBenefitsEyebrow": "Included with your stay",
+			"partnersTitle": "Your partners in {city}",
+			"partnersLead": "Show this page to staff at any partner hospitality. No app, no account."
+		},
+		"StayPartnershipsSectionItem": {
+			"off": "off",
+			"viewDetails": "View details"
 		}
 	},
-
 	"HospitalityPage": {
-		"metaBrand": "Konak",
 		"navHome": "Home",
 		"navHowItWorks": "How it works",
 		"navDemo": "Try the demo",
 		"navPartners": "For partners",
 		"navCta": "Try the demo",
-		"crumbKonak": "Konak",
-		"crumbVenues": "Venues",
-		"statusPartner": "Konak partner · perks accepted here",
-		"coverFallbackLabel": "Venue",
-		"coverFallbackAria": "Placeholder image for this venue",
+		"crumbVenues": "Hospitalities",
+		"statusPartner": "{companyName} partner · perks accepted here",
+		"coverFallbackLabel": "Hospitality",
+		"coverFallbackAria": "Placeholder image for this hospitality",
 		"addressLineMeta": "{address} · {city} · {country}",
-		"heroLeadFallback": "A Konak partner venue — see your guest perk below.",
+		"heroLeadFallback": "A {companyName} partner hospitality — see your guest perk below.",
 		"contactCall": "Call",
-		"contactEmail": "Email",
-		"contactWeb": "Website",
 		"factType": "Type",
 		"factAddress": "Address",
 		"factArea": "Location",
-		"ctaSeePerk": "View Konak perk",
+		"ctaSeePerk": "View {companyName} perk",
 		"ctaFindStay": "Find a stay",
 		"aboutEyebrow": "About",
-		"aboutTitle": "About this venue",
-		"aboutSideNote": "Details from the venue’s listing.",
+		"aboutTitle": "About this hospitality",
+		"aboutSideNote": "Details from the hospitality listing.",
 		"perkEyebrow": "Sample perk",
 		"perkMedallionLabel": "Sample",
 		"perkMedallionSub": "off the full bill",
 		"perkMedallionSubNodiscount": "Partner offer",
-		"perkFootnote": "The exact offer depends on which Konak stay you scan from.",
-		"perkFallbackLine1": "Show your Konak stay on arrival.",
+		"perkFootnote": "The exact offer depends on which {companyName} stay you scan from.",
+		"perkFallbackLine1": "Show your {companyName} stay on arrival.",
 		"perkFallbackLine2": "Staff confirm the stay with one tap.",
 		"perkFallbackLine3": "Discount follows what’s agreed for your stay.",
 		"redeemEyebrow": "Redeem",
 		"redeemTitle": "Three quick steps at the door.",
 		"redeem1Step": "At the stay",
 		"redeem1Title": "Scan the QR at the entrance.",
-		"redeemBody1": "Opens the perk list for your exact stay. {venueName} appears when your host has linked this venue.",
-		"redeem2Step": "At the venue",
+		"redeemBody1": "Opens the perk list for your exact stay. {venueName} appears when your host has linked this hospitality.",
+		"redeem2Step": "At the hospitality",
 		"redeem2Title": "Show your screen to staff.",
 		"redeemBody2": "Your host confirms the stay — no printouts, no extra app.",
 		"redeem3Step": "At checkout",
 		"redeem3Title": "The offer is applied at the till.",
-		"redeemBody3": "Pay however the venue accepts; the perk follows what your Konak page shows.",
-		"practicalEyebrow": "Book",
-		"practicalTitle": "Reserve or get in touch",
+		"redeemBody3": "Pay however the hospitality accepts; the perk follows what your {companyName} page shows.",
+		"practicalEyebrow": "Contact",
+		"practicalTitle": "Contact the hospitality",
 		"reserveEyebrow": "Reservations",
 		"reserveTitle": "How to reserve",
-		"reserveLead": "This venue handles bookings directly. Use their website when available, or call or email them.",
-		"reserveBulletWebsite": "Open their official site to check availability and book.",
 		"reserveBulletPhone": "Call to ask about availability or to reserve.",
-		"reserveBulletEmail": "Email for reservations or other questions.",
-		"reserveWebsiteCta": "Visit website",
-		"reserveNoChannels": "No website or contact details are listed yet.",
-		"venueDetailsTitle": "Venue details",
+		"reserveNoChannels": "No phone number is listed yet.",
+		"hospitalityDetailsTitle": "Hospitality details",
 		"dlType": "Type",
 		"dlAddress": "Address",
 		"dlPhone": "Phone",
-		"dlEmail": "Email",
-		"dlWebsite": "Website",
 		"dlPartner": "Active partner",
-		"partnerYes": "Yes — accepts Konak perks",
+		"partnerYes": "Yes — accepts {companyName} perks",
 		"partnerNo": "Not accepting perks at the moment",
 		"staysEyebrow": "Featured at",
-		"staysTitle": "Stays that unlock this venue",
+		"staysTitle": "Stays that unlock this hospitality",
 		"staysAll": "All stays",
-		"staysLead": "Guests of these Konak stays get a perk here. Scan the QR in your room to see your specific offer.",
+		"staysLead": "Guests of these {companyName} stays get a perk here. Scan the QR in your room to see your specific offer.",
 		"staysPerkActive": "Perk active",
 		"staysPerkCount": "{count} active perks",
 		"staysPerkCountOne": "1 active perk",
 		"staysCardCta": "View stay",
-		"staysFootnote": "{venueName} offers this for guests of linked Konak stays.",
-		"staysEmpty": "When hosts connect their places to this venue, they’ll show up here.",
+		"staysFootnote": "{venueName} offers this for guests of linked {companyName} stays.",
+		"staysEmpty": "When hosts connect their places to this hospitality, they’ll show up here.",
 		"ctaStripEyebrow": "Guest view",
 		"ctaStripTitle": "The QR journey from start to finish.",
-		"ctaStripLead": "Explore Konak from home — scan at the door for the full perk list.",
-		"ctaStripPrimary": "Konak home",
+		"ctaStripLead": "Explore {companyName} from home — scan at the door for the full perk list.",
+		"ctaStripPrimary": "{companyName} home",
 		"ctaStripSecondary": "Sign in",
 		"footerTagline": "Stay anywhere. Unlock the city.",
 		"footerGuests": "Guests",
-		"footerGuestsHow": "How Konak works",
+		"footerGuestsHow": "How {companyName} works",
 		"footerGuestsDemo": "Try the demo",
 		"footerPartners": "Partners",
 		"footerPartnersHosts": "For hosts",
-		"footerPartnersVenues": "For venues",
+		"footerPartnersVenues": "For hospitalities",
 		"footerPartnersLogin": "Partner login",
 		"footerCompany": "Company",
 		"footerCompanyContact": "Contact",
@@ -324,17 +312,18 @@
 			"cta": "Back to home"
 		},
 		"HospitalityEmpty": {
-			"title": "Venue not available",
-			"body": "This partner page is missing or no longer active.",
+			"title": "Hospitality not available",
+			"body": "This hospitality page is missing or no longer active.",
+			"notPartneredTitle": "Hospitality not included with this stay",
+			"notPartneredBody": "This accommodation is not partnered with this hospitality. Open a hospitality from your stay partners list instead.",
 			"cta": "Back to home"
 		},
 		"HospitalityLoading": {
-			"announce": "Loading venue…"
+			"announce": "Loading hospitality…"
 		},
-		"shareAria": "Share this venue",
+		"shareAria": "Share this hospitality",
 		"shareLabel": "Share"
 	},
-
 	"SignUpForm": {
 		"SignUpFormNoImage": {
 			"title": "Create an account",
@@ -370,7 +359,6 @@
 			"accountCreatedToast": "Account created successfully."
 		}
 	},
-
 	"DatePicker": {
 		"dateOfBirth": "Date of birth",
 		"selectDate": "Select date",
@@ -379,12 +367,10 @@
 		"scheduleDate": "Schedule date",
 		"scheduleDatePlaceholder": "Tomorrow or next week"
 	},
-
 	"LocalizedCalendar": {
 		"title": "Book an appointment",
 		"description": "Select the dates for your appointment"
 	},
-
 	"UploadFile": {
 		"UploadFileMultiple": {
 			"dropzoneDescription": "Use the drop zone to add files — it stays put while previews show in a grid below. Remove any file with the",
@@ -415,12 +401,10 @@
 			"accepted": "Accepted"
 		}
 	},
-
 	"PaginatedData": {
 		"paginationText": "Page {page} of {totalPages}",
 		"paginationTextCursor": "Page {page}"
 	},
-
 	"AccommodationQrDialog": {
 		"title": "QR for {name}",
 		"description": "Print this code in the unit. Guests scan it to unlock perks for this stay.",
@@ -432,7 +416,6 @@
 		"close": "Close",
 		"localhostWarning": "PUBLIC_SITE_URL points to localhost. Printed codes will not work for real guests until you set your production domain."
 	},
-
 	"DataTable": {
 		"itemsSelected": "{count} selected",
 		"clearSelection": "Clear",
@@ -452,14 +435,12 @@
 		"sortBy": "Sort by",
 		"sortDefault": "Default order"
 	},
-
 	"AlertDialogButton": {
 		"title": "Action cannot be reversed",
 		"description": "Are you sure you want to do this? This action cannot be undone.",
 		"cancel": "Cancel",
 		"proceed": "Proceed"
 	},
-
 	"AdminAccommodationsPage": {
 		"title": "Accommodations",
 		"description": "Places guests stay — apartments, hotels, villas, and more. Each row gets an auto-generated scan token for printed QRs.",
@@ -477,7 +458,6 @@
 		"columnQr": "QR",
 		"openQr": "Show QR code for {name}"
 	},
-
 	"AdminAccommodationAddPage": {
 		"title": "Add accommodation",
 		"description": "Create a new property. A secret scan token for the wall QR is generated automatically.",
@@ -500,7 +480,6 @@
 		"fieldCityPlaceholder": "Madrid",
 		"fieldCountry": "Country",
 		"fieldCountryPlaceholder": "Spain",
-
 		"fieldDescription": "Description",
 		"fieldDescriptionPlaceholder": "Short description shown on the benefits page (optional).",
 		"fieldIsActive": "Active",
@@ -508,7 +487,6 @@
 		"fieldCoverImage": "Cover image",
 		"submit": "Create accommodation"
 	},
-
 	"EditAccommodationPage": {
 		"title": "Edit accommodation",
 		"description": "Update how this stay appears to guests. The in-room QR code stays the same.",
@@ -546,10 +524,9 @@
 		"fieldCoverImage": "Replace cover image",
 		"submit": "Save changes"
 	},
-
 	"AdminPartnershipsPage": {
 		"title": "Partnerships",
-		"description": "Links between accommodations and partner venues. Each row is one perk guests unlock after scanning the in-room QR.",
+		"description": "Links between accommodations and partner hospitalities. Each row is one perk guests unlock after scanning the in-room QR.",
 		"caption": "Partnerships",
 		"columnAccommodation": "Accommodation ID",
 		"columnAccommodationScanToken": "Accommodation scan token",
@@ -563,10 +540,9 @@
 		"discountValue": "{percent}% off",
 		"addPartnership": "Add partnership"
 	},
-
 	"AdminPartnershipAddPage": {
 		"title": "Add partnership",
-		"description": "Connect a stay to a partner venue. Guests of that accommodation see the offer after scanning the QR.",
+		"description": "Connect a stay to a partner hospitality. Guests of that accommodation see the offer after scanning the QR.",
 		"back": "Back to list",
 		"submit": "Create partnerships",
 		"sectionPartnersTitle": "Partners",
@@ -597,10 +573,9 @@
 		"fieldActive": "Active",
 		"fieldActiveDescription": "Inactive partnerships stay in admin but guests won't see them."
 	},
-
 	"AdminHospitalitiesPage": {
 		"title": "Hospitalities",
-		"description": "Partner venues — dining, experiences, and services linked to accommodations via partnerships.",
+		"description": "Partner hospitalities — dining, experiences, and services linked to accommodations via partnerships.",
 		"caption": "Hospitalities",
 		"columnName": "Name",
 		"columnType": "Type",
@@ -614,21 +589,20 @@
 		"contactNone": "—",
 		"addHospitality": "Add hospitality"
 	},
-
 	"AdminHospitalityAddPage": {
 		"title": "Add hospitality",
-		"description": "Register a new partner venue. You can edit any field later.",
+		"description": "Register a new partner hospitality. You can edit any field later.",
 		"back": "Back to list",
 		"sectionBasicsTitle": "Basics",
 		"sectionBasicsDescription": "What guests will see in the benefits list.",
 		"sectionLocationTitle": "Location",
 		"sectionLocationDescription": "Used for the public benefits page and admin filtering.",
 		"sectionContactTitle": "Contact",
-		"sectionContactDescription": "Optional — shown to guests on the benefits page when present.",
+		"sectionContactDescription": "Phone number guests can use to contact this hospitality.",
 		"sectionCoverTitle": "Cover image",
 		"sectionCoverDescription": "Shown on the public benefits page. PNG or JPG recommended; aim for a wide aspect ratio.",
 		"sectionDetailsTitle": "Details",
-		"sectionDetailsDescription": "Optional notes and visibility.",
+		"sectionDetailsDescription": "Description, reservations, and visibility.",
 		"fieldName": "Name",
 		"fieldNamePlaceholder": "La Tapería",
 		"fieldType": "Type",
@@ -641,34 +615,28 @@
 		"fieldCountryPlaceholder": "Spain",
 		"fieldContactPhone": "Phone",
 		"fieldContactPhonePlaceholder": "+34 600 000 000",
-		"fieldContactEmail": "Email",
-		"fieldContactEmailPlaceholder": "hello@venue.com",
-		"fieldWebsite": "Website",
-		"fieldWebsitePlaceholder": "https://venue.com",
-		"fieldReservationRequestsEnabled": "Reservation requests",
-		"fieldReservationRequestsEnabledDescription": "Let guests request reservations through Konak so the venue can accept or decline them in the dashboard.",
+		"fieldReservationMode": "Reservation mode",
 		"fieldDescription": "Description",
 		"fieldDescriptionPlaceholder": "Short description shown on the benefits page (optional).",
 		"fieldIsActive": "Active",
-		"fieldIsActiveDescription": "Inactive venues stay in the database but won't appear in benefit lists.",
+		"fieldIsActiveDescription": "Inactive hospitalities stay in the database but won't appear in benefit lists.",
 		"fieldCoverImage": "Cover image",
 		"submit": "Create hospitality"
 	},
-
 	"EditHospitalityPage": {
 		"title": "Edit hospitality",
-		"description": "Update how your venue appears to guests on partner benefit pages.",
+		"description": "Update how your hospitality appears to guests on partner benefit pages.",
 		"back": "Back to my hospitalities",
-		"notFoundTitle": "Venue not found",
-		"notFoundDescription": "This venue may have been removed or is not assigned to your account.",
-		"loadErrorTitle": "Could not load venue",
+		"notFoundTitle": "Hospitality not found",
+		"notFoundDescription": "This hospitality may have been removed or is not assigned to your account.",
+		"loadErrorTitle": "Could not load hospitality",
 		"loadErrorDescription": "Please try again in a moment.",
 		"sectionBasicsTitle": "Basics",
 		"sectionBasicsDescription": "What guests will see in the benefits list.",
 		"sectionLocationTitle": "Location",
-		"sectionLocationDescription": "Shown on your public venue page.",
+		"sectionLocationDescription": "Shown on your public hospitality page.",
 		"sectionContactTitle": "Contact",
-		"sectionContactDescription": "How guests can reach you.",
+		"sectionContactDescription": "Phone number guests can use to contact this hospitality.",
 		"sectionCoverTitle": "Cover image",
 		"sectionCoverDescription": "Leave empty to keep the current image. PNG or JPG recommended.",
 		"currentCoverAlt": "Current cover for {name}",
@@ -686,20 +654,14 @@
 		"fieldCountryPlaceholder": "Spain",
 		"fieldContactPhone": "Phone",
 		"fieldContactPhonePlaceholder": "+34 600 000 000",
-		"fieldContactEmail": "Email",
-		"fieldContactEmailPlaceholder": "hello@venue.com",
-		"fieldWebsite": "Website",
-		"fieldWebsitePlaceholder": "https://venue.com",
-		"fieldReservationRequestsEnabled": "Reservation requests",
-		"fieldReservationRequestsEnabledDescription": "Let guests request reservations through Konak so you can accept or decline them in the dashboard.",
+		"fieldReservationMode": "Reservation mode",
 		"fieldDescription": "Description",
 		"fieldDescriptionPlaceholder": "Short description shown on the benefits page.",
 		"fieldIsActive": "Active",
-		"fieldIsActiveDescription": "Inactive venues stay in the database but won't appear in benefit lists.",
+		"fieldIsActiveDescription": "Inactive hospitalities stay in the database but won't appear in benefit lists.",
 		"fieldCoverImage": "Replace cover image",
 		"submit": "Save changes"
 	},
-
 	"SearchInput": {
 		"placeholder": "Search...",
 		"ariaLabel": "Search",
@@ -722,7 +684,6 @@
 			"selected": "Selected:"
 		}
 	},
-
 	"AdminUsersPage": {
 		"title": "Users",
 		"description": "Search, filter, and manage user accounts.",
@@ -756,7 +717,6 @@
 			"clear": "Clear"
 		}
 	},
-
 	"AdminUserAddPage": {
 		"title": "Add user",
 		"description": "Create an account that can later own accommodations or hospitalities.",
@@ -782,7 +742,6 @@
 		"fieldEmailVerified": "Email verified",
 		"fieldEmailVerifiedDescription": "Enable only when you have already confirmed this address. Otherwise the user must verify before signing in."
 	},
-
 	"AdminUserPage": {
 		"UserTabs": {
 			"overview": "Overview",
@@ -894,7 +853,6 @@
 			"retry": "Retry"
 		}
 	},
-
 	"ValidationMessages": {
 		"LoginForm": {
 			"emailRequired": "Enter your email.",
@@ -947,38 +905,37 @@
 			"countryRequired": "Country is required.",
 			"descriptionRequired": "Description is required.",
 			"phoneRequired": "Phone number is required.",
-			"emailInvalid": "Enter a valid email.",
-			"websiteInvalid": "Enter a valid URL (https://…).",
 			"coverRequired": "Add a cover image."
 		},
 		"CreatePartnershipSchema": {
 			"accommodationRequired": "Pick an accommodation.",
-			"hospitalityRequired": "Pick at least one hospitality venue.",
+			"hospitalityRequired": "Pick at least one hospitality.",
 			"discountRange": "Discount must be between 1 and 100, or leave blank."
 		},
 		"JoinGuestStaySchema": {
 			"sharingCodeInvalid": "That sharing code is invalid."
+		},
+		"CreateReservationSchema": {
+			"guestNameRequired": "Guest name is required.",
+			"timeInvalid": "Enter a valid time (HH:MM).",
+			"phoneRequired": "Phone number is required.",
+			"emailInvalid": "Enter a valid email address."
 		}
 	},
-
 	"GenericMessages": {
 		"PASSWORD_TOO_SHORT": "Password must be at least {min} characters.",
 		"PASSWORD_TOO_LONG": "Password is too long.",
 		"PASSWORD_TOO_COMMON": "That password is too common. Please choose a stronger one.",
-
 		"NO_ITEMS_PROVIDED": "No items provided.",
 		"NO_MATCHING_ITEMS": "No matching items found.",
 		"DATA_TABLE_DELETED_ALL": "Deleted {count} item(s).",
 		"DATA_TABLE_DELETED_WITH_MISSING": "Deleted {count} item(s); {missing} were already gone.",
-
 		"STORAGE_DELETE_FAILED": "Couldn't delete the file from storage. Nothing was removed.",
 		"STORAGE_URL_UNAVAILABLE": "Couldn't resolve the file URL.",
 		"UPLOAD_SAVE_FAILED": "Could not save the uploaded file. Please try again.",
 		"UPLOAD_URL_READY": "Upload URL generated.",
-
 		"EMAIL_SENT_SUCCESSFULLY": "Email sent successfully.",
 		"TEST_ROW_CREATED": "Test row created.",
-
 		"YOU_NEED_TO_CORRECT_FORM_ERRORS": "You need to correct form errors",
 		"BATCH_TOO_LARGE": "Too many items in a single request (max {limit}).",
 		"FORBIDDEN": "You're not allowed to perform this action.",
@@ -998,9 +955,14 @@
 		"GUEST_SHARING_CODE_INVALID": "That sharing code is invalid or has expired.",
 		"GUEST_SHARED_ACCESS_GRANTED": "Stay access shared.",
 		"HOSPITALITY_NOT_FOUND": "Hospitality not found.",
+		"RESERVATION_CREATED": "Reservation request sent.",
+		"RESERVATION_CONFIRMED": "Reservation confirmed.",
+		"RESERVATION_CANCELLED": "Reservation cancelled.",
+		"RESERVATION_NOT_FOUND": "Reservation not found.",
+		"RESERVATION_ALREADY_PROCESSED": "This reservation has already been processed.",
 		"PARTNERSHIP_CREATED": "Partnership created.",
 		"PARTNERSHIPS_CREATED": "Created {count} partnerships.",
-		"PARTNERSHIP_PAIR_EXISTS": "This accommodation is already linked to that venue.",
+		"PARTNERSHIP_PAIR_EXISTS": "This accommodation is already linked to that hospitality.",
 		"PARTNERSHIP_DISCOUNT_INVALID": "Discount must be between 1 and 100.",
 		"USER_DELETED": "User deleted.",
 		"USER_CREATED": "User created.",

@@ -14,6 +14,7 @@
 
 	// TYPES
 	import type { Snippet } from 'svelte';
+	import type { ConvexClient } from 'convex/browser';
 	import type { FunctionReference } from 'convex/server';
 	import type {
 		MutationFormCustomFields,
@@ -47,6 +48,7 @@
 		header,
 		extraFields,
 		actions,
+		convexClient,
 		class: className
 	}: {
 		/** Flat field list. Renders as a single plain section. Mutually exclusive with `sections`. */
@@ -65,10 +67,12 @@
 		header?: Snippet;
 		extraFields?: Snippet;
 		actions?: Snippet<[{ busy: boolean }]>;
+		convexClient?: ConvexClient;
 		class?: string;
 	} = $props();
 
-	const convex = useConvexClient();
+	const fallbackConvex = useConvexClient();
+	const convex = $derived(convexClient ?? fallbackConvex);
 
 	function hasMutationEnvelope(value: unknown): value is MutationEnvelope {
 		return (

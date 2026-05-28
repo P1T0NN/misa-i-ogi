@@ -8,7 +8,11 @@
 	import { ADMIN_PAGE_ENDPOINTS } from '@/shared/constants.js';
 
 	// FEATURES
-	import { hospitalityTypeSelectOptions } from '@/features/hospitalities/data/hospitalitiesData';
+	import {
+		hospitalityTypeSelectOptions,
+		reservationModeSelectOptions
+	} from '@/features/hospitalities/data/hospitalitiesData';
+	import ReservationModeField from '@/features/hospitalities/components/reservation-mode-field.svelte';
 
 	// COMPONENTS
 	import SvelteHead from '@/shared/components/ui/svelte-head/svelte-head.svelte';
@@ -17,7 +21,10 @@
 	import AdminOwnerField from '@/features/users/components/admin-owner-field.svelte';
 
 	// SCHEMAS
-	import { hospitalityAddFormSchema, type HospitalityAddFormInputs } from '@/features/hospitalities/schemas/hospitalitiesSchemas';
+	import {
+		hospitalityAddFormSchema,
+		type HospitalityAddFormInputs
+	} from '@/features/hospitalities/schemas/hospitalitiesSchemas';
 
 	// TYPES
 	import type {
@@ -92,6 +99,7 @@
 			id: 'contact',
 			title: m['AdminHospitalityAddPage.sectionContactTitle'](),
 			description: m['AdminHospitalityAddPage.sectionContactDescription'](),
+			columns: 1,
 			fields: [
 				{
 					id: 'contactPhone',
@@ -99,25 +107,7 @@
 					type: 'tel',
 					label: m['AdminHospitalityAddPage.fieldContactPhone'](),
 					placeholder: m['AdminHospitalityAddPage.fieldContactPhonePlaceholder'](),
-					autocomplete: 'tel',
-					colSpan: 1
-				},
-				{
-					id: 'contactEmail',
-					kind: 'input',
-					type: 'email',
-					label: m['AdminHospitalityAddPage.fieldContactEmail'](),
-					placeholder: m['AdminHospitalityAddPage.fieldContactEmailPlaceholder'](),
-					autocomplete: 'email',
-					colSpan: 1
-				},
-				{
-					id: 'website',
-					kind: 'input',
-					type: 'url',
-					label: m['AdminHospitalityAddPage.fieldWebsite'](),
-					placeholder: m['AdminHospitalityAddPage.fieldWebsitePlaceholder'](),
-					autocomplete: 'url'
+					autocomplete: 'tel'
 				}
 			]
 		},
@@ -148,10 +138,10 @@
 					rows: 4
 				},
 				{
-					id: 'reservationRequestsEnabled',
-					kind: 'checkbox',
-					label: m['AdminHospitalityAddPage.fieldReservationRequestsEnabled'](),
-					description: m['AdminHospitalityAddPage.fieldReservationRequestsEnabledDescription']()
+					id: 'reservationMode',
+					kind: 'select',
+					label: m['AdminHospitalityAddPage.fieldReservationMode'](),
+					options: reservationModeSelectOptions()
 				},
 				{
 					id: 'isActive',
@@ -171,10 +161,8 @@
 		country: '',
 		description: '',
 		contactPhone: '',
-		contactEmail: '',
-		website: '',
+		reservationMode: 'managed_request',
 		ownerId: '',
-		reservationRequestsEnabled: false,
 		isActive: true,
 		coverImageKey: null
 	});
@@ -191,7 +179,7 @@
 				<h1 class="text-2xl font-semibold tracking-tight">
 					{m['AdminHospitalityAddPage.title']()}
 				</h1>
-				<p class="text-muted-foreground text-sm leading-relaxed">
+				<p class="text-sm leading-relaxed text-muted-foreground">
 					{m['AdminHospitalityAddPage.description']()}
 				</p>
 			</div>
@@ -212,13 +200,27 @@
 			schema={hospitalityAddFormSchema}
 			runFunction={api.tables.hospitalities.mutations.createHospitality.createHospitality}
 			submitLabel={m['AdminHospitalityAddPage.submit']()}
-			customFields={{ ownerId: ownerField }}
+			customFields={{ ownerId: ownerField, reservationMode: reservationModeField }}
 			resetOnSuccess={false}
 			onSuccess={() => appGoto(ADMIN_PAGE_ENDPOINTS.HOSPITALITIES)}
 		/>
 	</div>
 </section>
 
-{#snippet ownerField({ value, setValue, inputId }: MutationFormFieldSnippetProps<HospitalityAddFormInputs>)}
+{#snippet ownerField({
+	value,
+	setValue,
+	inputId
+}: MutationFormFieldSnippetProps<HospitalityAddFormInputs>)}
 	<AdminOwnerField value={String(value ?? '')} {inputId} onValueChange={setValue} />
+{/snippet}
+
+{#snippet reservationModeField({
+	field,
+	value,
+	setValue,
+	error,
+	inputId
+}: MutationFormFieldSnippetProps<HospitalityAddFormInputs>)}
+	<ReservationModeField {field} {inputId} {value} {setValue} invalid={!!error} />
 {/snippet}

@@ -10,6 +10,7 @@
 	// COMPONENTS
 	import ConvexMutationForm from '@/shared/components/ui/mutation-form/convex-mutation-form.svelte';
 	import UploadFileSingle from '@/features/uploadFile/components/upload-file-single/upload-file-single.svelte';
+	import ReservationModeField from '@/features/hospitalities/components/reservation-mode-field.svelte';
 
 	// SCHEMAS
 	import {
@@ -18,7 +19,10 @@
 	} from '@/features/hospitalities/schemas/hospitalitiesSchemas';
 
 	// DATA
-	import { hospitalityTypeSelectOptions } from '@/features/hospitalities/data/hospitalitiesData';
+	import {
+		hospitalityTypeSelectOptions,
+		reservationModeSelectOptions
+	} from '@/features/hospitalities/data/hospitalitiesData';
 
 	// TYPES
 	import type { FunctionReturnType } from 'convex/server';
@@ -93,6 +97,7 @@
 			id: 'contact',
 			title: m['EditHospitalityPage.sectionContactTitle'](),
 			description: m['EditHospitalityPage.sectionContactDescription'](),
+			columns: 1,
 			fields: [
 				{
 					id: 'contactPhone',
@@ -100,25 +105,7 @@
 					type: 'tel',
 					label: m['EditHospitalityPage.fieldContactPhone'](),
 					placeholder: m['EditHospitalityPage.fieldContactPhonePlaceholder'](),
-					autocomplete: 'tel',
-					colSpan: 1
-				},
-				{
-					id: 'contactEmail',
-					kind: 'input',
-					type: 'email',
-					label: m['EditHospitalityPage.fieldContactEmail'](),
-					placeholder: m['EditHospitalityPage.fieldContactEmailPlaceholder'](),
-					autocomplete: 'email',
-					colSpan: 1
-				},
-				{
-					id: 'website',
-					kind: 'input',
-					type: 'url',
-					label: m['EditHospitalityPage.fieldWebsite'](),
-					placeholder: m['EditHospitalityPage.fieldWebsitePlaceholder'](),
-					autocomplete: 'url'
+					autocomplete: 'tel'
 				}
 			]
 		},
@@ -149,10 +136,10 @@
 					rows: 4
 				},
 				{
-					id: 'reservationRequestsEnabled',
-					kind: 'checkbox',
-					label: m['EditHospitalityPage.fieldReservationRequestsEnabled'](),
-					description: m['EditHospitalityPage.fieldReservationRequestsEnabledDescription']()
+					id: 'reservationMode',
+					kind: 'select',
+					label: m['EditHospitalityPage.fieldReservationMode'](),
+					options: reservationModeSelectOptions()
 				},
 				{
 					id: 'isActive',
@@ -173,9 +160,7 @@
 		country: '',
 		description: '',
 		contactPhone: '',
-		contactEmail: '',
-		website: '',
-		reservationRequestsEnabled: false,
+		reservationMode: 'managed_request',
 		isActive: true,
 		coverImageKey: null
 	});
@@ -200,9 +185,7 @@
 			country: row.country,
 			description: row.description,
 			contactPhone: row.contactPhone,
-			contactEmail: row.contactEmail ?? '',
-			website: row.website ?? '',
-			reservationRequestsEnabled: row.reservationRequestsEnabled ?? false,
+			reservationMode: row.reservationMode,
 			isActive: row.isActive,
 			coverImageKey: null
 		};
@@ -218,11 +201,16 @@
 	runFunction={api.tables.hospitalities.mutations.updateHospitality.updateHospitality}
 	submitLabel={m['EditHospitalityPage.submit']()}
 	resetOnSuccess={false}
-	customFields={{ coverImageKey: coverField }}
+	customFields={{ coverImageKey: coverField, reservationMode: reservationModeField }}
 	onSuccess={() => appGoto(PROTECTED_PAGE_ENDPOINTS.MY_HOSPITALITIES)}
 />
 
-{#snippet coverField({ value, setValue, inputId, field }: MutationFormFieldSnippetProps<HospitalityEditFormInputs>)}
+{#snippet coverField({
+	value,
+	setValue,
+	inputId,
+	field
+}: MutationFormFieldSnippetProps<HospitalityEditFormInputs>)}
 	<UploadFileSingle
 		id={inputId}
 		accept={field.accept}
@@ -230,4 +218,14 @@
 		existingPreviewAlt={m['EditHospitalityPage.currentCoverAlt']({ name: hospitality.name })}
 		bind:file={() => (value as File | null) ?? null, (next) => setValue(next)}
 	/>
+{/snippet}
+
+{#snippet reservationModeField({
+	field,
+	value,
+	setValue,
+	error,
+	inputId
+}: MutationFormFieldSnippetProps<HospitalityEditFormInputs>)}
+	<ReservationModeField {field} {inputId} {value} {setValue} invalid={!!error} />
 {/snippet}

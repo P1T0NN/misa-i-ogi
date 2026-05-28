@@ -14,6 +14,7 @@
 
 	// LUCIDE ICONS
 	import ExternalLinkIcon from '@lucide/svelte/icons/external-link';
+	import ListChecksIcon from '@lucide/svelte/icons/list-checks';
 	import PencilIcon from '@lucide/svelte/icons/pencil';
 	import StoreIcon from '@lucide/svelte/icons/store';
 
@@ -26,14 +27,16 @@
 	function publicHref(hospitality: Doc<'hospitalities'>) {
 		return UNPROTECTED_PAGE_ENDPOINTS.HOSPITALITY.replace(':id', hospitality._id);
 	}
+
+	function reservationsHref() {
+		return PROTECTED_PAGE_ENDPOINTS.RESERVATIONS + '?venue=' + hospitality.name;
+	}
 </script>
 
 <article
 	class="rounded-xl border border-border bg-card px-3 py-3 transition-colors hover:border-border/80 md:px-4"
 >
-	<div
-		class="grid gap-3 md:grid-cols-[4.5rem_minmax(0,1fr)_auto] md:items-center"
-	>
+	<div class="grid gap-3 md:grid-cols-[4.5rem_minmax(0,1fr)_auto] md:items-center">
 		<div class="size-16 overflow-hidden rounded-lg border border-border bg-muted md:size-18">
 			{#if hospitality.coverImageUrl}
 				<img
@@ -76,11 +79,10 @@
 
 				<span class="inline-flex items-center gap-1.5 whitespace-nowrap">
 					<span class="text-xs font-medium">Reservations</span>
-					{#if hospitality.reservationRequestsEnabled}
-						<Badge variant="default">On</Badge>
-					{:else}
-						<Badge variant="outline">Off</Badge>
-					{/if}
+					<Button href={reservationsHref()} variant="ghost" size="xs">
+						<ListChecksIcon data-icon="inline-start" />
+						View
+					</Button>
 				</span>
 			</div>
 		</div>
@@ -91,7 +93,12 @@
 				Edit
 			</Button>
 
-			<Button href={publicHref(hospitality)} variant="ghost" size="icon-sm" aria-label="Open public page">
+			<Button
+				href={publicHref(hospitality)}
+				variant="ghost"
+				size="icon-sm"
+				aria-label="Open public page"
+			>
 				<ExternalLinkIcon class="size-3.5" aria-hidden="true" />
 			</Button>
 		</div>

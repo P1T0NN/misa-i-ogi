@@ -10,11 +10,14 @@
 	// UTILS
 	import { cn } from '@/shared/utils/utils.js';
 
+	// TYPES
+	import type { Snippet } from 'svelte';
+
 	type Props = {
 		/** Confirmed-action handler. Invoked after the user clicks the dialog's confirm button. */
 		function: () => Promise<void> | void;
 		/** Trigger content (icon, label, count, etc.). */
-		children: import('svelte').Snippet;
+		children: Snippet;
 		/** Button variant applied to the trigger button. */
 		variant?: ButtonVariant;
 		/** Trigger button size. */
@@ -32,7 +35,7 @@
 		title?: string;
 		description?: string;
 		/** Optional form fields or context rendered between the description and the footer. */
-		body?: import('svelte').Snippet;
+		body?: Snippet;
 	};
 
 	let {

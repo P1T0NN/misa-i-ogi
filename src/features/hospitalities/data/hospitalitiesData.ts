@@ -2,7 +2,10 @@
 import { m } from '@/shared/lib/paraglide/messages';
 
 // TYPES
-import type { HospitalityType } from '@/convex/tables/hospitalities/types/hospitalitiesTypes';
+import type {
+	HospitalityType,
+	ReservationMode
+} from '@/convex/tables/hospitalities/types/hospitalitiesTypes';
 
 /**
  * Per-kind message accessors — call at use time (e.g. in render), not at module load,
@@ -38,4 +41,9 @@ export function labelHospitalityType(type: HospitalityType): string {
 /** Select options for admin create/edit forms — order matches product defaults. */
 export function hospitalityTypeSelectOptions(): Array<{ value: HospitalityType; label: string }> {
 	return HOSPITALITIES_ORDER.map((value) => ({ value, label: labelHospitalityType(value) }));
+}
+
+/** Available reservation workflows. Additional options can be restored when implemented. */
+export function reservationModeSelectOptions(): Array<{ value: ReservationMode; label: string }> {
+	return [{ value: 'managed_request', label: m['HospitalityData.managedReservationsTitle']() }];
 }

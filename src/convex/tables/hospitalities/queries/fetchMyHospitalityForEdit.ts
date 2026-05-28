@@ -24,9 +24,7 @@ const hospitalityForEditValidator = v.object({
 	country: v.string(),
 	description: v.string(),
 	contactPhone: v.string(),
-	contactEmail: v.optional(v.string()),
-	website: v.optional(v.string()),
-	reservationRequestsEnabled: v.optional(v.boolean()),
+	reservationMode: v.literal('managed_request'),
 	isActive: v.boolean(),
 	coverImageUrl: v.optional(v.string())
 });
@@ -57,9 +55,7 @@ export const fetchMyHospitalityForEdit = query({
 			country: doc.country,
 			description: doc.description,
 			contactPhone: doc.contactPhone,
-			contactEmail: doc.contactEmail,
-			website: doc.website,
-			reservationRequestsEnabled: doc.reservationRequestsEnabled,
+			reservationMode: doc.reservationMode,
 			isActive: doc.isActive,
 			coverImageUrl: doc.coverImageUrl
 		};

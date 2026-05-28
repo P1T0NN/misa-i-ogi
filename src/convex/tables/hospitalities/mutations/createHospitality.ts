@@ -5,10 +5,7 @@ import { authComponent } from '@/convex/auth/auth';
 import { resolveStoredFileUrlAndSyncRow } from '@/convex/storage/r2/resolveStoredFileUrl.js';
 
 // SCHEMAS
-import {
-	mutationResultValidator,
-	type MutationResult
-} from '@/convex/schemas/mutationResult';
+import { mutationResultValidator, type MutationResult } from '@/convex/schemas/mutationResult';
 
 /**
  * Admin-only create. Mirrors `userMutations` envelope so the `MutationForm`
@@ -32,10 +29,8 @@ export const createHospitality = adminMutation('createHospitality')({
 		country: v.string(),
 		description: v.string(),
 		contactPhone: v.string(),
-		contactEmail: v.optional(v.string()),
-		website: v.optional(v.string()),
+		reservationMode: v.literal('managed_request'),
 		ownerId: v.optional(v.string()),
-		reservationRequestsEnabled: v.boolean(),
 		isActive: v.boolean(),
 		// Set by `processUploadFields` after upload; required so every venue has a cover.
 		coverImageKey: v.string()
@@ -74,11 +69,13 @@ export const createHospitality = adminMutation('createHospitality')({
 			coverImageKey: string;
 			coverImageUrl: string;
 			ownerId: string;
+			reservationMode: 'managed_request';
 		} = {
 			...rest,
 			coverImageKey: uploaded.key,
 			coverImageUrl,
-			ownerId: resolvedOwnerId
+			ownerId: resolvedOwnerId,
+			reservationMode: args.reservationMode
 		};
 
 		await ctx.db.insert('hospitalities', hospitality);

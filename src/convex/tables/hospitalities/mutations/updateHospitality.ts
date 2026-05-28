@@ -31,9 +31,7 @@ export const updateHospitality = authMutation('updateHospitality')({
 		country: v.string(),
 		description: v.string(),
 		contactPhone: v.string(),
-		contactEmail: v.optional(v.string()),
-		website: v.optional(v.string()),
-		reservationRequestsEnabled: v.boolean(),
+		reservationMode: v.literal('managed_request'),
 		isActive: v.boolean(),
 		coverImageKey: v.optional(v.string())
 	},
@@ -67,9 +65,6 @@ export const updateHospitality = authMutation('updateHospitality')({
 			coverImageKey = uploaded.key;
 		}
 
-		const contactEmail = args.contactEmail?.trim();
-		const website = args.website?.trim();
-
 		await ctx.db.patch(args.hospitalityId, {
 			name: args.name.trim(),
 			type: args.type,
@@ -78,9 +73,7 @@ export const updateHospitality = authMutation('updateHospitality')({
 			country: args.country.trim(),
 			description: args.description.trim(),
 			contactPhone: args.contactPhone.trim(),
-			contactEmail: contactEmail ? contactEmail : undefined,
-			website: website ? website : undefined,
-			reservationRequestsEnabled: args.reservationRequestsEnabled,
+			reservationMode: args.reservationMode,
 			isActive: args.isActive,
 			coverImageKey,
 			coverImageUrl

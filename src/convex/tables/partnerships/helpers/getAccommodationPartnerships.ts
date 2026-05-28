@@ -5,7 +5,23 @@ import { getHospitalitySafe } from '@/convex/tables/hospitalities/helpers/getHos
 // TYPES
 import type { AccommodationPartnershipSafe } from '@/convex/tables/partnerships/types/partnershipsTypes';
 import type { Id } from '@/convex/_generated/dataModel';
-import type { QueryCtx } from '@/convex/_generated/server';
+import type { MutationCtx, QueryCtx } from '@/convex/_generated/server';
+
+/** Returns whether an active accommodation ↔ hospitality partnership exists. */
+export async function hasActiveAccommodationHospitalityPartnership(
+	ctx: QueryCtx | MutationCtx,
+	accommodationId: Id<'accommodations'>,
+	hospitalityId: Id<'hospitalities'>
+): Promise<boolean> {
+	const partnership = await ctx.db
+		.query('partnerships')
+		.withIndex('by_pair', (q) =>
+			q.eq('accommodationId', accommodationId).eq('hospitalityId', hospitalityId)
+		)
+		.first();
+
+	return partnership?.isActive === true;
+}
 
 /**
  * Active partnerships for a stay, each enriched with a public-safe hospitality

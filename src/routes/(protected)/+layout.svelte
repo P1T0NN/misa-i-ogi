@@ -30,6 +30,7 @@
 	import LayoutDashboardIcon from '@lucide/svelte/icons/layout-dashboard';
 	import BuildingIcon from '@lucide/svelte/icons/building';
 	import HospitalIcon from '@lucide/svelte/icons/hospital';
+	import CalendarCheckIcon from '@lucide/svelte/icons/calendar-check';
 	import ShieldCheckIcon from '@lucide/svelte/icons/shield-check';
 	import HomeIcon from '@lucide/svelte/icons/home';
 
@@ -75,6 +76,11 @@
 					name: m['ProtectedSidebar.myHospitalities'](),
 					url: PROTECTED_PAGE_ENDPOINTS.MY_HOSPITALITIES,
 					icon: HospitalIcon
+				},
+				{
+					name: 'Reservations',
+					url: PROTECTED_PAGE_ENDPOINTS.RESERVATIONS,
+					icon: CalendarCheckIcon
 				}
 			],
 			navSecondary

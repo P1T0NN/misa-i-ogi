@@ -17,7 +17,10 @@
 	import { Button } from '@/shared/components/ui/button/index.js';
 
 	// TYPES
-	import type { ColumnDef, DataTableCellSnippetProps } from '@/shared/components/ui/data-table/types.js';
+	import type {
+		ColumnDef,
+		DataTableCellSnippetProps
+	} from '@/shared/components/ui/data-table/types.js';
 	import type { Doc } from '@/convex/_generated/dataModel';
 
 	// LUCIDE ICONS
@@ -29,8 +32,7 @@
 	const queryArgs = $derived({});
 
 	function contactLine(row: Doc<'hospitalities'>) {
-		const parts = [row.contactPhone, row.contactEmail].filter(Boolean) as string[];
-		return parts.length ? parts.join(' · ') : m['AdminHospitalitiesPage.contactNone']();
+		return row.contactPhone || m['AdminHospitalitiesPage.contactNone']();
 	}
 
 	function cityLine(row: Doc<'hospitalities'>) {
@@ -92,17 +94,16 @@
 <SvelteHead />
 
 <section class="flex w-full flex-col gap-4 p-4 md:p-6">
-	<header class="flex w-full flex-col gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
-		<div class="flex min-w-0 max-w-3xl flex-col gap-1">
+	<header
+		class="flex w-full flex-col gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4"
+	>
+		<div class="flex max-w-3xl min-w-0 flex-col gap-1">
 			<h1 class="text-2xl font-semibold tracking-tight">{m['AdminHospitalitiesPage.title']()}</h1>
-			<p class="text-muted-foreground text-sm leading-relaxed">
+			<p class="text-sm leading-relaxed text-muted-foreground">
 				{m['AdminHospitalitiesPage.description']()}
 			</p>
 		</div>
-		<Button
-			href={ADMIN_PAGE_ENDPOINTS.HOSPITALITY_ADD}
-			class="w-full shrink-0 sm:w-auto"
-		>
+		<Button href={ADMIN_PAGE_ENDPOINTS.HOSPITALITY_ADD} class="w-full shrink-0 sm:w-auto">
 			<PlusIcon data-icon="inline-start" />
 			{m['AdminHospitalitiesPage.addHospitality']()}
 		</Button>
@@ -126,7 +127,7 @@
 {#snippet nameCell({ row }: DataTableCellSnippetProps<Doc<'hospitalities'>>)}
 	<Link
 		href={UNPROTECTED_PAGE_ENDPOINTS.HOSPITALITY.replace(':id', row._id)}
-		class="text-primary font-medium underline-offset-4 hover:underline"
+		class="font-medium text-primary underline-offset-4 hover:underline"
 	>
 		{row.name}
 	</Link>
