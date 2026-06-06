@@ -33,16 +33,26 @@
 	const pathnameLogical = $derived(deLocalizeUrl(page.url).pathname);
 
 	const navMainItems = $derived(
-		navItems.navMain.map((item) => ({
-			...item,
-			isActive: isNavItemActive(pathnameLogical, item.url)
-		}))
+		navItems.navMain.map((item) => {
+			const children = item.items?.map((child) => ({
+				...child,
+				isActive: isNavItemActive(pathnameLogical, child.url, { exact: child.url === item.url })
+			}));
+
+			return {
+				...item,
+				isActive:
+					(item.url ? isNavItemActive(pathnameLogical, item.url) : false) ||
+					Boolean(children?.some((child) => child.isActive)),
+				items: children
+			};
+		})
 	);
 
 	const navSecondaryItems = $derived(
 		navItems.navSecondary?.map((item) => ({
 			...item,
-			isActive: isNavItemActive(pathnameLogical, item.url)
+			isActive: item.url ? isNavItemActive(pathnameLogical, item.url) : false
 		}))
 	);
 </script>

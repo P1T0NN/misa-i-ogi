@@ -39,6 +39,7 @@
 	const isAdminPage = $derived(
 		pathnameLogical === '/admin' || pathnameLogical.startsWith('/admin/')
 	);
+	const isStayPage = $derived(pathnameLogical === '/stay' || pathnameLogical.startsWith('/stay/'));
 	const isProtectedPage = $derived(
 		page.route.id != null &&
 			page.route.id.startsWith('/(protected)/') &&
@@ -82,7 +83,7 @@
 
 	const currentUserResponse = useQuery(
 		api.auth.queries.authQueries.getCurrentUser,
-		() => (auth.isAuthenticated ? {} : 'skip'),
+		() => (auth.isAuthenticated && !isStayPage ? {} : 'skip'),
 		() => ({
 			initialData: data.currentUser ?? undefined,
 			keepPreviousData: true
@@ -92,12 +93,32 @@
 	// Push the live query into the shared store so any component can read
 	// `authClass.currentUser` without re-subscribing.
 	$effect(() => {
-		const data = currentUserResponse.data as CurrentUser | null | undefined;
-		authClass.syncFromCurrentUserQuery(data, currentUserResponse.isLoading);
+		if (!auth.isAuthenticated) {
+			authClass.syncFromCurrentUserQuery(null, false);
+			return;
+		}
+
+		if (isStayPage) {
+			authClass.syncFromCurrentUserQuery(data.currentUser ?? authClass.currentUser ?? null, false);
+			return;
+		}
+
+		const currentUser = currentUserResponse.data as CurrentUser | null | undefined;
+		authClass.syncFromCurrentUserQuery(currentUser, currentUserResponse.isLoading);
 	});
 </script>
 
-<svelte:head><link rel="icon" href={favicon} /></svelte:head>
+<svelte:head>
+    <link rel="icon" href={favicon} />
+    {#if dev}
+		<script
+			defer
+			src="https://umami-sable-iota.vercel.app/script.js"
+			data-website-id="b8f657d5-dddc-4c34-bdda-2da1cf55e58f"
+		></script>
+	{/if}
+</svelte:head>
+
 <div class="flex min-h-dvh flex-col">
 	{#if showSiteChrome}
 		<NormalHeader changeBgOnScroll={true} />

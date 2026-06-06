@@ -3,10 +3,12 @@ import { v } from 'convex/values';
 
 // HELPERS
 import { allocateScanToken } from '@/convex/tables/accommodations/helpers/allocateScanToken';
+import { analytics } from '@/convex/analytics';
 
 // UTILS
 import { adminMutation } from '@/convex/auth/middleware/authMiddleware';
 import { authComponent } from '@/convex/auth/auth';
+import { createAnalyticsScopeId } from '@piton-/analytics-convex';
 import { resolveStoredFileUrlAndSyncRow } from '@/convex/storage/r2/resolveStoredFileUrl.js';
 
 // SCHEMAS
@@ -89,7 +91,23 @@ export const createAccommodation = adminMutation('createAccommodation')({
 			ownerId: resolvedOwnerId
 		};
 
-		await ctx.db.insert('accommodations', accommodation);
+		const accommodationId = await ctx.db.insert('accommodations', accommodation);
+
+		await analytics.writeTrack(ctx, {
+			name: 'accommodation.registered',
+			organizationId: resolvedOwnerId,
+			scopes: [
+				{
+					scopeType: 'organization',
+					scopeId: createAnalyticsScopeId('accommodationOwner', resolvedOwnerId)
+				}
+			],
+			properties: {
+				accommodationId,
+				accommodationName: accommodation.name,
+				accommodationType: accommodation.type
+			}
+		});
 
 		return {
 			success: true,

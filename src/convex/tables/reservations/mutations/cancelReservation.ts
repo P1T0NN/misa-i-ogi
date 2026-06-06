@@ -4,6 +4,13 @@ import { mutation } from '@/convex/_generated/server';
 
 // HELPERS
 import { getAuthUserId } from '@/convex/auth/helpers/getAuthUserId';
+import { analytics } from '@/convex/analytics';
+
+// UTILS
+import {
+	createAnalyticsResourceScopeId,
+	createAnalyticsScopeId
+} from '@piton-/analytics-convex';
 
 // SCHEMAS
 import { mutationResultValidator, type MutationResult } from '@/convex/schemas/mutationResult';
@@ -29,6 +36,51 @@ export const cancelReservation = mutation({
 		}
 
 		await ctx.db.patch(args.reservationId, { status: 'cancelled' });
+
+		const [hospitality, accommodation] = await Promise.all([
+			ctx.db.get(reservation.hospitalityId),
+			ctx.db.get(reservation.accommodationId)
+		]);
+
+		await analytics.writeTrack(ctx, {
+			name: 'reservation.cancelled',
+			organizationId: reservation.hospitalityOwnerId,
+			scopes: [
+				...(accommodation
+					? [{ scopeType: 'organization' as const, scopeId: accommodation.ownerId }]
+					: []),
+				{
+					scopeType: 'organization',
+					scopeId: createAnalyticsScopeId(
+						'hospitalityOwner',
+						reservation.hospitalityOwnerId
+					)
+				},
+				...(accommodation
+					? [
+							{
+								scopeType: 'organization' as const,
+								scopeId: createAnalyticsScopeId(
+									'accommodationOwner',
+									accommodation.ownerId
+								)
+							}
+						]
+					: []),
+				{
+					scopeType: 'resource',
+					scopeId: createAnalyticsResourceScopeId('accommodation', reservation.accommodationId)
+				}
+			],
+			properties: {
+				hospitalityId: reservation.hospitalityId,
+				hospitalityName: hospitality?.name ?? reservation.hospitalityName,
+				...(hospitality ? { hospitalityType: hospitality.type } : {}),
+				accommodationId: reservation.accommodationId,
+				...(accommodation ? { accommodationName: accommodation.name } : {}),
+				reason: 'owner_cancelled'
+			}
+		});
 
 		return { success: true, message: { key: 'GenericMessages.RESERVATION_CANCELLED' } };
 	}

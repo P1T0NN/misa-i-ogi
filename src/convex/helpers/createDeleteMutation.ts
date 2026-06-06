@@ -7,6 +7,7 @@ import { mutation } from '../_generated/server';
 import { convexGetRateLimitedUserId } from './convexGetRateLimitedUserId.js';
 import { requireAdmin } from '../auth/middleware/authMiddleware.js';
 import { logAudit } from '../tables/auditLog/helpers/logAudit';
+import { analytics } from '@/convex/analytics';
 
 // TYPES
 import type { MutationCtx } from '../_generated/server';
@@ -75,6 +76,28 @@ export type OwnerIdConfig<T extends TableNames> = {
 		ctx: MutationCtx
 	) => Promise<string | null | undefined> | string | null | undefined;
 };
+
+type DeleteMutationAnalyticsInput = {
+	name: string;
+	organizationId?: string;
+	scopes?: Array<{ scopeType: 'global' | 'organization' | 'resource'; scopeId: string }>;
+	properties?: Record<string, string | number | boolean | null>;
+};
+
+export type DeleteMutationAnalyticsMeta<T extends TableNames> = {
+	userId?: string;
+	table: T;
+};
+
+export type DeleteMutationAnalyticsHandler<T extends TableNames> = (
+	ctx: MutationCtx,
+	doc: Doc<T>,
+	meta: DeleteMutationAnalyticsMeta<T>
+) =>
+	| Promise<DeleteMutationAnalyticsInput | null | undefined>
+	| DeleteMutationAnalyticsInput
+	| null
+	| undefined;
 
 // ΓöÇΓöÇΓöÇ ConvexError payloads ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
 
@@ -166,6 +189,14 @@ export type CreateDeleteMutationOptions<T extends TableNames> = {
 	 * txn semantics still apply).
 	 */
 	onDelete?: (ctx: MutationCtx, doc: Doc<T>) => Promise<void>;
+	/**
+	 * Optional per-row analytics event builder. The factory handles `trackEvent`
+	 * plumbing and passes the resolved caller id through `meta.userId`.
+	 *
+	 * Return `null`/`undefined` to skip a row. Analytics is best-effort: callback
+	 * errors are logged but do not abort the delete operation.
+	 */
+	analytics?: false | DeleteMutationAnalyticsHandler<T>;
 	/**
 	 * Max ids accepted per request. Default {@link DEFAULT_MAX_BATCH_SIZE}. Enforced BEFORE
 	 * the rate-limit charge, so oversized payloads get a cheap rejection.
@@ -302,6 +333,7 @@ export function createDeleteMutation<T extends TableNames>(
 		adminOnly,
 		runStorageDelete,
 		onDelete,
+		analytics: analyticsOption,
 		maxBatchSize = DEFAULT_MAX_BATCH_SIZE,
 		skipRateLimit,
 		phase2Strategy = 'sequential',
@@ -312,6 +344,7 @@ export function createDeleteMutation<T extends TableNames>(
 	// is `${table}.delete` so every endpoint gets sensible auditing for free.
 	const auditAction: AuditAction | null =
 		auditOption === false ? null : (auditOption?.action ?? `${table}.delete`);
+	const analyticsHandler = analyticsOption === false ? null : analyticsOption;
 
 	return mutation({
 		args: {
@@ -445,6 +478,27 @@ export function createDeleteMutation<T extends TableNames>(
 			//    choice is only about *intra-batch* ordering guarantees, never about atomicity.
 			const deleteOne = async (doc: Doc<T>) => {
 				if (onDelete) await onDelete(ctx, doc);
+				if (analyticsHandler) {
+					try {
+						const analyticsInput = await analyticsHandler(ctx, doc, {
+							userId: userId ?? undefined,
+							table
+						});
+						if (analyticsInput) {
+							await analytics.writeTrack(ctx, {
+								name: analyticsInput.name,
+								organizationId: analyticsInput.organizationId,
+								scopes: analyticsInput.scopes,
+								properties: analyticsInput.properties
+							});
+						}
+					} catch (error) {
+						console.error(
+							`[createDeleteMutation:${table}] analytics failed`,
+							error instanceof Error ? error.message : error
+						);
+					}
+				}
 				if (auditAction) {
 					logAudit(ctx, auditAction, {
 						userId: userId ?? undefined,

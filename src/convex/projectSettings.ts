@@ -8,7 +8,7 @@
 export const CONVEX_PROJECT_SETTINGS = {
 	NAME: 'Company Name',
 	RESEND_EMAIL: 'onboarding@resend.dev', // default email for the Resend provider
-	EMAIL: 'company@gmail.com'
+	EMAIL: 'ognjen.tapuskovic@gmail.com'
 } as const;
 
 /** Guest stay window after scanning the in-room QR (`guests` table + HttpOnly cookie). */
@@ -27,3 +27,6 @@ export const FEATURES = {
 	/** This project uses Cloudflare R2 only (no Convex file storage). */
 	USE_R2: true
 } as const;
+
+/** Maximum bars shown on analytics bar charts (accommodations, hospitalities). */
+export const ANALYTICS_CHART_LIMIT = 10;

@@ -4,12 +4,16 @@ import { mutation } from '@/convex/_generated/server';
 import { enforceRateLimit } from '@/convex/rateLimits/enforceRateLimit';
 import { rateLimitKey } from '@/convex/rateLimits/keys';
 
+// HELPERS
+import { analytics } from '@/convex/analytics';
+
 // UTILS
 import {
 	hashGuestCredential,
 	isValidGuestSharingCode,
 	normalizeGuestSharingCode
 } from '@/convex/tables/guests/utils/guestSessionToken';
+import { createAnalyticsScopeId } from '@piton-/analytics-convex';
 import { signGuestStayCookie } from '@/convex/tables/guests/utils/guestStayCookieCrypto';
 
 // SCHEMAS
@@ -48,6 +52,24 @@ export const joinGuestBySharingCode = mutation({
 				success: false,
 				message: { key: 'GenericMessages.GUEST_SHARING_CODE_INVALID' }
 			};
+		}
+
+		const accommodation = await ctx.db.get(guest.accommodationId);
+		if (accommodation) {
+			await analytics.writeTrack(ctx, {
+				name: 'guest.returned',
+				organizationId: accommodation.ownerId,
+				scopes: [
+					{
+						scopeType: 'organization',
+						scopeId: createAnalyticsScopeId('accommodationOwner', accommodation.ownerId)
+					}
+				],
+				properties: {
+					accommodationId: accommodation._id,
+					accommodationName: accommodation.name
+				}
+			});
 		}
 
 		return {

@@ -3,13 +3,13 @@
 	import { page } from '$app/state';
 
 	// LIBRARIES
-	import { useAuth } from '@mmailaender/convex-better-auth-svelte/svelte';
 	import { scrollY } from 'svelte/reactivity/window';
 
 	// CONFIG
 	import { COMPANY_DATA, PROTECTED_PAGE_ENDPOINTS } from '@/shared/constants.js';
 
 	// CLASSES
+	import { authClass } from '@/features/auth/classes/authClass.svelte';
 	import {
 		isNavItemActive,
 		navItems,
@@ -52,8 +52,8 @@
 		hasLogo = true
 	}: Props = $props();
 
-	const auth = useAuth();
-	const isAuthenticated = $derived(auth.isAuthenticated);
+	const user = $derived(authClass.currentUser);
+	const showAccountMenu = $derived(authClass.userLoading || user !== null);
 
 	const pathnameLogical = $derived(deLocalizeUrl(page.url).pathname);
 
@@ -71,26 +71,21 @@
 		className
 	)}
 >
-	<div
-		class="mx-auto flex h-14 w-full max-w-7xl items-center gap-2 px-4 sm:gap-3 sm:px-6 lg:px-8"
-	>
+	<div class="mx-auto flex h-14 w-full max-w-7xl items-center gap-2 px-4 sm:gap-3 sm:px-6 lg:px-8">
 		<div class="flex min-w-0 shrink items-center gap-2 lg:shrink-0">
 			{#if hasLogo}
 				<Logo />
 			{:else}
 				<Link
 					href={PROTECTED_PAGE_ENDPOINTS.DASHBOARD}
-					class="text-foreground truncate text-sm font-semibold tracking-tight sm:text-base"
+					class="truncate text-sm font-semibold tracking-tight text-foreground sm:text-base"
 				>
 					{COMPANY_DATA.NAME}
 				</Link>
 			{/if}
 		</div>
 
-		<nav
-			class="hidden min-w-0 flex-1 justify-center lg:flex"
-			aria-label="Main"
-		>
+		<nav class="hidden min-w-0 flex-1 justify-center lg:flex" aria-label="Main">
 			<ul class="flex max-w-full min-w-0 flex-wrap items-center justify-center gap-1">
 				{#each navItems as item (item.href)}
 					{@const active = isNavItemActive(pathnameLogical, item.href)}
@@ -107,11 +102,9 @@
 			</ul>
 		</nav>
 
-		<div
-			class="ml-auto flex shrink-0 items-center justify-end gap-1.5 sm:gap-2 lg:ml-0"
-		>
+		<div class="ml-auto flex shrink-0 items-center justify-end gap-1.5 sm:gap-2 lg:ml-0">
 			<div class="hidden sm:block">
-				{#if isAuthenticated}
+				{#if showAccountMenu}
 					<NormalHeaderUserMenu />
 				{:else}
 					<LoginButton />

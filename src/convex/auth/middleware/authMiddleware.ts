@@ -9,6 +9,7 @@ import {
 // UTILS
 import { action, mutation } from '@/convex/_generated/server';
 import { authComponent } from '@/convex/auth/auth';
+import { getAuthUserId } from '@/convex/auth/helpers/getAuthUserId';
 import { convexGetRateLimitedUserId } from '@/convex/helpers/convexGetRateLimitedUserId';
 import { logAudit } from '@/convex/tables/auditLog/helpers/logAudit';
 
@@ -19,6 +20,27 @@ import type { ConvexErrorPayload } from '@/convex/types/convexTypes';
 import type { Id } from '@/convex/auth/component/_generated/dataModel';
 import type { AuditAction } from '@/convex/tables/auditLog/auditLogConfigs';
 import type { AuditOptions } from '@/convex/tables/auditLog/helpers/logAudit';
+
+/**
+ * Assert the caller has an authenticated session and return the better-auth user id.
+ *
+ * Use this inside queries or handlers that only need "signed in" access and do
+ * not need rate limiting or audit helpers injected by `authMutation` / `authAction`.
+ */
+export const requireAuthUserId = async (
+	ctx: MutationCtx | QueryCtx | ActionCtx
+): Promise<string> => {
+	const userId = await getAuthUserId(ctx);
+
+	if (!userId) {
+		throw new ConvexError({
+			code: 'NOT_AUTHENTICATED',
+			message: { key: 'GenericMessages.NOT_AUTHENTICATED' }
+		} satisfies ConvexErrorPayload);
+	}
+
+	return userId;
+};
 
 /**
  * Assert the caller is an authenticated admin.

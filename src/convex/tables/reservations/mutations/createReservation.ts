@@ -5,11 +5,19 @@ import { mutation } from '@/convex/_generated/server';
 // HELPERS
 import { getActiveGuestSessionFromAuth } from '@/convex/tables/guests/helpers/getActiveGuestSessionFromAuth';
 import { hasActiveAccommodationHospitalityPartnership } from '@/convex/tables/partnerships/helpers/getAccommodationPartnerships';
+import { getGuestPendingHospitalityReservation } from '@/convex/tables/reservations/helpers/getGuestPendingHospitalityReservation';
+import { sendReservationEmailToHospitalityOwner } from '@/convex/tables/reservations/emails/sendReservationEmailToHospitalityOwner';
+import { sendReservationEmailToGuest } from '@/convex/tables/reservations/emails/sendReservationEmailToGuest';
+import { analytics } from '@/convex/analytics';
 
 // SCHEMAS
 import { mutationResultValidator, type MutationResult } from '@/convex/schemas/mutationResult';
 
 // UTILS
+import {
+	createAnalyticsResourceScopeId,
+	createAnalyticsScopeId
+} from '@piton-/analytics-convex';
 import {
 	normalizeOptionalEmail,
 	normalizeRequiredString,
@@ -85,6 +93,18 @@ export const createReservation = mutation({
 			};
 		}
 
+		const existingPendingReservation = await getGuestPendingHospitalityReservation(
+			ctx,
+			guest._id,
+			args.hospitalityId
+		);
+		if (existingPendingReservation) {
+			return {
+				success: true,
+				message: { key: 'GenericMessages.RESERVATION_CREATED' }
+			};
+		}
+
 		await ctx.db.insert('reservations', {
 			hospitalityId: args.hospitalityId,
 			hospitalityName: hospitality.name,
@@ -97,6 +117,54 @@ export const createReservation = mutation({
 			requestedTime: input.requestedTime,
 			status: 'pending'
 		});
+
+		const accommodation = await ctx.db.get(guest.accommodationId);
+		if (accommodation) {
+			await analytics.writeTrack(ctx, {
+				name: 'reservation.created',
+				organizationId: hospitality.ownerId,
+				scopes: [
+					{ scopeType: 'organization', scopeId: accommodation.ownerId },
+					{
+						scopeType: 'organization',
+						scopeId: createAnalyticsScopeId('hospitalityOwner', hospitality.ownerId)
+					},
+					{
+						scopeType: 'organization',
+						scopeId: createAnalyticsScopeId('accommodationOwner', accommodation.ownerId)
+					},
+					{
+						scopeType: 'resource',
+						scopeId: createAnalyticsResourceScopeId('accommodation', accommodation._id)
+					}
+				],
+				properties: {
+					hospitalityId: hospitality._id,
+					hospitalityName: hospitality.name,
+					hospitalityType: hospitality.type,
+					accommodationId: accommodation._id,
+					accommodationName: accommodation.name
+				}
+			});
+		}
+
+		await sendReservationEmailToHospitalityOwner(ctx, {
+			hospitality,
+			guestName: input.guestName,
+			phone: input.phone,
+			requestedTime: input.requestedTime,
+			...(input.email ? { guestEmail: input.email } : {})
+		});
+
+		if (input.email) {
+			await sendReservationEmailToGuest(ctx, {
+				guestEmail: input.email,
+				hospitalityName: hospitality.name,
+				guestName: input.guestName,
+				phone: input.phone,
+				requestedTime: input.requestedTime
+			});
+		}
 
 		return {
 			success: true,

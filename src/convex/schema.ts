@@ -111,6 +111,8 @@ const schema = defineSchema({
 	})
 		.index('by_accommodation', ['accommodationId'])
 		.index('by_hospitality', ['hospitalityId'])
+		.index('by_accommodation_active', ['accommodationId', 'isActive'])
+		.index('by_hospitality_active', ['hospitalityId', 'isActive'])
 		.index('by_pair', ['accommodationId', 'hospitalityId']),
 
 	/**

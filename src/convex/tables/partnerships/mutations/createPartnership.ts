@@ -3,10 +3,17 @@ import { v } from 'convex/values';
 import { adminMutation } from '@/convex/auth/middleware/authMiddleware';
 import { AUDIT_ACTIONS } from '@/convex/tables/auditLog/auditLogConfigs';
 
+// HELPERS
+import { analytics } from '@/convex/analytics';
+
 // VALIDATORS
 import { mutationResultValidator } from '@/convex/schemas/mutationResult';
 
 // UTILS
+import {
+	createAnalyticsResourceScopeId,
+	createAnalyticsScopeId
+} from '@piton-/analytics-convex';
 import { normalizeOptionalNumber } from '@/convex/utils/convexValidationUtils';
 
 // TYPES
@@ -61,6 +68,11 @@ export const createPartnership = adminMutation('createPartnership')({
 		}
 
 		for (const hospitalityId of hospitalityIds) {
+			const hospitality = await ctx.db.get(hospitalityId);
+			if (!hospitality) {
+				return { success: false, message: { key: 'GenericMessages.HOSPITALITY_NOT_FOUND' } };
+			}
+
 			const partnershipId = await ctx.db.insert('partnerships', {
 				accommodationId: args.accommodationId,
 				accommodationScanToken: accommodation.scanToken,
@@ -77,6 +89,34 @@ export const createPartnership = adminMutation('createPartnership')({
 					hospitalityId,
 					discountPercentage,
 					isActive: true
+				}
+			});
+
+			await analytics.writeTrack(ctx, {
+				name: 'partnership.created',
+				organizationId: accommodation.ownerId,
+				scopes: [
+					{ scopeType: 'organization', scopeId: hospitality.ownerId },
+					{
+						scopeType: 'organization',
+						scopeId: createAnalyticsScopeId('accommodationOwner', accommodation.ownerId)
+					},
+					{
+						scopeType: 'organization',
+						scopeId: createAnalyticsScopeId('hospitalityOwner', hospitality.ownerId)
+					},
+					{
+						scopeType: 'resource',
+						scopeId: createAnalyticsResourceScopeId('hospitality', hospitality._id)
+					}
+				],
+				properties: {
+					accommodationId: accommodation._id,
+					accommodationName: accommodation.name,
+					hospitalityId: hospitality._id,
+					hospitalityName: hospitality.name,
+					...(discountPercentage === undefined ? {} : { discountPercent: discountPercentage }),
+					partnershipDelta: 1
 				}
 			});
 		}

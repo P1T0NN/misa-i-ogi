@@ -1,34 +1,31 @@
 <script lang="ts">
-	// UTILS
-	import { appHref } from '@/shared/utils/app-navigation';
-
 	// COMPONENTS
 	import * as Sidebar from '@/shared/components/ui/sidebar/index.js';
+	import Link from '@/shared/components/ui/link/link.svelte';
 
 	// TYPES
 	import type { ComponentProps } from 'svelte';
-	import type { AppSidebarNavItemWithActive } from './types.js';
+	import type { AppSidebarNavSecondaryItemWithActive } from './types.js';
 
 	let {
 		items,
 		...restProps
 	}: {
-		items: AppSidebarNavItemWithActive[];
+		items: AppSidebarNavSecondaryItemWithActive[];
 	} & ComponentProps<typeof Sidebar.Group> = $props();
 </script>
 
 <Sidebar.Group {...restProps}>
 	<Sidebar.GroupContent>
-	<Sidebar.Menu class="gap-2">
-		{#each items as item (item.name)}
-			{@const href = appHref(item.url)}
-			<Sidebar.MenuItem>
-				<Sidebar.MenuButton size="sm" isActive={item.isActive}>
-					{#snippet child({ props })}
-							<a href={href} {...props}>
+		<Sidebar.Menu class="gap-2">
+			{#each items as item (item.name)}
+				<Sidebar.MenuItem>
+					<Sidebar.MenuButton size="sm" isActive={item.isActive}>
+						{#snippet child({ props })}
+							<Link href={item.url} {...props}>
 								<item.icon />
 								<span>{item.name}</span>
-							</a>
+							</Link>
 						{/snippet}
 					</Sidebar.MenuButton>
 				</Sidebar.MenuItem>

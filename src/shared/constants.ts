@@ -22,6 +22,10 @@ export const ADMIN_PAGE_ENDPOINTS = {
 
 export const PROTECTED_PAGE_ENDPOINTS = {
 	DASHBOARD: '/dashboard',
+	ANALYTICS: '/analytics/overview',
+	ANALYTICS_ACCOMMODATIONS: '/analytics/accommodations',
+	ANALYTICS_HOSPITALITIES: '/analytics/hospitalities',
+	ANALYTICS_RESERVATIONS: '/analytics/reservations',
 	MY_ACCOMMODATIONS: '/my-accommodations',
 	MY_HOSPITALITIES: '/my-hospitalities',
 	RESERVATIONS: '/reservations',

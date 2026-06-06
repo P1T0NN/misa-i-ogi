@@ -2,7 +2,11 @@
 import { v } from 'convex/values';
 import { adminMutation } from '@/convex/auth/middleware/authMiddleware';
 import { authComponent } from '@/convex/auth/auth';
+import { createAnalyticsScopeId } from '@piton-/analytics-convex';
 import { resolveStoredFileUrlAndSyncRow } from '@/convex/storage/r2/resolveStoredFileUrl.js';
+
+// HELPERS
+import { analytics } from '@/convex/analytics';
 
 // SCHEMAS
 import { mutationResultValidator, type MutationResult } from '@/convex/schemas/mutationResult';
@@ -78,7 +82,23 @@ export const createHospitality = adminMutation('createHospitality')({
 			reservationMode: args.reservationMode
 		};
 
-		await ctx.db.insert('hospitalities', hospitality);
+		const hospitalityId = await ctx.db.insert('hospitalities', hospitality);
+
+		await analytics.writeTrack(ctx, {
+			name: 'hospitality.claimed',
+			organizationId: resolvedOwnerId,
+			scopes: [
+				{
+					scopeType: 'organization',
+					scopeId: createAnalyticsScopeId('hospitalityOwner', resolvedOwnerId)
+				}
+			],
+			properties: {
+				hospitalityId,
+				hospitalityName: hospitality.name,
+				hospitalityType: hospitality.type
+			}
+		});
 
 		return {
 			success: true,

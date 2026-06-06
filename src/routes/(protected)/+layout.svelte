@@ -28,6 +28,7 @@
 
 	// LUCIDE ICONS
 	import LayoutDashboardIcon from '@lucide/svelte/icons/layout-dashboard';
+	import ChartBarIcon from '@lucide/svelte/icons/chart-bar';
 	import BuildingIcon from '@lucide/svelte/icons/building';
 	import HospitalIcon from '@lucide/svelte/icons/hospital';
 	import CalendarCheckIcon from '@lucide/svelte/icons/calendar-check';
@@ -81,6 +82,29 @@
 					name: 'Reservations',
 					url: PROTECTED_PAGE_ENDPOINTS.RESERVATIONS,
 					icon: CalendarCheckIcon
+				},
+				{
+					name: 'Analytics',
+					icon: ChartBarIcon,
+					groupLabel: 'Analytics',
+					items: [
+						{
+							name: 'Overview',
+							url: PROTECTED_PAGE_ENDPOINTS.ANALYTICS
+						},
+						{
+							name: 'Accommodations',
+							url: PROTECTED_PAGE_ENDPOINTS.ANALYTICS_ACCOMMODATIONS
+						},
+						{
+							name: 'Hospitalities',
+							url: PROTECTED_PAGE_ENDPOINTS.ANALYTICS_HOSPITALITIES
+						},
+						{
+							name: 'Reservations',
+							url: PROTECTED_PAGE_ENDPOINTS.ANALYTICS_RESERVATIONS
+						}
+					]
 				}
 			],
 			navSecondary

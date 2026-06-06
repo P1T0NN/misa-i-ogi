@@ -3,13 +3,11 @@
 	import { afterNavigate } from '$app/navigation';
 	import { page } from '$app/state';
 
-	// LIBRARIES
-	import { useAuth } from '@mmailaender/convex-better-auth-svelte/svelte';
-
 	// CONFIG
 	import { COMPANY_DATA } from '@/shared/constants.js';
 
 	// CLASSES
+	import { authClass } from '@/features/auth/classes/authClass.svelte';
 	import {
 		isNavItemActive,
 		normalHeader,
@@ -42,8 +40,8 @@
 
 	let { hasLogo = true }: { hasLogo?: boolean } = $props();
 
-	const auth = useAuth();
-	const isAuthenticated = $derived(auth.isAuthenticated);
+	const user = $derived(authClass.currentUser);
+	const showAccountMenu = $derived(authClass.userLoading || user !== null);
 
 	const pathnameLogical = $derived(deLocalizeUrl(page.url).pathname);
 
@@ -71,7 +69,7 @@
 				type="button"
 				class={cn(
 					buttonVariants({ variant: 'ghost', size: 'icon' }),
-					'lg:hidden touch-manipulation',
+					'touch-manipulation lg:hidden',
 					props.class as ClassValue
 				)}
 				aria-controls="site-mobile-nav"
@@ -89,7 +87,7 @@
 	<DrawerContent
 		id="site-mobile-nav"
 		aria-describedby={undefined}
-		class="flex h-full max-h-dvh w-full max-w-80 flex-col gap-4 overflow-y-auto overflow-x-hidden border-border bg-background p-4 shadow-lg! data-[vaul-drawer-direction=right]:w-full sm:max-w-80"
+		class="flex h-full max-h-dvh w-full max-w-80 flex-col gap-4 overflow-x-hidden overflow-y-auto border-border bg-background p-4 shadow-lg! data-[vaul-drawer-direction=right]:w-full sm:max-w-80"
 	>
 		<div class="flex min-w-0 items-center justify-between gap-2">
 			<div class="min-w-0">
@@ -140,7 +138,7 @@
 			<Separator />
 
 			<div class="sm:hidden">
-				{#if isAuthenticated}
+				{#if showAccountMenu}
 					<NormalHeaderUserMenu side="top" />
 				{:else}
 					<LoginButton />

@@ -31,7 +31,12 @@ const config = {
             mode: 'auto',
             directives: {
                 'default-src': ['self'],
-                'script-src': ['self', 'blob:', 'https://va.vercel-scripts.com'],
+                'script-src': [
+                    'self',
+                    'blob:',
+                    'https://va.vercel-scripts.com',
+                    'https://umami-sable-iota.vercel.app'
+                ],
                 'worker-src': ['self', 'blob:'],
                 'style-src': ['self', 'unsafe-inline'],
                 'img-src': ['self', 'data:', 'https:', 'blob:'],
@@ -47,7 +52,8 @@ const config = {
                     'https://va.vercel-scripts.com',
                     // Cloudflare R2 — direct browser PUT to signed upload URLs and GET on public objects
                     'https://*.r2.cloudflarestorage.com',
-                    'https://*.r2.dev'
+                    'https://*.r2.dev',
+                    'https://umami-sable-iota.vercel.app'
                 ],
                 'frame-src': ['self', 'https://accounts.google.com'],
                 'object-src': ['none'],

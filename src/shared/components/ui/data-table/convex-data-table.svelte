@@ -51,6 +51,7 @@
 		optimizationStrategy = PAGINATION_DATA.DEFAULT_OPTIMIZATION_STRATEGY,
 		pageSize = PAGINATION_DATA.DEFAULT_PAGE_SIZE,
 		controlsPlace = 'bottom',
+		showPagination = true,
 		selectable = false,
 		selectedIds = $bindable<string[]>([]),
 		deleteMutation,
@@ -81,6 +82,8 @@
 		pageSize?: number;
 		/** Where the pagination controls sit relative to the table. */
 		controlsPlace?: 'top' | 'bottom';
+		/** Render pagination controls. Disable for short, fully-loaded lists. */
+		showPagination?: boolean;
 		/** Turn the leftmost checkbox column on; multi-select, persists across pages. */
 		selectable?: boolean;
 		/** Two-way bound set of selected row ids (`bind:selectedIds`). */
@@ -232,6 +235,7 @@
 	{getRowId}
 	{customCells}
 	{controlsPlace}
+	{showPagination}
 	{selectable}
 	bind:selectedIds
 	bind:sortColumn

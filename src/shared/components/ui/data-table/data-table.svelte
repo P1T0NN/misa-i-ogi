@@ -48,6 +48,7 @@
 		searchDebounceMs = 300,
 		filters,
 		page = $bindable(1),
+		showPagination = true,
 		totalPages,
 		canGoNext = false,
 		isLoading = false,
@@ -84,6 +85,8 @@
 		filters?: Snippet;
 		/** Current page. Bindable so callers can connect any backend or in-memory paginator. */
 		page?: number;
+		/** Render pagination controls. Disable for short, fully-loaded lists. */
+		showPagination?: boolean;
 		/** Exact total page count when known. Omit for cursor-style pagination. */
 		totalPages?: number;
 		/** Whether a cursor-style paginator can move forward. */
@@ -269,7 +272,7 @@
 		</div>
 	{/if}
 
-	{#if controlsPlace === 'top'}
+	{#if showPagination && controlsPlace === 'top'}
 		<PaginatedData
 			bind:page
 			{totalPages}
@@ -311,7 +314,7 @@
 		{isSearching}
 	/>
 
-	{#if controlsPlace === 'bottom'}
+	{#if showPagination && controlsPlace === 'bottom'}
 		<PaginatedData
 			bind:page
 			{totalPages}

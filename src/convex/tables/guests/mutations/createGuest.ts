@@ -10,12 +10,14 @@ import { GUEST_STAY_DURATION_MS } from '@/convex/projectSettings';
 // HELPERS
 import { getGuestSessionsByAccommodationId } from '@/convex/tables/guests/helpers/getGuestSessionsByAccommodationId';
 import { getAccommodationByScanTokenSafe } from '@/convex/tables/accommodations/helpers/getAccommodationByScanTokenSafe';
+import { analytics } from '@/convex/analytics';
 
 // UTILS
 import {
 	generateGuestCredential,
 	hashGuestCredential
 } from '@/convex/tables/guests/utils/guestSessionToken';
+import { createAnalyticsScopeId } from '@piton-/analytics-convex';
 import { signGuestStayCookie } from '@/convex/tables/guests/utils/guestStayCookieCrypto';
 
 // SCHEMAS
@@ -45,7 +47,32 @@ export const createGuest = mutation({
 			};
 		}
 
+		const accommodationDoc = await ctx.db.get(accommodation._id);
+		if (!accommodationDoc) {
+			return {
+				success: false,
+				message: { key: 'GenericMessages.ACCOMMODATION_NOT_FOUND' }
+			};
+		}
+
 		const now = Date.now();
+
+		await analytics.writeTrack(ctx, {
+			name: 'qr.scanned',
+			organizationId: accommodationDoc.ownerId,
+			scopes: [
+				{
+					scopeType: 'organization',
+					scopeId: createAnalyticsScopeId('accommodationOwner', accommodationDoc.ownerId)
+				}
+			],
+			properties: {
+				accommodationId: accommodation._id,
+				accommodationName: accommodation.name,
+				scanType: 'check-in'
+			}
+		});
+
 		const existingGuests = await getGuestSessionsByAccommodationId(ctx, accommodation._id);
 
 		for (const guest of existingGuests) {
@@ -84,6 +111,22 @@ export const createGuest = mutation({
 			expiresAt,
 			createdAt: now,
 			lastSeenAt: now
+		});
+
+		await analytics.writeTrack(ctx, {
+			name: 'guest.activated',
+			organizationId: accommodationDoc.ownerId,
+			scopes: [
+				{
+					scopeType: 'organization',
+					scopeId: createAnalyticsScopeId('accommodationOwner', accommodationDoc.ownerId)
+				}
+			],
+			properties: {
+				accommodationId: accommodation._id,
+				accommodationName: accommodation.name,
+				accommodationType: accommodation.type
+			}
 		});
 
 		return {

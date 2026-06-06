@@ -5,11 +5,14 @@ import { query } from '@/convex/_generated/server';
 // HELPERS
 import { getActiveGuestSessionFromAuth } from '@/convex/tables/guests/helpers/getActiveGuestSessionFromAuth';
 import { hasActiveAccommodationHospitalityPartnership } from '@/convex/tables/partnerships/helpers/getAccommodationPartnerships';
+import { getGuestPendingHospitalityReservation } from '@/convex/tables/reservations/helpers/getGuestPendingHospitalityReservation';
+import { isGuestStayIdentity } from '@/convex/tables/guests/utils/isGuestStayIdentity';
 
 // UTILS
 import { authComponent } from '@/convex/auth/auth';
 
 // TYPES
+import type { Doc } from '@/convex/_generated/dataModel';
 import type { HospitalityDetailsResult } from '@/convex/tables/hospitalities/types/hospitalitiesTypes';
 
 /**
@@ -32,7 +35,14 @@ export const fetchHospitalityDetails = query({
 		const hospitality = await ctx.db.get(args.hospitalityId);
 		if (!hospitality?.isActive) return { status: 'not_found' };
 
+		const identity = await ctx.auth.getUserIdentity();
 		const activeGuest = await getActiveGuestSessionFromAuth(ctx);
+		let pendingReservation: Doc<'reservations'> | null = null;
+
+		if (isGuestStayIdentity(identity) && !activeGuest) {
+			return { status: 'not_found' };
+		}
+
 		if (activeGuest) {
 			const hasGuestAccess = await hasActiveAccommodationHospitalityPartnership(
 				ctx,
@@ -40,6 +50,12 @@ export const fetchHospitalityDetails = query({
 				hospitality._id
 			);
 			if (!hasGuestAccess) return { status: 'not_partnered' };
+
+			pendingReservation = await getGuestPendingHospitalityReservation(
+				ctx,
+				activeGuest._id,
+				hospitality._id
+			);
 		} else {
 			const currentUser = await authComponent.safeGetAuthUser(ctx);
 			const isAdmin = currentUser?.role === 'admin';
@@ -60,7 +76,16 @@ export const fetchHospitalityDetails = query({
 				description: hospitality.description,
 				contactPhone: hospitality.contactPhone,
 				coverImageUrl: hospitality.coverImageUrl
-			}
+			},
+			pendingReservation: pendingReservation
+				? {
+						guestName: pendingReservation.guestName,
+						email: pendingReservation.email,
+						phone: pendingReservation.phone,
+						requestedTime: pendingReservation.requestedTime,
+						status: 'pending'
+					}
+				: null
 		};
 	}
 });
