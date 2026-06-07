@@ -1,0 +1,559 @@
+{
+  "finding_counts": {
+    "scripts/generate-sr-messages.ts": {
+      "crap_moderate": {
+        "count": 1
+      }
+    },
+    "src/convex/analytics/utils/formatAnalyticsMetricTrend.ts": {
+      "crap_moderate": {
+        "count": 1
+      }
+    },
+    "src/convex/analytics/utils/sortAnalyticsItemsByMetric.ts": {
+      "crap_moderate": {
+        "count": 1
+      }
+    },
+    "src/convex/auth/component/userQueries.ts": {
+      "crap_critical": {
+        "count": 1
+      }
+    },
+    "src/convex/auth/convexCreateAuthRateLimitHook.ts": {
+      "crap_moderate": {
+        "count": 1
+      }
+    },
+    "src/convex/auth/utils/getEmailFromAuthBody.ts": {
+      "crap_moderate": {
+        "count": 1
+      }
+    },
+    "src/convex/helpers/createDeleteMutation.ts": {
+      "complexity_critical": {
+        "count": 1
+      },
+      "crap_critical": {
+        "count": 1
+      },
+      "crap_high": {
+        "count": 2
+      },
+      "crap_moderate": {
+        "count": 1
+      }
+    },
+    "src/convex/helpers/createSearchQuery.ts": {
+      "crap_moderate": {
+        "count": 2
+      }
+    },
+    "src/convex/helpers/fetchOptimized.ts": {
+      "complexity_critical": {
+        "count": 1
+      },
+      "crap_critical": {
+        "count": 1
+      },
+      "crap_high": {
+        "count": 1
+      }
+    },
+    "src/convex/pages/userAnalytics/queries/fetchUserAnalyticsTopAccommodations.ts": {
+      "crap_moderate": {
+        "count": 1
+      }
+    },
+    "src/convex/pages/userAnalytics/queries/fetchUserAnalyticsTopHospitalities.ts": {
+      "crap_moderate": {
+        "count": 1
+      }
+    },
+    "src/convex/pages/userDashboard/helpers/getUserDashboardStats.ts": {
+      "crap_high": {
+        "count": 1
+      }
+    },
+    "src/convex/rateLimits/convexCreateRateLimit.ts": {
+      "crap_moderate": {
+        "count": 1
+      }
+    },
+    "src/convex/storage/crons/cleanupOrphanDataR2.ts": {
+      "crap_critical": {
+        "count": 1
+      }
+    },
+    "src/convex/storage/r2/r2.ts": {
+      "crap_critical": {
+        "count": 1
+      }
+    },
+    "src/convex/tables/accommodations/mutations/createAccommodation.ts": {
+      "crap_high": {
+        "count": 1
+      }
+    },
+    "src/convex/tables/accommodations/mutations/updateAccommodation.ts": {
+      "crap_moderate": {
+        "count": 1
+      }
+    },
+    "src/convex/tables/accommodations/queries/fetchAllAccommodations.ts": {
+      "crap_moderate": {
+        "count": 1
+      }
+    },
+    "src/convex/tables/auditLog/crons/auditLogCron.ts": {
+      "crap_moderate": {
+        "count": 1
+      }
+    },
+    "src/convex/tables/auditLog/helpers/auditLogInternal.ts": {
+      "crap_high": {
+        "count": 1
+      }
+    },
+    "src/convex/tables/auditLog/helpers/logAudit.ts": {
+      "crap_high": {
+        "count": 1
+      }
+    },
+    "src/convex/tables/auditLog/queries/auditLogQueries.ts": {
+      "crap_moderate": {
+        "count": 1
+      }
+    },
+    "src/convex/tables/auditLog/utils/auditLogUtils.ts": {
+      "crap_critical": {
+        "count": 1
+      },
+      "crap_high": {
+        "count": 1
+      },
+      "crap_moderate": {
+        "count": 1
+      }
+    },
+    "src/convex/tables/guests/actions/createGuestConvexAuthToken.ts": {
+      "crap_high": {
+        "count": 1
+      }
+    },
+    "src/convex/tables/guests/helpers/getActiveGuestSession.ts": {
+      "crap_high": {
+        "count": 1
+      }
+    },
+    "src/convex/tables/guests/helpers/getActiveGuestSessionFromAuth.ts": {
+      "crap_high": {
+        "count": 1
+      }
+    },
+    "src/convex/tables/guests/mutations/createGuest.ts": {
+      "crap_high": {
+        "count": 1
+      }
+    },
+    "src/convex/tables/guests/mutations/createGuestSharingCode.ts": {
+      "crap_moderate": {
+        "count": 1
+      }
+    },
+    "src/convex/tables/guests/mutations/joinGuestBySharingCode.ts": {
+      "crap_moderate": {
+        "count": 1
+      }
+    },
+    "src/convex/tables/guests/utils/guestConvexJwt.ts": {
+      "crap_moderate": {
+        "count": 1
+      }
+    },
+    "src/convex/tables/guests/utils/guestSessionToken.ts": {
+      "crap_moderate": {
+        "count": 1
+      }
+    },
+    "src/convex/tables/guests/utils/guestStayCookieCrypto.ts": {
+      "crap_high": {
+        "count": 1
+      }
+    },
+    "src/convex/tables/guests/utils/isGuestStayIdentity.ts": {
+      "crap_moderate": {
+        "count": 1
+      }
+    },
+    "src/convex/tables/hospitalities/mutations/createHospitality.ts": {
+      "crap_moderate": {
+        "count": 1
+      }
+    },
+    "src/convex/tables/hospitalities/mutations/viewHospitality.ts": {
+      "crap_moderate": {
+        "count": 1
+      }
+    },
+    "src/convex/tables/hospitalities/queries/fetchHospitalityDetails.ts": {
+      "crap_critical": {
+        "count": 1
+      }
+    },
+    "src/convex/tables/partnerships/mutations/createPartnership.ts": {
+      "crap_critical": {
+        "count": 1
+      }
+    },
+    "src/convex/tables/partnerships/mutations/deletePartnerships.ts": {
+      "crap_high": {
+        "count": 1
+      }
+    },
+    "src/convex/tables/reservations/emails/sendReservationEmailToHospitalityOwner.ts": {
+      "crap_moderate": {
+        "count": 1
+      }
+    },
+    "src/convex/tables/reservations/helpers/createFetchReservationsQuery.ts": {
+      "crap_high": {
+        "count": 1
+      },
+      "crap_moderate": {
+        "count": 1
+      }
+    },
+    "src/convex/tables/reservations/mutations/cancelReservation.ts": {
+      "crap_critical": {
+        "count": 1
+      }
+    },
+    "src/convex/tables/reservations/mutations/confirmReservation.ts": {
+      "crap_critical": {
+        "count": 1
+      }
+    },
+    "src/convex/tables/reservations/mutations/createReservation.ts": {
+      "crap_critical": {
+        "count": 1
+      },
+      "crap_moderate": {
+        "count": 1
+      }
+    },
+    "src/convex/tables/users/userMutations.ts": {
+      "crap_moderate": {
+        "count": 2
+      }
+    },
+    "src/convex/tables/users/userQueries.ts": {
+      "crap_high": {
+        "count": 1
+      }
+    },
+    "src/convex/utils/convexValidationUtils.ts": {
+      "crap_critical": {
+        "count": 1
+      },
+      "crap_high": {
+        "count": 1
+      },
+      "crap_moderate": {
+        "count": 2
+      }
+    },
+    "src/features/analytics/utils/analytics-display-formatters.ts": {
+      "crap_moderate": {
+        "count": 2
+      }
+    },
+    "src/features/auth/components/email-verification-form/email-verification-form.svelte": {
+      "crap_critical": {
+        "count": 1
+      }
+    },
+    "src/features/auth/components/email-verification-form/email-verification-resend.svelte": {
+      "crap_moderate": {
+        "count": 1
+      }
+    },
+    "src/features/auth/components/login-form/login-form-model.svelte.ts": {
+      "crap_critical": {
+        "count": 1
+      }
+    },
+    "src/features/auth/components/password-reset-form/password-reset-form.svelte": {
+      "crap_critical": {
+        "count": 1
+      },
+      "crap_moderate": {
+        "count": 1
+      }
+    },
+    "src/features/auth/components/sign-up-form/sign-up-form-model.svelte.ts": {
+      "complexity_critical": {
+        "count": 1
+      },
+      "crap_critical": {
+        "count": 1
+      }
+    },
+    "src/features/auth/lib/auth-client.ts": {
+      "crap_moderate": {
+        "count": 1
+      }
+    },
+    "src/features/guests/mutations/joinGuestStay.remote.ts": {
+      "crap_high": {
+        "count": 1
+      }
+    },
+    "src/features/reservations/utils/getReservationStatus.ts": {
+      "crap_moderate": {
+        "count": 1
+      }
+    },
+    "src/features/uploadFile/components/upload-file-multiple/upload-file-multiple.svelte": {
+      "crap_moderate": {
+        "count": 1
+      }
+    },
+    "src/features/uploadFile/components/upload-file-single/upload-file-single.svelte": {
+      "crap_moderate": {
+        "count": 1
+      }
+    },
+    "src/features/uploadFile/utils/optimizeImages.ts": {
+      "crap_moderate": {
+        "count": 1
+      }
+    },
+    "src/features/uploadFile/utils/useProgress.svelte.ts": {
+      "crap_moderate": {
+        "count": 1
+      }
+    },
+    "src/hooks.server.ts": {
+      "crap_moderate": {
+        "count": 1
+      }
+    },
+    "src/routes/(unprotected)/activate/[token]/+page.server.ts": {
+      "crap_high": {
+        "count": 1
+      }
+    },
+    "src/routes/(unprotected)/demo/demoPage.svelte.ts": {
+      "crap_moderate": {
+        "count": 1
+      }
+    },
+    "src/routes/(unprotected)/stay/+layout.svelte": {
+      "crap_critical": {
+        "count": 1
+      }
+    },
+    "src/routes/(unprotected)/stay/hospitality/[id]/+page.server.ts": {
+      "crap_moderate": {
+        "count": 1
+      }
+    },
+    "src/routes/+layout.svelte": {
+      "crap_moderate": {
+        "count": 1
+      }
+    },
+    "src/routes/api/auth/[...all]/+server.ts": {
+      "crap_moderate": {
+        "count": 1
+      }
+    },
+    "src/routes/api/guest-auth/token/+server.ts": {
+      "crap_high": {
+        "count": 1
+      }
+    },
+    "src/shared/components/pages/(protected)/admin/users/[id]/user-danger-zone/ban-user-dialog.svelte": {
+      "crap_moderate": {
+        "count": 1
+      }
+    },
+    "src/shared/components/pages/(protected)/admin/users/[id]/user-danger-zone/delete-user-dialog.svelte": {
+      "crap_moderate": {
+        "count": 1
+      }
+    },
+    "src/shared/components/pages/(unprotected)/stay/stay-join-access/stay-join-access-form.svelte": {
+      "crap_moderate": {
+        "count": 1
+      }
+    },
+    "src/shared/components/ui/app-sidebar/site-header.svelte": {
+      "crap_high": {
+        "count": 1
+      }
+    },
+    "src/shared/components/ui/chart/chart-tooltip.svelte": {
+      "crap_critical": {
+        "count": 1
+      }
+    },
+    "src/shared/components/ui/chart/chart-utils.ts": {
+      "crap_critical": {
+        "count": 1
+      }
+    },
+    "src/shared/components/ui/custom-charts/area-chart-interactive.svelte": {
+      "crap_high": {
+        "count": 1
+      },
+      "crap_moderate": {
+        "count": 1
+      }
+    },
+    "src/shared/components/ui/custom-charts/charts-only/bar-chart.svelte": {
+      "crap_moderate": {
+        "count": 1
+      }
+    },
+    "src/shared/components/ui/custom-charts/timerange-data.svelte": {
+      "crap_high": {
+        "count": 1
+      },
+      "crap_moderate": {
+        "count": 1
+      }
+    },
+    "src/shared/components/ui/data-list/convex-data-list.svelte": {
+      "crap_moderate": {
+        "count": 3
+      }
+    },
+    "src/shared/components/ui/data-table/convex-data-table.svelte": {
+      "crap_moderate": {
+        "count": 6
+      }
+    },
+    "src/shared/components/ui/data-table/data-table.svelte": {
+      "crap_moderate": {
+        "count": 2
+      }
+    },
+    "src/shared/components/ui/data-table/dataTableUtils.ts": {
+      "crap_high": {
+        "count": 1
+      }
+    },
+    "src/shared/components/ui/field/field-error.svelte": {
+      "crap_moderate": {
+        "count": 1
+      }
+    },
+    "src/shared/components/ui/mutation-form/convex-mutation-form.svelte": {
+      "crap_moderate": {
+        "count": 1
+      }
+    },
+    "src/shared/components/ui/mutation-form/mutation-form.svelte": {
+      "crap_high": {
+        "count": 1
+      }
+    },
+    "src/shared/components/ui/mutation-form/utils.ts": {
+      "complexity_critical": {
+        "count": 1
+      },
+      "crap_critical": {
+        "count": 1
+      }
+    },
+    "src/shared/components/ui/search-input/createSearchInputRemote.server.ts": {
+      "crap_high": {
+        "count": 1
+      },
+      "crap_moderate": {
+        "count": 1
+      }
+    },
+    "src/shared/components/ui/search-input/search-input.svelte": {
+      "crap_critical": {
+        "count": 1
+      }
+    },
+    "src/shared/components/ui/search-input/searchInputUtils.ts": {
+      "crap_critical": {
+        "count": 1
+      },
+      "crap_moderate": {
+        "count": 1
+      }
+    },
+    "src/shared/components/ui/time-input/custom-time-input.svelte": {
+      "crap_high": {
+        "count": 1
+      }
+    },
+    "src/shared/utils/clientAddress.ts": {
+      "crap_high": {
+        "count": 1
+      }
+    },
+    "src/shared/utils/cloudflareGeoData.ts": {
+      "crap_critical": {
+        "count": 1
+      },
+      "crap_high": {
+        "count": 1
+      },
+      "crap_moderate": {
+        "count": 1
+      }
+    },
+    "src/shared/utils/convexHelpers.ts": {
+      "crap_high": {
+        "count": 1
+      }
+    },
+    "src/shared/utils/cookieUtils.ts": {
+      "crap_moderate": {
+        "count": 1
+      }
+    },
+    "src/shared/utils/isNavItemActive.ts": {
+      "crap_high": {
+        "count": 1
+      }
+    },
+    "src/shared/utils/rateLimitMessages.ts": {
+      "crap_moderate": {
+        "count": 2
+      }
+    },
+    "src/shared/utils/translateFromBackend.ts": {
+      "crap_moderate": {
+        "count": 1
+      }
+    },
+    "src/shared/utils/validationUtils.ts": {
+      "crap_high": {
+        "count": 1
+      }
+    }
+  },
+  "runtime_coverage_findings": [],
+  "target_keys": [
+    "src/shared/components/ui/custom-charts/utils/interactiveChartUtils.ts:dead code",
+    "src/convex/storage/r2/r2.ts:dead code",
+    "src/shared/components/ui/calendar/calendar.svelte:circular dependency",
+    "src/convex/tables/users/userQueries.ts:dead code",
+    "src/convex/storage/r2/uploadedFilesR2.ts:dead code",
+    "src/convex/tables/users/userMutations.ts:dead code",
+    "src/shared/utils/cloudflareGeoData.ts:dead code",
+    "src/shared/utils/dateUtils.ts:dead code",
+    "src/shared/components/ui/search-input/searchInputUtils.ts:high impact",
+    "src/convex/utils/convexValidationUtils.ts:untested risk",
+    "src/shared/components/ui/mutation-form/utils.ts:complexity",
+    "src/shared/components/ui/range-calendar/range-calendar.svelte:circular dependency"
+  ]
+}

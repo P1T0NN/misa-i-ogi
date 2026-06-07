@@ -41,7 +41,7 @@
 			hideBelow: 'md'
 		},
 		{
-			id: 'guestViews',
+			id: 'hospitalityViews',
 			header: 'Guest views',
 			accessor: (row) => formatAnalyticsCount(row.primaryMetricValue),
 			cellClass: 'tabular-nums'

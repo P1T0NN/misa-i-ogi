@@ -2,11 +2,10 @@
 import { cronJobs } from 'convex/server';
 
 // CONFIG
+import { analytics } from './analytics';
 import { internal } from './_generated/api';
 
 // CRONS
-// TODO: Re-enable once Convex supports child-component crons.
-// import { registerAnalyticsCrons } from '@piton-/analytics-convex';
 import { registerStorageCrons } from './storage/registerStorageCrons';
 import { registerAuditLogCrons } from './tables/auditLog/registerAuditLogCrons';
 
@@ -18,6 +17,6 @@ const crons = cronJobs();
 
 registerStorageCrons(crons, internal);
 registerAuditLogCrons(crons, internal);
-// TODO: registerAnalyticsCrons(crons, components.analytics);
+analytics.registerCrons(crons, internal.analytics.crons);
 
 export default crons;

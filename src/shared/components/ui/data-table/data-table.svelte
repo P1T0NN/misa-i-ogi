@@ -54,7 +54,8 @@
 		isLoading = false,
 		queryLoading = false,
 		hasResult = true,
-		onDeleteSelected
+		onDeleteSelected,
+		borderless = false
 	}: {
 		class?: string;
 		caption?: string;
@@ -97,6 +98,8 @@
 		queryLoading?: boolean;
 		/** Whether the paginator currently has a resolved result. */
 		hasResult?: boolean;
+		/** Remove row borders for a cleaner, card-embedded look. */
+		borderless?: boolean;
 		/** Optional bulk-delete handler. Return `false` to keep the current selection. */
 		onDeleteSelected?: DeleteSelectedHandler;
 	} = $props();
@@ -223,7 +226,9 @@
 		<div class="flex flex-col gap-2 md:flex-row md:items-center">
 			{#if searchable}
 				<div class="relative w-full md:max-w-sm">
-					<SearchIcon class="text-muted-foreground absolute left-3 top-1/2 size-4 -translate-y-1/2" />
+					<SearchIcon
+						class="absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground"
+					/>
 					<Input
 						type="search"
 						bind:value={searchDraft}
@@ -273,14 +278,7 @@
 	{/if}
 
 	{#if showPagination && controlsPlace === 'top'}
-		<PaginatedData
-			bind:page
-			{totalPages}
-			{canGoNext}
-			{isLoading}
-			{queryLoading}
-			{hasResult}
-		/>
+		<PaginatedData bind:page {totalPages} {canGoNext} {isLoading} {queryLoading} {hasResult} />
 	{/if}
 
 	{#if selectable && selectedIds.length > 0}
@@ -301,7 +299,7 @@
 		{data}
 		{columns}
 		{getRowId}
-		isLoading={isLoading}
+		{isLoading}
 		customCells={customCells ?? {}}
 		{selectable}
 		{selectedSet}
@@ -312,16 +310,10 @@
 		{sortDirection}
 		onSort={onHeaderSort}
 		{isSearching}
+		{borderless}
 	/>
 
 	{#if showPagination && controlsPlace === 'bottom'}
-		<PaginatedData
-			bind:page
-			{totalPages}
-			{canGoNext}
-			{isLoading}
-			{queryLoading}
-			{hasResult}
-		/>
+		<PaginatedData bind:page {totalPages} {canGoNext} {isLoading} {queryLoading} {hasResult} />
 	{/if}
 </div>

@@ -9,22 +9,22 @@
 	} from '@/features/analytics/utils/analytics-display-formatters';
 
 	// TYPES
-	import type { UserAnalyticsHospitalitiesPageMetrics } from '@/convex/pages/userAnalytics/types/userAnalyticsTypes';
+	import type { UserAnalyticsAccommodationsPageMetrics } from '@/convex/pages/userAnalytics/types/userAnalyticsTypes';
 
-	let { metrics }: { metrics: UserAnalyticsHospitalitiesPageMetrics } = $props();
+	let { metrics }: { metrics: UserAnalyticsAccommodationsPageMetrics } = $props();
 
 	const displayMetrics = $derived([
 		createStaticAnalyticsMetric({
-			id: 'tracked-venues',
-			label: 'Tracked venues',
-			metric: metrics.trackedVenues,
+			id: 'tracked-stays',
+			label: 'Tracked stays',
+			metric: metrics.trackedStays,
 			trend: 'Live',
 			tone: 'neutral'
 		}),
 		createComparedAnalyticsMetric({
-			id: 'guest-views',
-			label: 'Guest views',
-			metric: metrics.hospitalityViews
+			id: 'qr-scans',
+			label: 'QR scans',
+			metric: metrics.qrScans
 		}),
 		createComparedAnalyticsMetric({
 			id: 'guest-activations',

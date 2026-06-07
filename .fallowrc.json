@@ -1,0 +1,50 @@
+{
+	"$schema": "https://raw.githubusercontent.com/fallow-rs/fallow/main/schema.json",
+	"entry": [
+		"scripts/**/*.ts",
+		"src/convex/http.ts",
+		"src/convex/crons.ts",
+		"src/convex/convex.config.ts",
+		"src/convex/schema.ts",
+		"src/convex/analytics.ts",
+		"src/convex/**/queries/**/*.ts",
+		"src/convex/**/mutations/**/*.ts",
+		"src/convex/**/actions/**/*.ts",
+		"src/convex/**/crons/**/*.ts",
+		"src/convex/**/crons.ts"
+	],
+	"dynamicallyLoaded": ["src/convex/auth/component/**/*.ts"],
+	"ignorePatterns": [
+		"src/convex/_generated/**",
+		"src/convex/auth/component/_generated/**",
+		"**/*.d.ts"
+	],
+	"ignoreExports": [
+		{
+			"file": "src/shared/components/ui/**/index.ts",
+			"exports": ["*"]
+		}
+	],
+	"ignoreExportsUsedInFile": true,
+	"ignoreDependencies": ["sharp"],
+	"ignoreUnresolvedImports": ["./dataModel.js"],
+	"duplicates": {
+		"minOccurrences": 3,
+		"ignore": [
+			"src/convex/_generated/**",
+			"src/convex/auth/component/_generated/**"
+		]
+	},
+	"audit": {
+		"deadCodeBaseline": "fallow-baselines/dead-code.json",
+		"healthBaseline": "fallow-baselines/health.json",
+		"dupesBaseline": "fallow-baselines/dupes.json",
+		"gate": "new-only"
+	},
+	"rules": {
+		"unused-files": "warn",
+		"unused-exports": "warn",
+		"unused-types": "off",
+		"circular-dependencies": "warn"
+	}
+}

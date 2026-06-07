@@ -9,8 +9,8 @@
 	import UserAnalyticsHospitalitiesChart from '@/shared/components/pages/(protected)/user-analytics/user-analytics-hospitalities/user-analytics-hospitalities-chart.svelte';
 	import UserAnalyticsHospitalitiesMetrics from '@/shared/components/pages/(protected)/user-analytics/user-analytics-hospitalities/user-analytics-hospitalities-metrics.svelte';
 	import UserAnalyticsHospitalitiesTable from '@/shared/components/pages/(protected)/user-analytics/user-analytics-hospitalities/user-analytics-hospitalities-table.svelte';
-	import UserAnalyticsHospitalitiesLoading from '@/shared/components/pages/(protected)/user-analytics/user-analytics-hospitalities/user-analytics-hospitalities-loading.svelte';
-	import UserAnalyticsHospitalitiesError from '@/shared/components/pages/(protected)/user-analytics/user-analytics-hospitalities/user-analytics-hospitalities-error.svelte';
+	import UserAnalyticsHospitalitiesLoading from '@/shared/components/pages/(protected)/user-analytics/user-analytics-hospitalities/loading/user-analytics-hospitalities-loading.svelte';
+	import UserAnalyticsHospitalitiesError from '@/shared/components/pages/(protected)/user-analytics/user-analytics-hospitalities/error/user-analytics-hospitalities-error.svelte';
 
 	const hospitalitiesPageQuery = useQuery(
 		api.pages.userAnalytics.queries.fetchUserAnalyticsHospitalitiesPage
@@ -32,7 +32,6 @@
 		eyebrow="Hospitality analytics"
 		title="Venue demand from connected guests"
 		description="Track which restaurants, cafes, tours, and wellness partners guests actually open and request."
-		badge="Hospitality owners"
 	/>
 
 	{#if isLoading}

@@ -9,12 +9,11 @@
  */
 
 import type * as analytics from "../analytics.js";
-import type * as analytics_utils_buildUserAnalyticsAccommodationChartData from "../analytics/utils/buildUserAnalyticsAccommodationChartData.js";
-import type * as analytics_utils_buildUserAnalyticsAccommodationRows from "../analytics/utils/buildUserAnalyticsAccommodationRows.js";
-import type * as analytics_utils_buildUserAnalyticsHospitalitiesChartData from "../analytics/utils/buildUserAnalyticsHospitalitiesChartData.js";
-import type * as analytics_utils_buildUserAnalyticsHospitalitiesRows from "../analytics/utils/buildUserAnalyticsHospitalitiesRows.js";
-import type * as analytics_utils_computeAnalyticsConversionRate from "../analytics/utils/computeAnalyticsConversionRate.js";
-import type * as analytics_utils_formatAnalyticsCount from "../analytics/utils/formatAnalyticsCount.js";
+import type * as analytics_crons from "../analytics/crons.js";
+import type * as analytics_utils_buildActivityData from "../analytics/utils/buildActivityData.js";
+import type * as analytics_utils_buildPerformanceRows from "../analytics/utils/buildPerformanceRows.js";
+import type * as analytics_utils_buildUserAnalyticsChartData from "../analytics/utils/buildUserAnalyticsChartData.js";
+import type * as analytics_utils_buildUserAnalyticsRows from "../analytics/utils/buildUserAnalyticsRows.js";
 import type * as analytics_utils_formatAnalyticsMetricTrend from "../analytics/utils/formatAnalyticsMetricTrend.js";
 import type * as analytics_utils_getAnalyticsMetricValue from "../analytics/utils/getAnalyticsMetricValue.js";
 import type * as analytics_utils_sortAnalyticsItemsByMetric from "../analytics/utils/sortAnalyticsItemsByMetric.js";
@@ -44,9 +43,11 @@ import type * as http from "../http.js";
 import type * as pages_userAnalytics_helpers_getTopAccommodationNamesByHospitality from "../pages/userAnalytics/helpers/getTopAccommodationNamesByHospitality.js";
 import type * as pages_userAnalytics_helpers_getTopHospitalityNamesByAccommodation from "../pages/userAnalytics/helpers/getTopHospitalityNamesByAccommodation.js";
 import type * as pages_userAnalytics_helpers_getUserAnalyticsChartData from "../pages/userAnalytics/helpers/getUserAnalyticsChartData.js";
+import type * as pages_userAnalytics_queries_fetchUserAnalyticsAccommodationPage from "../pages/userAnalytics/queries/fetchUserAnalyticsAccommodationPage.js";
 import type * as pages_userAnalytics_queries_fetchUserAnalyticsAccommodationsPage from "../pages/userAnalytics/queries/fetchUserAnalyticsAccommodationsPage.js";
 import type * as pages_userAnalytics_queries_fetchUserAnalyticsGuestActivationsChart from "../pages/userAnalytics/queries/fetchUserAnalyticsGuestActivationsChart.js";
 import type * as pages_userAnalytics_queries_fetchUserAnalyticsHospitalitiesPage from "../pages/userAnalytics/queries/fetchUserAnalyticsHospitalitiesPage.js";
+import type * as pages_userAnalytics_queries_fetchUserAnalyticsHospitalityPage from "../pages/userAnalytics/queries/fetchUserAnalyticsHospitalityPage.js";
 import type * as pages_userAnalytics_queries_fetchUserAnalyticsQrScansChart from "../pages/userAnalytics/queries/fetchUserAnalyticsQrScansChart.js";
 import type * as pages_userAnalytics_queries_fetchUserAnalyticsReservationsChart from "../pages/userAnalytics/queries/fetchUserAnalyticsReservationsChart.js";
 import type * as pages_userAnalytics_queries_fetchUserAnalyticsReservationsPage from "../pages/userAnalytics/queries/fetchUserAnalyticsReservationsPage.js";
@@ -170,12 +171,11 @@ import type {
 
 declare const fullApi: ApiFromModules<{
   analytics: typeof analytics;
-  "analytics/utils/buildUserAnalyticsAccommodationChartData": typeof analytics_utils_buildUserAnalyticsAccommodationChartData;
-  "analytics/utils/buildUserAnalyticsAccommodationRows": typeof analytics_utils_buildUserAnalyticsAccommodationRows;
-  "analytics/utils/buildUserAnalyticsHospitalitiesChartData": typeof analytics_utils_buildUserAnalyticsHospitalitiesChartData;
-  "analytics/utils/buildUserAnalyticsHospitalitiesRows": typeof analytics_utils_buildUserAnalyticsHospitalitiesRows;
-  "analytics/utils/computeAnalyticsConversionRate": typeof analytics_utils_computeAnalyticsConversionRate;
-  "analytics/utils/formatAnalyticsCount": typeof analytics_utils_formatAnalyticsCount;
+  "analytics/crons": typeof analytics_crons;
+  "analytics/utils/buildActivityData": typeof analytics_utils_buildActivityData;
+  "analytics/utils/buildPerformanceRows": typeof analytics_utils_buildPerformanceRows;
+  "analytics/utils/buildUserAnalyticsChartData": typeof analytics_utils_buildUserAnalyticsChartData;
+  "analytics/utils/buildUserAnalyticsRows": typeof analytics_utils_buildUserAnalyticsRows;
   "analytics/utils/formatAnalyticsMetricTrend": typeof analytics_utils_formatAnalyticsMetricTrend;
   "analytics/utils/getAnalyticsMetricValue": typeof analytics_utils_getAnalyticsMetricValue;
   "analytics/utils/sortAnalyticsItemsByMetric": typeof analytics_utils_sortAnalyticsItemsByMetric;
@@ -205,9 +205,11 @@ declare const fullApi: ApiFromModules<{
   "pages/userAnalytics/helpers/getTopAccommodationNamesByHospitality": typeof pages_userAnalytics_helpers_getTopAccommodationNamesByHospitality;
   "pages/userAnalytics/helpers/getTopHospitalityNamesByAccommodation": typeof pages_userAnalytics_helpers_getTopHospitalityNamesByAccommodation;
   "pages/userAnalytics/helpers/getUserAnalyticsChartData": typeof pages_userAnalytics_helpers_getUserAnalyticsChartData;
+  "pages/userAnalytics/queries/fetchUserAnalyticsAccommodationPage": typeof pages_userAnalytics_queries_fetchUserAnalyticsAccommodationPage;
   "pages/userAnalytics/queries/fetchUserAnalyticsAccommodationsPage": typeof pages_userAnalytics_queries_fetchUserAnalyticsAccommodationsPage;
   "pages/userAnalytics/queries/fetchUserAnalyticsGuestActivationsChart": typeof pages_userAnalytics_queries_fetchUserAnalyticsGuestActivationsChart;
   "pages/userAnalytics/queries/fetchUserAnalyticsHospitalitiesPage": typeof pages_userAnalytics_queries_fetchUserAnalyticsHospitalitiesPage;
+  "pages/userAnalytics/queries/fetchUserAnalyticsHospitalityPage": typeof pages_userAnalytics_queries_fetchUserAnalyticsHospitalityPage;
   "pages/userAnalytics/queries/fetchUserAnalyticsQrScansChart": typeof pages_userAnalytics_queries_fetchUserAnalyticsQrScansChart;
   "pages/userAnalytics/queries/fetchUserAnalyticsReservationsChart": typeof pages_userAnalytics_queries_fetchUserAnalyticsReservationsChart;
   "pages/userAnalytics/queries/fetchUserAnalyticsReservationsPage": typeof pages_userAnalytics_queries_fetchUserAnalyticsReservationsPage;

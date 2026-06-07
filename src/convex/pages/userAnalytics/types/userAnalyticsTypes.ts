@@ -1,3 +1,6 @@
+import type { AccommodationType } from '@/convex/tables/accommodations/types/accommodationsTypes';
+import type { HospitalityType } from '@/convex/tables/hospitalities/types/hospitalitiesTypes';
+
 export type UserAnalyticsChartPoint = {
 	/** UTC day start timestamp (bucketStart from analyticsDailyMetrics). */
 	date: number;
@@ -56,7 +59,7 @@ export type UserAnalyticsAccommodationsPageResult = {
 
 export type UserAnalyticsHospitalitiesPageMetrics = {
 	trackedVenues: UserAnalyticsStaticMetricSummary;
-	guestViews: UserAnalyticsComparedMetricSummary;
+	hospitalityViews: UserAnalyticsComparedMetricSummary;
 	guestActivations: UserAnalyticsComparedMetricSummary;
 	requestsGenerated: UserAnalyticsComparedMetricSummary;
 };
@@ -96,4 +99,38 @@ export type UserAnalyticsReservationsPageResult = {
 		data: UserAnalyticsReservationStatusChartPoint[];
 	};
 	rows: UserAnalyticsReservationSourceRow[];
+};
+
+export type UserAnalyticsPlaceDetailPerformanceRow<EntityType extends string = string> = {
+	id: string;
+	name: string;
+	type: EntityType;
+	city: string;
+	views: number;
+	requests: number;
+	confirmed: number;
+};
+
+export type UserAnalyticsAccommodationDetailResult = {
+	accommodation: {
+		id: string;
+		name: string;
+		type: AccommodationType;
+		city: string;
+	};
+	metrics: UserAnalyticsAccommodationsPageMetrics;
+	activityData: { date: number; qrScans: number; guestActivations: number; reservations: number }[];
+	performance: { rows: UserAnalyticsPlaceDetailPerformanceRow<HospitalityType>[] };
+};
+
+export type UserAnalyticsHospitalityDetailResult = {
+	hospitality: {
+		id: string;
+		name: string;
+		type: HospitalityType;
+		city: string;
+	};
+	metrics: UserAnalyticsHospitalitiesPageMetrics;
+	activityData: { date: number; qrScans: number; guestActivations: number; reservations: number }[];
+	performance: { rows: UserAnalyticsPlaceDetailPerformanceRow<AccommodationType>[] };
 };

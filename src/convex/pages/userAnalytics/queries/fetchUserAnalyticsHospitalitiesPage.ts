@@ -12,8 +12,8 @@ import { requireAuthUserId } from '@/convex/auth/middleware/authMiddleware';
 import { getUserOwnedHospitalities } from '@/convex/tables/hospitalities/helpers/getUserOwnedHospitalities';
 
 // UTILS
-import { buildUserAnalyticsHospitalitiesChartData } from '@/convex/analytics/utils/buildUserAnalyticsHospitalitiesChartData';
-import { buildUserAnalyticsHospitalitiesRows } from '@/convex/analytics/utils/buildUserAnalyticsHospitalitiesRows';
+import { buildUserAnalyticsChartData } from '@/convex/analytics/utils/buildUserAnalyticsChartData';
+import { buildUserAnalyticsRows } from '@/convex/analytics/utils/buildUserAnalyticsRows';
 import { sumAnalyticsMetricTotals } from '@/convex/analytics/utils/sumAnalyticsMetricTotals';
 import { DAY_MS, startOfUtcDay } from '../utils/dateUtils';
 
@@ -37,17 +37,17 @@ export const fetchUserAnalyticsHospitalitiesPage = query({
 
 		const [
 			hospitalities,
-			guestViewTotals,
+			hospitalityViewTotals,
 			guestActivationTotals,
 			reservationTotals,
 			confirmedTotals,
-			guestViewComparison,
+			hospitalityViewComparison,
 			guestActivationComparison,
 			reservationComparison
 		] = await Promise.all([
 			getUserOwnedHospitalities(ctx, userId),
 			analytics.fetchMetricTotalsByDimension(ctx, {
-				metric: 'guestViews',
+				metric: 'hospitalityViews',
 				scope: ownerScope,
 				dimensionKey: 'hospitalityId',
 				days: RANGE_DAYS
@@ -71,7 +71,7 @@ export const fetchUserAnalyticsHospitalitiesPage = query({
 				days: RANGE_DAYS
 			}),
 			analytics.fetchMetricComparison(ctx, {
-				metric: 'guestViews',
+				metric: 'hospitalityViews',
 				scope: ownerScope,
 				from,
 				to: todayStart
@@ -95,9 +95,9 @@ export const fetchUserAnalyticsHospitalitiesPage = query({
 				trackedVenues: {
 					value: hospitalities.length
 				},
-				guestViews: {
-					value: sumAnalyticsMetricTotals(guestViewTotals),
-					comparison: guestViewComparison
+				hospitalityViews: {
+					value: sumAnalyticsMetricTotals(hospitalityViewTotals),
+					comparison: hospitalityViewComparison
 				},
 				guestActivations: {
 					value: sumAnalyticsMetricTotals(guestActivationTotals),
@@ -109,18 +109,18 @@ export const fetchUserAnalyticsHospitalitiesPage = query({
 				}
 			},
 			chart: {
-				data: buildUserAnalyticsHospitalitiesChartData({
-					hospitalities,
-					reservationTotals,
-					guestViewTotals,
+				data: buildUserAnalyticsChartData({
+					items: hospitalities,
+					valueTotals: reservationTotals,
+					tieBreakerTotals: hospitalityViewTotals,
 					limit: args.chartLimit ?? ANALYTICS_CHART_LIMIT
 				})
 			},
-			rows: buildUserAnalyticsHospitalitiesRows({
-				hospitalities,
-				guestViewTotals,
-				guestActivationTotals,
-				reservationTotals,
+			rows: buildUserAnalyticsRows({
+				items: hospitalities,
+				primaryMetricTotals: hospitalityViewTotals,
+				secondaryMetricTotals: guestActivationTotals,
+				requestTotals: reservationTotals,
 				confirmedTotals
 			})
 		};

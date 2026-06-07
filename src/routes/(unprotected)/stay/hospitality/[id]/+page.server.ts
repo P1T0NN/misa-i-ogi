@@ -40,7 +40,7 @@ export const load: PageServerLoad = async (event) => {
 	client
 		.mutation(api.tables.hospitalities.mutations.viewHospitality.viewHospitality, {
 			hospitalityId: params.id as Id<'hospitalities'>,
-			accommodationId: currentGuest.accommodationId
+			guestStayCookie
 		})
 		.catch(() => {
 			// Best-effort — don't block the page render

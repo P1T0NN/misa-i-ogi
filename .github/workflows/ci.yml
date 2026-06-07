@@ -2,6 +2,7 @@
 #   - vulnerable dependencies (`bun audit`)
 #   - lint errors (`bun run lint`)
 #   - type errors (`bun run check`)
+#   - new code-health regressions (`bun run audit:fallow`)
 #
 # Add a build/test step here when you wire up either.
 
@@ -50,3 +51,16 @@ jobs:
                   bun-version: latest
             - run: bun install --frozen-lockfile
             - run: bun run check
+
+    fallow:
+        name: Code health (fallow)
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+              with:
+                  fetch-depth: 0
+            - uses: oven-sh/setup-bun@v2
+              with:
+                  bun-version: latest
+            - run: bun install --frozen-lockfile
+            - run: bun run audit:fallow

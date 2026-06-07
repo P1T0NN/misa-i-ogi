@@ -12,8 +12,8 @@ import { requireAuthUserId } from '@/convex/auth/middleware/authMiddleware';
 import { getUserOwnedAccommodations } from '@/convex/tables/accommodations/helpers/getUserOwnedAccommodations';
 
 // UTILS
-import { buildUserAnalyticsAccommodationChartData } from '@/convex/analytics/utils/buildUserAnalyticsAccommodationChartData';
-import { buildUserAnalyticsAccommodationRows } from '@/convex/analytics/utils/buildUserAnalyticsAccommodationRows';
+import { buildUserAnalyticsChartData } from '@/convex/analytics/utils/buildUserAnalyticsChartData';
+import { buildUserAnalyticsRows } from '@/convex/analytics/utils/buildUserAnalyticsRows';
 import { sumAnalyticsMetricTotals } from '@/convex/analytics/utils/sumAnalyticsMetricTotals';
 import { DAY_MS, startOfUtcDay } from '../utils/dateUtils';
 
@@ -109,18 +109,18 @@ export const fetchUserAnalyticsAccommodationsPage = query({
 				}
 			},
 			chart: {
-				data: buildUserAnalyticsAccommodationChartData({
-					accommodations,
-					reservationTotals,
-					qrScanTotals,
+				data: buildUserAnalyticsChartData({
+					items: accommodations,
+					valueTotals: reservationTotals,
+					tieBreakerTotals: qrScanTotals,
 					limit: args.chartLimit ?? ANALYTICS_CHART_LIMIT
 				})
 			},
-			rows: buildUserAnalyticsAccommodationRows({
-				accommodations,
-				qrScanTotals,
-				guestActivationTotals,
-				reservationTotals,
+			rows: buildUserAnalyticsRows({
+				items: accommodations,
+				primaryMetricTotals: qrScanTotals,
+				secondaryMetricTotals: guestActivationTotals,
+				requestTotals: reservationTotals,
 				confirmedTotals
 			})
 		};

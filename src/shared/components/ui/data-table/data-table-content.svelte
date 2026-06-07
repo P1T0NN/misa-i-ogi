@@ -15,7 +15,6 @@
 		TableHeader,
 		TableRow
 	} from '@/shared/components/ui/table/index.js';
-	import { Card } from '@/shared/components/ui/card/index.js';
 	import { Checkbox } from '@/shared/components/ui/checkbox/index.js';
 	import ChevronUpIcon from '@lucide/svelte/icons/chevron-up';
 	import ChevronDownIcon from '@lucide/svelte/icons/chevron-down';
@@ -23,11 +22,7 @@
 
 	// UTILS
 	import { cn, type WithElementRef } from '@/shared/utils/utils.js';
-	import {
-		breakpointTableClass,
-		defaultRowKey,
-		showColumnInMobileCard
-	} from './dataTableUtils.js';
+	import { breakpointTableClass, defaultRowKey, showColumnInMobileCard } from './dataTableUtils.js';
 
 	// TYPES
 	import type { HTMLAttributes } from 'svelte/elements';
@@ -62,6 +57,7 @@
 		 * relevance-ordered rows.
 		 */
 		isSearching?: boolean;
+		borderless?: boolean;
 	};
 
 	let {
@@ -81,6 +77,7 @@
 		sortDirection,
 		onSort,
 		isSearching = false,
+		borderless = false,
 		...restProps
 	}: Props = $props();
 
@@ -91,16 +88,15 @@
 	}
 </script>
 
-<div
-	data-slot="data-table"
-	class={cn('flex flex-col gap-0', className)}
-	{...restProps}
->
+<div data-slot="data-table" class={cn('flex flex-col gap-0', className)} {...restProps}>
 	{#if data.length === 0 && !isLoading}
 		<DataTableEmpty />
 	{:else}
-		<Card
-			class="hidden gap-0 py-0 md:flex md:flex-col"
+		<div
+			class={cn(
+				'flex flex-col gap-0',
+				!borderless && 'hidden rounded-xl border bg-card text-card-foreground shadow-sm md:flex'
+			)}
 			role="region"
 			aria-busy={isLoading}
 			aria-label={caption ?? m['DataTable.ariaDataTable']()}
@@ -108,18 +104,17 @@
 			<Table class="min-w-lg">
 				{#if caption}
 					<TableCaption
-						class="text-muted-foreground mt-0 border-b px-4 py-3 text-left text-sm font-medium"
+						class="mt-0 border-b px-4 py-3 text-left text-sm font-medium text-muted-foreground"
 					>
 						{caption}
 					</TableCaption>
 				{/if}
 				<TableHeader>
-					<TableRow class="hover:bg-muted/40 border-b bg-muted/40">
+					<TableRow
+						class={cn(!borderless && 'bg-muted/40 hover:bg-muted/40', !borderless && 'border-b')}
+					>
 						{#if selectable}
-							<TableHead
-								scope="col"
-								class="text-muted-foreground h-auto w-10 px-4 py-3 text-left"
-							>
+							<TableHead scope="col" class="h-auto w-10 px-4 py-3 text-left text-muted-foreground">
 								<Checkbox
 									checked={headerSelectionState === 'all'}
 									indeterminate={headerSelectionState === 'some'}
@@ -143,7 +138,7 @@
 								scope="col"
 								aria-sort={ariaSort}
 								class={cn(
-									'text-muted-foreground h-auto px-4 py-3 text-left text-xs font-semibold tracking-wide uppercase whitespace-normal',
+									'h-auto px-4 py-3 text-left text-xs font-semibold tracking-wide whitespace-normal text-muted-foreground uppercase',
 									breakpointTableClass(col.hideBelow),
 									col.headerClass
 								)}
@@ -152,7 +147,7 @@
 									<button
 										type="button"
 										class={cn(
-											'flex items-center gap-1.5 text-inherit hover:text-foreground transition-colors',
+											'flex items-center gap-1.5 text-inherit transition-colors hover:text-foreground',
 											isActive && 'text-foreground'
 										)}
 										onclick={() => onSort(col.id)}
@@ -185,6 +180,7 @@
 								{columns}
 								{customCells}
 								{selectable}
+								{borderless}
 								isSelected={selectedSet?.has(id) ?? false}
 								onToggle={() => onToggleRow?.(id)}
 							/>
@@ -192,10 +188,14 @@
 					{/if}
 				</TableBody>
 			</Table>
-		</Card>
+		</div>
 
 		<!-- Mobile: stacked row cards -->
-		<div class="flex flex-col gap-3 md:hidden" role="list" aria-label={caption ?? m['DataTable.ariaDataRows']()}>
+		<div
+			class="flex flex-col gap-3 md:hidden"
+			role="list"
+			aria-label={caption ?? m['DataTable.ariaDataRows']()}
+		>
 			{#if selectable && !isLoading && data.length > 0}
 				<div class="flex items-center gap-2 px-1 py-1">
 					<Checkbox
@@ -204,7 +204,7 @@
 						onCheckedChange={() => onToggleAllOnPage?.()}
 						aria-label={m['DataTable.selectAllRowsOnThisPage']()}
 					/>
-					<span class="text-muted-foreground text-xs font-medium">
+					<span class="text-xs font-medium text-muted-foreground">
 						{m['DataTable.selectAllOnPage']()}
 					</span>
 				</div>

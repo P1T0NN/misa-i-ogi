@@ -1,13 +1,7 @@
 <script lang="ts">
 	// COMPONENTS
 	import AreaChartInteractive from '@/shared/components/ui/custom-charts/area-chart-interactive.svelte';
-	import {
-		Card,
-		CardContent,
-		CardDescription,
-		CardHeader,
-		CardTitle
-	} from '@/shared/components/ui/card/index.js';
+	import UserAnalyticsReservationsStatusChartEmpty from './empty/user-analytics-reservations-status-chart-empty.svelte';
 
 	// TYPES
 	import type { ChartConfig } from '@/shared/components/ui/chart/chart-utils.js';
@@ -37,17 +31,7 @@
 </script>
 
 {#if !hasStatusData}
-	<Card>
-		<CardHeader>
-			<CardTitle>Reservation trend</CardTitle>
-			<CardDescription>Daily reservation outcomes across connected places.</CardDescription>
-		</CardHeader>
-		<CardContent class="flex h-80 items-center justify-center px-4 text-center">
-			<p class="text-sm text-muted-foreground">
-				Reservation status data will appear here after guests submit requests.
-			</p>
-		</CardContent>
-	</Card>
+	<UserAnalyticsReservationsStatusChartEmpty />
 {:else}
 	<AreaChartInteractive
 		data={chartData}

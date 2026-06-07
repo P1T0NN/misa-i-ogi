@@ -9,8 +9,8 @@
 	import UserAnalyticsAccommodationsChart from '@/shared/components/pages/(protected)/user-analytics/user-analytics-accommodations/user-analytics-accommodations-chart.svelte';
 	import UserAnalyticsAccommodationsMetrics from '@/shared/components/pages/(protected)/user-analytics/user-analytics-accommodations/user-analytics-accommodations-metrics.svelte';
 	import UserAnalyticsAccommodationsTable from '@/shared/components/pages/(protected)/user-analytics/user-analytics-accommodations/user-analytics-accommodations-table.svelte';
-	import UserAnalyticsAccommodationsLoading from '@/shared/components/pages/(protected)/user-analytics/user-analytics-accommodations/user-analytics-accommodations-loading.svelte';
-	import UserAnalyticsAccommodationsError from '@/shared/components/pages/(protected)/user-analytics/user-analytics-accommodations/user-analytics-accommodations-error.svelte';
+	import UserAnalyticsAccommodationsLoading from '@/shared/components/pages/(protected)/user-analytics/user-analytics-accommodations/loading/user-analytics-accommodations-loading.svelte';
+	import UserAnalyticsAccommodationsError from '@/shared/components/pages/(protected)/user-analytics/user-analytics-accommodations/error/user-analytics-accommodations-error.svelte';
 
 	const accommodationsPageQuery = useQuery(
 		api.pages.userAnalytics.queries.fetchUserAnalyticsAccommodationsPage
@@ -32,7 +32,6 @@
 		eyebrow="Accommodation analytics"
 		title="Guest access by accommodation"
 		description="Compare your stays by QR scan volume, guest activations, and reservation requests generated."
-		badge="Accommodation owners"
 	/>
 
 	{#if isLoading}

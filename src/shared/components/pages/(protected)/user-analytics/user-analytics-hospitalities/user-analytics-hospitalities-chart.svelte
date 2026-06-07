@@ -1,13 +1,7 @@
 <script lang="ts">
 	// COMPONENTS
 	import BarChart from '@/shared/components/ui/custom-charts/charts-only/bar-chart.svelte';
-	import {
-		Card,
-		CardContent,
-		CardDescription,
-		CardHeader,
-		CardTitle
-	} from '@/shared/components/ui/card/index.js';
+	import UserAnalyticsHospitalitiesChartEmpty from './empty/user-analytics-hospitalities-chart-empty.svelte';
 
 	// TYPES
 	import type { ChartConfig } from '@/shared/components/ui/chart/chart-utils.js';
@@ -24,17 +18,7 @@
 </script>
 
 {#if data.length === 0}
-	<Card>
-		<CardHeader>
-			<CardTitle>Venues by reservation requests</CardTitle>
-			<CardDescription>Which hospitalities convert guest discovery into demand.</CardDescription>
-		</CardHeader>
-		<CardContent class="flex h-80 items-center justify-center px-4 text-center">
-			<p class="text-sm text-muted-foreground">
-				Reservation activity will appear here after guests submit requests to your venues.
-			</p>
-		</CardContent>
-	</Card>
+	<UserAnalyticsHospitalitiesChartEmpty />
 {:else}
 	<BarChart
 		{data}

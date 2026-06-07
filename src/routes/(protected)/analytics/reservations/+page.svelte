@@ -9,8 +9,8 @@
 	import UserAnalyticsReservationsMetrics from '@/shared/components/pages/(protected)/user-analytics/user-analytics-reservations/user-analytics-reservations-metrics.svelte';
 	import UserAnalyticsReservationsStatusChart from '@/shared/components/pages/(protected)/user-analytics/user-analytics-reservations/user-analytics-reservations-status-chart.svelte';
 	import UserAnalyticsReservationsTable from '@/shared/components/pages/(protected)/user-analytics/user-analytics-reservations/user-analytics-reservations-table.svelte';
-	import UserAnalyticsReservationsLoading from '@/shared/components/pages/(protected)/user-analytics/user-analytics-reservations/user-analytics-reservations-loading.svelte';
-	import UserAnalyticsReservationsError from '@/shared/components/pages/(protected)/user-analytics/user-analytics-reservations/user-analytics-reservations-error.svelte';
+	import UserAnalyticsReservationsLoading from '@/shared/components/pages/(protected)/user-analytics/user-analytics-reservations/loading/user-analytics-reservations-loading.svelte';
+	import UserAnalyticsReservationsError from '@/shared/components/pages/(protected)/user-analytics/user-analytics-reservations/error/user-analytics-reservations-error.svelte';
 
 	const reservationsPageQuery = useQuery(
 		api.pages.userAnalytics.queries.fetchUserAnalyticsReservationsPage

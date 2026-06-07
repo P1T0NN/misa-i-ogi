@@ -1,13 +1,7 @@
 <script lang="ts">
 	// COMPONENTS
 	import BarChart from '@/shared/components/ui/custom-charts/charts-only/bar-chart.svelte';
-	import {
-		Card,
-		CardContent,
-		CardDescription,
-		CardHeader,
-		CardTitle
-	} from '@/shared/components/ui/card/index.js';
+	import UserAnalyticsAccommodationsChartEmpty from './empty/user-analytics-accommodations-chart-empty.svelte';
 
 	// TYPES
 	import type { ChartConfig } from '@/shared/components/ui/chart/chart-utils.js';
@@ -24,17 +18,7 @@
 </script>
 
 {#if data.length === 0}
-	<Card>
-		<CardHeader>
-			<CardTitle>Stays by reservation requests</CardTitle>
-			<CardDescription>Which accommodations create the most hospitality demand.</CardDescription>
-		</CardHeader>
-		<CardContent class="flex h-80 items-center justify-center px-4 text-center">
-			<p class="text-sm text-muted-foreground">
-				Reservation activity will appear here after guests submit requests from your stays.
-			</p>
-		</CardContent>
-	</Card>
+    <UserAnalyticsAccommodationsChartEmpty />
 {:else}
 	<BarChart
 		{data}

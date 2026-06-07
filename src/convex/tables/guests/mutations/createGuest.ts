@@ -57,23 +57,26 @@ export const createGuest = mutation({
 
 		const now = Date.now();
 
-		await analytics.writeTrack(ctx, {
-			name: 'qr.scanned',
-			organizationId: accommodationDoc.ownerId,
-			scopes: [
-				{
-					scopeType: 'organization',
-					scopeId: createAnalyticsScopeId('accommodationOwner', accommodationDoc.ownerId)
-				}
-			],
-			properties: {
-				accommodationId: accommodation._id,
-				accommodationName: accommodation.name,
-				scanType: 'check-in'
-			}
-		});
-
 		const existingGuests = await getGuestSessionsByAccommodationId(ctx, accommodation._id);
+
+		const writeQrScan = async (actorId: string) => {
+			await analytics.writeTrack(ctx, {
+				name: 'qr.scanned',
+				actorId,
+				organizationId: accommodationDoc.ownerId,
+				scopes: [
+					{
+						scopeType: 'organization',
+						scopeId: createAnalyticsScopeId('accommodationOwner', accommodationDoc.ownerId)
+					}
+				],
+				properties: {
+					accommodationId: accommodation._id,
+					accommodationName: accommodation.name,
+					scanType: 'check-in'
+				}
+			});
+		};
 
 		for (const guest of existingGuests) {
 			if (guest.expiresAt < now) {
@@ -81,8 +84,9 @@ export const createGuest = mutation({
 			}
 		}
 
-		const hasActiveGuest = existingGuests.some((guest) => guest.expiresAt >= now);
-		if (hasActiveGuest) {
+		const activeGuest = existingGuests.find((guest) => guest.expiresAt >= now);
+		if (activeGuest) {
+			await writeQrScan(activeGuest._id);
 			return {
 				success: false,
 				message: { key: 'GenericMessages.GUEST_ALREADY_ACTIVE' }
@@ -104,7 +108,7 @@ export const createGuest = mutation({
 			sharingCodeHash = hashGuestCredential('sharingCode', sharingCode);
 		}
 
-		await ctx.db.insert('guests', {
+		const guestId = await ctx.db.insert('guests', {
 			sessionTokenHash: hashGuestCredential('sessionToken', sessionToken),
 			sharingCodeHash,
 			accommodationId: accommodation._id,
@@ -113,8 +117,11 @@ export const createGuest = mutation({
 			lastSeenAt: now
 		});
 
+		await writeQrScan(guestId);
+
 		await analytics.writeTrack(ctx, {
 			name: 'guest.activated',
+			actorId: guestId,
 			organizationId: accommodationDoc.ownerId,
 			scopes: [
 				{

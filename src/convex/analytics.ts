@@ -9,9 +9,16 @@ export const analytics = defineAnalytics(components.analytics, {
 			properties: {
 				accommodationId: property.string(),
 				accommodationName: property.string(),
-				hospitalityId: property.string(),
-				hospitalityName: property.string(),
 				scanType: property.string()
+			}
+		}),
+		hospitalityViewed: event('hospitality.viewed', {
+			label: 'Hospitality viewed',
+			properties: {
+				hospitalityId: property.string({ required: true }),
+				hospitalityName: property.string(),
+				accommodationId: property.string(),
+				accommodationName: property.string()
 			}
 		}),
 		guestActivated: event('guest.activated', {
@@ -102,17 +109,17 @@ export const analytics = defineAnalytics(components.analytics, {
 		qrScans: count('QR scans')
 			.description('Total QR code scans')
 			.from('qr.scanned')
-			.by('accommodationId', 'hospitalityId', 'scanType'),
+			.by('accommodationId', 'scanType'),
 
 		guestActivations: count('Guest activations')
 			.description('Guest sessions activated')
 			.from('guest.activated')
 			.by('accommodationId', 'accommodationType', 'hospitalityId'),
 
-		guestViews: count('Guest views')
-			.description('Guest views of hospitalities via QR scans')
-			.from('qr.scanned')
-			.by('hospitalityId', 'scanType'),
+		hospitalityViews: count('Guest views')
+			.description('Unique guest views of hospitalities')
+			.from('hospitality.viewed')
+			.by('hospitalityId', 'accommodationId'),
 
 		newReservations: count('New reservations')
 			.description('Reservations created by guests')
