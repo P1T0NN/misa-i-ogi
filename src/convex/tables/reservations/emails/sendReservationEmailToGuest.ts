@@ -12,6 +12,7 @@ type GuestReservationEmailDetails = {
 	guestEmail: string;
 	hospitalityName: string;
 	guestName: string;
+	guestCount: number;
 	phone: string;
 	requestedTime: string;
 };
@@ -29,6 +30,7 @@ export async function sendReservationEmailToGuest(
 		children: renderDetailsTable([
 			{ label: 'Preferred time', value: details.requestedTime },
 			{ label: 'Guest name', value: details.guestName },
+			{ label: 'Number of guests', value: String(details.guestCount) },
 			{ label: 'Phone', value: details.phone },
 			{ label: 'Email', value: details.guestEmail }
 		])
@@ -41,6 +43,7 @@ export async function sendReservationEmailToGuest(
 		'',
 		`Preferred time: ${details.requestedTime}`,
 		`Guest name: ${details.guestName}`,
+		`Number of guests: ${details.guestCount}`,
 		`Phone: ${details.phone}`,
 		`Email: ${details.guestEmail}`
 	].join('\n');

@@ -12,7 +12,7 @@ import { getAccommodationsByIds } from '@/convex/tables/accommodations/helpers/g
 
 // UTILS
 import { buildActivityData } from '@/convex/analytics/utils/buildActivityData';
-import { buildPerformanceRows } from '@/convex/analytics/utils/buildPerformanceRows';
+import { buildAnalyticsRows } from '@/convex/analytics/utils/buildAnalyticsRows';
 import { sumAnalyticsMetricTotals } from '@/convex/analytics/utils/sumAnalyticsMetricTotals';
 import { getAnalyticsMetricValue } from '@/convex/analytics/utils/getAnalyticsMetricValue';
 import { DAY_MS, startOfUtcDay } from '../utils/dateUtils';
@@ -180,9 +180,10 @@ export const fetchUserAnalyticsHospitalityPage = query({
 				reservationsSeries: reservationsSeries.data
 			}),
 			performance: {
-				rows: buildPerformanceRows({
+				rows: buildAnalyticsRows({
+					output: 'performance',
 					items: accommodations,
-					viewTotals: hospitalityViewSourceTotals,
+					primaryTotals: hospitalityViewSourceTotals,
 					requestTotals: reservationTotals,
 					confirmedTotals
 				})

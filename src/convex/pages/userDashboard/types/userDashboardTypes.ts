@@ -17,6 +17,7 @@ export type UserDashboardPendingReservation = {
 	hospitalityName: string;
 	email: string;
 	phone: string;
+	guestCount: number;
 	requestedTime: string;
 	status: ReservationStatus;
 };

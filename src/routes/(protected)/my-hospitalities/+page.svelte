@@ -3,6 +3,9 @@
 	import { api } from '@/convex/_generated/api';
 	import { useQuery } from 'convex-svelte';
 
+	// CLASSES
+	import { authClass } from '@/features/auth/classes/authClass.svelte';
+
 	// CONFIG
 	import { PAGINATION_DATA } from '@/shared/config.js';
 
@@ -18,13 +21,18 @@
 	// TYPES
 	import type { Doc } from '@/convex/_generated/dataModel';
 
+	const hasOwnedHospitalities = $derived(authClass.currentUser?.hasHospitalities === true);
+
 	const summaryQuery = useQuery(
 		api.tables.hospitalities.queries.fetchMyHospitalitiesSummary.fetchMyHospitalitiesSummary,
-		() => ({})
+		() => (authClass.userLoading || !hasOwnedHospitalities ? 'skip' : {})
 	);
 
 	const summary = $derived(summaryQuery.data);
-	const summaryLoading = $derived(summaryQuery.data === undefined && !summaryQuery.error);
+	const summaryLoading = $derived(
+		authClass.userLoading ||
+			(hasOwnedHospitalities && summaryQuery.data === undefined && !summaryQuery.error)
+	);
 </script>
 
 <SvelteHead />
@@ -45,28 +53,36 @@
 		</div>
 	</div>
 
-	<ConvexDataList
-		query={api.tables.hospitalities.queries.fetchMyHospitalities.fetchMyHospitalities}
-		pageSize={PAGINATION_DATA.DEFAULT_PAGE_SIZE}
-		totalCount={summary?.totalCount}
-		summaryLoading={summaryLoading}
-		hasError={Boolean(summaryQuery.error)}
-		getItemKey={(hospitality) => String(hospitality._id)}
-	>
-		{#snippet item({ item: hospitality })}
-			<MyHospitalitiesItem hospitality={hospitality as Doc<'hospitalities'>} />
-		{/snippet}
+	{#if summaryLoading}
+		<MyHospitalitiesLoading />
+	{:else if !hasOwnedHospitalities}
+		<MyHospitalitiesEmpty />
+	{:else if summaryQuery.error}
+		<MyHospitalitiesError />
+	{:else}
+		<ConvexDataList
+			query={api.tables.hospitalities.queries.fetchMyHospitalities.fetchMyHospitalities}
+			pageSize={PAGINATION_DATA.DEFAULT_PAGE_SIZE}
+			totalCount={summary?.totalCount}
+			summaryLoading={summaryLoading}
+			hasError={Boolean(summaryQuery.error)}
+			getItemKey={(hospitality) => String(hospitality._id)}
+		>
+			{#snippet item({ item: hospitality })}
+				<MyHospitalitiesItem hospitality={hospitality as Doc<'hospitalities'>} />
+			{/snippet}
 
-		{#snippet empty()}
-			<MyHospitalitiesEmpty />
-		{/snippet}
+			{#snippet empty()}
+				<MyHospitalitiesEmpty />
+			{/snippet}
 
-		{#snippet error()}
-			<MyHospitalitiesError />
-		{/snippet}
+			{#snippet error()}
+				<MyHospitalitiesError />
+			{/snippet}
 
-		{#snippet loading()}
-			<MyHospitalitiesLoading />
-		{/snippet}
-	</ConvexDataList>
+			{#snippet loading()}
+				<MyHospitalitiesLoading />
+			{/snippet}
+		</ConvexDataList>
+	{/if}
 </section>

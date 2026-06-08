@@ -10,8 +10,8 @@
 </script>
 
 <div class="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
-	{#each Array.from({ length: 3 }) as _, index (index)}
-		<Card class="py-0">
+	{#each [...Array(3).keys()] as index (index)}
+		<Card>
 			<CardContent class="flex min-h-28 flex-col justify-between gap-4 p-4">
 				<div>
 					<Skeleton class="h-3 w-24" />
@@ -23,7 +23,7 @@
 	{/each}
 </div>
 
-<Card class="py-0">
+<Card>
 	<CardHeader>
 		<CardTitle>Reservation trend</CardTitle>
 		<CardDescription>Daily reservation outcomes across connected places.</CardDescription>
@@ -33,13 +33,13 @@
 	</CardContent>
 </Card>
 
-<Card class="py-0">
+<Card>
 	<CardHeader>
 		<CardTitle class="text-base">Reservation sources</CardTitle>
 		<CardDescription>Where requests are coming from and how they convert.</CardDescription>
 	</CardHeader>
 	<CardContent class="space-y-3">
-		{#each Array.from({ length: 5 }) as _, index (index)}
+		{#each [...Array(5).keys()] as index (index)}
 			<Skeleton class="h-12 w-full rounded-md" />
 		{/each}
 	</CardContent>

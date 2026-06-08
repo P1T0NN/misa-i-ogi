@@ -9,6 +9,7 @@
 	import ReservationConfirmButton from './reservation-confirm-button.svelte';
 
 	// UTILS
+	import { formatReservationGuestCount } from '@/features/reservations/utils/formatReservationGuestCount';
 	import { getReservationStatusMeta } from '@/features/reservations/utils/getReservationStatus.js';
 	import { initialsFromName } from '@/shared/utils/stringUtils.js';
 
@@ -20,6 +21,7 @@
 	import MailIcon from '@lucide/svelte/icons/mail';
 	import PhoneIcon from '@lucide/svelte/icons/phone';
 	import StoreIcon from '@lucide/svelte/icons/store';
+	import UsersIcon from '@lucide/svelte/icons/users';
 
 	let { reservation }: { reservation: ReservationDoc } = $props();
 
@@ -61,6 +63,10 @@
 						<span class="flex items-center gap-1">
 							<ClockIcon class="size-3 shrink-0" />
 							<span>{reservation.requestedTime}h</span>
+						</span>
+						<span class="flex items-center gap-1">
+							<UsersIcon class="size-3 shrink-0" />
+							<span>{formatReservationGuestCount(reservation.guestCount)}</span>
 						</span>
 					</div>
 				</div>

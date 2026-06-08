@@ -13,7 +13,8 @@ import { getUserOwnedAccommodations } from '@/convex/tables/accommodations/helpe
 
 // UTILS
 import { buildUserAnalyticsChartData } from '@/convex/analytics/utils/buildUserAnalyticsChartData';
-import { buildUserAnalyticsRows } from '@/convex/analytics/utils/buildUserAnalyticsRows';
+import { buildAnalyticsRows } from '@/convex/analytics/utils/buildAnalyticsRows';
+import { createEmptyMetricComparison } from '@/convex/analytics/utils/createEmptyMetricComparison';
 import { sumAnalyticsMetricTotals } from '@/convex/analytics/utils/sumAnalyticsMetricTotals';
 import { DAY_MS, startOfUtcDay } from '../utils/dateUtils';
 
@@ -28,6 +29,30 @@ export const fetchUserAnalyticsAccommodationsPage = query({
 	},
 	handler: async (ctx, args): Promise<UserAnalyticsAccommodationsPageResult> => {
 		const userId = await requireAuthUserId(ctx);
+		const accommodations = await getUserOwnedAccommodations(ctx, userId);
+
+		if (accommodations.length === 0) {
+			return {
+				metrics: {
+					trackedStays: { value: 0 },
+					qrScans: {
+						value: 0,
+						comparison: createEmptyMetricComparison()
+					},
+					guestActivations: {
+						value: 0,
+						comparison: createEmptyMetricComparison()
+					},
+					requestsGenerated: {
+						value: 0,
+						comparison: createEmptyMetricComparison()
+					}
+				},
+				chart: { data: [] },
+				rows: []
+			};
+		}
+
 		const todayStart = startOfUtcDay(Date.now());
 		const from = todayStart - DAY_MS * (RANGE_DAYS - 1);
 		const ownerScope = {
@@ -36,7 +61,6 @@ export const fetchUserAnalyticsAccommodationsPage = query({
 		} as const;
 
 		const [
-			accommodations,
 			qrScanTotals,
 			guestActivationTotals,
 			reservationTotals,
@@ -45,7 +69,6 @@ export const fetchUserAnalyticsAccommodationsPage = query({
 			guestActivationComparison,
 			reservationComparison
 		] = await Promise.all([
-			getUserOwnedAccommodations(ctx, userId),
 			analytics.fetchMetricTotalsByDimension(ctx, {
 				metric: 'qrScans',
 				scope: ownerScope,
@@ -116,10 +139,11 @@ export const fetchUserAnalyticsAccommodationsPage = query({
 					limit: args.chartLimit ?? ANALYTICS_CHART_LIMIT
 				})
 			},
-			rows: buildUserAnalyticsRows({
+			rows: buildAnalyticsRows({
+				output: 'ranking',
 				items: accommodations,
-				primaryMetricTotals: qrScanTotals,
-				secondaryMetricTotals: guestActivationTotals,
+				primaryTotals: qrScanTotals,
+				secondaryTotals: guestActivationTotals,
 				requestTotals: reservationTotals,
 				confirmedTotals
 			})

@@ -26,6 +26,7 @@ export async function getUserDashboardPendingReservations(
 		hospitalityName: reservation.hospitalityName,
 		email: reservation.email,
 		phone: reservation.phone,
+		guestCount: reservation.guestCount,
 		requestedTime: reservation.requestedTime,
 		status: reservation.status
 	}));

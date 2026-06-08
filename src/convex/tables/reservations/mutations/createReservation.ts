@@ -5,7 +5,7 @@ import { mutation } from '@/convex/_generated/server';
 // HELPERS
 import { getActiveGuestSessionFromAuth } from '@/convex/tables/guests/helpers/getActiveGuestSessionFromAuth';
 import { hasActiveAccommodationHospitalityPartnership } from '@/convex/tables/partnerships/helpers/getAccommodationPartnerships';
-import { getGuestPendingHospitalityReservation } from '@/convex/tables/reservations/helpers/getGuestPendingHospitalityReservation';
+import { getGuestActiveHospitalityReservation } from '@/convex/tables/reservations/helpers/getGuestActiveHospitalityReservation';
 import { sendReservationEmailToHospitalityOwner } from '@/convex/tables/reservations/emails/sendReservationEmailToHospitalityOwner';
 import { sendReservationEmailToGuest } from '@/convex/tables/reservations/emails/sendReservationEmailToGuest';
 import { analytics } from '@/convex/analytics';
@@ -20,15 +20,19 @@ import {
 } from '@piton-/analytics-convex';
 import {
 	normalizeOptionalEmail,
+	normalizeRequiredPositiveInteger,
 	normalizeRequiredString,
 	normalizeRequiredTime24h
 } from '@/convex/utils/convexValidationUtils';
 
 const MAX_GUEST_NAME_LENGTH = 120;
 const MAX_PHONE_LENGTH = 64;
+const MIN_GUEST_COUNT = 1;
+const MAX_GUEST_COUNT = 50;
 
 type ReservationInput = {
 	guestName: string;
+	guestCount: number;
 	phone: string;
 	requestedTime: string;
 	email?: string;
@@ -36,13 +40,17 @@ type ReservationInput = {
 
 function validateReservationInput(args: ReservationInput) {
 	const guestName = normalizeRequiredString(args.guestName, { maxLength: MAX_GUEST_NAME_LENGTH });
+	const guestCount = normalizeRequiredPositiveInteger(args.guestCount, {
+		min: MIN_GUEST_COUNT,
+		max: MAX_GUEST_COUNT
+	});
 	const requestedTime = normalizeRequiredTime24h(args.requestedTime);
 	const phone = normalizeRequiredString(args.phone, { maxLength: MAX_PHONE_LENGTH });
 	const email = normalizeOptionalEmail(args.email);
 
-	if (!guestName || !requestedTime || !phone || email === null) return null;
+	if (!guestName || guestCount === null || !requestedTime || !phone || email === null) return null;
 
-	return { guestName, requestedTime, phone, email };
+	return { guestName, guestCount, requestedTime, phone, email };
 }
 
 /**
@@ -58,6 +66,7 @@ export const createReservation = mutation({
 	args: {
 		hospitalityId: v.id('hospitalities'),
 		guestName: v.string(),
+		guestCount: v.number(),
 		phone: v.string(),
 		requestedTime: v.string(),
 		email: v.optional(v.string())
@@ -93,12 +102,12 @@ export const createReservation = mutation({
 			};
 		}
 
-		const existingPendingReservation = await getGuestPendingHospitalityReservation(
+		const existingActiveReservation = await getGuestActiveHospitalityReservation(
 			ctx,
 			guest._id,
 			args.hospitalityId
 		);
-		if (existingPendingReservation) {
+		if (existingActiveReservation) {
 			return {
 				success: true,
 				message: { key: 'GenericMessages.RESERVATION_CREATED' }
@@ -114,6 +123,7 @@ export const createReservation = mutation({
 			guestName: input.guestName,
 			email: input.email,
 			phone: input.phone,
+			guestCount: input.guestCount,
 			requestedTime: input.requestedTime,
 			status: 'pending'
 		});
@@ -151,6 +161,7 @@ export const createReservation = mutation({
 		await sendReservationEmailToHospitalityOwner(ctx, {
 			hospitality,
 			guestName: input.guestName,
+			guestCount: input.guestCount,
 			phone: input.phone,
 			requestedTime: input.requestedTime,
 			...(input.email ? { guestEmail: input.email } : {})
@@ -161,6 +172,7 @@ export const createReservation = mutation({
 				guestEmail: input.email,
 				hospitalityName: hospitality.name,
 				guestName: input.guestName,
+				guestCount: input.guestCount,
 				phone: input.phone,
 				requestedTime: input.requestedTime
 			});

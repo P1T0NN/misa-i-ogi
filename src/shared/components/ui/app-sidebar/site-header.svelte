@@ -88,6 +88,11 @@
 			if (hidden.has(href)) continue;
 			items.push({ label: labelFromSegment(segment), href });
 		}
+
+		if (currentPageLabel && items.length > 0) {
+			items[items.length - 1].label = currentPageLabel;
+		}
+
 		return items;
 	});
 

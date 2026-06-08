@@ -3,6 +3,9 @@
 	import { api } from '@/convex/_generated/api';
 	import { useQuery } from 'convex-svelte';
 
+	// CLASSES
+	import { authClass } from '@/features/auth/classes/authClass.svelte';
+
 	// COMPONENTS
 	import SvelteHead from '@/shared/components/ui/svelte-head/svelte-head.svelte';
 	import AnalyticsHeader from '@/features/analytics/components/analytics-header.svelte';
@@ -11,16 +14,20 @@
 	import UserAnalyticsHospitalitiesTable from '@/shared/components/pages/(protected)/user-analytics/user-analytics-hospitalities/user-analytics-hospitalities-table.svelte';
 	import UserAnalyticsHospitalitiesLoading from '@/shared/components/pages/(protected)/user-analytics/user-analytics-hospitalities/loading/user-analytics-hospitalities-loading.svelte';
 	import UserAnalyticsHospitalitiesError from '@/shared/components/pages/(protected)/user-analytics/user-analytics-hospitalities/error/user-analytics-hospitalities-error.svelte';
+	import UserAnalyticsHospitalitiesEmpty from '@/shared/components/pages/(protected)/user-analytics/user-analytics-hospitalities/empty/user-analytics-hospitalities-empty.svelte';
+
+	const hasOwnedHospitalities = $derived(authClass.currentUser?.hasHospitalities === true);
 
 	const hospitalitiesPageQuery = useQuery(
 		api.pages.userAnalytics.queries.fetchUserAnalyticsHospitalitiesPage
 			.fetchUserAnalyticsHospitalitiesPage,
-		() => ({})
+		() => (authClass.userLoading || !hasOwnedHospitalities ? 'skip' : {})
 	);
 
-	const isLoading = $derived(
+	const isPageLoading = $derived(
 		hospitalitiesPageQuery.data === undefined && !hospitalitiesPageQuery.error
 	);
+	const isLoading = $derived(authClass.userLoading || (hasOwnedHospitalities && isPageLoading));
 	const hasError = $derived(Boolean(hospitalitiesPageQuery.error));
 	const pageData = $derived(hospitalitiesPageQuery.data);
 </script>
@@ -36,6 +43,8 @@
 
 	{#if isLoading}
 		<UserAnalyticsHospitalitiesLoading />
+	{:else if !hasOwnedHospitalities}
+		<UserAnalyticsHospitalitiesEmpty />
 	{:else if hasError}
 		<UserAnalyticsHospitalitiesError />
 	{:else if pageData}

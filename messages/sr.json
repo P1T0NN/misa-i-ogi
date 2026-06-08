@@ -917,6 +917,9 @@
 		},
 		"CreateReservationSchema": {
 			"guestNameRequired": "Ime gosta je obavezno.",
+			"guestCountInvalid": "Unesite ispravan broj gostiju.",
+			"guestCountMin": "Potreban je najmanje 1 gost.",
+			"guestCountMax": "Rezervacije su ograničene na 50 gostiju.",
 			"timeInvalid": "Unesite ispravno vreme (HH:MM).",
 			"phoneRequired": "Broj telefona je obavezan.",
 			"emailInvalid": "Unesite ispravnu email adresu."

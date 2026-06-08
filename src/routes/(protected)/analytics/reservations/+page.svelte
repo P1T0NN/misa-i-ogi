@@ -3,6 +3,9 @@
 	import { api } from '@/convex/_generated/api';
 	import { useQuery } from 'convex-svelte';
 
+	// CLASSES
+	import { authClass } from '@/features/auth/classes/authClass.svelte';
+
 	// COMPONENTS
 	import SvelteHead from '@/shared/components/ui/svelte-head/svelte-head.svelte';
 	import AnalyticsHeader from '@/features/analytics/components/analytics-header.svelte';
@@ -11,16 +14,20 @@
 	import UserAnalyticsReservationsTable from '@/shared/components/pages/(protected)/user-analytics/user-analytics-reservations/user-analytics-reservations-table.svelte';
 	import UserAnalyticsReservationsLoading from '@/shared/components/pages/(protected)/user-analytics/user-analytics-reservations/loading/user-analytics-reservations-loading.svelte';
 	import UserAnalyticsReservationsError from '@/shared/components/pages/(protected)/user-analytics/user-analytics-reservations/error/user-analytics-reservations-error.svelte';
+	import UserAnalyticsReservationsEmpty from '@/shared/components/pages/(protected)/user-analytics/user-analytics-reservations/empty/user-analytics-reservations-empty.svelte';
+
+	const hasOwnedHospitalities = $derived(authClass.currentUser?.hasHospitalities === true);
 
 	const reservationsPageQuery = useQuery(
 		api.pages.userAnalytics.queries.fetchUserAnalyticsReservationsPage
 			.fetchUserAnalyticsReservationsPage,
-		() => ({})
+		() => (authClass.userLoading || !hasOwnedHospitalities ? 'skip' : {})
 	);
 
-	const isLoading = $derived(
+	const isPageLoading = $derived(
 		reservationsPageQuery.data === undefined && !reservationsPageQuery.error
 	);
+	const isLoading = $derived(authClass.userLoading || (hasOwnedHospitalities && isPageLoading));
 	const hasError = $derived(Boolean(reservationsPageQuery.error));
 	const pageData = $derived(reservationsPageQuery.data);
 </script>
@@ -32,11 +39,12 @@
 		eyebrow="Reservation analytics"
 		title="Reservation flow"
 		description="Understand request volume, confirmation health, and cancellation patterns."
-		badge="Operations"
 	/>
 
 	{#if isLoading}
 		<UserAnalyticsReservationsLoading />
+	{:else if !hasOwnedHospitalities}
+		<UserAnalyticsReservationsEmpty />
 	{:else if hasError}
 		<UserAnalyticsReservationsError />
 	{:else if pageData}

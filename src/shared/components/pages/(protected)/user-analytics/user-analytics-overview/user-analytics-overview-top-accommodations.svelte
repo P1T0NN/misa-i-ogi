@@ -1,13 +1,7 @@
 <script lang="ts">
-	// LIBRARIES
-	import { api } from '@/convex/_generated/api';
-	import { useQuery } from 'convex-svelte';
-
 	// COMPONENTS
 	import { Button } from '@/shared/components/ui/button/index.js';
 	import DataTable from '@/shared/components/ui/data-table/data-table.svelte';
-	import UserAnalyticsOverviewTopAccommodationsLoading from './loading/user-analytics-overview-top-accommodations-loading.svelte';
-	import UserAnalyticsOverviewTopAccommodationsError from './error/user-analytics-overview-top-accommodations-error.svelte';
 
 	// UTILS
 	import {
@@ -26,17 +20,7 @@
 	// LUCIDE ICONS
 	import ArrowRightIcon from '@lucide/svelte/icons/arrow-right';
 
-	const topAccommodationsQuery = useQuery(
-		api.pages.userAnalytics.queries.fetchUserAnalyticsTopAccommodations
-			.fetchUserAnalyticsTopAccommodations,
-		() => ({})
-	);
-
-	const isLoading = $derived(
-		topAccommodationsQuery.data === undefined && !topAccommodationsQuery.error
-	);
-	const hasError = $derived(Boolean(topAccommodationsQuery.error));
-	const topAccommodations = $derived(topAccommodationsQuery.data ?? []);
+	let { rows }: { rows: UserAnalyticsRankingRow[] } = $props();
 
 	function getDetailHref(row: UserAnalyticsRankingRow) {
 		return `/analytics/accommodations/${row.id}`;
@@ -114,29 +98,23 @@
 	</Button>
 {/snippet}
 
-{#if isLoading}
-	<UserAnalyticsOverviewTopAccommodationsLoading />
-{:else if hasError}
-	<UserAnalyticsOverviewTopAccommodationsError />
-{:else}
-	<section class="flex min-w-0 flex-col gap-3" aria-labelledby="top-accommodations-title">
-		<div>
-			<h2 id="top-accommodations-title" class="text-lg font-semibold tracking-tight">
-				Top accommodations
-			</h2>
-			<p class="text-sm text-muted-foreground">
-				Stays creating the strongest guest and reservation activity.
-			</p>
-		</div>
+<section class="flex min-w-0 flex-col gap-3" aria-labelledby="top-accommodations-title">
+	<div>
+		<h2 id="top-accommodations-title" class="text-lg font-semibold tracking-tight">
+			Top accommodations
+		</h2>
+		<p class="text-sm text-muted-foreground">
+			Stays creating the strongest guest and reservation activity.
+		</p>
+	</div>
 
-		<DataTable
-			data={topAccommodations}
-			{columns}
-			getRowId={(row) => row.id}
-			customCells={{
-				action: actionCell
-			}}
-			showPagination={false}
-		/>
-	</section>
-{/if}
+	<DataTable
+		data={rows}
+		{columns}
+		getRowId={(row) => row.id}
+		customCells={{
+			action: actionCell
+		}}
+		showPagination={false}
+	/>
+</section>

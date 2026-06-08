@@ -6,6 +6,9 @@
 	import { api } from '@/convex/_generated/api';
 	import { useQuery } from 'convex-svelte';
 
+	// CLASSES
+	import { breadcrumbLabel } from '@/shared/components/ui/breadcrumb/breadcrumbClass.svelte.js';
+
 	// COMPONENTS
 	import SvelteHead from '@/shared/components/ui/svelte-head/svelte-head.svelte';
 	import AnalyticsHeader from '@/features/analytics/components/analytics-header.svelte';
@@ -32,6 +35,11 @@
 	const isLoading = $derived(detailQuery.data === undefined && !detailQuery.error);
 	const hasError = $derived(Boolean(detailQuery.error));
 	const data = $derived(detailQuery.data);
+
+	$effect(() => {
+		breadcrumbLabel.set(data?.hospitality.name);
+		return () => breadcrumbLabel.reset();
+	});
 </script>
 
 <SvelteHead />

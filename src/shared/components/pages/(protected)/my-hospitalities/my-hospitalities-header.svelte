@@ -40,8 +40,6 @@
 	<div class="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
 		<div class="flex max-w-3xl min-w-0 flex-col gap-2">
 			<div class="flex flex-wrap items-center gap-2">
-				<Badge variant="secondary">Owner workspace</Badge>
-
 				{#if !isLoading && !hasError}
 					<Badge variant="outline">{totalCount} total</Badge>
 				{/if}

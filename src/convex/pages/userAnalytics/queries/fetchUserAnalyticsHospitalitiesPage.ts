@@ -13,7 +13,8 @@ import { getUserOwnedHospitalities } from '@/convex/tables/hospitalities/helpers
 
 // UTILS
 import { buildUserAnalyticsChartData } from '@/convex/analytics/utils/buildUserAnalyticsChartData';
-import { buildUserAnalyticsRows } from '@/convex/analytics/utils/buildUserAnalyticsRows';
+import { buildAnalyticsRows } from '@/convex/analytics/utils/buildAnalyticsRows';
+import { createEmptyMetricComparison } from '@/convex/analytics/utils/createEmptyMetricComparison';
 import { sumAnalyticsMetricTotals } from '@/convex/analytics/utils/sumAnalyticsMetricTotals';
 import { DAY_MS, startOfUtcDay } from '../utils/dateUtils';
 
@@ -28,6 +29,30 @@ export const fetchUserAnalyticsHospitalitiesPage = query({
 	},
 	handler: async (ctx, args): Promise<UserAnalyticsHospitalitiesPageResult> => {
 		const userId = await requireAuthUserId(ctx);
+		const hospitalities = await getUserOwnedHospitalities(ctx, userId);
+
+		if (hospitalities.length === 0) {
+			return {
+				metrics: {
+					trackedVenues: { value: 0 },
+					hospitalityViews: {
+						value: 0,
+						comparison: createEmptyMetricComparison()
+					},
+					guestActivations: {
+						value: 0,
+						comparison: createEmptyMetricComparison()
+					},
+					requestsGenerated: {
+						value: 0,
+						comparison: createEmptyMetricComparison()
+					}
+				},
+				chart: { data: [] },
+				rows: []
+			};
+		}
+
 		const todayStart = startOfUtcDay(Date.now());
 		const from = todayStart - DAY_MS * (RANGE_DAYS - 1);
 		const ownerScope = {
@@ -36,7 +61,6 @@ export const fetchUserAnalyticsHospitalitiesPage = query({
 		} as const;
 
 		const [
-			hospitalities,
 			hospitalityViewTotals,
 			guestActivationTotals,
 			reservationTotals,
@@ -45,7 +69,6 @@ export const fetchUserAnalyticsHospitalitiesPage = query({
 			guestActivationComparison,
 			reservationComparison
 		] = await Promise.all([
-			getUserOwnedHospitalities(ctx, userId),
 			analytics.fetchMetricTotalsByDimension(ctx, {
 				metric: 'hospitalityViews',
 				scope: ownerScope,
@@ -116,10 +139,11 @@ export const fetchUserAnalyticsHospitalitiesPage = query({
 					limit: args.chartLimit ?? ANALYTICS_CHART_LIMIT
 				})
 			},
-			rows: buildUserAnalyticsRows({
+			rows: buildAnalyticsRows({
+				output: 'ranking',
 				items: hospitalities,
-				primaryMetricTotals: hospitalityViewTotals,
-				secondaryMetricTotals: guestActivationTotals,
+				primaryTotals: hospitalityViewTotals,
+				secondaryTotals: guestActivationTotals,
 				requestTotals: reservationTotals,
 				confirmedTotals
 			})

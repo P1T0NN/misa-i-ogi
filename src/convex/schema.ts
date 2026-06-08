@@ -148,6 +148,8 @@ const schema = defineSchema({
 		guestName: v.string(),
 		email: v.string(),
 		phone: v.string(),
+		/** Party size submitted with the reservation request. */
+		guestCount: v.number(),
 		/** Guest-chosen time slot ("HH:mm" in 24h format). */
 		requestedTime: v.string(),
 

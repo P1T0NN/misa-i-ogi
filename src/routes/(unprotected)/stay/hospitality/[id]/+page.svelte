@@ -9,7 +9,7 @@
 	import SvelteHead from '@/shared/components/ui/svelte-head/svelte-head.svelte';
 	import * as Card from '@/shared/components/ui/card/index.js';
 	import RequestReservationDialog from '@/features/hospitalities/components/request-reservation-dialog.svelte';
-	import ReservationPendingCard from '@/features/hospitalities/components/reservation-pending-card.svelte';
+	import GuestReservationCard from '@/features/hospitalities/components/guest-reservation-card.svelte';
 	import HospitalityEmpty from '@/shared/components/pages/(unprotected)/hospitality/empty/hospitality-empty.svelte';
 	import HospitalityError from '@/shared/components/pages/(unprotected)/hospitality/error/hospitality-error.svelte';
 	import HospitalityLoading from '@/shared/components/pages/(unprotected)/hospitality/loading/hospitality-loading.svelte';
@@ -35,15 +35,15 @@
 	const hospitality = $derived(
 		hospitalityResult?.status === 'available' ? hospitalityResult.hospitality : null
 	);
-	const pendingReservation = $derived(
-		hospitalityResult?.status === 'available' ? hospitalityResult.pendingReservation : null
+	const guestReservation = $derived(
+		hospitalityResult?.status === 'available' ? hospitalityResult.guestReservation : null
 	);
 	const isLoading = $derived(hospitalityResult === undefined && !detailQuery.error);
 	const isNotFound = $derived(hospitalityResult?.status === 'not_found');
 	const isNotPartnered = $derived(hospitalityResult?.status === 'not_partnered');
 </script>
 
-<SvelteHead />
+<SvelteHead title={hospitality?.name} />
 
 <div class="bg-background text-foreground">
 	{#if detailQuery.error}
@@ -123,8 +123,8 @@
 			</div>
 
 			<aside class="space-y-6 lg:sticky lg:top-28">
-				{#if pendingReservation}
-					<ReservationPendingCard reservation={pendingReservation} hospitalityName={h.name} />
+				{#if guestReservation}
+					<GuestReservationCard reservation={guestReservation} hospitalityName={h.name} />
 				{:else}
 					<RequestReservationDialog hospitalityName={h.name} hospitalityId={h._id} />
 				{/if}

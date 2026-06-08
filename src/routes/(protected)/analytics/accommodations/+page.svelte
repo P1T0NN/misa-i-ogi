@@ -3,6 +3,9 @@
 	import { api } from '@/convex/_generated/api';
 	import { useQuery } from 'convex-svelte';
 
+	// CLASSES
+	import { authClass } from '@/features/auth/classes/authClass.svelte';
+
 	// COMPONENTS
 	import SvelteHead from '@/shared/components/ui/svelte-head/svelte-head.svelte';
 	import AnalyticsHeader from '@/features/analytics/components/analytics-header.svelte';
@@ -11,16 +14,22 @@
 	import UserAnalyticsAccommodationsTable from '@/shared/components/pages/(protected)/user-analytics/user-analytics-accommodations/user-analytics-accommodations-table.svelte';
 	import UserAnalyticsAccommodationsLoading from '@/shared/components/pages/(protected)/user-analytics/user-analytics-accommodations/loading/user-analytics-accommodations-loading.svelte';
 	import UserAnalyticsAccommodationsError from '@/shared/components/pages/(protected)/user-analytics/user-analytics-accommodations/error/user-analytics-accommodations-error.svelte';
+	import UserAnalyticsAccommodationsEmpty from '@/shared/components/pages/(protected)/user-analytics/user-analytics-accommodations/empty/user-analytics-accommodations-empty.svelte';
+
+	const hasOwnedAccommodations = $derived(
+		authClass.currentUser?.hasAccommodations === true
+	);
 
 	const accommodationsPageQuery = useQuery(
 		api.pages.userAnalytics.queries.fetchUserAnalyticsAccommodationsPage
 			.fetchUserAnalyticsAccommodationsPage,
-		() => ({})
+		() => (authClass.userLoading || !hasOwnedAccommodations ? 'skip' : {})
 	);
 
-	const isLoading = $derived(
+	const isPageLoading = $derived(
 		accommodationsPageQuery.data === undefined && !accommodationsPageQuery.error
 	);
+	const isLoading = $derived(authClass.userLoading || (hasOwnedAccommodations && isPageLoading));
 	const hasError = $derived(Boolean(accommodationsPageQuery.error));
 	const pageData = $derived(accommodationsPageQuery.data);
 </script>
@@ -36,6 +45,8 @@
 
 	{#if isLoading}
 		<UserAnalyticsAccommodationsLoading />
+	{:else if !hasOwnedAccommodations}
+		<UserAnalyticsAccommodationsEmpty />
 	{:else if hasError}
 		<UserAnalyticsAccommodationsError />
 	{:else if pageData}

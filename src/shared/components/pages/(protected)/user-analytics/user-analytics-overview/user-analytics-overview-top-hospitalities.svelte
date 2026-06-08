@@ -1,13 +1,7 @@
 <script lang="ts">
-	// LIBRARIES
-	import { api } from '@/convex/_generated/api';
-	import { useQuery } from 'convex-svelte';
-
 	// COMPONENTS
 	import { Button } from '@/shared/components/ui/button/index.js';
 	import DataTable from '@/shared/components/ui/data-table/data-table.svelte';
-	import UserAnalyticsOverviewTopHospitalitiesLoading from './loading/user-analytics-overview-top-hospitalities-loading.svelte';
-	import UserAnalyticsOverviewTopHospitalitiesError from './error/user-analytics-overview-top-hospitalities-error.svelte';
 
 	// UTILS
 	import {
@@ -25,17 +19,7 @@
 	// LUCIDE ICONS
 	import ArrowRightIcon from '@lucide/svelte/icons/arrow-right';
 
-	const topHospitalitiesQuery = useQuery(
-		api.pages.userAnalytics.queries.fetchUserAnalyticsTopHospitalities
-			.fetchUserAnalyticsTopHospitalities,
-		() => ({})
-	);
-
-	const isLoading = $derived(
-		topHospitalitiesQuery.data === undefined && !topHospitalitiesQuery.error
-	);
-	const hasError = $derived(Boolean(topHospitalitiesQuery.error));
-	const topHospitalities = $derived(topHospitalitiesQuery.data ?? []);
+	let { rows }: { rows: UserAnalyticsRankingRow[] } = $props();
 
 	function getDetailHref(row: UserAnalyticsRankingRow) {
 		return `/analytics/hospitalities/${row.id}`;
@@ -98,29 +82,23 @@
 	</Button>
 {/snippet}
 
-{#if isLoading}
-	<UserAnalyticsOverviewTopHospitalitiesLoading />
-{:else if hasError}
-	<UserAnalyticsOverviewTopHospitalitiesError />
-{:else}
-	<section class="flex min-w-0 flex-col gap-3" aria-labelledby="top-hospitalities-title">
-		<div>
-			<h2 id="top-hospitalities-title" class="text-lg font-semibold tracking-tight">
-				Top hospitalities
-			</h2>
-			<p class="text-sm text-muted-foreground">
-				Venues converting connected stay traffic into reservation requests.
-			</p>
-		</div>
+<section class="flex min-w-0 flex-col gap-3" aria-labelledby="top-hospitalities-title">
+	<div>
+		<h2 id="top-hospitalities-title" class="text-lg font-semibold tracking-tight">
+			Top hospitalities
+		</h2>
+		<p class="text-sm text-muted-foreground">
+			Venues converting connected stay traffic into reservation requests.
+		</p>
+	</div>
 
-		<DataTable
-			data={topHospitalities}
-			{columns}
-			getRowId={(row) => row.id}
-			customCells={{
-				action: actionCell
-			}}
-			showPagination={false}
-		/>
-	</section>
-{/if}
+	<DataTable
+		data={rows}
+		{columns}
+		getRowId={(row) => row.id}
+		customCells={{
+			action: actionCell
+		}}
+		showPagination={false}
+	/>
+</section>

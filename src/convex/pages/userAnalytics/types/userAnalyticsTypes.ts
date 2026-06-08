@@ -42,6 +42,14 @@ export type UserAnalyticsRankingRow = {
 	confirmed: number;
 };
 
+export type UserAnalyticsOverviewPageResult = {
+	qrScansChart: UserAnalyticsChartPoint[];
+	guestActivationsChart: UserAnalyticsChartPoint[];
+	reservationsChart: UserAnalyticsChartPoint[];
+	topAccommodations: UserAnalyticsRankingRow[];
+	topHospitalities: UserAnalyticsRankingRow[];
+};
+
 export type UserAnalyticsAccommodationsPageMetrics = {
 	trackedStays: UserAnalyticsStaticMetricSummary;
 	qrScans: UserAnalyticsComparedMetricSummary;
@@ -73,6 +81,7 @@ export type UserAnalyticsHospitalitiesPageResult = {
 };
 
 export type UserAnalyticsReservationsPageMetrics = {
+	trackedVenues: UserAnalyticsStaticMetricSummary;
 	created: UserAnalyticsComparedMetricSummary;
 	confirmed: UserAnalyticsComparedMetricSummary;
 	cancelled: UserAnalyticsComparedMetricSummary;

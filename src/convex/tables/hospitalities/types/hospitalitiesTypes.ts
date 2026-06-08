@@ -13,18 +13,21 @@ export type HospitalityDetailsSafe = Omit<
 	'ownerId' | 'coverImageKey' | 'reservationMode' | 'isActive' | '_creationTime'
 >;
 
-export type HospitalityGuestPendingReservation = Pick<
+export type HospitalityGuestReservation = Pick<
 	Doc<'reservations'>,
-	'guestName' | 'email' | 'phone' | 'requestedTime'
+	'guestName' | 'email' | 'phone' | 'guestCount' | 'requestedTime'
 > & {
-	status: 'pending';
+	status: 'pending' | 'confirmed';
 };
+
+/** @deprecated Use `HospitalityGuestReservation`. */
+export type HospitalityGuestPendingReservation = HospitalityGuestReservation;
 
 export type HospitalityDetailsResult =
 	| {
 			status: 'available';
 			hospitality: HospitalityDetailsSafe;
-			pendingReservation: HospitalityGuestPendingReservation | null;
+			guestReservation: HospitalityGuestReservation | null;
 	  }
 	| { status: 'not_found' }
 	| { status: 'not_partnered' };

@@ -1,16 +1,12 @@
 <script lang="ts">
-	// LIBRARIES
-	import { m } from '@/shared/lib/paraglide/messages';
-	import { toast } from 'svelte-sonner';
-
 	// AUTH
 	import { authClass } from '@/features/auth/classes/authClass.svelte';
-	import { authClient } from '@/features/auth/lib/auth-client';
 
 	// CONFIG
-	import { PROTECTED_PAGE_ENDPOINTS, UNPROTECTED_PAGE_ENDPOINTS } from '@/shared/constants.js';
+	import { PROTECTED_PAGE_ENDPOINTS } from '@/shared/constants.js';
 
 	// COMPONENTS
+	import LogoutButton from '@/features/auth/components/logout-button/logout-button.svelte';
 	import * as Avatar from '@/shared/components/ui/avatar/index.js';
 	import * as DropdownMenu from '@/shared/components/ui/dropdown-menu/index.js';
 	import Spinner from '@/shared/components/ui/spinner/spinner.svelte';
@@ -22,7 +18,6 @@
 
 	// LUCIDE ICONS
 	import LayoutDashboardIcon from '@lucide/svelte/icons/layout-dashboard';
-	import LogOutIcon from '@lucide/svelte/icons/log-out';
 
 	// TYPES
 	import type { ClassValue } from 'clsx';
@@ -45,22 +40,6 @@
 
 	const goToDashboard = () => {
 		appGoto(PROTECTED_PAGE_ENDPOINTS.DASHBOARD);
-	};
-
-	const handleLogout = async () => {
-		isLoggingOut = true;
-
-		const result = await authClient.signOut();
-
-		if (result.error) {
-			console.error('Sign out error:', result.error);
-			toast.error(result.error.message as string);
-		} else {
-			toast.success(m['LogoutButton.logoutSuccess']());
-			appGoto(UNPROTECTED_PAGE_ENDPOINTS.LOGIN);
-		}
-
-		isLoggingOut = false;
 	};
 </script>
 
@@ -127,17 +106,6 @@
 
 		<DropdownMenu.Separator />
 
-		<DropdownMenu.Item
-			variant="destructive"
-			disabled={isLoggingOut}
-			onclick={handleLogout}
-		>
-			{#if isLoggingOut}
-				<Spinner />
-			{:else}
-				<LogOutIcon />
-			{/if}
-			<span>{m['LogoutButton.logout']()}</span>
-		</DropdownMenu.Item>
+		<LogoutButton bind:isLoggingOut />
 	</DropdownMenu.Content>
 </DropdownMenu.Root>

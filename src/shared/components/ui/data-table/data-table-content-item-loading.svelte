@@ -26,7 +26,7 @@
 	} = $props();
 
 	const count = $derived(Math.max(1, Math.min(rowCount, 20)));
-	const rowIndices = $derived(Array.from({ length: count }, (_, i) => i));
+	const rowIndices = $derived([...Array(count).keys()]);
 </script>
 
 {#if variant === 'table'}
@@ -34,7 +34,7 @@
 		<TableRow class="hover:bg-muted/30 border-b">
 			{#if selectable}
 				<TableCell class="w-10 px-4 py-3 align-middle">
-					<Skeleton class="h-4 w-4 rounded-[4px]" />
+					<Skeleton class="h-4 w-4 rounded-sm" />
 				</TableCell>
 			{/if}
 			{#each columns as col (col.id)}
@@ -55,7 +55,7 @@
 		<Card class="gap-0 px-4 py-4" role="listitem" aria-busy="true">
 			{#if selectable}
 				<div class="mb-3 flex items-center">
-					<Skeleton class="h-4 w-4 rounded-[4px]" />
+					<Skeleton class="h-4 w-4 rounded-sm" />
 				</div>
 			{/if}
 			<dl class="flex flex-col gap-3">

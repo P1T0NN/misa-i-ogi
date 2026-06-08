@@ -6,6 +6,7 @@
 	// COMPONENTS
 	import * as Dialog from '@/shared/components/ui/dialog/index.js';
 	import { buttonVariants } from '@/shared/components/ui/button/index.js';
+	import { Input } from '@/shared/components/ui/input/index.js';
 	import ConvexMutationForm from '@/shared/components/ui/mutation-form/convex-mutation-form.svelte';
 	import CustomTimeInput from '@/shared/components/ui/time-input/custom-time-input.svelte';
 
@@ -54,6 +55,15 @@
 					autofocus: true
 				},
 				{
+					id: 'guestCount',
+					kind: 'input',
+					type: 'number',
+					label: 'Number of guests',
+					placeholder: '2',
+					required: true,
+					description: 'Include everyone in your party.'
+				},
+				{
 					id: 'requestedTime',
 					kind: 'input',
 					label: 'Preferred time'
@@ -82,6 +92,7 @@
 
 	let values = $state<CreateReservationInput>({
 		guestName: '',
+		guestCount: 2,
 		requestedTime: '',
 		phone: '',
 		email: ''
@@ -90,6 +101,7 @@
 	function resetForm() {
 		values = {
 			guestName: '',
+			guestCount: 2,
 			requestedTime: '',
 			phone: '',
 			email: ''
@@ -141,7 +153,7 @@
 			{convexClient}
 			{prepareSubmit}
 			onSuccess={handleSuccess}
-			customFields={{ requestedTime: requestedTimeField }}
+			customFields={{ requestedTime: requestedTimeField, guestCount: guestCountField }}
 		>
 			{#snippet extraFields()}
 				<div
@@ -161,6 +173,28 @@
 		</ConvexMutationForm>
 	</Dialog.Content>
 </Dialog.Root>
+
+{#snippet guestCountField({
+	value,
+	setValue,
+	inputId,
+	error
+}: MutationFormFieldSnippetProps<CreateReservationInput>)}
+	<Input
+		id={inputId}
+		name="guestCount"
+		type="number"
+		min={1}
+		max={50}
+		step={1}
+		inputmode="numeric"
+		placeholder="2"
+		required
+		value={value === undefined || value === null ? '' : String(value)}
+		oninput={(event) => setValue(event.currentTarget.value)}
+		aria-invalid={error ? 'true' : undefined}
+	/>
+{/snippet}
 
 {#snippet requestedTimeField({
 	value,

@@ -24,5 +24,6 @@ export type CreateReservationInput = {
 	guestName: string;
 	email: string;
 	phone: string;
+	guestCount: number;
 	requestedTime: string;
 };

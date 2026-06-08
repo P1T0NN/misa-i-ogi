@@ -5,34 +5,34 @@
 	// LIBRARIES
 	import { useAuth } from '@mmailaender/convex-better-auth-svelte/svelte';
 
-	// COMPONENTS
+	// COMPONENT
+	import LogoutButton from '@/features/auth/components/logout-button/logout-button.svelte';
 	import * as Avatar from '@/shared/components/ui/avatar/index.js';
 	import * as DropdownMenu from '@/shared/components/ui/dropdown-menu/index.js';
 	import * as Sidebar from '@/shared/components/ui/sidebar/index.js';
 	import { Spinner } from '@/shared/components/ui/spinner/index.js';
 
 	// LUCIDE ICONS
-	import BadgeCheckIcon from '@lucide/svelte/icons/badge-check';
-	import BellIcon from '@lucide/svelte/icons/bell';
 	import ChevronsUpDownIcon from '@lucide/svelte/icons/chevrons-up-down';
-	import CreditCardIcon from '@lucide/svelte/icons/credit-card';
-	import LogOutIcon from '@lucide/svelte/icons/log-out';
-	import SparklesIcon from '@lucide/svelte/icons/sparkles';
 
 	const sidebar = Sidebar.useSidebar();
 
 	const auth = useAuth();
-
 	const user = $derived(authClass.currentUser);
 	const userLoading = $derived(authClass.userLoading);
+
 	/** Avoid “Account” flash before auth + Convex have settled. */
-	const showUserLoading = $derived(auth.isLoading || userLoading || (auth.isAuthenticated && user === undefined));
+	const showUserLoading = $derived(
+		auth.isLoading || userLoading || (auth.isAuthenticated && user === undefined)
+	);
+
+	let isLoggingOut = $state(false);
 </script>
 
 <Sidebar.Menu>
 	<Sidebar.MenuItem>
 		<DropdownMenu.Root>
-			<DropdownMenu.Trigger disabled={showUserLoading}>
+			<DropdownMenu.Trigger disabled={showUserLoading || isLoggingOut}>
 				{#snippet child({ props })}
 					<Sidebar.MenuButton
 						size="lg"
@@ -49,12 +49,14 @@
 						{:else}
 							<Avatar.Root class="size-8 rounded-lg">
 								<Avatar.Image src={user?.image} alt={user?.name ?? ''} />
+
 								<Avatar.Fallback class="rounded-lg">CN</Avatar.Fallback>
 							</Avatar.Root>
 
 							<div class="grid flex-1 text-start text-sm leading-tight">
 								<span class="truncate font-medium">{user?.name ?? 'Account'}</span>
-								<span class="text-muted-foreground truncate text-xs">{user?.email ?? ''}</span>
+
+								<span class="truncate text-xs text-muted-foreground">{user?.email ?? ''}</span>
 							</div>
 						{/if}
 
@@ -73,50 +75,21 @@
 					<div class="flex items-center gap-2 px-1 py-1.5 text-start text-sm">
 						<Avatar.Root class="size-8 rounded-lg">
 							<Avatar.Image src={user?.image} alt={user?.name ?? ''} />
+
 							<Avatar.Fallback class="rounded-lg">CN</Avatar.Fallback>
 						</Avatar.Root>
 
 						<div class="grid flex-1 text-start text-sm leading-tight">
 							<span class="truncate font-medium">{user?.name ?? 'Account'}</span>
-							<span class="text-muted-foreground truncate text-xs">{user?.email ?? ''}</span>
+
+							<span class="truncate text-xs text-muted-foreground">{user?.email ?? ''}</span>
 						</div>
 					</div>
 				</DropdownMenu.Label>
 
 				<DropdownMenu.Separator />
 
-				<DropdownMenu.Group>
-					<DropdownMenu.Item>
-						<SparklesIcon />
-						Upgrade to Pro
-					</DropdownMenu.Item>
-				</DropdownMenu.Group>
-
-				<DropdownMenu.Separator />
-
-				<DropdownMenu.Group>
-					<DropdownMenu.Item>
-						<BadgeCheckIcon />
-						Account
-					</DropdownMenu.Item>
-
-					<DropdownMenu.Item>
-						<CreditCardIcon />
-						Billing
-					</DropdownMenu.Item>
-
-					<DropdownMenu.Item>
-						<BellIcon />
-						Notifications
-					</DropdownMenu.Item>
-				</DropdownMenu.Group>
-
-				<DropdownMenu.Separator />
-
-				<DropdownMenu.Item>
-					<LogOutIcon />
-					Log out
-				</DropdownMenu.Item>
+				<LogoutButton bind:isLoggingOut />
 			</DropdownMenu.Content>
 		</DropdownMenu.Root>
 	</Sidebar.MenuItem>

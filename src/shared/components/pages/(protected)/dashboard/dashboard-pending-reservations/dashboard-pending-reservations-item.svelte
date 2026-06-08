@@ -3,6 +3,7 @@
 	import { Badge } from '@/shared/components/ui/badge/index.js';
 
 	// UTILS
+	import { formatReservationGuestCount } from '@/features/reservations/utils/formatReservationGuestCount';
 	import { getReservationStatusMeta } from '@/features/reservations/utils/getReservationStatus.js';
 
 	// TYPES
@@ -13,6 +14,7 @@
 	import MailIcon from '@lucide/svelte/icons/mail';
 	import PhoneIcon from '@lucide/svelte/icons/phone';
 	import StoreIcon from '@lucide/svelte/icons/store';
+	import UsersIcon from '@lucide/svelte/icons/users';
 
 	let { request }: { request: UserDashboardPendingReservation } = $props();
 
@@ -37,6 +39,11 @@
 		<span class="flex min-w-0 items-center gap-1">
 			<ClockIcon class="size-3 shrink-0" />
 			<span>{request.requestedTime}h</span>
+		</span>
+
+		<span class="flex min-w-0 items-center gap-1">
+			<UsersIcon class="size-3 shrink-0" />
+			<span>{formatReservationGuestCount(request.guestCount)}</span>
 		</span>
 
 		<div class="flex min-w-0 flex-wrap items-center gap-x-3 gap-y-2">

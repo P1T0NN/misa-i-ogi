@@ -68,6 +68,16 @@ export function normalizeRequiredTime24h(value: unknown): string | null {
 	return TIME_24H_PATTERN.test(time) ? time : null;
 }
 
+export function normalizeRequiredPositiveInteger(
+	value: unknown,
+	options: { min?: number; max?: number } = {}
+): number | null {
+	const min = options.min ?? 1;
+	const max = options.max ?? 99;
+	const normalized = normalizeOptionalNumber(value, { integer: true, min, max });
+	return normalized === undefined || normalized === null ? null : normalized;
+}
+
 export function normalizeOptionalNumber(
 	value: unknown,
 	options: OptionalNumberOptions = {}

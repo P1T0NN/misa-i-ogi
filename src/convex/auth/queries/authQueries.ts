@@ -1,6 +1,8 @@
 // LIBRARIES
 import { query } from '../../_generated/server';
 import { authComponent } from '../auth';
+
+// UTILS
 import { isGuestStayIdentity } from '@/convex/tables/guests/utils/isGuestStayIdentity';
 
 export const getCurrentUser = query({
@@ -12,6 +14,36 @@ export const getCurrentUser = query({
 		}
 
 		const user = await authComponent.safeGetAuthUser(ctx);
-		return user ?? null;
+		if (!user) return null;
+
+		// Portfolio ownership flags — used by analytics empty states and similar UI
+		// that only needs "owns at least one?" (not counts or partnership totals).
+		//
+		// We resolve them here instead of a dedicated page query because:
+		// - `getCurrentUser` is already subscribed once in the root layout and synced
+		//   into `authClass`, so every protected page can read the flags without another
+		//   Convex subscription or loading waterfall.
+		// - `.take(1)` on `by_owner` is cheap (existence check, not a full portfolio load).
+		// - Real platform users almost always own accommodations and/or hospitalities, so
+		//   the extra work piggybacks on a query we were already paying for anyway.
+		const [accommodation, hospitality] = await Promise.all([
+			ctx.db
+				.query('accommodations')
+				.withIndex('by_owner', (q) => q.eq('ownerId', user._id))
+				.take(1),
+			ctx.db
+				.query('hospitalities')
+				.withIndex('by_owner', (q) => q.eq('ownerId', user._id))
+				.take(1)
+		]);
+
+		const hasAccommodations: boolean = accommodation.length > 0;
+		const hasHospitalities: boolean = hospitality.length > 0;
+
+		return {
+			...user,
+			hasAccommodations,
+			hasHospitalities
+		};
 	}
 });

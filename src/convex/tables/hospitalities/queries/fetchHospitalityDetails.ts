@@ -5,7 +5,7 @@ import { query } from '@/convex/_generated/server';
 // HELPERS
 import { getActiveGuestSessionFromAuth } from '@/convex/tables/guests/helpers/getActiveGuestSessionFromAuth';
 import { hasActiveAccommodationHospitalityPartnership } from '@/convex/tables/partnerships/helpers/getAccommodationPartnerships';
-import { getGuestPendingHospitalityReservation } from '@/convex/tables/reservations/helpers/getGuestPendingHospitalityReservation';
+import { getGuestActiveHospitalityReservation } from '@/convex/tables/reservations/helpers/getGuestActiveHospitalityReservation';
 import { isGuestStayIdentity } from '@/convex/tables/guests/utils/isGuestStayIdentity';
 
 // UTILS
@@ -37,7 +37,7 @@ export const fetchHospitalityDetails = query({
 
 		const identity = await ctx.auth.getUserIdentity();
 		const activeGuest = await getActiveGuestSessionFromAuth(ctx);
-		let pendingReservation: Doc<'reservations'> | null = null;
+		let guestReservation: Doc<'reservations'> | null = null;
 
 		if (isGuestStayIdentity(identity) && !activeGuest) {
 			return { status: 'not_found' };
@@ -51,7 +51,7 @@ export const fetchHospitalityDetails = query({
 			);
 			if (!hasGuestAccess) return { status: 'not_partnered' };
 
-			pendingReservation = await getGuestPendingHospitalityReservation(
+			guestReservation = await getGuestActiveHospitalityReservation(
 				ctx,
 				activeGuest._id,
 				hospitality._id
@@ -77,13 +77,14 @@ export const fetchHospitalityDetails = query({
 				contactPhone: hospitality.contactPhone,
 				coverImageUrl: hospitality.coverImageUrl
 			},
-			pendingReservation: pendingReservation
+			guestReservation: guestReservation
 				? {
-						guestName: pendingReservation.guestName,
-						email: pendingReservation.email,
-						phone: pendingReservation.phone,
-						requestedTime: pendingReservation.requestedTime,
-						status: 'pending'
+						guestName: guestReservation.guestName,
+						email: guestReservation.email,
+						phone: guestReservation.phone,
+						guestCount: guestReservation.guestCount,
+						requestedTime: guestReservation.requestedTime,
+						status: guestReservation.status === 'confirmed' ? 'confirmed' : 'pending'
 					}
 				: null
 		};

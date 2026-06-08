@@ -917,6 +917,9 @@
 		},
 		"CreateReservationSchema": {
 			"guestNameRequired": "Guest name is required.",
+			"guestCountInvalid": "Enter a valid number of guests.",
+			"guestCountMin": "At least 1 guest is required.",
+			"guestCountMax": "Reservations are limited to 50 guests.",
 			"timeInvalid": "Enter a valid time (HH:MM).",
 			"phoneRequired": "Phone number is required.",
 			"emailInvalid": "Enter a valid email address."

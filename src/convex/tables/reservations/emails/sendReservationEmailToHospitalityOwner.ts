@@ -17,6 +17,7 @@ import type { MutationCtx } from '@/convex/_generated/server';
 type ReservationEmailDetails = {
 	hospitality: Pick<Doc<'hospitalities'>, '_id' | 'name' | 'ownerId'>;
 	guestName: string;
+	guestCount: number;
 	phone: string;
 	requestedTime: string;
 	guestEmail?: string;
@@ -40,6 +41,7 @@ export async function sendReservationEmailToHospitalityOwner(
 		children: renderDetailsTable([
 			{ label: 'Preferred time', value: details.requestedTime },
 			{ label: 'Guest name', value: details.guestName },
+			{ label: 'Number of guests', value: String(details.guestCount) },
 			{ label: 'Phone', value: details.phone },
 			{ label: 'Guest email', value: details.guestEmail }
 		])
@@ -50,6 +52,7 @@ export async function sendReservationEmailToHospitalityOwner(
 		'',
 		`Preferred time: ${details.requestedTime}`,
 		`Guest name: ${details.guestName}`,
+		`Number of guests: ${details.guestCount}`,
 		`Phone: ${details.phone}`,
 		...(details.guestEmail ? [`Guest email: ${details.guestEmail}`] : []),
 		'',

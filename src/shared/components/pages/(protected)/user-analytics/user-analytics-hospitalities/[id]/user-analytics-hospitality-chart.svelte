@@ -14,7 +14,7 @@
 
 	const chartConfig = {
 		qrScans: { label: 'Guest views', color: 'var(--chart-1)' },
-		guestActivations: { label: 'Guest activations', color: 'var(--chart-2)' },
+		guestActivations: { label: 'Guest activations', color: 'var(--success)' },
 		reservations: { label: 'Reservations', color: 'var(--chart-3)' }
 	} satisfies ChartConfig;
 </script>

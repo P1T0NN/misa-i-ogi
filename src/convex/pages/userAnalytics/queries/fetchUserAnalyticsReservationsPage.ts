@@ -11,6 +11,7 @@ import { getUserOwnedHospitalities } from '@/convex/tables/hospitalities/helpers
 
 // UTILS
 import { getAnalyticsMetricValue } from '@/convex/analytics/utils/getAnalyticsMetricValue';
+import { createEmptyMetricComparison } from '@/convex/analytics/utils/createEmptyMetricComparison';
 import { sumAnalyticsMetricTotals } from '@/convex/analytics/utils/sumAnalyticsMetricTotals';
 import { DAY_MS, startOfUtcDay } from '../utils/dateUtils';
 
@@ -75,6 +76,30 @@ export const fetchUserAnalyticsReservationsPage = query({
 	args: {},
 	handler: async (ctx): Promise<UserAnalyticsReservationsPageResult> => {
 		const userId = await requireAuthUserId(ctx);
+		const hospitalities = await getUserOwnedHospitalities(ctx, userId);
+
+		if (hospitalities.length === 0) {
+			return {
+				metrics: {
+					trackedVenues: { value: 0 },
+					created: {
+						value: 0,
+						comparison: createEmptyMetricComparison()
+					},
+					confirmed: {
+						value: 0,
+						comparison: createEmptyMetricComparison()
+					},
+					cancelled: {
+						value: 0,
+						comparison: createEmptyMetricComparison()
+					}
+				},
+				statusChart: { data: [] },
+				rows: []
+			};
+		}
+
 		const todayStart = startOfUtcDay(Date.now());
 		const from = todayStart - DAY_MS * (RANGE_DAYS - 1);
 		const ownerScope = {
@@ -83,7 +108,6 @@ export const fetchUserAnalyticsReservationsPage = query({
 		} as const;
 
 		const [
-			hospitalities,
 			createdTotals,
 			confirmedTotals,
 			cancelledTotals,
@@ -94,7 +118,6 @@ export const fetchUserAnalyticsReservationsPage = query({
 			confirmedSeries,
 			cancelledSeries
 		] = await Promise.all([
-			getUserOwnedHospitalities(ctx, userId),
 			analytics.fetchMetricTotalsByDimension(ctx, {
 				metric: 'newReservations',
 				scope: ownerScope,
@@ -160,6 +183,9 @@ export const fetchUserAnalyticsReservationsPage = query({
 
 		return {
 			metrics: {
+				trackedVenues: {
+					value: hospitalities.length
+				},
 				created: {
 					value: createdCount,
 					comparison: createdComparison
