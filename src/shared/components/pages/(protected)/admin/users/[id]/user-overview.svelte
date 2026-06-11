@@ -13,17 +13,19 @@
 	// TYPES
 	import type { Doc } from '@/convex/auth/component/_generated/dataModel';
 
-	let { user }: { user: Doc<"user"> } = $props();
+	let { user }: { user: Doc<'user'> } = $props();
 
 	const displayName = $derived(capitalize(user.name || user.email));
 	const createdAt = $derived(new Date(user._creationTime).toLocaleString());
 	const updatedAt = $derived(new Date(user.updatedAt).toLocaleString());
-	const banExpiresAt = $derived(user.banExpires ? new Date(user.banExpires).toLocaleString() : null);
+	const banExpiresAt = $derived(
+		user.banExpires ? new Date(user.banExpires).toLocaleString() : null
+	);
 </script>
 
 {#snippet field(label: string, value: string)}
 	<div class="flex flex-col gap-0.5">
-		<span class="text-muted-foreground text-xs uppercase tracking-wide">{label}</span>
+		<span class="text-xs tracking-wide text-muted-foreground uppercase">{label}</span>
 		<span class="text-sm">{value}</span>
 	</div>
 {/snippet}
@@ -55,9 +57,9 @@
 		{@render field(
 			m['AdminUserPage.UserOverview.status'](),
 			user.banned
-				? (banExpiresAt
-						? m['AdminUserPage.UserOverview.bannedUntil']({ date: banExpiresAt })
-						: m['AdminUserPage.UserOverview.bannedPermanent']())
+				? banExpiresAt
+					? m['AdminUserPage.UserOverview.bannedUntil']({ date: banExpiresAt })
+					: m['AdminUserPage.UserOverview.bannedPermanent']()
 				: m['AdminUserPage.UserOverview.active']()
 		)}
 		{#if user.banned && user.banReason}
@@ -68,9 +70,11 @@
 	</div>
 
 	<div class="flex flex-col gap-2">
-		<span class="text-muted-foreground text-xs uppercase tracking-wide">{m['AdminUserPage.UserOverview.userId']()}</span>
+		<span class="text-xs tracking-wide text-muted-foreground uppercase"
+			>{m['AdminUserPage.UserOverview.userId']()}</span
+		>
 		<div class="flex items-center gap-2">
-			<code class="bg-muted rounded px-2 py-1 font-mono text-xs">{user._id}</code>
+			<code class="rounded bg-muted px-2 py-1 font-mono text-xs">{user._id}</code>
 			<CopyButton value={user._id} label={m['AdminUserPage.UserOverview.copyUserId']()} />
 		</div>
 	</div>

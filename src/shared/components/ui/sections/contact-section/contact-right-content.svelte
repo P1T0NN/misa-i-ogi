@@ -25,7 +25,9 @@
 
 <Card.Root class="gap-0 border-0 bg-background p-4 shadow-xl sm:p-5">
 	<Card.Header class="p-0">
-		<Card.Title class="text-base font-semibold text-foreground">{m['ContactSection.ContactRightContent.sendMessage']()}</Card.Title>
+		<Card.Title class="text-base font-semibold text-foreground"
+			>{m['ContactSection.ContactRightContent.sendMessage']()}</Card.Title
+		>
 
 		<Card.Description class="mt-1 text-sm text-muted-foreground">
 			{m['ContactSection.ContactRightContent.shareEnquiry']()}
@@ -36,7 +38,9 @@
 		<FieldSet>
 			<FieldGroup class="gap-4">
 				<Field data-invalid={Boolean(contactSectionClass.fieldErrors.name)}>
-					<FieldLabel for="contact-name">{m['ContactSection.ContactRightContent.yourName']()}</FieldLabel>
+					<FieldLabel for="contact-name"
+						>{m['ContactSection.ContactRightContent.yourName']()}</FieldLabel
+					>
 
 					<FieldContent>
 						<Input
@@ -57,7 +61,9 @@
 				</Field>
 
 				<Field data-invalid={Boolean(contactSectionClass.fieldErrors.email)}>
-					<FieldLabel for="contact-email">{m['ContactSection.ContactRightContent.email']()}</FieldLabel>
+					<FieldLabel for="contact-email"
+						>{m['ContactSection.ContactRightContent.email']()}</FieldLabel
+					>
 
 					<FieldContent>
 						<Input
@@ -78,7 +84,9 @@
 				</Field>
 
 				<Field data-invalid={Boolean(contactSectionClass.fieldErrors.message)}>
-					<FieldLabel for="contact-message">{m['ContactSection.ContactRightContent.message']()}</FieldLabel>
+					<FieldLabel for="contact-message"
+						>{m['ContactSection.ContactRightContent.message']()}</FieldLabel
+					>
 
 					<FieldContent>
 						<Textarea
@@ -104,7 +112,10 @@
 			Honeypot — invisible to humans (off-screen + aria-hidden + tabindex=-1),
 			but most form-stuffing bots will fill it in. Server rejects any non-empty value.
 		-->
-		<div aria-hidden="true" style="position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden;">
+		<div
+			aria-hidden="true"
+			style="position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden;"
+		>
 			<label for="contact-website">Website</label>
 			<input
 				id="contact-website"

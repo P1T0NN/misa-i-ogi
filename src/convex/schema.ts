@@ -146,7 +146,8 @@ const schema = defineSchema({
 		accommodationId: v.id('accommodations'),
 
 		guestName: v.string(),
-		email: v.string(),
+		/** Optional — guests may submit a reservation with phone only. */
+		email: v.optional(v.string()),
 		phone: v.string(),
 		/** Party size submitted with the reservation request. */
 		guestCount: v.number(),

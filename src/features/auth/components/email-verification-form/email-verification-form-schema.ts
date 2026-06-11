@@ -11,6 +11,10 @@ export const emailVerificationFormSchema = object({
 		minLength(1, m['ValidationMessages.EmailVerificationForm.codeRequired']()),
 		regex(code8Digit, m['ValidationMessages.EmailVerificationForm.codeFormat']())
 	),
-	email: pipe(string(), trim(), email(m['ValidationMessages.EmailVerificationForm.invalidEmail']())),
+	email: pipe(
+		string(),
+		trim(),
+		email(m['ValidationMessages.EmailVerificationForm.invalidEmail']())
+	),
 	flow: literal('email-verification')
 });

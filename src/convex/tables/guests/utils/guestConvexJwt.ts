@@ -61,13 +61,9 @@ function parsePrivateJwk(): GuestConvexPrivateJwk {
 }
 
 async function importPrivateKey(jwk: GuestConvexPrivateJwk): Promise<CryptoKey> {
-	return crypto.subtle.importKey(
-		'jwk',
-		jwk,
-		{ name: 'ECDSA', namedCurve: 'P-256' },
-		false,
-		['sign']
-	);
+	return crypto.subtle.importKey('jwk', jwk, { name: 'ECDSA', namedCurve: 'P-256' }, false, [
+		'sign'
+	]);
 }
 
 function base64UrlEncode(input: string | Uint8Array): string {

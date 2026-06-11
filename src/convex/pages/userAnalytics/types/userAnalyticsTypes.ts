@@ -1,3 +1,8 @@
+import type {
+	typesMetricComparisonInput,
+	typesMetricEvaluationResult
+} from '@piton-/analytics-convex';
+
 import type { AccommodationType } from '@/convex/tables/accommodations/types/accommodationsTypes';
 import type { HospitalityType } from '@/convex/tables/hospitalities/types/hospitalitiesTypes';
 
@@ -9,19 +14,13 @@ export type UserAnalyticsChartPoint = {
 
 export type UserAnalyticsChartMetric = 'qrScans' | 'guestActivations' | 'newReservations';
 
-export type UserAnalyticsMetricComparison = {
-	current: number;
-	previous: number;
-	delta: number;
-	deltaPercent?: number;
-};
-
 export type UserAnalyticsStaticMetricSummary = {
 	value: number;
 };
 
 export type UserAnalyticsComparedMetricSummary = UserAnalyticsStaticMetricSummary & {
-	comparison: UserAnalyticsMetricComparison;
+	comparison: typesMetricComparisonInput;
+	evaluation?: typesMetricEvaluationResult;
 };
 
 export type UserAnalyticsBarChartRow = {

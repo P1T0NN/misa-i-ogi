@@ -1,7 +1,7 @@
 <script lang="ts">
 	// LIBRARIES
-	import { m } from "@/shared/lib/paraglide/messages";
-	
+	import { m } from '@/shared/lib/paraglide/messages';
+
 	// UTILS
 	import { cn } from '@/shared/utils/utils.js';
 
@@ -41,8 +41,8 @@
 
 <label
 	class={cn(
-		'border-input bg-muted/15 hover:bg-muted/25 focus-within:ring-ring/50 block cursor-pointer rounded-xl border border-dashed p-6 transition-colors outline-none focus-within:ring-[3px]',
-		dragOver && 'border-primary/60 bg-primary/5 ring-primary/20 ring-[3px]',
+		'block cursor-pointer rounded-xl border border-dashed border-input bg-muted/15 p-6 transition-colors outline-none focus-within:ring-[3px] focus-within:ring-ring/50 hover:bg-muted/25',
+		dragOver && 'border-primary/60 bg-primary/5 ring-[3px] ring-primary/20',
 		className
 	)}
 	ondragenter={onDragEnter}
@@ -62,12 +62,12 @@
 	/>
 	<div class="pointer-events-none flex flex-col items-center gap-2 text-center">
 		<span
-			class="bg-background text-muted-foreground ring-border inline-flex size-11 items-center justify-center rounded-full shadow-sm ring-1"
+			class="inline-flex size-11 items-center justify-center rounded-full bg-background text-muted-foreground shadow-sm ring-1 ring-border"
 		>
 			<UploadIcon class="size-5" aria-hidden="true" />
 		</span>
 		<div class="space-y-0.5">
-			<p class="text-foreground text-sm font-medium">
+			<p class="text-sm font-medium text-foreground">
 				<span class="text-primary">
 					{m['UploadFile.UploadFileEmpty.choose']()}
 					{#if multipleFiles}
@@ -76,7 +76,7 @@
 						{m['UploadFile.UploadFileEmpty.file']()}
 					{/if}
 				</span>
-				<span class="text-muted-foreground font-normal">
+				<span class="font-normal text-muted-foreground">
 					{m['UploadFile.UploadFileEmpty.orDrag']()}
 					{#if multipleFiles}
 						{m['UploadFile.UploadFileEmpty.them']()}
@@ -87,7 +87,9 @@
 				</span>
 			</p>
 			{#if accept}
-				<p class="text-muted-foreground text-xs">{m['UploadFile.UploadFileEmpty.accepted']()}: {accept}</p>
+				<p class="text-xs text-muted-foreground">
+					{m['UploadFile.UploadFileEmpty.accepted']()}: {accept}
+				</p>
 			{/if}
 		</div>
 	</div>

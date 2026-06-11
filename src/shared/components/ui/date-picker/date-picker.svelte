@@ -1,7 +1,7 @@
 <script lang="ts">
-    // LIBRARIES
-    import { m } from '@/shared/lib/paraglide/messages';
-    import { getLocalTimeZone, today, type CalendarDate } from '@internationalized/date';
+	// LIBRARIES
+	import { m } from '@/shared/lib/paraglide/messages';
+	import { getLocalTimeZone, today, type CalendarDate } from '@internationalized/date';
 
 	// COMPONENTS
 	import Calendar from '@/shared/components/ui/calendar/calendar.svelte';

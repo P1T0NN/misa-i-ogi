@@ -17,6 +17,6 @@ const crons = cronJobs();
 
 registerStorageCrons(crons, internal);
 registerAuditLogCrons(crons, internal);
-analytics.registerCrons(crons, internal.analytics.crons);
+analytics.registerCrons(crons, internal.analytics);
 
 export default crons;

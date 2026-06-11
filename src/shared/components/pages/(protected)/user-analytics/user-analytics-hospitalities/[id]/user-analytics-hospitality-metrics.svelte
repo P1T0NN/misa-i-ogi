@@ -6,7 +6,8 @@
 	import {
 		createComparedAnalyticsMetric,
 		createStaticAnalyticsMetric
-	} from '@/features/analytics/utils/analytics-display-formatters';
+	} from '@/features/analytics/utils/createAnalyticsMetric';
+	import { getPresenceAnalyticsLabel } from '@/features/analytics/utils/analyticsLabelUtils';
 
 	// TYPES
 	import type { UserAnalyticsHospitalitiesPageMetrics } from '@/convex/pages/userAnalytics/types/userAnalyticsTypes';
@@ -18,8 +19,7 @@
 			id: 'tracked-venues',
 			label: 'Tracked venues',
 			metric: metrics.trackedVenues,
-			trend: 'Live',
-			tone: 'neutral'
+			analyticsLabel: getPresenceAnalyticsLabel(metrics.trackedVenues.value)
 		}),
 		createComparedAnalyticsMetric({
 			id: 'guest-views',
@@ -33,7 +33,7 @@
 		}),
 		createComparedAnalyticsMetric({
 			id: 'requests-generated',
-			label: 'Requests generated',
+			label: 'Reservations',
 			metric: metrics.requestsGenerated
 		})
 	]);

@@ -7,22 +7,53 @@
 		CardHeader,
 		CardTitle
 	} from '@/shared/components/ui/card/index.js';
-	import {
-		Table,
-		TableBody,
-		TableCell,
-		TableHead,
-		TableHeader,
-		TableRow
-	} from '@/shared/components/ui/table/index.js';
+	import DataTable from '@/shared/components/ui/data-table/data-table.svelte';
 
 	// UTILS
-	import { formatAnalyticsConversionRate } from '@/features/analytics/utils/analytics-display-formatters';
+	import {
+		formatAnalyticsConversionRate,
+		formatAnalyticsCount
+	} from '@/features/analytics/utils/analyticsDisplayFormattersUtils';
 
 	// TYPES
 	import type { UserAnalyticsReservationSourceRow } from '@/convex/pages/userAnalytics/types/userAnalyticsTypes';
+	import type { ColumnDef } from '@/shared/components/ui/data-table/types.js';
 
 	let { rows }: { rows: UserAnalyticsReservationSourceRow[] } = $props();
+
+	const columns = [
+		{
+			id: 'source',
+			header: 'Source',
+			accessor: (row) => row.name,
+			cellClass: 'font-medium',
+			wrap: true
+		},
+		{
+			id: 'created',
+			header: 'Created',
+			accessor: (row) => formatAnalyticsCount(row.created),
+			cellClass: 'tabular-nums'
+		},
+		{
+			id: 'confirmed',
+			header: 'Confirmed',
+			accessor: (row) => formatAnalyticsCount(row.confirmed),
+			cellClass: 'tabular-nums'
+		},
+		{
+			id: 'cancelled',
+			header: 'Cancelled',
+			accessor: (row) => formatAnalyticsCount(row.cancelled),
+			cellClass: 'tabular-nums'
+		},
+		{
+			id: 'conversion',
+			header: 'Conversion',
+			accessor: (row) => formatAnalyticsConversionRate(row.created, row.confirmed),
+			cellClass: 'tabular-nums'
+		}
+	] satisfies ColumnDef<UserAnalyticsReservationSourceRow>[];
 </script>
 
 <Card>
@@ -30,41 +61,14 @@
 		<CardTitle class="text-base">Reservation sources</CardTitle>
 		<CardDescription>Where requests are coming from and how they convert.</CardDescription>
 	</CardHeader>
-	<CardContent>
-		<Table>
-			<TableHeader>
-				<TableRow>
-					<TableHead>Source</TableHead>
-					<TableHead>Created</TableHead>
-					<TableHead>Confirmed</TableHead>
-					<TableHead>Cancelled</TableHead>
-					<TableHead>Conversion</TableHead>
-				</TableRow>
-			</TableHeader>
 
-			<TableBody>
-				{#if rows.length === 0}
-					<TableRow>
-						<TableCell colspan={5} class="h-24 text-center text-sm text-muted-foreground">
-							Reservation sources will appear here after guests submit requests.
-						</TableCell>
-					</TableRow>
-				{:else}
-					{#each rows as row (row.id)}
-						<TableRow>
-							<TableCell>
-								<div class="min-w-56">
-									<p class="font-medium">{row.name}</p>
-								</div>
-							</TableCell>
-							<TableCell>{row.created}</TableCell>
-							<TableCell>{row.confirmed}</TableCell>
-							<TableCell>{row.cancelled}</TableCell>
-							<TableCell>{formatAnalyticsConversionRate(row.created, row.confirmed)}</TableCell>
-						</TableRow>
-					{/each}
-				{/if}
-			</TableBody>
-		</Table>
+	<CardContent>
+		<DataTable
+			data={rows}
+			{columns}
+			getRowId={(row) => row.id}
+			borderless
+			showPagination={false}
+		/>
 	</CardContent>
 </Card>

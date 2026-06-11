@@ -9,9 +9,6 @@ import { convexRateLimitRegistry } from '@/convex/rateLimits/registry';
  * For authenticated writes prefer {@link convexGetRateLimitedUserId}.
  * For anonymous/IP-keyed endpoints use {@link enforceRateLimit} with an explicit key.
  */
-export const convexRateLimiter = new RateLimiter(
-	components.rateLimiter,
-	convexRateLimitRegistry
-);
+export const convexRateLimiter = new RateLimiter(components.rateLimiter, convexRateLimitRegistry);
 
 export type { ConvexRateLimitName } from '@/convex/rateLimits/registry';

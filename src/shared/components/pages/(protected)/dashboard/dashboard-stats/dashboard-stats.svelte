@@ -1,19 +1,17 @@
 <script lang="ts" module>
 	// TYPES
 	import type { Component } from 'svelte';
-	import type {
-		UserDashboardStat,
-		UserDashboardStatKey
-	} from '@/convex/pages/userDashboard/types/userDashboardTypes.js';
+	import type { UserDashboardStatKey } from '@/convex/pages/userDashboard/types/userDashboardTypes.js';
 
 	type DashboardIcon = Component<{ class?: string }>;
 
-	export interface DashboardStat extends UserDashboardStat {
+	export type DashboardStatKey = UserDashboardStatKey;
+	export type DashboardIconByKey = Record<UserDashboardStatKey, DashboardIcon>;
+	export type DashboardStat = {
+		id: UserDashboardStatKey;
 		label: string;
 		value: string;
-		detail: string;
-		icon: DashboardIcon;
-	}
+	};
 </script>
 
 <script lang="ts">
@@ -26,16 +24,22 @@
 	import DashboardStatsLoading from '../loading/dashboard-stats-loading.svelte';
 	import DashboardStatsError from '../error/dashboard-stats-error.svelte';
 
+	// UTILS
+	import { formatAnalyticsCount } from '@/features/analytics/utils/analyticsDisplayFormattersUtils';
+
+	// TYPES
+	import type { UserDashboardCounts } from '@/convex/pages/userDashboard/types/userDashboardTypes';
+
 	// LUCIDE ICONS
 	import Link2Icon from '@lucide/svelte/icons/link-2';
 	import BedDoubleIcon from '@lucide/svelte/icons/bed-double';
 	import StoreIcon from '@lucide/svelte/icons/store';
 	import CalendarCheckIcon from '@lucide/svelte/icons/calendar-check';
 
-	const iconByKey: Record<UserDashboardStatKey, DashboardIcon> = {
-		stays: BedDoubleIcon,
-		venues: StoreIcon,
-		activeLinks: Link2Icon,
+	const iconByKey: DashboardIconByKey = {
+		accommodations: BedDoubleIcon,
+		hospitalities: StoreIcon,
+		partnerships: Link2Icon,
 		pendingReservations: CalendarCheckIcon
 	};
 
@@ -46,13 +50,33 @@
 
 	const isLoading = $derived(statsQuery.data === undefined && !statsQuery.error);
 	const hasError = $derived(Boolean(statsQuery.error));
-	const stats = $derived((statsQuery.data ?? []) as UserDashboardStat[]);
+	const counts = $derived(statsQuery.data as UserDashboardCounts | undefined);
 
-	const displayStats = $derived(
-		stats.map((stat): DashboardStat => ({
-			...stat,
-			icon: iconByKey[stat.key]
-		}))
+	const metrics = $derived<DashboardStat[]>(
+		counts
+			? [
+					{
+						id: 'accommodations',
+						label: 'Stays',
+						value: formatAnalyticsCount(counts.accommodations)
+					},
+					{
+						id: 'hospitalities',
+						label: 'Venues',
+						value: formatAnalyticsCount(counts.hospitalities)
+					},
+					{
+						id: 'partnerships',
+						label: 'Active links',
+						value: formatAnalyticsCount(counts.partnerships)
+					},
+					{
+						id: 'pendingReservations',
+						label: 'Pending',
+						value: formatAnalyticsCount(counts.pendingReservations)
+					}
+				]
+			: []
 	);
 </script>
 
@@ -62,8 +86,8 @@
 	<DashboardStatsError />
 {:else}
 	<div class="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
-		{#each displayStats as stat (stat.key)}
-			<DashboardStatsItem {stat} />
+		{#each metrics as metric (metric.id)}
+			<DashboardStatsItem {metric} icon={iconByKey[metric.id as UserDashboardStatKey]} />
 		{/each}
 	</div>
 {/if}

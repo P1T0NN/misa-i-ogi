@@ -14,12 +14,12 @@
 	import type { AppSidebarNavItems } from '@/shared/components/ui/app-sidebar/types.js';
 
 	// LUCIDE ICONS
-	import FrameIcon from '@lucide/svelte/icons/frame';
-	import PieChartIcon from '@lucide/svelte/icons/pie-chart';
+	import ChartBarIcon from '@lucide/svelte/icons/chart-bar';
 	import BuildingIcon from '@lucide/svelte/icons/building';
-	import HospitalIcon from '@lucide/svelte/icons/hospital';
 	import Link2Icon from '@lucide/svelte/icons/link-2';
 	import LayoutDashboardIcon from '@lucide/svelte/icons/layout-dashboard';
+	import StoreIcon from '@lucide/svelte/icons/store';
+	import UsersIcon from '@lucide/svelte/icons/users';
 
 	let { children } = $props();
 
@@ -28,12 +28,17 @@
 			{
 				name: 'Dashboard',
 				url: ADMIN_PAGE_ENDPOINTS.DASHBOARD,
-				icon: FrameIcon
+				icon: LayoutDashboardIcon
+			},
+			{
+				name: 'Analytics',
+				url: ADMIN_PAGE_ENDPOINTS.ANALYTICS,
+				icon: ChartBarIcon
 			},
 			{
 				name: 'Users',
 				url: ADMIN_PAGE_ENDPOINTS.USERS,
-				icon: PieChartIcon
+				icon: UsersIcon
 			},
 			{
 				name: 'Accommodations',
@@ -43,7 +48,7 @@
 			{
 				name: 'Hospitalities',
 				url: ADMIN_PAGE_ENDPOINTS.HOSPITALITIES,
-				icon: HospitalIcon
+				icon: StoreIcon
 			},
 			{
 				name: 'Partnerships',

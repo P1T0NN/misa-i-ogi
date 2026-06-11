@@ -118,7 +118,7 @@
 
 <div
 	class={cn(
-		'group/upload-file-multiple w-full min-w-0 max-w-2xl',
+		'group/upload-file-multiple w-full max-w-2xl min-w-0',
 		disabled && 'pointer-events-none opacity-50',
 		className
 	)}
@@ -130,7 +130,7 @@
 			{accept}
 			{disabled}
 			multipleFiles={true}
-			dragOver={dragOver}
+			{dragOver}
 			bind:fileInputRef={inputRef}
 			onFileInputChange={onInputChange}
 			onDragEnter={() => {
@@ -142,7 +142,7 @@
 			{onDragOver}
 			{onDrop}
 		/>
-		
+
 		{#if files.length > 0}
 			<UploadFileMultipleList
 				rows={contentRows}

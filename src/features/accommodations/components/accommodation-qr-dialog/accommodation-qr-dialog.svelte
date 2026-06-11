@@ -30,7 +30,12 @@
 	const activateUrl = $derived(buildActivateUrl(scanToken, PUBLIC_SITE_URL));
 	const isLocalhostOrigin = $derived(/localhost|127\.0\.0\.1/i.test(PUBLIC_SITE_URL));
 	const downloadFileName = $derived(
-		`qr-${accommodationName.trim().replace(/\s+/g, '-').replace(/[^\w-]/g, '') || scanToken}.png`
+		`qr-${
+			accommodationName
+				.trim()
+				.replace(/\s+/g, '-')
+				.replace(/[^\w-]/g, '') || scanToken
+		}.png`
 	);
 
 	const previewQrPromise = $derived.by(() => {
@@ -50,12 +55,12 @@
 
 		<div class="flex flex-col items-center gap-4 py-2">
 			<div
-				class="border-border bg-card flex size-64 items-center justify-center rounded-xl border p-3"
+				class="flex size-64 items-center justify-center rounded-xl border border-border bg-card p-3"
 				aria-busy={previewQrPromise !== null}
 			>
 				{#if previewQrPromise}
 					{#await previewQrPromise}
-						<p class="text-muted-foreground text-sm">
+						<p class="text-sm text-muted-foreground">
 							{m['AccommodationQrDialog.generating']()}
 						</p>
 					{:then previewDataUrl}
@@ -67,7 +72,7 @@
 							height={QR_PREVIEW_WIDTH}
 						/>
 					{:catch}
-						<p class="text-muted-foreground text-sm">
+						<p class="text-sm text-muted-foreground">
 							{m['AccommodationQrDialog.generating']()}
 						</p>
 					{/await}
@@ -75,17 +80,19 @@
 			</div>
 
 			{#if isLocalhostOrigin}
-				<p class="text-muted-foreground bg-muted/60 w-full rounded-lg px-3 py-2 text-xs leading-relaxed">
+				<p
+					class="w-full rounded-lg bg-muted/60 px-3 py-2 text-xs leading-relaxed text-muted-foreground"
+				>
 					{m['AccommodationQrDialog.localhostWarning']()}
 				</p>
 			{/if}
 
 			<div class="flex w-full flex-col gap-1.5">
-				<p class="text-muted-foreground font-mono text-[10px] tracking-widest uppercase">
+				<p class="font-mono text-[10px] tracking-widest text-muted-foreground uppercase">
 					{m['AccommodationQrDialog.activateUrl']()}
 				</p>
-				<div class="border-border flex items-start gap-1 rounded-lg border px-2 py-1.5">
-					<p class="min-w-0 flex-1 break-all font-mono text-xs leading-relaxed">{activateUrl}</p>
+				<div class="flex items-start gap-1 rounded-lg border border-border px-2 py-1.5">
+					<p class="min-w-0 flex-1 font-mono text-xs leading-relaxed break-all">{activateUrl}</p>
 					<CopyButton
 						value={activateUrl}
 						label={m['AccommodationQrDialog.copyUrl']()}
@@ -100,11 +107,7 @@
 				{m['AccommodationQrDialog.close']()}
 			</Button>
 
-			<DownloadQrCodeButton
-				{activateUrl}
-				{downloadFileName}
-				disabled={previewQrPromise === null}
-			/>
+			<DownloadQrCodeButton {activateUrl} {downloadFileName} disabled={previewQrPromise === null} />
 		</Dialog.Footer>
 	</Dialog.Content>
 </Dialog.Root>

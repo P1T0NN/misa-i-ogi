@@ -59,7 +59,7 @@ export const createGuestConvexAuthToken = action({
 		});
 
 		const payload = await verifyGuestSessionCookie(args.guestStayCookie);
-		let sharingCode = payload?.sharingCode;
+		const sharingCode = payload?.sharingCode;
 
 		if (!sharingCode) {
 			const upgraded = await ctx.runMutation(

@@ -1,8 +1,5 @@
 // CONFIG
-import {
-	PROTECTED_PAGE_ENDPOINTS,
-	UNPROTECTED_PAGE_ENDPOINTS
-} from '@/shared/constants.js';
+import { PROTECTED_PAGE_ENDPOINTS, UNPROTECTED_PAGE_ENDPOINTS } from '@/shared/constants.js';
 
 export const footerLinkGroups = [
 	{

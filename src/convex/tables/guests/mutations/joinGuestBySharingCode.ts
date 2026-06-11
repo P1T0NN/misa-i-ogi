@@ -56,8 +56,8 @@ export const joinGuestBySharingCode = mutation({
 
 		const accommodation = await ctx.db.get(guest.accommodationId);
 		if (accommodation) {
-			await analytics.writeTrack(ctx, {
-				name: 'guest.returned',
+			await analytics.track(ctx, 'guest.returned', {
+				subject: { type: 'accommodation', id: accommodation._id },
 				organizationId: accommodation.ownerId,
 				scopes: [
 					{

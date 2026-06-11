@@ -17,10 +17,17 @@
 	import PartnershipsSelectHospitalityDialog from '@/shared/components/pages/(protected)/admin/partnerships/partnerships-select-hospitality-dialog.svelte';
 
 	// SCHEMAS
-	import { partnershipAddFormSchema, type PartnershipAddFormInputs } from '@/features/partnerships/schemas/partnershipsSchemas';
+	import {
+		partnershipAddFormSchema,
+		type PartnershipAddFormInputs
+	} from '@/features/partnerships/schemas/partnershipsSchemas';
 
 	// TYPES
-	import type { MutationFormCustomFields, MutationFormFieldSnippetProps, MutationFormSection } from '@/shared/components/ui/mutation-form/types.js';
+	import type {
+		MutationFormCustomFields,
+		MutationFormFieldSnippetProps,
+		MutationFormSection
+	} from '@/shared/components/ui/mutation-form/types.js';
 
 	// LUCIDE ICONS
 	import ArrowLeftIcon from '@lucide/svelte/icons/arrow-left';
@@ -85,7 +92,7 @@
 				<h1 class="text-2xl font-semibold tracking-tight">
 					{m['AdminPartnershipAddPage.title']()}
 				</h1>
-				<p class="text-muted-foreground text-sm leading-relaxed">
+				<p class="text-sm leading-relaxed text-muted-foreground">
 					{m['AdminPartnershipAddPage.description']()}
 				</p>
 			</div>
@@ -116,7 +123,11 @@
 	</div>
 </section>
 
-{#snippet accommodationField({ inputId, value, setValue }: MutationFormFieldSnippetProps<PartnershipAddFormInputs>)}
+{#snippet accommodationField({
+	inputId,
+	value,
+	setValue
+}: MutationFormFieldSnippetProps<PartnershipAddFormInputs>)}
 	<PartnershipsSelectAccommodationDialog
 		{inputId}
 		value={typeof value === 'string' ? value : ''}
@@ -124,7 +135,11 @@
 	/>
 {/snippet}
 
-{#snippet hospitalityField({ inputId, value, setValue }: MutationFormFieldSnippetProps<PartnershipAddFormInputs>)}
+{#snippet hospitalityField({
+	inputId,
+	value,
+	setValue
+}: MutationFormFieldSnippetProps<PartnershipAddFormInputs>)}
 	<PartnershipsSelectHospitalityDialog
 		{inputId}
 		value={Array.isArray(value) ? value : []}

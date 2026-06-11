@@ -18,7 +18,10 @@
 	import { labelAccommodationType } from '@/features/accommodations/data/accommodationsData';
 
 	// TYPES
-	import type { ColumnDef, DataTableCellSnippetProps } from '@/shared/components/ui/data-table/types.js';
+	import type {
+		ColumnDef,
+		DataTableCellSnippetProps
+	} from '@/shared/components/ui/data-table/types.js';
 	import type { Doc } from '@/convex/_generated/dataModel';
 
 	// LUCIDE ICONS
@@ -104,17 +107,16 @@
 <SvelteHead />
 
 <section class="flex w-full flex-col gap-4 p-4 md:p-6">
-	<header class="flex w-full flex-col gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
-		<div class="flex min-w-0 max-w-3xl flex-col gap-1">
+	<header
+		class="flex w-full flex-col gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4"
+	>
+		<div class="flex max-w-3xl min-w-0 flex-col gap-1">
 			<h1 class="text-2xl font-semibold tracking-tight">{m['AdminAccommodationsPage.title']()}</h1>
-			<p class="text-muted-foreground text-sm leading-relaxed">
+			<p class="text-sm leading-relaxed text-muted-foreground">
 				{m['AdminAccommodationsPage.description']()}
 			</p>
 		</div>
-		<Button
-			href={ADMIN_PAGE_ENDPOINTS.ACCOMMODATION_ADD}
-			class="w-full shrink-0 sm:w-auto"
-		>
+		<Button href={ADMIN_PAGE_ENDPOINTS.ACCOMMODATION_ADD} class="w-full shrink-0 sm:w-auto">
 			<PlusIcon data-icon="inline-start" />
 			{m['AdminAccommodationsPage.addAccommodation']()}
 		</Button>
@@ -159,7 +161,7 @@
 {#snippet nameCell({ row }: DataTableCellSnippetProps<Doc<'accommodations'>>)}
 	<Link
 		href={UNPROTECTED_PAGE_ENDPOINTS.ACTIVATE.replace(':token', row.scanToken)}
-		class="text-primary font-medium underline-offset-4 hover:underline"
+		class="font-medium text-primary underline-offset-4 hover:underline"
 	>
 		{row.name}
 	</Link>

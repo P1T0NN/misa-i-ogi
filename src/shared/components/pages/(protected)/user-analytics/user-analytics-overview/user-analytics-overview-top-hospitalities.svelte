@@ -1,13 +1,21 @@
 <script lang="ts">
 	// COMPONENTS
 	import { Button } from '@/shared/components/ui/button/index.js';
+	import {
+		Card,
+		CardContent,
+		CardDescription,
+		CardHeader,
+		CardTitle
+	} from '@/shared/components/ui/card/index.js';
 	import DataTable from '@/shared/components/ui/data-table/data-table.svelte';
 
 	// UTILS
 	import {
 		formatAnalyticsConversionRate,
+		formatAnalyticsCount,
 		formatAnalyticsType
-	} from '@/features/analytics/utils/analytics-display-formatters';
+	} from '@/features/analytics/utils/analyticsDisplayFormattersUtils';
 
 	// TYPES
 	import type { UserAnalyticsRankingRow } from '@/convex/pages/userAnalytics/types/userAnalyticsTypes';
@@ -40,8 +48,14 @@
 			hideBelow: 'md'
 		},
 		{
+			id: 'hospitalityViews',
+			header: 'Guest views',
+			accessor: (row) => formatAnalyticsCount(row.primaryMetricValue),
+			cellClass: 'tabular-nums'
+		},
+		{
 			id: 'requests',
-			header: 'Requests',
+			header: 'Reservations',
 			accessor: (row) => row.requests,
 			cellClass: 'tabular-nums'
 		},
@@ -82,23 +96,24 @@
 	</Button>
 {/snippet}
 
-<section class="flex min-w-0 flex-col gap-3" aria-labelledby="top-hospitalities-title">
-	<div>
-		<h2 id="top-hospitalities-title" class="text-lg font-semibold tracking-tight">
-			Top hospitalities
-		</h2>
-		<p class="text-sm text-muted-foreground">
-			Venues converting connected stay traffic into reservation requests.
-		</p>
-	</div>
+<Card class="min-w-0">
+	<CardHeader>
+		<CardTitle class="text-base">Top hospitalities</CardTitle>
+		<CardDescription>
+			Venues guests are discovering and turning into reservations.
+		</CardDescription>
+	</CardHeader>
 
-	<DataTable
-		data={rows}
-		{columns}
-		getRowId={(row) => row.id}
-		customCells={{
-			action: actionCell
-		}}
-		showPagination={false}
-	/>
-</section>
+	<CardContent>
+		<DataTable
+			data={rows}
+			{columns}
+			getRowId={(row) => row.id}
+			customCells={{
+				action: actionCell
+			}}
+			borderless
+			showPagination={false}
+		/>
+	</CardContent>
+</Card>

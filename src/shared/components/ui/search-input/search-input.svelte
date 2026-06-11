@@ -1,4 +1,4 @@
-﻿<script lang="ts">
+<script lang="ts">
 	// LIBRARIES
 	import { m } from '@/shared/lib/paraglide/messages';
 
@@ -138,7 +138,7 @@
 >
 	<div class="relative">
 		<SearchIcon
-			class="text-muted-foreground pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2"
+			class="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground"
 			aria-hidden="true"
 		/>
 

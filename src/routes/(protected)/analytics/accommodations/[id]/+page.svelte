@@ -1,7 +1,7 @@
 <script lang="ts">
 	// SVELTEKIT IMPORTS
 	import { page } from '$app/state';
-	
+
 	// LIBRARIES
 	import { api } from '@/convex/_generated/api';
 	import { useQuery } from 'convex-svelte';

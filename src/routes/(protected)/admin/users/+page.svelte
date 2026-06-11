@@ -18,7 +18,10 @@
 	import { capitalize } from '@/shared/utils/stringUtils';
 
 	// TYPES
-	import type { ColumnDef, DataTableCellSnippetProps } from '@/shared/components/ui/data-table/types.js';
+	import type {
+		ColumnDef,
+		DataTableCellSnippetProps
+	} from '@/shared/components/ui/data-table/types.js';
 	import type { Doc } from '@/convex/auth/component/_generated/dataModel';
 
 	// LUCIDE ICONS
@@ -41,7 +44,7 @@
 		...(emailVerified !== undefined && { emailVerified })
 	});
 
-	const columns: ColumnDef<Doc<"user">>[] = [
+	const columns: ColumnDef<Doc<'user'>>[] = [
 		{
 			id: 'name',
 			header: m['AdminUsersPage.columnUser'](),
@@ -90,7 +93,7 @@
 	<header class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
 		<div class="flex min-w-0 flex-col gap-1">
 			<h1 class="text-2xl font-semibold tracking-tight">{m['AdminUsersPage.title']()}</h1>
-			<p class="text-muted-foreground text-sm">{m['AdminUsersPage.description']()}</p>
+			<p class="text-sm text-muted-foreground">{m['AdminUsersPage.description']()}</p>
 		</div>
 
 		<Button href={ADMIN_PAGE_ENDPOINTS.USER_ADD} class="w-full sm:w-auto">
@@ -119,8 +122,11 @@
 	<UsersFilters bind:searchField bind:role bind:banned bind:emailVerified />
 {/snippet}
 
-{#snippet nameCell({ row }: DataTableCellSnippetProps<Doc<"user">>)}
-	<Link href={ADMIN_PAGE_ENDPOINTS.USER.replace(':id', row._id)} class="flex items-center gap-2 hover:underline">
+{#snippet nameCell({ row }: DataTableCellSnippetProps<Doc<'user'>>)}
+	<Link
+		href={ADMIN_PAGE_ENDPOINTS.USER.replace(':id', row._id)}
+		class="flex items-center gap-2 hover:underline"
+	>
 		<Avatar class="size-7">
 			{#if row.image}
 				<AvatarImage src={row.image} alt={row.name || row.email} />
@@ -130,7 +136,7 @@
 				{(row.name || row.email).slice(0, 2).toUpperCase()}
 			</AvatarFallback>
 		</Avatar>
-		
+
 		<span class="font-medium">{capitalize(row.name || row.email)}</span>
 	</Link>
 {/snippet}

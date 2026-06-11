@@ -47,7 +47,7 @@
 	<div class="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
 		<div>
 			<h2 class="text-lg font-semibold tracking-normal">Assigned venues</h2>
-			<p class="text-muted-foreground text-sm">
+			<p class="text-sm text-muted-foreground">
 				Compact overview of venue type, status, and guest-facing availability.
 			</p>
 		</div>
@@ -64,7 +64,7 @@
 			query={api.tables.hospitalities.queries.fetchMyHospitalities.fetchMyHospitalities}
 			pageSize={PAGINATION_DATA.DEFAULT_PAGE_SIZE}
 			totalCount={summary?.totalCount}
-			summaryLoading={summaryLoading}
+			{summaryLoading}
 			hasError={Boolean(summaryQuery.error)}
 			getItemKey={(hospitality) => String(hospitality._id)}
 		>

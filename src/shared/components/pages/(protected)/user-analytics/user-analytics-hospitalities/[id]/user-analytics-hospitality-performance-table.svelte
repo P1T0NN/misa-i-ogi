@@ -10,7 +10,7 @@
 	import DataTable from '@/shared/components/ui/data-table/data-table.svelte';
 
 	// UTILS
-	import { formatAnalyticsConversionRate } from '@/features/analytics/utils/analytics-display-formatters';
+	import { formatAnalyticsConversionRate } from '@/features/analytics/utils/analyticsDisplayFormattersUtils';
 
 	// TYPES
 	import type { ColumnDef } from '@/shared/components/ui/data-table/types.js';
@@ -43,7 +43,7 @@
 		},
 		{
 			id: 'requests',
-			header: 'Requests',
+			header: 'Reservations',
 			accessor: (row) => (row as PerformanceRow).requests,
 			cellClass: 'tabular-nums'
 		},

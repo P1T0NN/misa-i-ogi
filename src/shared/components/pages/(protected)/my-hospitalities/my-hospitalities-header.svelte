@@ -59,7 +59,7 @@
 			{#each overviewItems as item (item.label)}
 				<div class="rounded-lg border border-border bg-background/70 p-3">
 					<div class="flex items-center justify-between gap-3">
-						<span class="text-xs font-medium leading-none text-muted-foreground">{item.label}</span>
+						<span class="text-xs leading-none font-medium text-muted-foreground">{item.label}</span>
 
 						<item.icon class="shrink-0 text-muted-foreground" aria-hidden="true" />
 					</div>

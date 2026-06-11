@@ -11,7 +11,6 @@
 	import TimeRangeData, {
 		filterTimeRangeData,
 		formatTimeRangeLabel,
-		getPresetDays,
 		toCalendarDate,
 		type TimeRangeOption,
 		type TimeRangeValue
@@ -187,12 +186,26 @@
 			timeZone
 		})
 	);
-	const presetDays = $derived(getPresetDays(timeRange, timeRangeOptions));
-	const resolvedXAxisTicks = $derived(
-		presetDays !== undefined && presetDays <= 30 ? presetDays : undefined
-	);
+	const resolvedXAxisTicks = $derived.by(() => {
+		const dates = filteredData
+			.map((item) => getDatumDate(item, resolvedDateAccessor))
+			.filter((date): date is Date => date !== undefined)
+			.sort((first, second) => first.getTime() - second.getTime());
+		if (dates.length === 0) return undefined;
 
-	const seriesKeys = $derived(Object.keys(config).filter((key) => key in (data[0] ?? {}) && key !== x));
+		// Anchor ticks to the newest point and step backwards so the axis always
+		// ends on the latest day; d3's auto "nice" ticks can stop a day short.
+		const step = Math.max(1, Math.ceil(dates.length / 16));
+		const ticks: Date[] = [];
+		for (let index = dates.length - 1; index >= 0; index -= step) {
+			ticks.push(dates[index]!);
+		}
+		return ticks.reverse();
+	});
+
+	const seriesKeys = $derived(
+		Object.keys(config).filter((key) => key in (data[0] ?? {}) && key !== x)
+	);
 	const series = $derived(
 		seriesOverride ??
 			seriesKeys.map((key) => {

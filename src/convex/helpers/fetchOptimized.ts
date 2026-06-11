@@ -15,12 +15,7 @@ import type { QueryCtx } from '../_generated/server';
 import type { ConvexErrorPayload } from '../types/convexTypes.js';
 import type { ConvexRateLimitName } from '../rateLimits/registry.js';
 import type { Doc, DataModel, TableNames } from '../_generated/dataModel';
-import type {
-	IndexNames,
-	NamedTableInfo,
-	OrderedQuery,
-	SearchIndexNames
-} from 'convex/server';
+import type { IndexNames, NamedTableInfo, OrderedQuery, SearchIndexNames } from 'convex/server';
 import type { ObjectType, PropertyValidators } from 'convex/values';
 
 // ΓöÇΓöÇΓöÇ Strategy + result shapes ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
@@ -135,10 +130,7 @@ export type FetchOptimizedAuth = 'user' | 'admin';
  * Pair with `auth: 'user'` so the bucket key is per-user.
  */
 
-export type FetchOptimizedOptions<
-	T extends TableNames,
-	Extra extends PropertyValidators
-> = {
+export type FetchOptimizedOptions<T extends TableNames, Extra extends PropertyValidators> = {
 	/** Target table. The validator + return type are derived from this. */
 	table: T;
 	/** See {@link FetchOptimizedStrategy}. Defaults to `'cursor'`. */
@@ -156,10 +148,7 @@ export type FetchOptimizedOptions<
 	 * enables the data-table's sortable column headers to round-trip to the server (the
 	 * table forwards `sortDirection` inside `args`).
 	 */
-	order?:
-		| 'asc'
-		| 'desc'
-		| ((args: BuiltinArgs & ObjectType<Extra>) => 'asc' | 'desc');
+	order?: 'asc' | 'desc' | ((args: BuiltinArgs & ObjectType<Extra>) => 'asc' | 'desc');
 	/**
 	 * Extra validators added to the query's args. Use this to accept caller input that the
 	 * `where`/`search` builders depend on (e.g. `{ city: v.string() }`).
@@ -319,16 +308,11 @@ function applyIndexBounds(
 export function fetchOptimized<
 	T extends TableNames,
 	Extra extends PropertyValidators = Record<string, never>
->(
-	name: ConvexRateLimitName,
-	options: FetchOptimizedOptions<T, Extra>
-): ReturnType<typeof query>;
+>(name: ConvexRateLimitName, options: FetchOptimizedOptions<T, Extra>): ReturnType<typeof query>;
 export function fetchOptimized<
 	T extends TableNames,
 	Extra extends PropertyValidators = Record<string, never>
->(
-	options: FetchOptimizedOptions<T, Extra>
-): ReturnType<typeof query>;
+>(options: FetchOptimizedOptions<T, Extra>): ReturnType<typeof query>;
 export function fetchOptimized<
 	T extends TableNames,
 	Extra extends PropertyValidators = Record<string, never>
@@ -336,8 +320,7 @@ export function fetchOptimized<
 	nameOrOptions: ConvexRateLimitName | FetchOptimizedOptions<T, Extra>,
 	maybeOptions?: FetchOptimizedOptions<T, Extra>
 ) {
-	const rateLimitName =
-		typeof nameOrOptions === 'string' ? nameOrOptions : null;
+	const rateLimitName = typeof nameOrOptions === 'string' ? nameOrOptions : null;
 	const options =
 		typeof nameOrOptions === 'string'
 			? (maybeOptions as FetchOptimizedOptions<T, Extra>)
@@ -349,10 +332,7 @@ export function fetchOptimized<
 function buildFetchOptimizedQuery<
 	T extends TableNames,
 	Extra extends PropertyValidators = Record<string, never>
->(
-	options: FetchOptimizedOptions<T, Extra>,
-	rateLimitName: ConvexRateLimitName | null
-) {
+>(options: FetchOptimizedOptions<T, Extra>, rateLimitName: ConvexRateLimitName | null) {
 	const {
 		table,
 		strategy = 'cursor',
@@ -442,10 +422,7 @@ function buildFetchOptimizedQuery<
 			if (searchSpec) {
 				q = ctx.db.query(table).withSearchIndex(searchSpec.index, (sb) => {
 					// eslint-disable-next-line @typescript-eslint/no-explicit-any
-					let chain: any = sb.search(
-						searchSpec.searchField as never,
-						searchSpec.query
-					);
+					let chain: any = sb.search(searchSpec.searchField as never, searchSpec.query);
 					for (const [field, value] of Object.entries(searchSpec.eq ?? {})) {
 						if (value === undefined) continue;
 						chain = chain.eq(field, value);
@@ -455,9 +432,7 @@ function buildFetchOptimizedQuery<
 			} else if (whereSpec) {
 				q = ctx.db
 					.query(table)
-					.withIndex(whereSpec.index, (idx) =>
-						applyIndexBounds(idx, whereSpec.eq, whereSpec.range)
-					)
+					.withIndex(whereSpec.index, (idx) => applyIndexBounds(idx, whereSpec.eq, whereSpec.range))
 					.order(resolvedOrder);
 			} else {
 				q = ctx.db.query(table).order(resolvedOrder);

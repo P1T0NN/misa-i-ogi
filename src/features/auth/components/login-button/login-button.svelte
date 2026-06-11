@@ -1,17 +1,14 @@
 <script lang="ts">
-    // LIBRARIES
-    import { m } from '@/shared/lib/paraglide/messages';
+	// LIBRARIES
+	import { m } from '@/shared/lib/paraglide/messages';
 
-    // CONFIG
-    import { UNPROTECTED_PAGE_ENDPOINTS } from '@/shared/constants';
-    
-    // COMPONENTS
-    import Button from '@/shared/components/ui/button/button.svelte';
+	// CONFIG
+	import { UNPROTECTED_PAGE_ENDPOINTS } from '@/shared/constants';
+
+	// COMPONENTS
+	import Button from '@/shared/components/ui/button/button.svelte';
 </script>
 
-<Button
-    variant="outline"
-    href={UNPROTECTED_PAGE_ENDPOINTS.LOGIN}
->
-    {m['LoginButton.login']()}
+<Button variant="outline" href={UNPROTECTED_PAGE_ENDPOINTS.LOGIN}>
+	{m['LoginButton.login']()}
 </Button>

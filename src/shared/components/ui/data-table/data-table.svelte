@@ -1,4 +1,4 @@
-﻿<script lang="ts" generics="T extends Record<string, unknown>">
+<script lang="ts" generics="T extends Record<string, unknown>">
 	// LIBRARIES
 	import { m } from '@/shared/lib/paraglide/messages';
 
@@ -258,7 +258,7 @@
 							<span class="truncate">
 								{#if activeSortLabel}
 									{m['DataTable.sortBy']()}: {activeSortLabel.header}
-									{#if activeSortLabel.direction === 'asc'}↑{:else}↓{/if}
+									{#if activeSortLabel.direction === 'asc'}?{:else}?{/if}
 								{:else}
 									{m['DataTable.sortBy']()}
 								{/if}
@@ -267,8 +267,8 @@
 						<SelectContent>
 							<SelectItem value="">{m['DataTable.sortDefault']()}</SelectItem>
 							{#each sortableColumns as col (col.id)}
-								<SelectItem value={`${col.id}:desc`}>{col.header} Γåô</SelectItem>
-								<SelectItem value={`${col.id}:asc`}>{col.header} Γåæ</SelectItem>
+								<SelectItem value={`${col.id}:desc`}>{col.header} G��</SelectItem>
+								<SelectItem value={`${col.id}:asc`}>{col.header} G��</SelectItem>
 							{/each}
 						</SelectContent>
 					</Select>

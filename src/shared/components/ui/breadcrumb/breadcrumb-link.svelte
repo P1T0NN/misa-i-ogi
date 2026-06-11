@@ -1,8 +1,8 @@
 <script lang="ts">
-	import type { HTMLAnchorAttributes } from "svelte/elements";
-	import type { Snippet } from "svelte";
-	import { cn, type WithElementRef } from "@/shared/utils/utils.js";
-	import { appHref } from "@/shared/utils/app-navigation";
+	import type { HTMLAnchorAttributes } from 'svelte/elements';
+	import type { Snippet } from 'svelte';
+	import { cn, type WithElementRef } from '@/shared/utils/utils.js';
+	import { appHref } from '@/shared/utils/app-navigation';
 
 	let {
 		ref = $bindable(null),
@@ -20,10 +20,10 @@
 	);
 
 	const attrs = $derived({
-		"data-slot": "breadcrumb-link",
-		class: cn("hover:text-foreground transition-colors", className),
+		'data-slot': 'breadcrumb-link',
+		class: cn('hover:text-foreground transition-colors', className),
 		href: resolvedHref,
-		...restProps,
+		...restProps
 	});
 </script>
 

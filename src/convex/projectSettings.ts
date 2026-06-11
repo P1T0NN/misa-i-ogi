@@ -27,6 +27,3 @@ export const FEATURES = {
 	/** This project uses Cloudflare R2 only (no Convex file storage). */
 	USE_R2: true
 } as const;
-
-/** Maximum bars shown on analytics bar charts (accommodations, hospitalities). */
-export const ANALYTICS_CHART_LIMIT = 10;

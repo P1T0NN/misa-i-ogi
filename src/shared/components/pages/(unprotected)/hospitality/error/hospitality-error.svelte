@@ -24,7 +24,7 @@
 		{m['HospitalityPage.HospitalityError.title']()}
 	</h1>
 
-	<p class="text-muted-foreground max-w-md">{m['HospitalityPage.HospitalityError.body']()}</p>
+	<p class="max-w-md text-muted-foreground">{m['HospitalityPage.HospitalityError.body']()}</p>
 
 	<Link href={UNPROTECTED_PAGE_ENDPOINTS.ROOT} class={cn(buttonVariants({ size: 'lg' }))}>
 		{m['HospitalityPage.HospitalityError.cta']()}

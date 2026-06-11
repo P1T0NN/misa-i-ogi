@@ -70,12 +70,12 @@
 			<div class="flex w-full flex-col gap-2" aria-live="polite">
 				{#each displays as display (display.id)}
 					<div
-						class="bg-primary/5 border-primary/25 flex w-full flex-col gap-0.5 rounded-lg border px-3 py-2.5"
+						class="flex w-full flex-col gap-0.5 rounded-lg border border-primary/25 bg-primary/5 px-3 py-2.5"
 					>
 						{#if display.name}
-							<span class="text-primary font-medium leading-snug">{display.name}</span>
+							<span class="leading-snug font-medium text-primary">{display.name}</span>
 						{/if}
-						<span class="text-muted-foreground font-mono text-xs leading-snug">{display.id}</span>
+						<span class="font-mono text-xs leading-snug text-muted-foreground">{display.id}</span>
 					</div>
 				{/each}
 			</div>
@@ -89,10 +89,7 @@
 				{m['AdminPartnershipAddPage.modifyHospitality']()}
 			</button>
 		{:else}
-			<Dialog.Trigger
-				type="button"
-				class={cn(buttonVariants({ variant: 'outline' }), 'w-full')}
-			>
+			<Dialog.Trigger type="button" class={cn(buttonVariants({ variant: 'outline' }), 'w-full')}>
 				{m['AdminPartnershipAddPage.selectHospitality']()}
 			</Dialog.Trigger>
 		{/if}
@@ -131,7 +128,7 @@
 		</div>
 
 		<div class="flex shrink-0 items-center justify-between gap-3 border-t border-border px-4 py-3">
-			<span class="text-muted-foreground text-sm">
+			<span class="text-sm text-muted-foreground">
 				{m['AdminPartnershipAddPage.selectHospitalitySelectedCount']({
 					count: selectedIds.length
 				})}
@@ -142,7 +139,9 @@
 		</div>
 
 		{#if isTruncated && rows.length > 0}
-			<p class="text-muted-foreground shrink-0 border-t border-border px-4 py-2 text-xs leading-relaxed">
+			<p
+				class="shrink-0 border-t border-border px-4 py-2 text-xs leading-relaxed text-muted-foreground"
+			>
 				{m['AdminPartnershipAddPage.selectHospitalityTruncated']({ count: rows.length })}
 			</p>
 		{/if}

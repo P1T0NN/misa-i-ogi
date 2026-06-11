@@ -4,7 +4,7 @@
 
 We connect **Accommodations** (apartments, hotels, villas, hostels) with local
 **Hospitalities** (restaurants, cafés, night clubs, horse rides, spas, tours —
-anything a traveler might want to do or eat). The product is the *bridge*
+anything a traveler might want to do or eat). The product is the _bridge_
 between where guests sleep and the businesses around them.
 
 ## How it works for the guest

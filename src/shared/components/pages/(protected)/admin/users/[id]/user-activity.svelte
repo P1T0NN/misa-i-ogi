@@ -28,8 +28,12 @@
 		return capitalize(action.replaceAll('.', ' ').replaceAll('_', ' '));
 	}
 
-	const columns: ColumnDef<Doc<"auditLogs">>[] = [
-		{ id: 'action', header: m['AdminUserPage.UserActivity.colAction'](), accessor: (r) => formatAction(r.action) },
+	const columns: ColumnDef<Doc<'auditLogs'>>[] = [
+		{
+			id: 'action',
+			header: m['AdminUserPage.UserActivity.colAction'](),
+			accessor: (r) => formatAction(r.action)
+		},
 		{
 			id: 'status',
 			header: m['AdminUserPage.UserActivity.colStatus'](),
@@ -46,7 +50,12 @@
 			hideBelow: 'lg',
 			cellClass: 'max-w-[16rem]'
 		},
-		{ id: 'ip', header: m['AdminUserPage.UserActivity.colIp'](), accessor: (r) => r.ip ?? '—', hideBelow: 'lg' },
+		{
+			id: 'ip',
+			header: m['AdminUserPage.UserActivity.colIp'](),
+			accessor: (r) => r.ip ?? '—',
+			hideBelow: 'lg'
+		},
 		{
 			id: 'createdAt',
 			header: m['AdminUserPage.UserActivity.colWhen'](),
@@ -59,7 +68,7 @@
 <div class="flex flex-col gap-4">
 	<header class="flex flex-col gap-0.5">
 		<h2 class="text-base font-semibold">{m['AdminUserPage.UserActivity.title']()}</h2>
-		<p class="text-muted-foreground text-sm">
+		<p class="text-sm text-muted-foreground">
 			{m['AdminUserPage.UserActivity.description']()}
 		</p>
 	</header>
@@ -76,13 +85,13 @@
 	/>
 </div>
 
-{#snippet statusCell({ row }: DataTableCellSnippetProps<Doc<"auditLogs">>)}
+{#snippet statusCell({ row }: DataTableCellSnippetProps<Doc<'auditLogs'>>)}
 	{#if row.status === 'failure'}
-		<span class="bg-destructive/10 text-destructive rounded px-1.5 py-0.5 text-xs font-medium">
+		<span class="rounded bg-destructive/10 px-1.5 py-0.5 text-xs font-medium text-destructive">
 			{m['AdminUserPage.UserActivity.statusFailed']()}
 		</span>
 	{:else}
-		<span class="bg-success/10 text-success rounded px-1.5 py-0.5 text-xs font-medium">
+		<span class="rounded bg-success/10 px-1.5 py-0.5 text-xs font-medium text-success">
 			{m['AdminUserPage.UserActivity.statusSuccess']()}
 		</span>
 	{/if}

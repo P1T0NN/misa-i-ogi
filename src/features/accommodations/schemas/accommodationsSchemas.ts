@@ -33,7 +33,10 @@ export const accommodationAddFormSchema = v.object({
 	// `null` until the user picks a file; validated as a real `File` on submit, then swapped for an R2 key.
 	coverImageKey: v.pipe(
 		v.union([v.null(), v.file()]),
-		v.check((input) => input instanceof File, m['ValidationMessages.CreateAccommodationSchema.coverRequired']())
+		v.check(
+			(input) => input instanceof File,
+			m['ValidationMessages.CreateAccommodationSchema.coverRequired']()
+		)
 	)
 });
 

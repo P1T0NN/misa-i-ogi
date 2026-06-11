@@ -1,6 +1,6 @@
 <script lang="ts">
 	// LIBRARIES
-	import { m } from "@/shared/lib/paraglide/messages";
+	import { m } from '@/shared/lib/paraglide/messages';
 
 	// COMPONENTS
 	import { Button } from '@/shared/components/ui/button/index.js';
@@ -45,19 +45,19 @@
 
 <div
 	class={cn(
-		'border-input bg-card group/item relative overflow-hidden rounded-xl border shadow-sm',
+		'group/item relative overflow-hidden rounded-xl border border-input bg-card shadow-sm',
 		className
 	)}
 >
-	<div class="bg-muted/30 relative aspect-square max-h-56 w-full">
+	<div class="relative aspect-square max-h-56 w-full bg-muted/30">
 		{#if previewUrl}
 			<img src={previewUrl} alt="" class="size-full object-cover" draggable="false" />
 		{:else}
-			<div class="text-muted-foreground flex size-full items-center justify-center">
+			<div class="flex size-full items-center justify-center text-muted-foreground">
 				<FileTextIcon class="size-12" aria-hidden="true" />
 			</div>
 		{/if}
-		
+
 		<div class="absolute end-1.5 top-1.5">
 			<Button
 				type="button"
@@ -73,11 +73,11 @@
 	</div>
 
 	<div class="space-y-0.5 px-2.5 py-2">
-		<p class="text-foreground truncate text-xs font-medium" title={file.name}>
+		<p class="truncate text-xs font-medium text-foreground" title={file.name}>
 			{file.name}
 		</p>
 
-		<p class="text-muted-foreground text-[0.65rem] leading-tight">
+		<p class="text-[0.65rem] leading-tight text-muted-foreground">
 			{file.type || m['UploadFile.UploadFileMultiple.unknown']()} · {formatBytes(file.size)}
 		</p>
 	</div>

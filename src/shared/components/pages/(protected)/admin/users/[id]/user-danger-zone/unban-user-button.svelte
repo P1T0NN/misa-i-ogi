@@ -24,11 +24,9 @@
 	async function unban() {
 		isPending = true;
 		try {
-			const result = await safeMutation(
-				convex,
-				api.tables.users.userMutations.unbanUser,
-				{ userId }
-			);
+			const result = await safeMutation(convex, api.tables.users.userMutations.unbanUser, {
+				userId
+			});
 			toastResult(result);
 		} finally {
 			isPending = false;
@@ -36,4 +34,6 @@
 	}
 </script>
 
-<Button variant="outline" onclick={unban} disabled={isPending}>{m['AdminUserPage.UnbanUserButton.unban']()}</Button>
+<Button variant="outline" onclick={unban} disabled={isPending}
+	>{m['AdminUserPage.UnbanUserButton.unban']()}</Button
+>

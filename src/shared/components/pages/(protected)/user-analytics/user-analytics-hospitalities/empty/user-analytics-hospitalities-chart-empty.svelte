@@ -1,5 +1,5 @@
 <script lang="ts">
-    // COMPONENTS
+	// COMPONENTS
 	import {
 		Card,
 		CardContent,

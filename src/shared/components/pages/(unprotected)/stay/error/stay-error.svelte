@@ -18,13 +18,13 @@
 </script>
 
 <Section yPadding="xl" containerClass="flex flex-col items-center gap-4 text-center">
-	<HomeIcon class="text-muted-foreground size-12" aria-hidden="true" />
+	<HomeIcon class="size-12 text-muted-foreground" aria-hidden="true" />
 
 	<h1 class="font-serif text-2xl font-medium tracking-tight sm:text-3xl">
 		{m['StayPage.StayError.title']()}
 	</h1>
 
-	<p class="text-muted-foreground max-w-md">{m['StayPage.StayError.body']()}</p>
+	<p class="max-w-md text-muted-foreground">{m['StayPage.StayError.body']()}</p>
 
 	<Link href={UNPROTECTED_PAGE_ENDPOINTS.ROOT} class={cn(buttonVariants({ size: 'lg' }))}>
 		{m['StayPage.StayError.cta']()}

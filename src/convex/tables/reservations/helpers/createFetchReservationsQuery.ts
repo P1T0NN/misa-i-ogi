@@ -31,7 +31,7 @@ function matchesSearch(reservation: ReservationDoc, query: string) {
 	return (
 		reservation.guestName.toLowerCase().includes(normalizedQuery) ||
 		reservation.hospitalityName.toLowerCase().includes(normalizedQuery) ||
-		reservation.email.toLowerCase().includes(normalizedQuery) ||
+		(reservation.email?.toLowerCase().includes(normalizedQuery) ?? false) ||
 		reservation.phone.toLowerCase().includes(normalizedQuery) ||
 		String(reservation.hospitalityId).toLowerCase().includes(normalizedQuery) ||
 		String(reservation.guestId).toLowerCase().includes(normalizedQuery)

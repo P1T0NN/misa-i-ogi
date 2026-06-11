@@ -31,7 +31,7 @@
 	let search = $state('');
 	let selectedOwner = $state<SearchInputItem | null>(null);
 
-	function mapUserToItem(user: Doc<"user">): SearchInputItem {
+	function mapUserToItem(user: Doc<'user'>): SearchInputItem {
 		const title = capitalize(user.name || user.email);
 
 		return {
@@ -72,10 +72,12 @@
 	/>
 
 	{#if selectedOwner && value}
-		<div class="border-border bg-muted/30 flex items-start justify-between gap-3 rounded-lg border p-3">
+		<div
+			class="flex items-start justify-between gap-3 rounded-lg border border-border bg-muted/30 p-3"
+		>
 			<div class="min-w-0 space-y-1">
 				<p class="text-sm font-medium">{selectedOwner.title}</p>
-				<p class="text-muted-foreground truncate font-mono text-xs">{value}</p>
+				<p class="truncate font-mono text-xs text-muted-foreground">{value}</p>
 			</div>
 
 			<Button

@@ -49,7 +49,7 @@
 		<AlertDialog.Header>
 			<div class="flex items-center gap-3">
 				<div
-					class="bg-destructive/10 text-destructive flex size-10 shrink-0 items-center justify-center rounded-full"
+					class="flex size-10 shrink-0 items-center justify-center rounded-full bg-destructive/10 text-destructive"
 				>
 					<ShieldAlertIcon class="size-5" />
 				</div>

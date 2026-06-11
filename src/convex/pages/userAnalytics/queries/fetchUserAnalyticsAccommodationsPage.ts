@@ -3,7 +3,10 @@ import { v } from 'convex/values';
 import { createAnalyticsScopeId } from '@piton-/analytics-convex';
 
 // CONFIG
-import { ANALYTICS_CHART_LIMIT } from '@/convex/projectSettings';
+import {
+	ANALYTICS_CHART_LIMIT,
+	ANALYTICS_QUERY_RANGE_DAYS
+} from '@/convex/analytics/analyticsConstants';
 import { analytics } from '@/convex/analytics';
 import { query } from '@/convex/_generated/server';
 
@@ -14,14 +17,14 @@ import { getUserOwnedAccommodations } from '@/convex/tables/accommodations/helpe
 // UTILS
 import { buildUserAnalyticsChartData } from '@/convex/analytics/utils/buildUserAnalyticsChartData';
 import { buildAnalyticsRows } from '@/convex/analytics/utils/buildAnalyticsRows';
-import { createEmptyMetricComparison } from '@/convex/analytics/utils/createEmptyMetricComparison';
-import { sumAnalyticsMetricTotals } from '@/convex/analytics/utils/sumAnalyticsMetricTotals';
-import { DAY_MS, startOfUtcDay } from '../utils/dateUtils';
+import {
+	emptyMetricComparison,
+	toComparedMetric
+} from '@/convex/analytics/utils/comparedMetricUtils';
+import { createAnalyticsQueryDayRange } from '@/convex/analytics/utils/analyticsQueryRange';
 
 // TYPES
 import type { UserAnalyticsAccommodationsPageResult } from '../types/userAnalyticsTypes';
-
-const RANGE_DAYS = 30;
 
 export const fetchUserAnalyticsAccommodationsPage = query({
 	args: {
@@ -37,15 +40,15 @@ export const fetchUserAnalyticsAccommodationsPage = query({
 					trackedStays: { value: 0 },
 					qrScans: {
 						value: 0,
-						comparison: createEmptyMetricComparison()
+						comparison: emptyMetricComparison()
 					},
 					guestActivations: {
 						value: 0,
-						comparison: createEmptyMetricComparison()
+						comparison: emptyMetricComparison()
 					},
 					requestsGenerated: {
 						value: 0,
-						comparison: createEmptyMetricComparison()
+						comparison: emptyMetricComparison()
 					}
 				},
 				chart: { data: [] },
@@ -53,83 +56,56 @@ export const fetchUserAnalyticsAccommodationsPage = query({
 			};
 		}
 
-		const todayStart = startOfUtcDay(Date.now());
-		const from = todayStart - DAY_MS * (RANGE_DAYS - 1);
+		const { from, to: todayStart } = createAnalyticsQueryDayRange();
 		const ownerScope = {
 			type: 'organization',
 			id: createAnalyticsScopeId('accommodationOwner', userId)
 		} as const;
 
-		const [
-			qrScanTotals,
-			guestActivationTotals,
-			reservationTotals,
-			confirmedTotals,
-			qrScanComparison,
-			guestActivationComparison,
-			reservationComparison
-		] = await Promise.all([
-			analytics.fetchMetricTotalsByDimension(ctx, {
-				metric: 'qrScans',
-				scope: ownerScope,
-				dimensionKey: 'accommodationId',
-				days: RANGE_DAYS
-			}),
-			analytics.fetchMetricTotalsByDimension(ctx, {
-				metric: 'guestActivations',
-				scope: ownerScope,
-				dimensionKey: 'accommodationId',
-				days: RANGE_DAYS
-			}),
-			analytics.fetchMetricTotalsByDimension(ctx, {
-				metric: 'newReservations',
-				scope: ownerScope,
-				dimensionKey: 'accommodationId',
-				days: RANGE_DAYS
-			}),
-			analytics.fetchMetricTotalsByDimension(ctx, {
-				metric: 'confirmedReservations',
-				scope: ownerScope,
-				dimensionKey: 'accommodationId',
-				days: RANGE_DAYS
-			}),
-			analytics.fetchMetricComparison(ctx, {
-				metric: 'qrScans',
-				scope: ownerScope,
-				from,
-				to: todayStart
-			}),
-			analytics.fetchMetricComparison(ctx, {
-				metric: 'guestActivations',
-				scope: ownerScope,
-				from,
-				to: todayStart
-			}),
-			analytics.fetchMetricComparison(ctx, {
-				metric: 'newReservations',
-				scope: ownerScope,
-				from,
-				to: todayStart
-			})
-		]);
+		const [dashboard, qrScanTotals, guestActivationTotals, reservationTotals, confirmedTotals] =
+			await Promise.all([
+				analytics.fetchDashboardMetrics(ctx, {
+					metrics: ['qrScans', 'guestActivations', 'newReservations'],
+					scope: ownerScope,
+					from,
+					to: todayStart,
+					includeComparison: true,
+					includeEvaluation: true
+				}),
+				analytics.fetchMetricTotalsByDimension(ctx, {
+					metric: 'qrScans',
+					scope: ownerScope,
+					dimensionKey: 'accommodationId',
+					days: ANALYTICS_QUERY_RANGE_DAYS
+				}),
+				analytics.fetchMetricTotalsByDimension(ctx, {
+					metric: 'guestActivations',
+					scope: ownerScope,
+					dimensionKey: 'accommodationId',
+					days: ANALYTICS_QUERY_RANGE_DAYS
+				}),
+				analytics.fetchMetricTotalsByDimension(ctx, {
+					metric: 'newReservations',
+					scope: ownerScope,
+					dimensionKey: 'accommodationId',
+					days: ANALYTICS_QUERY_RANGE_DAYS
+				}),
+				analytics.fetchMetricTotalsByDimension(ctx, {
+					metric: 'confirmedReservations',
+					scope: ownerScope,
+					dimensionKey: 'accommodationId',
+					days: ANALYTICS_QUERY_RANGE_DAYS
+				})
+			]);
 
 		return {
 			metrics: {
 				trackedStays: {
 					value: accommodations.length
 				},
-				qrScans: {
-					value: sumAnalyticsMetricTotals(qrScanTotals),
-					comparison: qrScanComparison
-				},
-				guestActivations: {
-					value: sumAnalyticsMetricTotals(guestActivationTotals),
-					comparison: guestActivationComparison
-				},
-				requestsGenerated: {
-					value: sumAnalyticsMetricTotals(reservationTotals),
-					comparison: reservationComparison
-				}
+				qrScans: toComparedMetric(dashboard.metrics.qrScans),
+				guestActivations: toComparedMetric(dashboard.metrics.guestActivations),
+				requestsGenerated: toComparedMetric(dashboard.metrics.newReservations)
 			},
 			chart: {
 				data: buildUserAnalyticsChartData({

@@ -3,10 +3,7 @@ import { createDeleteMutation } from '@/convex/helpers/createDeleteMutation';
 import { AUDIT_ACTIONS } from '@/convex/tables/auditLog/auditLogConfigs';
 
 // UTILS
-import {
-	createAnalyticsResourceScopeId,
-	createAnalyticsScopeId
-} from '@piton-/analytics-convex';
+import { createAnalyticsScopeId } from '@piton-/analytics-convex';
 
 /**
  * Admin-only bulk delete for `partnerships` rows.
@@ -15,7 +12,7 @@ import {
 export const deletePartnerships = createDeleteMutation('deletePartnerships', {
 	table: 'partnerships',
 	phase2Strategy: 'optimized',
-	analytics: async (ctx, partnership, meta) => {
+	analytics: async (ctx, partnership) => {
 		const [accommodation, hospitality] = await Promise.all([
 			ctx.db.get(partnership.accommodationId),
 			ctx.db.get(partnership.hospitalityId)
@@ -23,6 +20,7 @@ export const deletePartnerships = createDeleteMutation('deletePartnerships', {
 
 		return {
 			name: 'partnership.deactivated',
+			subject: { type: 'hospitality', id: partnership.hospitalityId },
 			...(accommodation ? { organizationId: accommodation.ownerId } : {}),
 			scopes: [
 				...(hospitality
@@ -32,10 +30,7 @@ export const deletePartnerships = createDeleteMutation('deletePartnerships', {
 					? [
 							{
 								scopeType: 'organization' as const,
-								scopeId: createAnalyticsScopeId(
-									'accommodationOwner',
-									accommodation.ownerId
-								)
+								scopeId: createAnalyticsScopeId('accommodationOwner', accommodation.ownerId)
 							}
 						]
 					: []),
@@ -46,11 +41,7 @@ export const deletePartnerships = createDeleteMutation('deletePartnerships', {
 								scopeId: createAnalyticsScopeId('hospitalityOwner', hospitality.ownerId)
 							}
 						]
-					: []),
-				{
-					scopeType: 'resource' as const,
-					scopeId: createAnalyticsResourceScopeId('hospitality', partnership.hospitalityId)
-				}
+					: [])
 			],
 			properties: {
 				accommodationId: partnership.accommodationId,

@@ -1,4 +1,4 @@
-﻿<script lang="ts" generics="T extends Record<string, unknown>">
+<script lang="ts" generics="T extends Record<string, unknown>">
 	// LIBRARIES
 	import { toast } from 'svelte-sonner';
 	import { safeParse, type GenericSchema } from 'valibot';
@@ -248,12 +248,7 @@
 
 {#snippet renderGrid(section: MutationFormSection)}
 	{@const columns = section.columns ?? 2}
-	<div
-		class={cn(
-			'grid gap-4',
-			columns === 2 ? 'grid-cols-1 sm:grid-cols-2' : 'grid-cols-1'
-		)}
-	>
+	<div class={cn('grid gap-4', columns === 2 ? 'grid-cols-1 sm:grid-cols-2' : 'grid-cols-1')}>
 		{#each section.fields as field (field.id)}
 			<div class={spanClass(field, columns)}>
 				{@render renderField(field)}
@@ -302,7 +297,7 @@
 	{#if busy && showUploadProgress}
 		<div class="flex w-full flex-col gap-2">
 			<Progress value={progress.percent} class="h-2" />
-			<p class="text-muted-foreground text-xs tabular-nums">{progress.label}</p>
+			<p class="text-xs text-muted-foreground tabular-nums">{progress.label}</p>
 		</div>
 	{/if}
 

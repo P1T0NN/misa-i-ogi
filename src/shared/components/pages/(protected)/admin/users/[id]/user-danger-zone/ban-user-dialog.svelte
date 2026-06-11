@@ -41,15 +41,11 @@
 		isPending = true;
 		try {
 			const expiresInSec = expiresIn === '' ? undefined : Number(expiresIn);
-			const result = await safeMutation(
-				convex,
-				api.tables.users.userMutations.banUser,
-				{
-					userId,
-					...(reason && { banReason: reason }),
-					...(expiresInSec !== undefined && { banExpiresIn: expiresInSec })
-				}
-			);
+			const result = await safeMutation(convex, api.tables.users.userMutations.banUser, {
+				userId,
+				...(reason && { banReason: reason }),
+				...(expiresInSec !== undefined && { banExpiresIn: expiresInSec })
+			});
 			if (!toastResult(result)) return;
 
 			reason = '';

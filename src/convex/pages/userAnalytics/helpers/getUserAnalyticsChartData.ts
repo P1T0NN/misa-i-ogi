@@ -1,32 +1,32 @@
 // LIBRARIES
-import { analytics } from '@/convex/analytics';
+import { createAnalyticsDayRange } from '@piton-/analytics-convex';
 
-// UTILS
-import { DAY_MS, startOfUtcDay } from '../utils/dateUtils';
+// CONFIG
+import { analytics } from '@/convex/analytics';
+import { ANALYTICS_QUERY_RANGE_DAYS } from '@/convex/analytics/analyticsConstants';
 
 // TYPES
 import type { QueryCtx } from '@/convex/_generated/server';
-import type { UserAnalyticsChartMetric, UserAnalyticsChartPoint } from '../types/userAnalyticsTypes';
-
-const DEFAULT_CHART_DAYS = 30;
+import type {
+	UserAnalyticsChartMetric,
+	UserAnalyticsChartPoint
+} from '../types/userAnalyticsTypes';
 
 /**
  * Fetches a daily time series for a single owner-scoped analytics metric.
- * Delegates to the analytics library's `fetchTimeSeries` — no raw DB queries.
  */
 export async function getUserAnalyticsChartData(
 	ctx: QueryCtx,
 	metric: UserAnalyticsChartMetric,
 	userId: string,
-	days = DEFAULT_CHART_DAYS
+	days = ANALYTICS_QUERY_RANGE_DAYS
 ): Promise<UserAnalyticsChartPoint[]> {
-	const todayStart = startOfUtcDay(Date.now());
-	const from = todayStart - DAY_MS * (days - 1);
+	const { from, to } = createAnalyticsDayRange({ days, includeToday: true });
 
 	const result = await analytics.fetchTimeSeries(ctx, {
 		metric,
 		from,
-		to: todayStart,
+		to,
 		scope: { type: 'organization', id: userId },
 		fill: true
 	});

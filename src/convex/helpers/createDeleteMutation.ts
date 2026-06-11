@@ -476,6 +476,8 @@ export function createDeleteMutation<T extends TableNames>(
 			//    `phase2Strategy`; see {@link DeletePhase2Strategy} for the trade-offs.
 			//    Both branches roll back together via Convex's mutation transaction ΓÇö the
 			//    choice is only about *intra-batch* ordering guarantees, never about atomicity.
+			const pendingAnalytics: DeleteMutationAnalyticsInput[] = [];
+
 			const deleteOne = async (doc: Doc<T>) => {
 				if (onDelete) await onDelete(ctx, doc);
 				if (analyticsHandler) {
@@ -485,12 +487,7 @@ export function createDeleteMutation<T extends TableNames>(
 							table
 						});
 						if (analyticsInput) {
-							await analytics.writeTrack(ctx, {
-								name: analyticsInput.name,
-								organizationId: analyticsInput.organizationId,
-								scopes: analyticsInput.scopes,
-								properties: analyticsInput.properties
-							});
+							pendingAnalytics.push(analyticsInput);
 						}
 					} catch (error) {
 						console.error(
@@ -512,6 +509,24 @@ export function createDeleteMutation<T extends TableNames>(
 				await Promise.all(existing.map((doc) => deleteOne(doc as Doc<T>)));
 			} else {
 				for (const doc of existing) await deleteOne(doc as Doc<T>);
+			}
+
+			if (pendingAnalytics.length > 0) {
+				try {
+					const events = pendingAnalytics.map(({ name, organizationId, scopes, properties }) => ({
+						name,
+						...(organizationId !== undefined ? { organizationId } : {}),
+						...(scopes !== undefined ? { scopes } : {}),
+						...(properties !== undefined ? { properties } : {})
+					}));
+
+					await analytics.writeTrack(ctx, events.length === 1 ? events[0] : { events });
+				} catch (error) {
+					console.error(
+						`[createDeleteMutation:${table}] analytics batch failed`,
+						error instanceof Error ? error.message : error
+					);
+				}
 			}
 
 			const deletedCount = existing.length;

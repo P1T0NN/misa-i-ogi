@@ -1,6 +1,6 @@
 <script lang="ts">
-    // COMPONENTS
-    import {
+	// COMPONENTS
+	import {
 		Card,
 		CardContent,
 		CardDescription,

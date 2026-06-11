@@ -32,16 +32,14 @@
 	)}
 >
 	<div class="mx-auto w-full max-w-7xl px-4 py-14 sm:px-6 lg:px-8 lg:py-16">
-		<div
-			class="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-10 lg:gap-y-0"
-		>
+		<div class="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-10 lg:gap-y-0">
 			<div class="min-w-0 lg:col-span-4">
 				{#if hasLogo}
 					<Logo size="md" />
 				{:else}
 					<Link
 						href={PROTECTED_PAGE_ENDPOINTS.DASHBOARD}
-						class="text-foreground text-base font-semibold tracking-tight"
+						class="text-base font-semibold tracking-tight text-foreground"
 					>
 						{COMPANY_DATA.NAME}
 					</Link>
@@ -58,9 +56,7 @@
 				>
 					{#each footerLinkGroups as group (group.id)}
 						<nav aria-label={group.heading} class="min-w-0">
-							<p
-								class="text-foreground text-[0.6875rem] font-semibold uppercase tracking-[0.14em]"
-							>
+							<p class="text-[0.6875rem] font-semibold tracking-[0.14em] text-foreground uppercase">
 								{group.heading}
 							</p>
 
@@ -79,9 +75,7 @@
 			{/if}
 		</div>
 
-		<div
-			class="mt-14 border-t border-border pt-8 text-xs text-muted-foreground"
-		>
+		<div class="mt-14 border-t border-border pt-8 text-xs text-muted-foreground">
 			<p>
 				© {year}
 				{COMPANY_DATA.NAME}. All rights reserved.

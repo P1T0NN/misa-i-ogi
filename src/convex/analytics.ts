@@ -2,6 +2,12 @@
 import { components } from './_generated/api';
 import { defineAnalytics, event, property } from '@piton-/analytics-convex';
 
+// HELPERS
+import { requireAdmin } from '@/convex/auth/middleware/authMiddleware';
+
+// TYPES
+import type { QueryCtx, MutationCtx } from '@/convex/_generated/server';
+
 export const analytics = defineAnalytics(components.analytics, {
 	events: {
 		qrScanned: event('qr.scanned', {
@@ -26,8 +32,7 @@ export const analytics = defineAnalytics(components.analytics, {
 			properties: {
 				accommodationId: property.string({ required: true }),
 				accommodationName: property.string(),
-				accommodationType: property.string(),
-				hospitalityId: property.string()
+				accommodationType: property.string()
 			}
 		}),
 		guestReturned: event('guest.returned', {
@@ -91,6 +96,7 @@ export const analytics = defineAnalytics(components.analytics, {
 				accommodationName: property.string(),
 				hospitalityId: property.string({ required: true }),
 				hospitalityName: property.string(),
+				discountPercent: property.number(),
 				partnershipDelta: property.number({ required: true })
 			}
 		}),
@@ -109,32 +115,76 @@ export const analytics = defineAnalytics(components.analytics, {
 		qrScans: count('QR scans')
 			.description('Total QR code scans')
 			.from('qr.scanned')
-			.by('accommodationId', 'scanType'),
+			.by('accommodationId', 'scanType')
+			.evaluation({
+				kind: 'goal',
+				targetValue: 500,
+				excellentPercentOfGoal: 100,
+				goodPercentOfGoal: 75,
+				badPercentOfGoal: 50
+			}),
 
+		// Activations happen at accommodations and are not attributable to a single
+		// venue — venue pages attribute them by summing partner-accommodation totals.
 		guestActivations: count('Guest activations')
 			.description('Guest sessions activated')
 			.from('guest.activated')
-			.by('accommodationId', 'accommodationType', 'hospitalityId'),
+			.by('accommodationId', 'accommodationType')
+			.evaluation({
+				kind: 'conversion',
+				denominatorMetric: 'qrScans',
+				excellentRatePercent: 50,
+				goodRatePercent: 20,
+				badRatePercent: 10,
+				minDenominator: 5
+			}),
 
 		hospitalityViews: count('Guest views')
 			.description('Unique guest views of hospitalities')
 			.from('hospitality.viewed')
-			.by('hospitalityId', 'accommodationId'),
+			.by('hospitalityId', 'accommodationId')
+			.evaluation({
+				kind: 'goal',
+				targetValue: 300,
+				excellentPercentOfGoal: 100,
+				goodPercentOfGoal: 75,
+				badPercentOfGoal: 50
+			}),
 
 		newReservations: count('New reservations')
 			.description('Reservations created by guests')
 			.from('reservation.created')
-			.by('hospitalityId', 'hospitalityType', 'accommodationId'),
+			.by('hospitalityId', 'hospitalityType', 'accommodationId')
+			.evaluation({
+				kind: 'comparison',
+				excellentGrowthPercent: 25,
+				goodGrowthPercent: 5,
+				badGrowthPercent: -5,
+				minVolumeForComparison: 10
+			}),
 
 		confirmedReservations: count('Confirmed reservations')
 			.description('Reservations confirmed by venues')
 			.from('reservation.confirmed')
-			.by('hospitalityId', 'hospitalityType', 'accommodationId'),
+			.by('hospitalityId', 'hospitalityType', 'accommodationId')
+			.evaluation({
+				kind: 'comparison',
+				excellentGrowthPercent: 25,
+				goodGrowthPercent: 5,
+				badGrowthPercent: -5,
+				minVolumeForComparison: 10
+			}),
 
 		cancelledReservations: count('Cancelled reservations')
 			.description('Reservations cancelled by venues or guests')
 			.from('reservation.cancelled')
-			.by('hospitalityId', 'hospitalityType', 'accommodationId'),
+			.by('hospitalityId', 'hospitalityType', 'accommodationId')
+			.evaluation({
+				kind: 'inverseRate',
+				denominatorMetric: 'newReservations',
+				goodRatePercent: 10,
+				badRatePercent: 25
+			}),
 
 		activePartnerships: sum('Active partnerships', 'count')
 			.description('Net partnerships (created minus deactivated)')
@@ -142,10 +192,36 @@ export const analytics = defineAnalytics(components.analytics, {
 			.value('partnershipDelta')
 			.by('accommodationId', 'hospitalityId')
 	}),
-	authorize: async () => {
-		// Auth is handled at the query level — open reads for now
+	// Funnels intentionally omitted for launch — the package supports them; define
+	// them here (and re-export `funnelConversion` / `journeyConversion` from
+	// `analytics.client`) when funnel dashboards are built.
+	authorize: async (ctx, operation) => {
+		// App queries call server helpers after enforcing auth. Keep direct client reads open for now,
+		// but protect runtime goal edits because those persist per-scope overrides.
+		if (operation.type === 'configureMetricEvaluation') {
+			await requireAdmin(ctx as unknown as QueryCtx | MutationCtx);
+		}
 	}
 });
 
-export const { writeConfiguration, writeTrack, timeSeries, summary, breakdown, metricComparison } =
-	analytics.client;
+export const {
+	processPendingHighVolumeAnalyticsEvents,
+	purgeStaleAnalyticsEvents,
+	purgeStaleAnalyticsRollups
+} = analytics.crons;
+
+export const {
+	writeConfiguration,
+	writeTrack,
+	timeSeries,
+	summary,
+	breakdown,
+	metricComparison,
+	metricConversion,
+	metricEvaluation,
+	metricEvaluationConfig,
+	setMetricEvaluation,
+	dashboardMetrics,
+	metricTotalsByDimension,
+	topDimensionValue
+} = analytics.client;

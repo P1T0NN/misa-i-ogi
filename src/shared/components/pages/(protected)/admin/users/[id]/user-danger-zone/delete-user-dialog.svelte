@@ -47,11 +47,9 @@
 		if (role === 'admin' || typedConfirm !== userEmail) return;
 		isPending = true;
 		try {
-			const result = await safeMutation(
-				convex,
-				api.tables.users.userMutations.deleteUser,
-				{ userId }
-			);
+			const result = await safeMutation(convex, api.tables.users.userMutations.deleteUser, {
+				userId
+			});
 			if (!toastResult(result)) return;
 
 			typedConfirm = '';

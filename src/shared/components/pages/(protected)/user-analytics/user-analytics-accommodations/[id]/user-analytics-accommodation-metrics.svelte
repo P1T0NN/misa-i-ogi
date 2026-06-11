@@ -6,7 +6,8 @@
 	import {
 		createComparedAnalyticsMetric,
 		createStaticAnalyticsMetric
-	} from '@/features/analytics/utils/analytics-display-formatters';
+	} from '@/features/analytics/utils/createAnalyticsMetric';
+	import { getPresenceAnalyticsLabel } from '@/features/analytics/utils/analyticsLabelUtils';
 
 	// TYPES
 	import type { UserAnalyticsAccommodationsPageMetrics } from '@/convex/pages/userAnalytics/types/userAnalyticsTypes';
@@ -18,8 +19,7 @@
 			id: 'tracked-stays',
 			label: 'Tracked stays',
 			metric: metrics.trackedStays,
-			trend: 'Live',
-			tone: 'neutral'
+			analyticsLabel: getPresenceAnalyticsLabel(metrics.trackedStays.value)
 		}),
 		createComparedAnalyticsMetric({
 			id: 'qr-scans',
@@ -33,7 +33,7 @@
 		}),
 		createComparedAnalyticsMetric({
 			id: 'requests-generated',
-			label: 'Requests generated',
+			label: 'Reservations',
 			metric: metrics.requestsGenerated
 		})
 	]);

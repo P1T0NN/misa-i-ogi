@@ -1,4 +1,4 @@
-﻿<script lang="ts" generics="TRow = SearchInputItem">
+<script lang="ts" generics="TRow = SearchInputItem">
 	// COMPONENTS
 	import SearchInput from './search-input.svelte';
 

@@ -16,9 +16,7 @@
 	import UserAnalyticsAccommodationsError from '@/shared/components/pages/(protected)/user-analytics/user-analytics-accommodations/error/user-analytics-accommodations-error.svelte';
 	import UserAnalyticsAccommodationsEmpty from '@/shared/components/pages/(protected)/user-analytics/user-analytics-accommodations/empty/user-analytics-accommodations-empty.svelte';
 
-	const hasOwnedAccommodations = $derived(
-		authClass.currentUser?.hasAccommodations === true
-	);
+	const hasOwnedAccommodations = $derived(authClass.currentUser?.hasAccommodations === true);
 
 	const accommodationsPageQuery = useQuery(
 		api.pages.userAnalytics.queries.fetchUserAnalyticsAccommodationsPage

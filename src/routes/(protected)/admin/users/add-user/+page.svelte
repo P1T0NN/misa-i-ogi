@@ -134,7 +134,7 @@
 				<h1 class="text-2xl font-semibold tracking-tight">
 					{m['AdminUserAddPage.title']()}
 				</h1>
-				<p class="text-muted-foreground text-sm leading-relaxed">
+				<p class="text-sm leading-relaxed text-muted-foreground">
 					{m['AdminUserAddPage.description']()}
 				</p>
 			</div>
@@ -166,7 +166,13 @@
 	</div>
 </section>
 
-{#snippet passwordField({ field, inputId, value, setValue, error }: MutationFormFieldSnippetProps<UserAddFormInputs>)}
+{#snippet passwordField({
+	field,
+	inputId,
+	value,
+	setValue,
+	error
+}: MutationFormFieldSnippetProps<UserAddFormInputs>)}
 	<PasswordInput
 		id={inputId}
 		value={typeof value === 'string' ? value : ''}

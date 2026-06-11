@@ -79,7 +79,7 @@
 					class={pendingStatusMeta.badgeClass}
 				/>
 			</TabsTrigger>
-			
+
 			<TabsTrigger value="confirmed">
 				Confirmed
 				<NotificationBadge
@@ -88,7 +88,7 @@
 					class={confirmedStatusMeta.badgeClass}
 				/>
 			</TabsTrigger>
-			
+
 			<TabsTrigger value="cancelled">
 				Cancelled
 				<NotificationBadge
@@ -97,7 +97,7 @@
 					class={cancelledStatusMeta.badgeClass}
 				/>
 			</TabsTrigger>
-			
+
 			<TabsTrigger value="no_show">
 				No-show
 				<NotificationBadge

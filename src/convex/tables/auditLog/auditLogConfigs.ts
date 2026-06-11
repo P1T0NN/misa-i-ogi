@@ -58,6 +58,4 @@ export const AUDIT_RETENTION_DAYS: Partial<Record<AuditAction, number>> = {
  * `${table}.delete`) are accepted as raw strings via the `(string & {})` trick
  * — TS keeps the literal union for autocomplete while still accepting any string.
  */
-export type AuditAction =
-	| (typeof AUDIT_ACTIONS)[keyof typeof AUDIT_ACTIONS]
-	| (string & {});
+export type AuditAction = (typeof AUDIT_ACTIONS)[keyof typeof AUDIT_ACTIONS] | (string & {});

@@ -1,10 +1,6 @@
 ﻿// LIBRARIES
 import { ConvexError } from 'convex/values';
-import {
-	customAction,
-	customCtx,
-	customMutation
-} from 'convex-helpers/server/customFunctions';
+import { customAction, customCtx, customMutation } from 'convex-helpers/server/customFunctions';
 
 // UTILS
 import { action, mutation } from '@/convex/_generated/server';
@@ -62,9 +58,7 @@ export const requireAuthUserId = async (
  * gating) and called directly from flows where the admin check is conditional or branches
  * with other modes (e.g. `createDeleteMutation`, `resolveUploadAuth`).
  */
-export const requireAdmin = async (
-	ctx: MutationCtx | QueryCtx | ActionCtx
-): Promise<string> => {
+export const requireAdmin = async (ctx: MutationCtx | QueryCtx | ActionCtx): Promise<string> => {
 	const user = await authComponent.getAuthUser(ctx);
 
 	if (!user) {
@@ -91,7 +85,8 @@ export const requireAdmin = async (
  * `_creationTime` window: it stamps `ipAddress` / `userAgent` server-side at
  * sign-in, which is more trustworthy than anything we could re-derive per call.
  */
-const buildAudit = (ctx: MutationCtx | ActionCtx, userId: string) =>
+const buildAudit =
+	(ctx: MutationCtx | ActionCtx, userId: string) =>
 	(action: AuditAction, auditOpts: Omit<AuditOptions, 'userId'> & { userId?: string } = {}) =>
 		logAudit(ctx, action, { userId, ...auditOpts });
 

@@ -18,8 +18,7 @@ export interface DemoPageModel {
 	mountKeyboard: () => () => void;
 }
 
-export const demoShell =
-	'mx-auto w-full max-w-(--container) px-5 sm:px-(--gutter)';
+export const demoShell = 'mx-auto w-full max-w-(--container) px-5 sm:px-(--gutter)';
 
 export function createDemoPage(): DemoPageModel {
 	let currentStep = $state(1);

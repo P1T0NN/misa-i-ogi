@@ -1,13 +1,13 @@
 <script lang="ts">
-    // COMPONENTS
+	// COMPONENTS
 	import Section from '@/shared/components/ui/section/section.svelte';
 	import DemoPhone from './demo-phone/demo-phone.svelte';
 	import DemoPhoneSidePanel from './demo-phone-side-panel.svelte';
 
-    // RUNES
+	// RUNES
 	import { demoShell } from '../../../../../routes/(unprotected)/demo/demoPage.svelte.ts';
 
-    // TYPES
+	// TYPES
 	import type { DemoPageModel } from '../../../../../routes/(unprotected)/demo/demoPage.svelte.ts';
 
 	let { demo }: { demo: DemoPageModel } = $props();

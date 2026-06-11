@@ -1,11 +1,8 @@
-﻿import { paraglideVitePlugin } from '@inlang/paraglide-js'
+﻿import { paraglideVitePlugin } from '@inlang/paraglide-js';
 import tailwindcss from '@tailwindcss/vite';
 import { sveltekit } from '@sveltejs/kit/vite';
 import { defineConfig } from 'vite';
-import {
-	BOTID_CHALLENGE_PATH,
-	BOTID_PROXY_PREFIX
-} from './src/shared/config/botidProxy.ts';
+import { BOTID_CHALLENGE_PATH, BOTID_PROXY_PREFIX } from './src/shared/config/botidProxy.ts';
 
 export default defineConfig({
 	// BotID client loads same-origin challenge/proxy scripts. Vite dev has no
@@ -29,13 +26,15 @@ export default defineConfig({
 	// layerchart ΓåÆ @dagrejs/dagre ships ESM-only; if left external, Node SSR loads
 	// dagre.esm.js as CJS and throws "Unexpected token 'export'".
 	ssr: {
-		noExternal: ['layerchart', '@dagrejs/dagre']
+		// UI imports constants from @piton-/analytics-convex; Vite must bundle the
+		// package for SSR because its dist still uses extensionless relative imports.
+		noExternal: ['layerchart', '@dagrejs/dagre', '@piton-/analytics-convex']
 	},
-    plugins: [
-        paraglideVitePlugin({ 
-			project: './project.inlang', 
+	plugins: [
+		paraglideVitePlugin({
+			project: './project.inlang',
 			outdir: './src/shared/lib/paraglide',
-            strategy: ['url', 'cookie', 'baseLocale'],
+			strategy: ['url', 'cookie', 'baseLocale'],
 			routeStrategies: [
 				{ match: '/admin/:path(.*)?', strategy: ['cookie', 'baseLocale'] },
 				{ match: '/api/:path(.*)?', exclude: true }
@@ -57,7 +56,7 @@ export default defineConfig({
 				}
 			]
 		}),
-        tailwindcss(), 
-        sveltekit()
-    ] 
+		tailwindcss(),
+		sveltekit()
+	]
 });

@@ -13,7 +13,13 @@ export const ACCOMMODATIONS_DATA: Record<AccommodationType, () => string> = {
 	other: () => m['AccommodationsData.typeOther']()
 };
 
-const ACCOMMODATIONS_ORDER = ['apartment', 'hotel', 'villa', 'hostel', 'other'] as const satisfies readonly AccommodationType[];
+const ACCOMMODATIONS_ORDER = [
+	'apartment',
+	'hotel',
+	'villa',
+	'hostel',
+	'other'
+] as const satisfies readonly AccommodationType[];
 
 /** Localized label for an `accommodations.type` value (tables, public pages, filters). */
 export function labelAccommodationType(type: AccommodationType): string {
@@ -21,6 +27,9 @@ export function labelAccommodationType(type: AccommodationType): string {
 }
 
 /** Select options for admin create/edit forms. */
-export function accommodationTypeSelectOptions(): Array<{ value: AccommodationType; label: string }> {
+export function accommodationTypeSelectOptions(): Array<{
+	value: AccommodationType;
+	label: string;
+}> {
 	return ACCOMMODATIONS_ORDER.map((value) => ({ value, label: labelAccommodationType(value) }));
 }

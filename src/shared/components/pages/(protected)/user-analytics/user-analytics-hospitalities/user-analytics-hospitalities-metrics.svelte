@@ -3,10 +3,8 @@
 	import AnalyticsMetrics from '@/features/analytics/components/analytics-metrics.svelte';
 
 	// UTILS
-	import {
-		createComparedAnalyticsMetric,
-		createStaticAnalyticsMetric
-	} from '@/features/analytics/utils/analytics-display-formatters';
+	import { createComparedAnalyticsMetric } from '@/features/analytics/utils/createAnalyticsMetric';
+	import { formatAnalyticsCount } from '@/features/analytics/utils/analyticsDisplayFormattersUtils';
 
 	// TYPES
 	import type { UserAnalyticsHospitalitiesPageMetrics } from '@/convex/pages/userAnalytics/types/userAnalyticsTypes';
@@ -14,13 +12,11 @@
 	let { metrics }: { metrics: UserAnalyticsHospitalitiesPageMetrics } = $props();
 
 	const displayMetrics = $derived([
-		createStaticAnalyticsMetric({
-			id: 'tracked-venues',
-			label: 'Tracked venues',
-			metric: metrics.trackedVenues,
-			trend: 'Live',
-			tone: 'neutral'
-		}),
+		{
+			id: 'hospitalities',
+			label: 'Hospitalities',
+			value: formatAnalyticsCount(metrics.trackedVenues.value)
+		},
 		createComparedAnalyticsMetric({
 			id: 'guest-views',
 			label: 'Guest views',
@@ -33,7 +29,7 @@
 		}),
 		createComparedAnalyticsMetric({
 			id: 'requests-generated',
-			label: 'Requests generated',
+			label: 'Reservations',
 			metric: metrics.requestsGenerated
 		})
 	]);

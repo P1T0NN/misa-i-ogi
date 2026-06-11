@@ -26,14 +26,11 @@
 	);
 
 	const overviewPageQuery = useQuery(
-		api.pages.userAnalytics.queries.fetchUserAnalyticsOverviewPage
-			.fetchUserAnalyticsOverviewPage,
+		api.pages.userAnalytics.queries.fetchUserAnalyticsOverviewPage.fetchUserAnalyticsOverviewPage,
 		() => (authClass.userLoading || !hasOwnedPortfolio ? 'skip' : {})
 	);
 
-	const isPageLoading = $derived(
-		overviewPageQuery.data === undefined && !overviewPageQuery.error
-	);
+	const isPageLoading = $derived(overviewPageQuery.data === undefined && !overviewPageQuery.error);
 	const isLoading = $derived(authClass.userLoading || (hasOwnedPortfolio && isPageLoading));
 	const hasError = $derived(Boolean(overviewPageQuery.error));
 	const pageData = $derived(overviewPageQuery.data);

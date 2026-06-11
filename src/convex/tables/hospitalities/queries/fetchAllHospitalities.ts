@@ -14,12 +14,7 @@ export const fetchAllHospitalities = fetchOptimized('fetchAllHospitalities', {
 	auth: 'admin',
 	args: {
 		sortColumn: v.optional(
-			v.union(
-				v.literal('name'),
-				v.literal('city'),
-				v.literal('type'),
-				v.literal('created')
-			)
+			v.union(v.literal('name'), v.literal('city'), v.literal('type'), v.literal('created'))
 		),
 		sortDirection: v.optional(v.union(v.literal('asc'), v.literal('desc')))
 	},

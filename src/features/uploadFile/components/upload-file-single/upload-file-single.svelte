@@ -117,7 +117,7 @@
 
 <div
 	class={cn(
-		'group/upload-file-single w-full min-w-0 max-w-md',
+		'group/upload-file-single w-full max-w-md min-w-0',
 		disabled && 'pointer-events-none opacity-50',
 		className
 	)}
@@ -135,11 +135,11 @@
 
 	{#if hasExistingPreview}
 		<div
-			class="border-input bg-card flex gap-3 rounded-xl border p-3 shadow-sm"
+			class="flex gap-3 rounded-xl border border-input bg-card p-3 shadow-sm"
 			role="region"
 			aria-label={existingPreviewAlt || m['UploadFile.UploadFileSingle.placeholder']()}
 		>
-			<div class="bg-muted/40 relative aspect-4/3 w-28 shrink-0 overflow-hidden rounded-lg border">
+			<div class="relative aspect-4/3 w-28 shrink-0 overflow-hidden rounded-lg border bg-muted/40">
 				<img
 					src={existingPreviewUrl}
 					alt={existingPreviewAlt}
@@ -151,10 +151,10 @@
 			</div>
 
 			<div class="min-w-0 flex-1 py-0.5">
-				<p class="text-foreground text-sm font-medium">
+				<p class="text-sm font-medium text-foreground">
 					{m['UploadFile.UploadFileSingle.existingCover']()}
 				</p>
-				<p class="text-muted-foreground mt-0.5 text-xs">
+				<p class="mt-0.5 text-xs text-muted-foreground">
 					{m['UploadFile.UploadFileSingle.existingCoverHint']()}
 				</p>
 				<div class="mt-3">
@@ -170,7 +170,7 @@
 			{accept}
 			{disabled}
 			multipleFiles={false}
-			dragOver={dragOver}
+			{dragOver}
 			bind:fileInputRef={inputRef}
 			onFileInputChange={onInputChange}
 			onDragEnter={() => {

@@ -45,7 +45,9 @@
 		<section aria-labelledby="stay-heading" class="min-w-0">
 			<header class="flex flex-col gap-3 border-b border-border/80 pb-6 sm:pb-8">
 				<p class="mb-0 font-mono text-[11px] tracking-eyebrow text-primary uppercase">
-					{m['StayPage.StayAccommodationData.eyebrow']()} · {labelAccommodationType(accommodation.type)}
+					{m['StayPage.StayAccommodationData.eyebrow']()} · {labelAccommodationType(
+						accommodation.type
+					)}
 				</p>
 
 				<h1

@@ -1,5 +1,5 @@
 // LIBRARIES
-import { createAnalyticsScopeId } from '@piton-/analytics-convex';
+import { compareScores, createAnalyticsScopeId } from '@piton-/analytics-convex';
 
 // CONFIG
 import { analytics } from '@/convex/analytics';
@@ -11,9 +11,12 @@ import { getUserOwnedHospitalities } from '@/convex/tables/hospitalities/helpers
 
 // UTILS
 import { getAnalyticsMetricValue } from '@/convex/analytics/utils/getAnalyticsMetricValue';
-import { createEmptyMetricComparison } from '@/convex/analytics/utils/createEmptyMetricComparison';
-import { sumAnalyticsMetricTotals } from '@/convex/analytics/utils/sumAnalyticsMetricTotals';
-import { DAY_MS, startOfUtcDay } from '../utils/dateUtils';
+import {
+	emptyMetricComparison,
+	toComparedMetric
+} from '@/convex/analytics/utils/comparedMetricUtils';
+import { ANALYTICS_QUERY_RANGE_DAYS } from '@/convex/analytics/analyticsConstants';
+import { createAnalyticsQueryDayRange } from '@/convex/analytics/utils/analyticsQueryRange';
 
 // TYPES
 import type {
@@ -22,8 +25,6 @@ import type {
 	UserAnalyticsReservationsPageResult
 } from '../types/userAnalyticsTypes';
 import type { Doc } from '@/convex/_generated/dataModel';
-
-const RANGE_DAYS = 30;
 
 function buildReservationSourceRows(
 	hospitalities: Doc<'hospitalities'>[],
@@ -44,8 +45,8 @@ function buildReservationSourceRows(
 		.filter((row) => row.created > 0 || row.confirmed > 0 || row.cancelled > 0)
 		.sort(
 			(first, second) =>
-				second.created - first.created ||
-				second.confirmed - first.confirmed ||
+				compareScores('desc', first.created, second.created) ||
+				compareScores('desc', first.confirmed, second.confirmed) ||
 				first.name.localeCompare(second.name)
 		);
 }
@@ -84,15 +85,15 @@ export const fetchUserAnalyticsReservationsPage = query({
 					trackedVenues: { value: 0 },
 					created: {
 						value: 0,
-						comparison: createEmptyMetricComparison()
+						comparison: emptyMetricComparison()
 					},
 					confirmed: {
 						value: 0,
-						comparison: createEmptyMetricComparison()
+						comparison: emptyMetricComparison()
 					},
 					cancelled: {
 						value: 0,
-						comparison: createEmptyMetricComparison()
+						comparison: emptyMetricComparison()
 					}
 				},
 				statusChart: { data: [] },
@@ -100,59 +101,46 @@ export const fetchUserAnalyticsReservationsPage = query({
 			};
 		}
 
-		const todayStart = startOfUtcDay(Date.now());
-		const from = todayStart - DAY_MS * (RANGE_DAYS - 1);
+		const { from, to: todayStart } = createAnalyticsQueryDayRange();
 		const ownerScope = {
 			type: 'organization',
 			id: createAnalyticsScopeId('hospitalityOwner', userId)
 		} as const;
 
 		const [
+			dashboard,
 			createdTotals,
 			confirmedTotals,
 			cancelledTotals,
-			createdComparison,
-			confirmedComparison,
-			cancelledComparison,
 			createdSeries,
 			confirmedSeries,
 			cancelledSeries
 		] = await Promise.all([
+			analytics.fetchDashboardMetrics(ctx, {
+				metrics: ['newReservations', 'confirmedReservations', 'cancelledReservations'],
+				scope: ownerScope,
+				from,
+				to: todayStart,
+				includeComparison: true,
+				includeEvaluation: true
+			}),
 			analytics.fetchMetricTotalsByDimension(ctx, {
 				metric: 'newReservations',
 				scope: ownerScope,
 				dimensionKey: 'hospitalityId',
-				days: RANGE_DAYS
+				days: ANALYTICS_QUERY_RANGE_DAYS
 			}),
 			analytics.fetchMetricTotalsByDimension(ctx, {
 				metric: 'confirmedReservations',
 				scope: ownerScope,
 				dimensionKey: 'hospitalityId',
-				days: RANGE_DAYS
+				days: ANALYTICS_QUERY_RANGE_DAYS
 			}),
 			analytics.fetchMetricTotalsByDimension(ctx, {
 				metric: 'cancelledReservations',
 				scope: ownerScope,
 				dimensionKey: 'hospitalityId',
-				days: RANGE_DAYS
-			}),
-			analytics.fetchMetricComparison(ctx, {
-				metric: 'newReservations',
-				scope: ownerScope,
-				from,
-				to: todayStart
-			}),
-			analytics.fetchMetricComparison(ctx, {
-				metric: 'confirmedReservations',
-				scope: ownerScope,
-				from,
-				to: todayStart
-			}),
-			analytics.fetchMetricComparison(ctx, {
-				metric: 'cancelledReservations',
-				scope: ownerScope,
-				from,
-				to: todayStart
+				days: ANALYTICS_QUERY_RANGE_DAYS
 			}),
 			analytics.fetchTimeSeries(ctx, {
 				metric: 'newReservations',
@@ -177,27 +165,14 @@ export const fetchUserAnalyticsReservationsPage = query({
 			})
 		]);
 
-		const createdCount = sumAnalyticsMetricTotals(createdTotals);
-		const confirmedCount = sumAnalyticsMetricTotals(confirmedTotals);
-		const cancelledCount = sumAnalyticsMetricTotals(cancelledTotals);
-
 		return {
 			metrics: {
 				trackedVenues: {
 					value: hospitalities.length
 				},
-				created: {
-					value: createdCount,
-					comparison: createdComparison
-				},
-				confirmed: {
-					value: confirmedCount,
-					comparison: confirmedComparison
-				},
-				cancelled: {
-					value: cancelledCount,
-					comparison: cancelledComparison
-				}
+				created: toComparedMetric(dashboard.metrics.newReservations),
+				confirmed: toComparedMetric(dashboard.metrics.confirmedReservations),
+				cancelled: toComparedMetric(dashboard.metrics.cancelledReservations)
 			},
 			statusChart: {
 				data: buildReservationStatusChartData({

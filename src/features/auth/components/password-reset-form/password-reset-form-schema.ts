@@ -31,6 +31,10 @@ export const passwordResetVerifyFormSchema = object({
 			m['ValidationMessages.PasswordResetVerifyForm.passwordTooCommon']()
 		)
 	),
-	email: pipe(string(), trim(), email(m['ValidationMessages.PasswordResetVerifyForm.invalidEmail']())),
+	email: pipe(
+		string(),
+		trim(),
+		email(m['ValidationMessages.PasswordResetVerifyForm.invalidEmail']())
+	),
 	flow: literal('reset-verification')
 });

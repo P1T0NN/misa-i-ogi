@@ -164,9 +164,7 @@ export const { syncMetadata, onSyncMetadata } = r2.clientApi<DataModel>({
 		// `R2_PUBLIC_BASE_URL`, we only have expiring signed URLs — bad for `coverImageUrl`
 		// stored on domain rows.
 		const publicUrl = buildR2PublicObjectUrl(key);
-		const url =
-			publicUrl ??
-			(await r2.getUrl(key, { expiresIn: 604800 }));
+		const url = publicUrl ?? (await r2.getUrl(key, { expiresIn: 604800 }));
 		if (!publicUrl) {
 			console.warn(
 				'[r2.onSyncMetadata] R2_PUBLIC_BASE_URL is unset; using 7-day signed URL. Set R2_PUBLIC_BASE_URL in Convex (e.g. https://pub-xxxx.r2.dev) for permanent image links.',

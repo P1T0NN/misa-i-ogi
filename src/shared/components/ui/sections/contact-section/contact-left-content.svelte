@@ -11,11 +11,13 @@
 </script>
 
 <div>
-	<p class="mb-3 text-xs font-semibold uppercase tracking-[0.3em] text-primary-foreground/60">{m['ContactSection.ContactLeftContent.contact']()}</p>
+	<p class="mb-3 text-xs font-semibold tracking-[0.3em] text-primary-foreground/60 uppercase">
+		{m['ContactSection.ContactLeftContent.contact']()}
+	</p>
 
 	<h2
 		id="contact-heading"
-		class="text-4xl font-normal leading-[1.05] text-primary-foreground md:text-5xl"
+		class="text-4xl leading-[1.05] font-normal text-primary-foreground md:text-5xl"
 	>
 		Let's plan<br />
 		<span class="font-serif italic">your makeup</span>
@@ -28,7 +30,9 @@
 
 	<div class="my-10 h-px bg-linear-to-r from-primary-foreground/20 to-transparent"></div>
 
-	<p class="mb-5 text-sm text-primary-foreground/60">{m['ContactSection.ContactLeftContent.preferEmail']()}</p>
+	<p class="mb-5 text-sm text-primary-foreground/60">
+		{m['ContactSection.ContactLeftContent.preferEmail']()}
+	</p>
 
 	<div class="flex flex-col gap-4">
 		<a

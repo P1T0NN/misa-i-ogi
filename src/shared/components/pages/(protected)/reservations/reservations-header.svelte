@@ -8,7 +8,7 @@
 <header class="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
 	<div class="flex max-w-3xl flex-col gap-2">
 		<h1 class="text-2xl font-semibold tracking-tight sm:text-3xl">Reservations</h1>
-		
+
 		<p class="max-w-2xl text-sm leading-relaxed text-muted-foreground sm:text-base">
 			Manage incoming guest requests across your hospitalities — accept, decline, and track every
 			booking.

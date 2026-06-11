@@ -10,9 +10,7 @@ export async function getActivePartnershipsByHospitality(
 		hospitalityIds.map((id) =>
 			ctx.db
 				.query('partnerships')
-				.withIndex('by_hospitality_active', (q) =>
-					q.eq('hospitalityId', id).eq('isActive', true)
-				)
+				.withIndex('by_hospitality_active', (q) => q.eq('hospitalityId', id).eq('isActive', true))
 				.collect()
 		)
 	);

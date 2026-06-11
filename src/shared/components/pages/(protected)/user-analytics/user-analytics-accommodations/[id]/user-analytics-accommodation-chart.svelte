@@ -7,13 +7,13 @@
 
 	let {
 		data
-	}: { 
-	    data: { 
+	}: {
+		data: {
 			date: number;
 			qrScans: number;
 			guestActivations: number;
-			reservations: number 
-		}[] 
+			reservations: number;
+		}[];
 	} = $props();
 
 	const chartData = $derived(data.map((p) => ({ ...p, date: new Date(p.date) })));

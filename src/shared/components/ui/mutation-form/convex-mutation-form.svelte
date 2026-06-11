@@ -1,4 +1,4 @@
-﻿<script lang="ts" generics="T extends Record<string, unknown>">
+<script lang="ts" generics="T extends Record<string, unknown>">
 	// LIBRARIES
 	import { useConvexClient } from 'convex-svelte';
 	import { toast } from 'svelte-sonner';

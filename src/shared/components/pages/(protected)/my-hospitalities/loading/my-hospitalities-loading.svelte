@@ -8,9 +8,7 @@
 <div class="flex flex-col gap-2">
 	{#each skeletonKeys as index (index)}
 		<div class="rounded-xl border border-border bg-card px-3 py-3 md:px-4">
-			<div
-				class="grid gap-3 md:grid-cols-[4.5rem_minmax(0,1fr)_auto] md:items-center"
-			>
+			<div class="grid gap-3 md:grid-cols-[4.5rem_minmax(0,1fr)_auto] md:items-center">
 				<Skeleton class="size-16 rounded-lg md:size-18" />
 				<div class="space-y-2">
 					<Skeleton class="h-4 w-52 max-w-full" />

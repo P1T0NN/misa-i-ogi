@@ -12,13 +12,13 @@
 
 <Section id="gallery" surface="background" yPadding="lg" ariaLabelledby="gallery-heading">
 	<div class="mb-12 text-center">
-		<p class="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+		<p class="mb-2 text-xs font-semibold tracking-[0.2em] text-muted-foreground uppercase">
 			{m['TestimonialsSection.PremiumDesign.eyebrow']()}
 		</p>
-		
+
 		<h2
 			id="gallery-heading"
-			class="font-serif text-3xl font-medium italic text-primary sm:text-4xl"
+			class="font-serif text-3xl font-medium text-primary italic sm:text-4xl"
 		>
 			{m['TestimonialsSection.PremiumDesign.title']()}
 		</h2>
@@ -28,7 +28,7 @@
 
 	<div class="my-12 flex items-center gap-6">
 		<div class="h-px flex-1 bg-border"></div>
-		<span class="font-serif text-2xl italic leading-none text-border" aria-hidden="true">·</span>
+		<span class="font-serif text-2xl leading-none text-border italic" aria-hidden="true">·</span>
 		<div class="h-px flex-1 bg-border"></div>
 	</div>
 

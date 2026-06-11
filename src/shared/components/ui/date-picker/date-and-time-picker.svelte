@@ -1,9 +1,9 @@
 <script lang="ts">
-    // LIBRARIES
-    import { m } from '@/shared/lib/paraglide/messages';
-    import { getLocalTimeZone, type CalendarDate } from '@internationalized/date';
+	// LIBRARIES
+	import { m } from '@/shared/lib/paraglide/messages';
+	import { getLocalTimeZone, type CalendarDate } from '@internationalized/date';
 
-    // COMPONENTS
+	// COMPONENTS
 	import Calendar from '@/shared/components/ui/calendar/calendar.svelte';
 	import * as Popover from '@/shared/components/ui/popover/index.js';
 	import { Button } from '@/shared/components/ui/button/index.js';

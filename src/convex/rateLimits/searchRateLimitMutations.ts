@@ -10,9 +10,8 @@ import type { ConvexErrorPayload } from '@/convex/types/convexTypes';
 import type { ConvexRateLimitName } from '@/convex/rateLimits/registry';
 
 const SEARCH_LIMIT_SECRET_ENV = 'SEARCH_INPUT_RATE_LIMIT_SECRET';
-const AUTHENTICATED_KEY_MODES = ['user', 'fallback', 'userAndFallback'] as const;
 
-type AuthenticatedKeyMode = (typeof AUTHENTICATED_KEY_MODES)[number];
+type AuthenticatedKeyMode = 'user' | 'fallback' | 'userAndFallback';
 
 /** Trusted server-side bridge for public search rate limits. */
 export const consumeSearchRateLimit = mutation({

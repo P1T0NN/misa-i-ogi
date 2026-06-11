@@ -16,9 +16,7 @@ export const partnershipAddFormSchema = v.object({
 			v.string(),
 			v.trim(),
 			v.check(
-				(s) =>
-					s === '' ||
-					(!Number.isNaN(Number(s)) && Number(s) >= 1 && Number(s) <= 100),
+				(s) => s === '' || (!Number.isNaN(Number(s)) && Number(s) >= 1 && Number(s) <= 100),
 				m['ValidationMessages.CreatePartnershipSchema.discountRange']()
 			)
 		)

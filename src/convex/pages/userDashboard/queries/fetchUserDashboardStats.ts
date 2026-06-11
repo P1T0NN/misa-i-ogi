@@ -10,11 +10,11 @@ import { getUserDashboardStats } from '../helpers/getUserDashboardStats';
 
 // TYPES
 import type { ConvexErrorPayload } from '@/convex/types/convexTypes';
-import type { UserDashboardStat } from '../types/userDashboardTypes';
+import type { UserDashboardCounts } from '../types/userDashboardTypes';
 
 export const fetchUserDashboardStats = query({
 	args: {},
-	handler: async (ctx): Promise<UserDashboardStat[]> => {
+	handler: async (ctx): Promise<UserDashboardCounts> => {
 		const userId = await getAuthUserId(ctx);
 
 		if (!userId) {

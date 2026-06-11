@@ -47,7 +47,7 @@ const PHRASES: Record<string, string> = {
 	Hostel: 'Hostel',
 	Other: 'Ostalo',
 	Restaurant: 'Restoran',
-	'Café': 'Kafić',
+	Café: 'Kafić',
 	Bar: 'Bar',
 	'Night club': 'Noćni klub',
 	'Horse ride': 'Vožnja konjem',

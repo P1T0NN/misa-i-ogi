@@ -19,9 +19,7 @@
 	const v = $derived(DEMO_VENUES[demo.currentVenue]);
 
 	function screenClass(step: number) {
-		return demo.currentStep === step
-			? 'z-4 opacity-100'
-			: 'pointer-events-none z-0 opacity-0';
+		return demo.currentStep === step ? 'z-4 opacity-100' : 'pointer-events-none z-0 opacity-0';
 	}
 </script>
 
@@ -37,6 +35,11 @@
 			onOpenDetail={demo.openDetail}
 		/>
 		<Screen5 layerClass={screenClass(5)} venue={v} onGoTo={demo.goTo} />
-		<Screen6 layerClass={screenClass(6)} venue={v} onGoTo={demo.goTo} onMarkRedeemed={demo.markRedeemed} />
+		<Screen6
+			layerClass={screenClass(6)}
+			venue={v}
+			onGoTo={demo.goTo}
+			onMarkRedeemed={demo.markRedeemed}
+		/>
 	{/snippet}
 </PhoneMockup>

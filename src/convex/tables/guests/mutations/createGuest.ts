@@ -10,6 +10,8 @@ import { GUEST_STAY_DURATION_MS } from '@/convex/projectSettings';
 // HELPERS
 import { getGuestSessionsByAccommodationId } from '@/convex/tables/guests/helpers/getGuestSessionsByAccommodationId';
 import { getAccommodationByScanTokenSafe } from '@/convex/tables/accommodations/helpers/getAccommodationByScanTokenSafe';
+import { getActivePartnershipsByAccommodation } from '@/convex/tables/partnerships/helpers/getActivePartnershipsByAccommodation';
+import { getHospitalitiesByIds } from '@/convex/tables/hospitalities/helpers/getHospitalitiesByIds';
 import { analytics } from '@/convex/analytics';
 
 // UTILS
@@ -56,27 +58,12 @@ export const createGuest = mutation({
 		}
 
 		const now = Date.now();
+		const accommodationOwnerScope = {
+			scopeType: 'organization' as const,
+			scopeId: createAnalyticsScopeId('accommodationOwner', accommodationDoc.ownerId)
+		};
 
 		const existingGuests = await getGuestSessionsByAccommodationId(ctx, accommodation._id);
-
-		const writeQrScan = async (actorId: string) => {
-			await analytics.writeTrack(ctx, {
-				name: 'qr.scanned',
-				actorId,
-				organizationId: accommodationDoc.ownerId,
-				scopes: [
-					{
-						scopeType: 'organization',
-						scopeId: createAnalyticsScopeId('accommodationOwner', accommodationDoc.ownerId)
-					}
-				],
-				properties: {
-					accommodationId: accommodation._id,
-					accommodationName: accommodation.name,
-					scanType: 'check-in'
-				}
-			});
-		};
 
 		for (const guest of existingGuests) {
 			if (guest.expiresAt < now) {
@@ -86,7 +73,17 @@ export const createGuest = mutation({
 
 		const activeGuest = existingGuests.find((guest) => guest.expiresAt >= now);
 		if (activeGuest) {
-			await writeQrScan(activeGuest._id);
+			await analytics.track(ctx, 'qr.scanned', {
+				actorId: activeGuest._id,
+				subject: { type: 'accommodation', id: accommodation._id },
+				organizationId: accommodationDoc.ownerId,
+				scopes: [accommodationOwnerScope],
+				properties: {
+					accommodationId: accommodation._id,
+					accommodationName: accommodation.name,
+					scanType: 'check-in'
+				}
+			});
 			return {
 				success: false,
 				message: { key: 'GenericMessages.GUEST_ALREADY_ACTIVE' }
@@ -117,23 +114,47 @@ export const createGuest = mutation({
 			lastSeenAt: now
 		});
 
-		await writeQrScan(guestId);
+		// Activation also counts for partner venue owners — their analytics pages read
+		// `guestActivations` at the `hospitalityOwner` scope (funnel: scan → activation → view).
+		const [partnerships] = await getActivePartnershipsByAccommodation(ctx, [accommodation._id]);
+		const partnerHospitalities = await getHospitalitiesByIds(
+			ctx,
+			partnerships.map((partnership) => partnership.hospitalityId)
+		);
+		const partnerHospitalityOwnerScopes = [
+			...new Set(partnerHospitalities.map((hospitality) => hospitality.ownerId))
+		].map((ownerId) => ({
+			scopeType: 'organization' as const,
+			scopeId: createAnalyticsScopeId('hospitalityOwner', ownerId)
+		}));
 
-		await analytics.writeTrack(ctx, {
-			name: 'guest.activated',
-			actorId: guestId,
-			organizationId: accommodationDoc.ownerId,
-			scopes: [
+		await analytics.track(ctx, {
+			events: [
 				{
-					scopeType: 'organization',
-					scopeId: createAnalyticsScopeId('accommodationOwner', accommodationDoc.ownerId)
+					name: 'qr.scanned',
+					actorId: guestId,
+					subject: { type: 'accommodation', id: accommodation._id },
+					organizationId: accommodationDoc.ownerId,
+					scopes: [accommodationOwnerScope],
+					properties: {
+						accommodationId: accommodation._id,
+						accommodationName: accommodation.name,
+						scanType: 'check-in'
+					}
+				},
+				{
+					name: 'guest.activated',
+					actorId: guestId,
+					subject: { type: 'accommodation', id: accommodation._id },
+					organizationId: accommodationDoc.ownerId,
+					scopes: [accommodationOwnerScope, ...partnerHospitalityOwnerScopes],
+					properties: {
+						accommodationId: accommodation._id,
+						accommodationName: accommodation.name,
+						accommodationType: accommodation.type
+					}
 				}
-			],
-			properties: {
-				accommodationId: accommodation._id,
-				accommodationName: accommodation.name,
-				accommodationType: accommodation.type
-			}
+			]
 		});
 
 		return {

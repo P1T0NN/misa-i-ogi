@@ -16,8 +16,7 @@ import { createCookie } from '@/shared/utils/cookieUtils';
 // TYPES
 import type { PageServerLoad } from './$types';
 
-const stayAlreadyActiveHref = () =>
-	`${UNPROTECTED_PAGE_ENDPOINTS.STAY}?activation=already_active`;
+const stayAlreadyActiveHref = () => `${UNPROTECTED_PAGE_ENDPOINTS.STAY}?activation=already_active`;
 
 export const load: PageServerLoad = async (event) => {
 	const { params, cookies } = event;
@@ -27,10 +26,10 @@ export const load: PageServerLoad = async (event) => {
 	const client = createConvexHttpClient();
 
 	try {
-		const result = await client.mutation(
-			api.tables.guests.mutations.createGuest.createGuest,
-			{ scanToken: token, ip: event.getClientAddress() }
-		);
+		const result = await client.mutation(api.tables.guests.mutations.createGuest.createGuest, {
+			scanToken: token,
+			ip: event.getClientAddress()
+		});
 
 		if (result.success && result.data?.signedCookie) {
 			createCookie(cookies, {

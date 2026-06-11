@@ -12,14 +12,12 @@
 	import ArrowLeftIcon from '@lucide/svelte/icons/arrow-left';
 </script>
 
-<header
-	class="flex w-full flex-col gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4"
->
+<header class="flex w-full flex-col gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
 	<div class="flex min-w-0 flex-col gap-1 sm:flex-1">
 		<h1 class="text-2xl font-semibold tracking-tight">
 			{m['EditHospitalityPage.title']()}
 		</h1>
-		<p class="text-muted-foreground text-sm leading-relaxed">
+		<p class="text-sm leading-relaxed text-muted-foreground">
 			{m['EditHospitalityPage.description']()}
 		</p>
 	</div>

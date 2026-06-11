@@ -47,7 +47,7 @@
 	<div class="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
 		<div>
 			<h2 class="text-lg font-semibold tracking-normal">Assigned stays</h2>
-			<p class="text-muted-foreground text-sm">
+			<p class="text-sm text-muted-foreground">
 				Compact overview of stay type, status, and location for each assigned accommodation.
 			</p>
 		</div>
@@ -64,7 +64,7 @@
 			query={api.tables.accommodations.queries.fetchMyAccommodations.fetchMyAccommodations}
 			pageSize={PAGINATION_DATA.DEFAULT_PAGE_SIZE}
 			totalCount={summary?.totalCount}
-			summaryLoading={summaryLoading}
+			{summaryLoading}
 			hasError={Boolean(summaryQuery.error)}
 			getItemKey={(accommodation) => String(accommodation._id)}
 		>

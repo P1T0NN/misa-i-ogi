@@ -7,6 +7,7 @@ This repository uses **Bun**.
 For one-off CLIs, always use `bunx` instead of `npx`.
 
 Examples:
+
 ```bash
 bunx @sveltejs/mcp svelte-autofixer ...
 bunx convex codegen
@@ -55,8 +56,8 @@ This app uses **Paraglide** with locale-prefixed public URLs (`/sr/...`) and unp
 ```ts
 import { appHref, appGoto } from '@/shared/utils/app-navigation';
 
-appHref('/demo');   // → `/demo` (en) or `/sr/demo` (sr)
-appGoto('/login');  // programmatic navigate with locale applied
+appHref('/demo'); // → `/demo` (en) or `/sr/demo` (sr)
+appGoto('/login'); // programmatic navigate with locale applied
 ```
 
 - **`appHref(href)`** — `resolve(localizeHref(href))` for declarative links.
@@ -70,30 +71,30 @@ Do **not** re-export or shadow SvelteKit's `goto` from `$app/navigation`.
 
 Prefer shared components that already call `appHref` internally:
 
-| Use | For |
-|---|---|
-| `Link` from `link/link.svelte` | In-app routes (default for navigation) |
-| `Button` with `href` | Button-styled links |
-| `Breadcrumb.Link` | Internal breadcrumb paths (paths starting with `/`) |
+| Use                            | For                                                 |
+| ------------------------------ | --------------------------------------------------- |
+| `Link` from `link/link.svelte` | In-app routes (default for navigation)              |
+| `Button` with `href`           | Button-styled links                                 |
+| `Breadcrumb.Link`              | Internal breadcrumb paths (paths starting with `/`) |
 
 Use raw `<a>` only for **external** URLs (`https://`, `mailto:`, `tel:`). Never run those through `appHref`.
 
 ## Programmatic navigation
 
-| Use | For |
-|---|---|
-| `appGoto('/path')` | Redirect after auth, form success, delete, logout, etc. |
+| Use                               | For                                                                                                                                                   |
+| --------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `appGoto('/path')`                | Redirect after auth, form success, delete, logout, etc.                                                                                               |
 | Raw `goto` from `$app/navigation` | URLs already localized by Paraglide (e.g. `decision.redirectUrl` in `+layout.svelte`) or intentional current-path edits (e.g. stripping query params) |
 
 Never use `goto(resolve(...))` for internal routes — use `appGoto(...)` instead.
 
 ## Related Paraglide pieces (do not duplicate)
 
-| Piece | Role |
-|---|---|
-| `urlPatterns` + `routeStrategies` (`vite.config.ts`) | Rule book for URL shape per locale |
-| `paraglideMiddleware` (`hooks.server.ts`) | SSR locale detection and redirects |
-| `reroute` (`hooks.ts`) | Maps localized URLs to SvelteKit route files |
+| Piece                                                 | Role                                                                         |
+| ----------------------------------------------------- | ---------------------------------------------------------------------------- |
+| `urlPatterns` + `routeStrategies` (`vite.config.ts`)  | Rule book for URL shape per locale                                           |
+| `paraglideMiddleware` (`hooks.server.ts`)             | SSR locale detection and redirects                                           |
+| `reroute` (`hooks.ts`)                                | Maps localized URLs to SvelteKit route files                                 |
 | `shouldRedirect` / `syncLocaleUrl` (`+layout.svelte`) | Client safety net after navigation — not a substitute for `appHref` on links |
 
 When adding new routes or links, verify behavior for both `en` (unprefixed) and `sr` (`/sr/` prefix) on public pages, and that admin paths stay unprefixed.
@@ -113,6 +114,7 @@ Always use the MCP tools systematically instead of relying on memory alone.
 Use this FIRST when working with Svelte or SvelteKit.
 
 This returns available documentation sections with:
+
 - titles
 - use cases
 - paths
@@ -128,6 +130,7 @@ Do not skip this step.
 After using `list-sections`, fetch ALL documentation sections relevant to the task.
 
 Prioritize:
+
 - official patterns
 - idiomatic Svelte 5 approaches
 - SSR compatibility
@@ -142,6 +145,7 @@ Never rely on assumptions when documentation is available.
 ### 3. `svelte-autofixer`
 
 Whenever writing or modifying Svelte code:
+
 1. Run the autofixer
 2. Review all warnings and suggestions
 3. Apply meaningful improvements
@@ -164,6 +168,7 @@ Do not finalize Svelte code before running the autofixer.
 This project is treated as a reusable long-term architecture foundation, not a one-off application.
 
 Assume components, utilities, patterns, and modules will later be:
+
 - copied into future projects
 - extracted into shared libraries
 - extended by other developers
@@ -172,6 +177,7 @@ Assume components, utilities, patterns, and modules will later be:
 - reused in unrelated domains
 
 Optimize for:
+
 1. Reusability
 2. Maintainability
 3. Developer experience (DX)
@@ -187,6 +193,7 @@ Never optimize for quick hacks that create future coupling.
 # Architecture Standards
 
 Before implementing code, evaluate:
+
 - portability
 - scalability
 - composability
@@ -197,6 +204,7 @@ Before implementing code, evaluate:
 - long-term maintainability
 
 Prefer:
+
 - composition over inheritance
 - explicit APIs
 - backend-agnostic abstractions
@@ -208,6 +216,7 @@ Prefer:
 - reusable primitives
 
 Avoid:
+
 - project-specific assumptions
 - hardcoded business logic
 - tightly coupled components
@@ -225,6 +234,7 @@ Business logic should remain separable from UI whenever practical.
 Do not tightly couple UI components to Convex.
 
 Avoid embedding:
+
 - Convex-specific assumptions
 - database schema assumptions
 - direct mutation/query logic in reusable UI
@@ -232,6 +242,7 @@ Avoid embedding:
 - hardcoded endpoints
 
 Prefer:
+
 - adapters
 - composables
 - injected data sources
@@ -246,6 +257,7 @@ Components should remain usable even if Convex is later replaced.
 Use idiomatic Svelte 5 patterns.
 
 Prefer:
+
 - runes where appropriate
 - local reasoning
 - explicit data flow
@@ -255,6 +267,7 @@ Prefer:
 - minimal reactive complexity
 
 Avoid:
+
 - React-style architecture patterns
 - unnecessary stores
 - excessive derived state
@@ -272,9 +285,9 @@ In `.svelte` templates, prefer `{#if}` / `{:else}` for UI branches — labels, b
 ```svelte
 <!-- Prefer -->
 {#if active}
-  <Badge variant="success">Active</Badge>
+	<Badge variant="success">Active</Badge>
 {:else}
-  <Badge variant="secondary">Inactive</Badge>
+	<Badge variant="secondary">Inactive</Badge>
 {/if}
 
 <!-- Avoid in markup -->
@@ -289,9 +302,9 @@ For `isLoading`, `isPending`, or similar in markup, use `<Spinner />` from `@/sh
 
 ```svelte
 {#if isLoading}
-  <Spinner class="size-5" />
+	<Spinner class="size-5" />
 {:else}
-  {count}
+	{count}
 {/if}
 ```
 
@@ -304,6 +317,7 @@ Use `Skeleton` for full-row or layout placeholders; use `Spinner` for inline val
 Code should feel excellent to work with.
 
 Prioritize:
+
 - strong typing
 - intuitive APIs
 - self-documenting code
@@ -326,6 +340,7 @@ Prefer APIs that are understandable without documentation.
 Default to production-grade performance patterns.
 
 Prefer:
+
 - minimal reactive cascades
 - low hydration cost
 - SSR when beneficial
@@ -347,6 +362,7 @@ Prioritize architectural performance over trivial optimizations.
 Assume every exported component may become part of a shared internal library.
 
 Therefore:
+
 - keep dependencies minimal
 - avoid hidden assumptions
 - expose extensible APIs
@@ -364,6 +380,7 @@ When reasonable, design components like reusable framework primitives rather tha
 Before finalizing any implementation, perform an internal review.
 
 Evaluate:
+
 - Is this reusable?
 - Is this portable?
 - Is this overly coupled to the current project?

@@ -58,12 +58,7 @@
 	}
 </script>
 
-<Button
-	type="button"
-	class="mt-4 w-full shadow-none"
-	disabled={submitting}
-	onclick={handleSend}
->
+<Button type="button" class="mt-4 w-full shadow-none" disabled={submitting} onclick={handleSend}>
 	{#if submitting}
 		<Spinner />
 	{/if}

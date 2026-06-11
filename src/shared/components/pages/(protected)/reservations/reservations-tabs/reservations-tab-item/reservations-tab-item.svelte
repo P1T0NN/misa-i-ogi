@@ -30,7 +30,7 @@
 	const hospitalityDisplayName = $derived(
 		reservation.hospitalityName?.trim() || String(reservation.hospitalityId)
 	);
-	const email = $derived(reservation.email.trim());
+	const email = $derived(reservation.email?.trim() ?? '');
 </script>
 
 <Card>

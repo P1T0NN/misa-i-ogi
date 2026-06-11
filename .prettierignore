@@ -7,3 +7,9 @@ bun.lockb
 
 # Miscellaneous
 /static/
+
+# Machine-generated code (convex codegen rewrites these with platform line endings)
+**/_generated/
+
+# Local-only editor/agent state
+.claude/settings.local.json

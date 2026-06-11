@@ -84,8 +84,8 @@ export const createHospitality = adminMutation('createHospitality')({
 
 		const hospitalityId = await ctx.db.insert('hospitalities', hospitality);
 
-		await analytics.writeTrack(ctx, {
-			name: 'hospitality.claimed',
+		await analytics.track(ctx, 'hospitality.claimed', {
+			subject: { type: 'hospitality', id: hospitalityId },
 			organizationId: resolvedOwnerId,
 			scopes: [
 				{

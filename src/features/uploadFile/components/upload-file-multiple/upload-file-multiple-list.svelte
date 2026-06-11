@@ -1,6 +1,6 @@
 <script lang="ts">
 	// LIBRARIES
-	import { m } from "@/shared/lib/paraglide/messages";
+	import { m } from '@/shared/lib/paraglide/messages';
 
 	// COMPONENTS
 	import UploadFileItemMultiple from './upload-file-item-multiple.svelte';

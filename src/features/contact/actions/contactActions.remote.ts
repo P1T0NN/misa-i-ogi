@@ -16,7 +16,7 @@ import { sendContactFormEmailSchema } from '@/features/contact/schemas/contactSc
 
 export const sendContactFormEmail = safeCommand(sendContactFormEmailSchema, async (data) => {
 	const resend = new Resend(RESEND_API_KEY);
-	
+
 	const { error } = await resend.emails.send({
 		from: `Website Contact Form <noreply@${COMPANY_DATA.DOMAIN}>`,
 		to: [COMPANY_DATA.EMAIL],

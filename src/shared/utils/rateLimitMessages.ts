@@ -1,5 +1,8 @@
 ﻿// UTILS
-import { translateFromBackend, type TranslatableMessage } from '@/shared/utils/translateFromBackend';
+import {
+	translateFromBackend,
+	type TranslatableMessage
+} from '@/shared/utils/translateFromBackend';
 
 function descriptor(retryAfterMs: number | undefined): TranslatableMessage {
 	if (typeof retryAfterMs !== 'number' || retryAfterMs <= 0) {
@@ -42,10 +45,7 @@ function parseDescriptor(raw: string): TranslatableMessage | null {
  *
  * Server-side wire JSON is built in {@link convexCreateRateLimit} (Convex cannot import Paraglide).
  */
-export function rateLimitMessage(
-	input?: number | string | null,
-	second?: string
-): string {
+export function rateLimitMessage(input?: number | string | null, second?: string): string {
 	if (typeof input === 'string') {
 		const parsed = parseDescriptor(input);
 		if (parsed) return translateFromBackend(parsed);

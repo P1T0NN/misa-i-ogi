@@ -51,10 +51,7 @@
 			{/if}
 		</Button>
 
-		<div
-			id={detailsId}
-			class="space-y-4 rounded-lg border border-border/80 bg-background/70 p-4"
-		>
+		<div id={detailsId} class="space-y-4 rounded-lg border border-border/80 bg-background/70 p-4">
 			<div class="space-y-1">
 				{#if isConfirmed}
 					<p class="font-serif text-lg leading-tight font-medium tracking-tight">

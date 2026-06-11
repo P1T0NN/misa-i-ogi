@@ -12,7 +12,7 @@
         "@mmailaender/convex-svelte": "^0.18.0",
         "@oslojs/crypto": "^1.0.1",
         "@oslojs/encoding": "^1.1.0",
-        "@piton-/analytics-convex": "^0.1.21",
+        "@piton-/analytics-convex": "^1.0.1",
         "@types/d3-scale": "^4.0.9",
         "@vercel/analytics": "^2.0.1",
         "@vercel/speed-insights": "^2.0.0",
@@ -396,7 +396,7 @@
 
     "@oxc-project/types": ["@oxc-project/types@0.133.0", "", {}, "sha512-KzkdCd6Uxqnf6l3HOw1xfatAlUURA0g14cvBYFyJ5SaNOQbOUvBr9PKArcPcrNIeRsBdgcUzOGrhKveVpvOIGA=="],
 
-    "@piton-/analytics-convex": ["@piton-/analytics-convex@0.1.21", "", { "peerDependencies": { "convex": "^1.36.1" } }, "sha512-2YG6SqnajxNo9m0LUJtSE9IrEx3Y2QiPy4VknnlPw8AUfzHaBfX0CoBoR+SDKutYxymz8mroPIPbbAnyPSkOVA=="],
+    "@piton-/analytics-convex": ["@piton-/analytics-convex@1.0.1", "", { "peerDependencies": { "convex": "^1.36.1", "convex-test": "^0.0.49" }, "optionalPeers": ["convex-test"] }, "sha512-9oN6lHOP1sIqvf1pWClMOWeTb207z6iieKE9hbKccHseh8LbpHAk+9EwciGwDXvNrwI9aasNz3Vm/DSd5wKcbw=="],
 
     "@polka/url": ["@polka/url@1.0.0-next.29", "", {}, "sha512-wwQAWhWSuHaag8c4q/KN/vCoeOJYshAIvMQwD4GpSb3OiZklFfvAgmj0VCBBImRpuF/aFgIRzllXlVX93Jevww=="],
 

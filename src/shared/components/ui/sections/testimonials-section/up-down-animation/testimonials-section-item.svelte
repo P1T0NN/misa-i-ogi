@@ -11,7 +11,7 @@
 	}: { testimonial: typesTestimonial; cardShadow?: string } = $props();
 </script>
 
-<div class="pl-2 md:pl-4 flex-[0_0_85%] min-w-0 md:flex-none md:w-full md:basis-1/2 lg:basis-full">
+<div class="min-w-0 flex-[0_0_85%] pl-2 md:w-full md:flex-none md:basis-1/2 md:pl-4 lg:basis-full">
 	<div
 		class="group flex h-full min-w-0 flex-col gap-3 border-2 border-black bg-white p-4 transition-all duration-300 hover:-translate-y-1 hover:shadow-[10px_10px_0px_0px_var(--primary)] md:gap-8 md:p-8"
 		style={cardShadow ? `box-shadow: ${cardShadow}` : undefined}

@@ -1,4 +1,4 @@
-﻿<script lang="ts" module>
+<script lang="ts" module>
 	// TYPES
 	import type { PaginatedListPayload } from '@/shared/components/ui/data-table/types.js';
 	import type { SearchInputBaseProps, SearchInputItem } from './types.js';
@@ -79,9 +79,7 @@
 		const args = {
 			...(queryArgs ?? {}),
 			[searchArgName]: searchTerm,
-			...(includePaginationOpts
-				? { paginationOpts: { numItems: maxResults, cursor: null } }
-				: {})
+			...(includePaginationOpts ? { paginationOpts: { numItems: maxResults, cursor: null } } : {})
 		};
 
 		loading = true;

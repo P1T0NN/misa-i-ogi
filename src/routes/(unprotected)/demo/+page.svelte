@@ -1,11 +1,11 @@
 <script lang="ts">
-    // SVELTEKIT IMPORTS
+	// SVELTEKIT IMPORTS
 	import { onMount } from 'svelte';
 
-    // COMPONENTS
+	// COMPONENTS
 	import SvelteHead from '@/shared/components/ui/svelte-head/svelte-head.svelte';
 
-    // RUNES
+	// RUNES
 	import { createDemoPage } from './demoPage.svelte.ts';
 	import DemoPhoneSection from '@/shared/components/pages/(unprotected)/demo/demo-phone-section.svelte';
 

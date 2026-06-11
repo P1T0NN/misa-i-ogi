@@ -13,13 +13,8 @@ import type { Doc } from '@/convex/_generated/dataModel';
  * full rationale behind the Phase-1 cover-image cleanup and the atomicity
  * invariant — same shape, different table.
  */
-const cleanupCoverImages = async (
-	ctx: MutationCtx,
-	docs: Doc<'hospitalities'>[]
-) => {
-	const keys = [
-		...new Set(docs.map((d) => d.coverImageKey).filter((k): k is string => !!k))
-	];
+const cleanupCoverImages = async (ctx: MutationCtx, docs: Doc<'hospitalities'>[]) => {
+	const keys = [...new Set(docs.map((d) => d.coverImageKey).filter((k): k is string => !!k))];
 	await Promise.all(
 		keys.map(async (key) => {
 			const [row] = await Promise.all([

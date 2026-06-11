@@ -32,11 +32,8 @@
 
 	const convex = useConvexClient();
 
-	const sessionsQuery = useQuery(
-		api.tables.users.userQueries.listUserSessions,
-		() => ({ userId })
-	);
-	const sessions = $derived((sessionsQuery.data ?? []) as Doc<"session">[]);
+	const sessionsQuery = useQuery(api.tables.users.userQueries.listUserSessions, () => ({ userId }));
+	const sessions = $derived((sessionsQuery.data ?? []) as Doc<'session'>[]);
 
 	/**
 	 * Tracks which session tokens have an in-flight revoke. Used to disable the
@@ -65,15 +62,14 @@
 		appGoto(UNPROTECTED_PAGE_ENDPOINTS.LOGIN);
 	}
 
-	async function revokeOne(session: Doc<"session">) {
+	async function revokeOne(session: Doc<'session'>) {
 		if (revokingTokens.has(session.token)) return;
 		revokingTokens.add(session.token);
 		try {
-			const result = await safeMutation(
-				convex,
-				api.tables.users.userMutations.revokeSession,
-				{ sessionToken: session.token, userId }
-			);
+			const result = await safeMutation(convex, api.tables.users.userMutations.revokeSession, {
+				sessionToken: session.token,
+				userId
+			});
 			if (!toastResult(result)) return;
 
 			await bounceIfSelf();
@@ -85,11 +81,9 @@
 	async function revokeAll() {
 		isRevokingAll = true;
 		try {
-			const result = await safeMutation(
-				convex,
-				api.tables.users.userMutations.revokeAllSessions,
-				{ userId }
-			);
+			const result = await safeMutation(convex, api.tables.users.userMutations.revokeAllSessions, {
+				userId
+			});
 			if (!toastResult(result)) return;
 
 			await bounceIfSelf();
@@ -103,7 +97,7 @@
 	<header class="flex flex-col items-start justify-between gap-2 md:flex-row md:items-center">
 		<div class="flex flex-col gap-0.5">
 			<h2 class="text-base font-semibold">{m['AdminUserPage.UserSessions.title']()}</h2>
-			<p class="text-muted-foreground text-sm">
+			<p class="text-sm text-muted-foreground">
 				{m['AdminUserPage.UserSessions.description']()}
 			</p>
 		</div>
@@ -117,21 +111,18 @@
 	</header>
 
 	{#if sessionsQuery.error}
-		<p class="text-destructive text-sm">{m['AdminUserPage.UserSessions.failedLoad']()}</p>
+		<p class="text-sm text-destructive">{m['AdminUserPage.UserSessions.failedLoad']()}</p>
 	{:else if sessionsQuery.data === undefined}
 		<div class="flex flex-col gap-2">
 			<Skeleton class="h-16 w-full" />
 			<Skeleton class="h-16 w-full" />
 		</div>
 	{:else if sessions.length === 0}
-		<p class="text-muted-foreground text-sm">{m['AdminUserPage.UserSessions.noSessions']()}</p>
+		<p class="text-sm text-muted-foreground">{m['AdminUserPage.UserSessions.noSessions']()}</p>
 	{:else}
 		<div class="flex flex-col gap-2" role="list">
 			{#each sessions as session (session.token)}
-				<Card
-					class="gap-0 rounded-md py-0 shadow-none md:gap-0"
-					role="listitem"
-				>
+				<Card class="gap-0 rounded-md py-0 shadow-none md:gap-0" role="listitem">
 					<CardContent
 						class="flex flex-col items-start justify-between gap-2 p-3 md:flex-row md:items-center"
 					>
@@ -140,10 +131,14 @@
 								{session.userAgent || m['AdminUserPage.UserSessions.unknownDevice']()}
 							</span>
 
-							<div class="text-muted-foreground flex flex-wrap gap-x-3 gap-y-0.5 text-xs">
+							<div class="flex flex-wrap gap-x-3 gap-y-0.5 text-xs text-muted-foreground">
 								<span>{m['AdminUserPage.UserSessions.ip']()}: {session.ipAddress || '—'}</span>
-								<span>{m['AdminUserPage.UserSessions.created']()}: {formatTs(session.createdAt)}</span>
-								<span>{m['AdminUserPage.UserSessions.expires']()}: {formatTs(session.expiresAt)}</span>
+								<span
+									>{m['AdminUserPage.UserSessions.created']()}: {formatTs(session.createdAt)}</span
+								>
+								<span
+									>{m['AdminUserPage.UserSessions.expires']()}: {formatTs(session.expiresAt)}</span
+								>
 							</div>
 						</div>
 

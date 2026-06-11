@@ -20,16 +20,18 @@ export async function getUserDashboardPendingReservations(
 		.order('desc')
 		.collect();
 
-	const items: UserDashboardPendingReservation[] = reservations.slice(0, limit).map((reservation) => ({
-		id: reservation._id,
-		guestName: reservation.guestName,
-		hospitalityName: reservation.hospitalityName,
-		email: reservation.email,
-		phone: reservation.phone,
-		guestCount: reservation.guestCount,
-		requestedTime: reservation.requestedTime,
-		status: reservation.status
-	}));
+	const items: UserDashboardPendingReservation[] = reservations
+		.slice(0, limit)
+		.map((reservation) => ({
+			id: reservation._id,
+			guestName: reservation.guestName,
+			hospitalityName: reservation.hospitalityName,
+			email: reservation.email,
+			phone: reservation.phone,
+			guestCount: reservation.guestCount,
+			requestedTime: reservation.requestedTime,
+			status: reservation.status
+		}));
 
 	return {
 		items,

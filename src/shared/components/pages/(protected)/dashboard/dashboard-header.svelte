@@ -1,6 +1,6 @@
 <script lang="ts">
-    // CONFIG
-    import { COMPANY_DATA } from "@/shared/constants.js";
+	// CONFIG
+	import { COMPANY_DATA } from '@/shared/constants.js';
 </script>
 
 <header class="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">

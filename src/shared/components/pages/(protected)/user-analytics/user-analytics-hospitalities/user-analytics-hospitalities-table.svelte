@@ -1,6 +1,13 @@
 <script lang="ts">
 	// COMPONENTS
 	import { Button } from '@/shared/components/ui/button/index.js';
+	import {
+		Card,
+		CardContent,
+		CardDescription,
+		CardHeader,
+		CardTitle
+	} from '@/shared/components/ui/card/index.js';
 	import DataTable from '@/shared/components/ui/data-table/data-table.svelte';
 
 	// UTILS
@@ -8,14 +15,11 @@
 		formatAnalyticsConversionRate,
 		formatAnalyticsCount,
 		formatAnalyticsType
-	} from '@/features/analytics/utils/analytics-display-formatters';
+	} from '@/features/analytics/utils/analyticsDisplayFormattersUtils';
 
 	// TYPES
 	import type { UserAnalyticsRankingRow } from '@/convex/pages/userAnalytics/types/userAnalyticsTypes';
-	import type {
-		ColumnDef,
-		DataTableCellSnippetProps
-	} from '@/shared/components/ui/data-table/types.js';
+	import type { ColumnDef, DataTableCellSnippetProps } from '@/shared/components/ui/data-table/types.js';
 
 	// LUCIDE ICONS
 	import ArrowRightIcon from '@lucide/svelte/icons/arrow-right';
@@ -48,7 +52,7 @@
 		},
 		{
 			id: 'requests',
-			header: 'Requests',
+			header: 'Reservations',
 			accessor: (row) => row.requests,
 			cellClass: 'tabular-nums'
 		},
@@ -89,23 +93,22 @@
 	</Button>
 {/snippet}
 
-<section class="flex min-w-0 flex-col gap-3" aria-labelledby="hospitalities-table-title">
-	<div>
-		<h2 id="hospitalities-table-title" class="text-lg font-semibold tracking-tight">
-			Hospitality performance
-		</h2>
-		<p class="text-sm text-muted-foreground">
-			Use this to find strong venues and quiet guest discovery paths.
-		</p>
-	</div>
+<Card class="min-w-0">
+	<CardHeader>
+		<CardTitle class="text-base">Hospitality performance</CardTitle>
+		<CardDescription>Use this to find strong venues and quiet guest discovery paths.</CardDescription>
+	</CardHeader>
 
-	<DataTable
-		data={rows}
-		{columns}
-		getRowId={(row) => row.id}
-		customCells={{
-			action: actionCell
-		}}
-		showPagination={false}
-	/>
-</section>
+	<CardContent>
+		<DataTable
+			data={rows}
+			{columns}
+			getRowId={(row) => row.id}
+			customCells={{
+				action: actionCell
+			}}
+			borderless
+			showPagination={false}
+		/>
+	</CardContent>
+</Card>

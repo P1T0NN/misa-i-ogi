@@ -36,7 +36,9 @@
 <Card>
 	<CardHeader>
 		<CardTitle class="text-base">Hospitality performance</CardTitle>
-		<CardDescription>Use this to find strong venues and quiet guest discovery paths.</CardDescription>
+		<CardDescription
+			>Use this to find strong venues and quiet guest discovery paths.</CardDescription
+		>
 	</CardHeader>
 	<CardContent class="space-y-3">
 		{#each [...Array(5).keys()] as index (index)}

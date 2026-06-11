@@ -12,6 +12,11 @@ const gitignorePath = fileURLToPath(new URL('./.gitignore', import.meta.url));
 
 export default defineConfig(
 	includeIgnoreFile(gitignorePath),
+	{
+		// Machine-generated output — not worth linting (their eslint-disable banners
+		// otherwise surface as hundreds of "unused directive" warnings).
+		ignores: ['src/paraglide/', 'src/shared/lib/paraglide/', '**/_generated/']
+	},
 	js.configs.recommended,
 	...ts.configs.recommended,
 	...svelte.configs.recommended,

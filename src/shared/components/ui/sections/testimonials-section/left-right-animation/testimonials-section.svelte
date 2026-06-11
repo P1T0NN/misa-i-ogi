@@ -17,15 +17,15 @@
 >
 	<div class="mb-12 flex w-full flex-col items-center justify-center gap-2 px-6">
 		<div class="mb-2 flex items-center gap-3">
-			<div class="bg-primary h-px w-8"></div>
-			<span class="font-body text-primary text-xs tracking-[0.2em] uppercase">
+			<div class="h-px w-8 bg-primary"></div>
+			<span class="font-body text-xs tracking-[0.2em] text-primary uppercase">
 				{m['TestimonialsSection.UpDownAnimation.socialProof']()}
 			</span>
 		</div>
 
 		<h3
 			id="testimonials-heading"
-			class="font-display text-foreground text-center text-4xl leading-none tracking-wide sm:text-5xl md:text-6xl"
+			class="text-center font-display text-4xl leading-none tracking-wide text-foreground sm:text-5xl md:text-6xl"
 		>
 			{m['TestimonialsSection.UpDownAnimation.seeWhyClientsKeepComingBack']()}
 		</h3>

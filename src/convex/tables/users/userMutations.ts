@@ -5,10 +5,7 @@ import { v } from 'convex/values';
 import { authComponent, createAuth } from '@/convex/auth/auth';
 import { adminMutation } from '@/convex/auth/middleware/authMiddleware';
 import { AUDIT_ACTIONS } from '@/convex/tables/auditLog/auditLogConfigs';
-import {
-	mutationResultValidator,
-	type MutationResult
-} from '@/convex/schemas/mutationResult';
+import { mutationResultValidator, type MutationResult } from '@/convex/schemas/mutationResult';
 
 const MIN_PASSWORD_LENGTH = 8;
 

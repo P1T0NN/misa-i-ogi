@@ -33,13 +33,8 @@ import type { ConvexErrorPayload } from '@/convex/types/convexTypes';
  * delete. The reverse (R2 gone while a db row points at it) is impossible by
  * construction: the network call is deferred behind commit.
  */
-const cleanupCoverImages = async (
-	ctx: MutationCtx,
-	docs: Doc<'accommodations'>[]
-) => {
-	const keys = [
-		...new Set(docs.map((d) => d.coverImageKey).filter((k): k is string => !!k))
-	];
+const cleanupCoverImages = async (ctx: MutationCtx, docs: Doc<'accommodations'>[]) => {
+	const keys = [...new Set(docs.map((d) => d.coverImageKey).filter((k): k is string => !!k))];
 	// Keys are independent — parallel sweep collapses N×3 serial round-trips into
 	// one. Atomicity is unchanged: same transaction, same commit boundary.
 	await Promise.all(

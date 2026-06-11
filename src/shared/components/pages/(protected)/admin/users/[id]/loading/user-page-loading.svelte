@@ -5,7 +5,7 @@
 
 <div class="flex flex-col gap-6">
 	<!-- Tabs list -->
-	<div class="flex gap-1 rounded-md bg-muted p-1 w-fit">
+	<div class="flex w-fit gap-1 rounded-md bg-muted p-1">
 		<Skeleton class="h-8 w-20" />
 		<Skeleton class="h-8 w-20" />
 		<Skeleton class="h-8 w-20" />
@@ -29,7 +29,7 @@
 
 		<!-- Fields grid -->
 		<div class="grid grid-cols-1 gap-4 md:grid-cols-2">
-			{#each Array(4) as _}
+			{#each { length: 4 }}
 				<div class="flex flex-col gap-1.5">
 					<Skeleton class="h-3 w-16" />
 					<Skeleton class="h-4 w-40" />

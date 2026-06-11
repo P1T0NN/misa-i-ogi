@@ -1,5 +1,5 @@
 // LIBRARIES
-import { getAnalyticsRanking } from '@piton-/analytics-convex';
+import { compareScores, getAnalyticsRanking } from '@piton-/analytics-convex';
 
 // CONFIG
 import { analytics } from '@/convex/analytics';
@@ -41,9 +41,10 @@ type BuildAnalyticsRowsRanking<TItem extends AnalyticsEntityItem> =
 		sortByPrimary?: boolean;
 	};
 
-type BuildAnalyticsRowsPerformance<TItem extends AnalyticsEntityItem> = BuildAnalyticsRowsBase<TItem> & {
-	output: 'performance';
-};
+type BuildAnalyticsRowsPerformance<TItem extends AnalyticsEntityItem> =
+	BuildAnalyticsRowsBase<TItem> & {
+		output: 'performance';
+	};
 
 type FetchMetricTotalsByDimensionArgs = Parameters<
 	typeof analytics.fetchMetricTotalsByDimension
@@ -118,7 +119,7 @@ export async function buildTopAnalyticsRows<
 		getScore: (id) => getTotals(args.scoreMetric).get(id) ?? 0,
 		tieBreakers: (args.tieBreakerMetrics ?? []).map(
 			(metric) => (first, second) =>
-				(getTotals(metric).get(second) ?? 0) - (getTotals(metric).get(first) ?? 0)
+				compareScores('desc', getTotals(metric).get(first) ?? 0, getTotals(metric).get(second) ?? 0)
 		),
 		limit: args.limit
 	}) as TId[];
@@ -173,7 +174,9 @@ export function buildAnalyticsRows<TItem extends AnalyticsEntityItem>(
 			})
 			.filter((row) => row.views > 0 || row.requests > 0)
 			.sort(
-				(first, second) => second.views - first.views || second.requests - first.requests
+				(first, second) =>
+					compareScores('desc', first.views, second.views) ||
+					compareScores('desc', first.requests, second.requests)
 			);
 	}
 

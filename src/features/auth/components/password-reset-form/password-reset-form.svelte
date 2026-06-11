@@ -31,9 +31,7 @@
 		passwordResetRequestFormSchema,
 		passwordResetVerifyFormSchema
 	} from './password-reset-form-schema.js';
-	import {
-		valibotIssuesToFieldErrors,
-	} from '@/shared/utils/validationUtils.js';
+	import { valibotIssuesToFieldErrors } from '@/shared/utils/validationUtils.js';
 
 	// TYPES
 	import type { PasswordResetFormStep, PasswordResetField } from './passwordResetFormTypes.js';
@@ -127,12 +125,14 @@
 			const { error } = await authClient.emailOtp.resetPassword({
 				email: p.output.email,
 				otp: p.output.code,
-				password: p.output.newPassword,
+				password: p.output.newPassword
 			});
 			if (error) {
 				console.error('Password reset: verification failed:', error);
 				if (/password/i.test(error.message ?? '')) {
-					fieldErrors = { newPassword: error.message ?? m['EmailVerificationForm.verificationFailed']() };
+					fieldErrors = {
+						newPassword: error.message ?? m['EmailVerificationForm.verificationFailed']()
+					};
 				} else {
 					errorMessage = error.message ?? m['EmailVerificationForm.verificationFailed']();
 				}

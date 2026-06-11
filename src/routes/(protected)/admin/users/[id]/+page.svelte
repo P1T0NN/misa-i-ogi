@@ -30,7 +30,7 @@
 	const userQuery = useQuery(api.tables.users.userQueries.getUserById, () =>
 		userId ? { userId } : 'skip'
 	);
-	const user = $derived(userQuery.data as Doc<"user"> | null | undefined);
+	const user = $derived(userQuery.data as Doc<'user'> | null | undefined);
 
 	/**
 	 * If the admin revokes their own current session — directly, or via "Revoke

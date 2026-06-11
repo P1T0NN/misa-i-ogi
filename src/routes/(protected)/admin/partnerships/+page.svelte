@@ -4,10 +4,7 @@
 	import { m } from '@/shared/lib/paraglide/messages';
 
 	// CONFIG
-	import {
-		ADMIN_PAGE_ENDPOINTS,
-		UNPROTECTED_PAGE_ENDPOINTS
-	} from '@/shared/constants.js';
+	import { ADMIN_PAGE_ENDPOINTS, UNPROTECTED_PAGE_ENDPOINTS } from '@/shared/constants.js';
 
 	// COMPONENTS
 	import SvelteHead from '@/shared/components/ui/svelte-head/svelte-head.svelte';
@@ -17,7 +14,10 @@
 	import { Button } from '@/shared/components/ui/button/index.js';
 
 	// TYPES
-	import type { ColumnDef, DataTableCellSnippetProps } from '@/shared/components/ui/data-table/types.js';
+	import type {
+		ColumnDef,
+		DataTableCellSnippetProps
+	} from '@/shared/components/ui/data-table/types.js';
 	import type { Doc } from '@/convex/_generated/dataModel';
 
 	// LUCIDE ICONS
@@ -82,17 +82,16 @@
 <SvelteHead />
 
 <section class="flex w-full flex-col gap-4 p-4 md:p-6">
-	<header class="flex w-full flex-col gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
-		<div class="flex min-w-0 max-w-3xl flex-col gap-1">
+	<header
+		class="flex w-full flex-col gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4"
+	>
+		<div class="flex max-w-3xl min-w-0 flex-col gap-1">
 			<h1 class="text-2xl font-semibold tracking-tight">{m['AdminPartnershipsPage.title']()}</h1>
-			<p class="text-muted-foreground text-sm leading-relaxed">
+			<p class="text-sm leading-relaxed text-muted-foreground">
 				{m['AdminPartnershipsPage.description']()}
 			</p>
 		</div>
-		<Button
-			href={ADMIN_PAGE_ENDPOINTS.PARTNERSHIP_ADD}
-			class="w-full shrink-0 sm:w-auto"
-		>
+		<Button href={ADMIN_PAGE_ENDPOINTS.PARTNERSHIP_ADD} class="w-full shrink-0 sm:w-auto">
 			<PlusIcon data-icon="inline-start" />
 			{m['AdminPartnershipsPage.addPartnership']()}
 		</Button>
@@ -105,7 +104,11 @@
 		optimizationStrategy="cursor"
 		getRowId={(r) => r._id}
 		{columns}
-		customCells={{ accommodation: accommodationCell, hospitality: hospitalityCell, discount: discountCell }}
+		customCells={{
+			accommodation: accommodationCell,
+			hospitality: hospitalityCell,
+			discount: discountCell
+		}}
 		bind:sortColumn
 		bind:sortDirection
 		selectable
@@ -116,7 +119,7 @@
 {#snippet accommodationCell({ row }: DataTableCellSnippetProps<Doc<'partnerships'>>)}
 	<Link
 		href={UNPROTECTED_PAGE_ENDPOINTS.ACTIVATE.replace(':token', row.accommodationScanToken)}
-		class="text-primary font-mono text-xs underline-offset-4 hover:underline"
+		class="font-mono text-xs text-primary underline-offset-4 hover:underline"
 	>
 		{row.accommodationId}
 	</Link>
@@ -125,7 +128,7 @@
 {#snippet hospitalityCell({ row }: DataTableCellSnippetProps<Doc<'partnerships'>>)}
 	<Link
 		href={UNPROTECTED_PAGE_ENDPOINTS.HOSPITALITY.replace(':id', row.hospitalityId)}
-		class="text-primary font-mono text-xs underline-offset-4 hover:underline"
+		class="font-mono text-xs text-primary underline-offset-4 hover:underline"
 	>
 		{row.hospitalityId}
 	</Link>
@@ -135,6 +138,6 @@
 	{#if row.discountPercentage != null}
 		<Badge variant="secondary">{row.discountPercentage}%</Badge>
 	{:else}
-		<span class="text-muted-foreground text-sm">{m['AdminPartnershipsPage.discountNone']()}</span>
+		<span class="text-sm text-muted-foreground">{m['AdminPartnershipsPage.discountNone']()}</span>
 	{/if}
 {/snippet}

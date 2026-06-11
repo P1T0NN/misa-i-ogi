@@ -29,11 +29,7 @@
 
 	import { createLoginForm } from './login-form-model.svelte.js';
 
-	let {
-		ref = $bindable(null),
-		class: className,
-		...restProps
-	}: LoginFormWithImageProps = $props();
+	let { ref = $bindable(null), class: className, ...restProps }: LoginFormWithImageProps = $props();
 
 	const id = $props.id();
 

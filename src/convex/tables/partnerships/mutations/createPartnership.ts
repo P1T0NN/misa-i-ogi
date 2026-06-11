@@ -10,10 +10,7 @@ import { analytics } from '@/convex/analytics';
 import { mutationResultValidator } from '@/convex/schemas/mutationResult';
 
 // UTILS
-import {
-	createAnalyticsResourceScopeId,
-	createAnalyticsScopeId
-} from '@piton-/analytics-convex';
+import { createAnalyticsScopeId } from '@piton-/analytics-convex';
 import { normalizeOptionalNumber } from '@/convex/utils/convexValidationUtils';
 
 // TYPES
@@ -49,6 +46,8 @@ export const createPartnership = adminMutation('createPartnership')({
 			};
 		}
 
+		const hospitalities = [];
+
 		for (const hospitalityId of hospitalityIds) {
 			const hospitality = await ctx.db.get(hospitalityId);
 			if (!hospitality) {
@@ -65,13 +64,14 @@ export const createPartnership = adminMutation('createPartnership')({
 			if (existing) {
 				return { success: false, message: { key: 'GenericMessages.PARTNERSHIP_PAIR_EXISTS' } };
 			}
+
+			hospitalities.push(hospitality);
 		}
 
-		for (const hospitalityId of hospitalityIds) {
-			const hospitality = await ctx.db.get(hospitalityId);
-			if (!hospitality) {
-				return { success: false, message: { key: 'GenericMessages.HOSPITALITY_NOT_FOUND' } };
-			}
+		const partnershipEvents = [];
+
+		for (const hospitality of hospitalities) {
+			const hospitalityId = hospitality._id;
 
 			const partnershipId = await ctx.db.insert('partnerships', {
 				accommodationId: args.accommodationId,
@@ -92,22 +92,19 @@ export const createPartnership = adminMutation('createPartnership')({
 				}
 			});
 
-			await analytics.writeTrack(ctx, {
-				name: 'partnership.created',
+			partnershipEvents.push({
+				name: 'partnership.created' as const,
+				subject: { type: 'hospitality', id: hospitality._id },
 				organizationId: accommodation.ownerId,
 				scopes: [
-					{ scopeType: 'organization', scopeId: hospitality.ownerId },
+					{ scopeType: 'organization' as const, scopeId: hospitality.ownerId },
 					{
-						scopeType: 'organization',
+						scopeType: 'organization' as const,
 						scopeId: createAnalyticsScopeId('accommodationOwner', accommodation.ownerId)
 					},
 					{
-						scopeType: 'organization',
+						scopeType: 'organization' as const,
 						scopeId: createAnalyticsScopeId('hospitalityOwner', hospitality.ownerId)
-					},
-					{
-						scopeType: 'resource',
-						scopeId: createAnalyticsResourceScopeId('hospitality', hospitality._id)
 					}
 				],
 				properties: {
@@ -119,6 +116,12 @@ export const createPartnership = adminMutation('createPartnership')({
 					partnershipDelta: 1
 				}
 			});
+		}
+
+		if (partnershipEvents.length === 1) {
+			await analytics.track(ctx, partnershipEvents[0]);
+		} else if (partnershipEvents.length > 1) {
+			await analytics.track(ctx, { events: partnershipEvents });
 		}
 
 		if (hospitalityIds.length === 1) {

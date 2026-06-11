@@ -15,14 +15,13 @@ import { getHospitalitiesByIds } from '@/convex/tables/hospitalities/helpers/get
 // UTILS
 import { buildActivityData } from '@/convex/analytics/utils/buildActivityData';
 import { buildAnalyticsRows } from '@/convex/analytics/utils/buildAnalyticsRows';
-import { sumAnalyticsMetricTotals } from '@/convex/analytics/utils/sumAnalyticsMetricTotals';
+import { toComparedMetricWithValue } from '@/convex/analytics/utils/comparedMetricUtils';
 import { getAnalyticsMetricValue } from '@/convex/analytics/utils/getAnalyticsMetricValue';
-import { DAY_MS, startOfUtcDay } from '../utils/dateUtils';
+import { ANALYTICS_QUERY_RANGE_DAYS } from '@/convex/analytics/analyticsConstants';
+import { createAnalyticsQueryDayRange } from '@/convex/analytics/utils/analyticsQueryRange';
 
 // TYPES
 import type { UserAnalyticsAccommodationDetailResult } from '../types/userAnalyticsTypes';
-
-const RANGE_DAYS = 30;
 
 export const fetchUserAnalyticsAccommodationPage = query({
 	args: {
@@ -35,8 +34,7 @@ export const fetchUserAnalyticsAccommodationPage = query({
 			throw new Error('Accommodation not found');
 		}
 
-		const todayStart = startOfUtcDay(Date.now());
-		const from = todayStart - DAY_MS * (RANGE_DAYS - 1);
+		const { from, to: todayStart } = createAnalyticsQueryDayRange();
 
 		const ownerScope = {
 			type: 'organization',
@@ -44,71 +42,64 @@ export const fetchUserAnalyticsAccommodationPage = query({
 		} as const;
 
 		const [
+			dashboard,
 			qrScanTotals,
-			guestViewHospitalityTotals,
 			guestActivationTotals,
 			reservationTotals,
-			confirmedTotals,
-			qrScanComparison,
-			guestActivationComparison,
-			reservationComparison,
+			guestViewHospitalityTotals,
+			partnerReservationTotals,
+			partnerConfirmedTotals,
 			qrScansSeries,
 			guestActivationsSeries,
 			reservationsSeries,
 			partnershipGroups
 		] = await Promise.all([
-			// --- QR scans for this accommodation ---
+			analytics.fetchDashboardMetrics(ctx, {
+				metrics: ['qrScans', 'guestActivations', 'newReservations'],
+				scope: ownerScope,
+				from,
+				to: todayStart,
+				includeComparison: true,
+				includeEvaluation: true
+			}),
+			// --- Metric cards: totals keyed by accommodation so this page shows THIS stay only ---
 			analytics.fetchMetricTotalsByDimension(ctx, {
 				metric: 'qrScans',
 				scope: ownerScope,
 				dimensionKey: 'accommodationId',
-				days: RANGE_DAYS
-			}),
-
-			// --- Guest views for partner rows ---
-			analytics.fetchMetricTotalsByDimension(ctx, {
-				metric: 'hospitalityViews',
-				scope: ownerScope,
-				dimensionKey: 'hospitalityId',
-				days: RANGE_DAYS
+				days: ANALYTICS_QUERY_RANGE_DAYS
 			}),
 			analytics.fetchMetricTotalsByDimension(ctx, {
 				metric: 'guestActivations',
 				scope: ownerScope,
+				dimensionKey: 'accommodationId',
+				days: ANALYTICS_QUERY_RANGE_DAYS
+			}),
+			analytics.fetchMetricTotalsByDimension(ctx, {
+				metric: 'newReservations',
+				scope: ownerScope,
+				dimensionKey: 'accommodationId',
+				days: ANALYTICS_QUERY_RANGE_DAYS
+			}),
+
+			// --- Partner venue rows: totals keyed by hospitality ---
+			analytics.fetchMetricTotalsByDimension(ctx, {
+				metric: 'hospitalityViews',
+				scope: ownerScope,
 				dimensionKey: 'hospitalityId',
-				days: RANGE_DAYS
+				days: ANALYTICS_QUERY_RANGE_DAYS
 			}),
 			analytics.fetchMetricTotalsByDimension(ctx, {
 				metric: 'newReservations',
 				scope: ownerScope,
 				dimensionKey: 'hospitalityId',
-				days: RANGE_DAYS
+				days: ANALYTICS_QUERY_RANGE_DAYS
 			}),
 			analytics.fetchMetricTotalsByDimension(ctx, {
 				metric: 'confirmedReservations',
 				scope: ownerScope,
 				dimensionKey: 'hospitalityId',
-				days: RANGE_DAYS
-			}),
-
-			// --- Comparisons for the metric cards ---
-			analytics.fetchMetricComparison(ctx, {
-				metric: 'qrScans',
-				scope: ownerScope,
-				from,
-				to: todayStart
-			}),
-			analytics.fetchMetricComparison(ctx, {
-				metric: 'guestActivations',
-				scope: ownerScope,
-				from,
-				to: todayStart
-			}),
-			analytics.fetchMetricComparison(ctx, {
-				metric: 'newReservations',
-				scope: ownerScope,
-				from,
-				to: todayStart
+				days: ANALYTICS_QUERY_RANGE_DAYS
 			}),
 
 			// --- Time series for activity chart ---
@@ -143,10 +134,13 @@ export const fetchUserAnalyticsAccommodationPage = query({
 		const hospitalityIds = partnerships.map((p) => p.hospitalityId);
 		const hospitalities = await getHospitalitiesByIds(ctx, hospitalityIds);
 
-		// --- Aggregate metric values ---
+		// --- Metric values for this accommodation only ---
 		const qrScanValue = getAnalyticsMetricValue(qrScanTotals, args.accommodationId);
-		const guestActivationValue = sumAnalyticsMetricTotals(guestActivationTotals);
-		const reservationValue = sumAnalyticsMetricTotals(reservationTotals);
+		const guestActivationValue = getAnalyticsMetricValue(
+			guestActivationTotals,
+			args.accommodationId
+		);
+		const reservationValue = getAnalyticsMetricValue(reservationTotals, args.accommodationId);
 
 		return {
 			accommodation: {
@@ -157,18 +151,15 @@ export const fetchUserAnalyticsAccommodationPage = query({
 			},
 			metrics: {
 				trackedStays: { value: 1 },
-				qrScans: {
-					value: qrScanValue,
-					comparison: qrScanComparison
-				},
-				guestActivations: {
-					value: guestActivationValue,
-					comparison: guestActivationComparison
-				},
-				requestsGenerated: {
-					value: reservationValue,
-					comparison: reservationComparison
-				}
+				qrScans: toComparedMetricWithValue(dashboard.metrics.qrScans, qrScanValue),
+				guestActivations: toComparedMetricWithValue(
+					dashboard.metrics.guestActivations,
+					guestActivationValue
+				),
+				requestsGenerated: toComparedMetricWithValue(
+					dashboard.metrics.newReservations,
+					reservationValue
+				)
 			},
 			activityData: buildActivityData({
 				qrScansSeries: qrScansSeries.data,
@@ -180,8 +171,8 @@ export const fetchUserAnalyticsAccommodationPage = query({
 					output: 'performance',
 					items: hospitalities,
 					primaryTotals: guestViewHospitalityTotals,
-					requestTotals: reservationTotals,
-					confirmedTotals
+					requestTotals: partnerReservationTotals,
+					confirmedTotals: partnerConfirmedTotals
 				})
 			}
 		};

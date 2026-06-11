@@ -87,7 +87,8 @@ export const listUsersPaginated = query({
 		const filtered = ordered.filterWith(async (row) => {
 			if (args.role !== undefined && row.role !== args.role) return false;
 			if (args.banned !== undefined && (row.banned ?? false) !== args.banned) return false;
-			if (args.emailVerified !== undefined && row.emailVerified !== args.emailVerified) return false;
+			if (args.emailVerified !== undefined && row.emailVerified !== args.emailVerified)
+				return false;
 			if (needle !== null) {
 				const value = (row as Record<string, unknown>)[searchField];
 				if (typeof value !== 'string' || !value.includes(needle)) return false;
@@ -96,6 +97,14 @@ export const listUsersPaginated = query({
 		});
 
 		return await filtered.paginate(args.paginationOpts);
+	}
+});
+
+export const countUsers = query({
+	args: {},
+	handler: async (ctx): Promise<number> => {
+		const users = await ctx.db.query('user').collect();
+		return users.length;
 	}
 });
 

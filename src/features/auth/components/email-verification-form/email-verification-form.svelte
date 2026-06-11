@@ -8,12 +8,7 @@
 
 	// COMPONENTS
 	import * as Card from '@/shared/components/ui/card/index.js';
-	import {
-		FieldGroup,
-		Field,
-		FieldLabel,
-		FieldError
-	} from '@/shared/components/ui/field/index.js';
+	import { FieldGroup, Field, FieldLabel, FieldError } from '@/shared/components/ui/field/index.js';
 	import { Button } from '@/shared/components/ui/button/index.js';
 	import * as InputOTP from '@/features/auth/components/input-otp/index.js';
 	import EmailVerificationResend from './email-verification-resend.svelte';
@@ -23,13 +18,14 @@
 	// UTILS
 	import { emailVerificationFormSchema } from './email-verification-form-schema.js';
 	import { cn, type WithElementRef } from '@/shared/utils/utils.js';
-	import {
-		valibotIssuesToFieldErrors,
-	} from '@/shared/utils/validationUtils.js';
+	import { valibotIssuesToFieldErrors } from '@/shared/utils/validationUtils.js';
 
 	// TYPES
 	import type { HTMLFormAttributes } from 'svelte/elements';
-	import type { EmailVerificationField, EmailVerificationResendConfig } from './emailVerificationFormTypes.js';
+	import type {
+		EmailVerificationField,
+		EmailVerificationResendConfig
+	} from './emailVerificationFormTypes.js';
 	import type { FieldErrors } from '@/shared/types/types';
 
 	const id = $props.id();

@@ -109,8 +109,8 @@
 </script>
 
 <svelte:head>
-    <link rel="icon" href={favicon} />
-    {#if dev}
+	<link rel="icon" href={favicon} />
+	{#if dev}
 		<script
 			defer
 			src="https://umami-sable-iota.vercel.app/script.js"

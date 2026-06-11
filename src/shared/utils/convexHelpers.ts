@@ -28,10 +28,7 @@ import { api } from '@/convex/_generated/api';
 import { toast } from 'svelte-sonner';
 
 // UTILS
-import {
-	hasTranslatableMessage,
-	translateFromBackend
-} from '@/shared/utils/translateFromBackend';
+import { hasTranslatableMessage, translateFromBackend } from '@/shared/utils/translateFromBackend';
 import { rateLimitMessage } from '@/shared/utils/rateLimitMessages';
 
 // TYPES
@@ -52,10 +49,7 @@ import type { ConvexClient } from 'convex/browser';
  * @returns the R2 object `key` on success (the row's stable identifier in `uploadedFilesR2`),
  *          or `null` when an error was already toasted.
  */
-export async function uploadFileToR2(
-	client: ConvexClient,
-	file: File
-): Promise<string | null> {
+export async function uploadFileToR2(client: ConvexClient, file: File): Promise<string | null> {
 	const minted = await safeMutation(client, api.storage.r2.r2.generateUploadUrl, {});
 	if (!minted || !minted.success || !minted.data) return null;
 

@@ -12,11 +12,7 @@ export function buildR2PublicObjectUrl(key: string): string | null {
 	if (!base) return null;
 
 	const prefix = base.replace(/\/+$/, '');
-	const path = key
-		.split('/')
-		.filter(Boolean)
-		.map(encodeURIComponent)
-		.join('/');
+	const path = key.split('/').filter(Boolean).map(encodeURIComponent).join('/');
 
 	return `${prefix}/${path}`;
 }

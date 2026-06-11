@@ -14,7 +14,10 @@
 	import AdminOwnerField from '@/features/users/components/admin-owner-field.svelte';
 
 	// SCHEMAS
-	import { accommodationAddFormSchema, type AccommodationAddFormInputs } from '@/features/accommodations/schemas/accommodationsSchemas';
+	import {
+		accommodationAddFormSchema,
+		type AccommodationAddFormInputs
+	} from '@/features/accommodations/schemas/accommodationsSchemas';
 
 	// DATA
 	import { accommodationTypeSelectOptions } from '@/features/accommodations/data/accommodationsData';
@@ -148,7 +151,7 @@
 				<h1 class="text-2xl font-semibold tracking-tight">
 					{m['AdminAccommodationAddPage.title']()}
 				</h1>
-				<p class="text-muted-foreground text-sm leading-relaxed">
+				<p class="text-sm leading-relaxed text-muted-foreground">
 					{m['AdminAccommodationAddPage.description']()}
 				</p>
 			</div>
@@ -176,6 +179,10 @@
 	</div>
 </section>
 
-{#snippet ownerField({ value, setValue, inputId }: MutationFormFieldSnippetProps<AccommodationAddFormInputs>)}
+{#snippet ownerField({
+	value,
+	setValue,
+	inputId
+}: MutationFormFieldSnippetProps<AccommodationAddFormInputs>)}
 	<AdminOwnerField value={String(value ?? '')} {inputId} onValueChange={setValue} />
 {/snippet}

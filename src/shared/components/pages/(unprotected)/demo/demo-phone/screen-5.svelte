@@ -25,7 +25,9 @@
 <div
 	class="absolute inset-0 flex flex-col bg-(--surface-2) transition-opacity duration-300 ease-out {layerClass}"
 >
-	<div class="flex items-center justify-between px-7 pt-4 pb-1.5 type-phone-status-bar text-foreground">
+	<div
+		class="type-phone-status-bar flex items-center justify-between px-7 pt-4 pb-1.5 text-foreground"
+	>
 		<span>9:41</span>
 		<div class="flex items-center gap-1.5">
 			<svg width="14" height="10" viewBox="0 0 18 12" fill="currentColor" aria-hidden="true"
@@ -37,7 +39,7 @@
 			>
 			<span class="text-xs">5G</span>
 			<div
-				class="relative h-3 w-5 rounded border border-current p-px after:absolute after:-right-0.5 after:top-1 after:h-1.5 after:w-0.5 after:rounded-br-sm after:rounded-tr-sm after:bg-current"
+				class="relative h-3 w-5 rounded border border-current p-px after:absolute after:top-1 after:-right-0.5 after:h-1.5 after:w-0.5 after:rounded-tr-sm after:rounded-br-sm after:bg-current"
 			>
 				<span class="block h-full w-4/5 rounded-sm bg-current"></span>
 			</div>
@@ -52,23 +54,28 @@
 		>
 			<ChevronLeft class="size-3.5" stroke-width="2" />
 		</button>
-		<h3 class="m-0 font-mono text-xs font-medium uppercase tracking-caps-wide text-muted-foreground">
+		<h3
+			class="m-0 font-mono text-xs font-medium tracking-caps-wide text-muted-foreground uppercase"
+		>
 			{venue.catCrumb}
 		</h3>
 	</div>
 	<div class="flex min-h-0 flex-1 flex-col overflow-y-auto">
-		<div class="border-b border-(--border-2) bg-linear-to-br from-accent to-(--surface-2) px-6 pb-6 pt-5">
-			<p class="mb-2 font-mono text-xs uppercase tracking-widest text-primary">{venue.catLine}</p>
-			<h2 class="mb-2 font-display text-phone-title font-medium leading-tight text-foreground">
+		<div
+			class="border-b border-(--border-2) bg-linear-to-br from-accent to-(--surface-2) px-6 pt-5 pb-6"
+		>
+			<p class="mb-2 font-mono text-xs tracking-widest text-primary uppercase">{venue.catLine}</p>
+			<h2 class="mb-2 font-display text-phone-title leading-tight font-medium text-foreground">
 				{venue.name}
 			</h2>
 			<p class="m-0 text-sm text-muted-foreground">{venue.loc}</p>
 			<div
 				class="mt-5 flex items-center justify-between rounded-xl border border-(--border-2) bg-(--surface-2) p-4"
 			>
-				<span class="font-display text-4xl font-medium leading-none tracking-tight text-primary"
-					>{@html venue.pctHtml}</span>
-				<div class="text-right font-mono text-xs uppercase tracking-caps text-muted-foreground">
+				<span class="font-display text-4xl leading-none font-medium tracking-tight text-primary"
+					>{@html venue.pctHtml}</span
+				>
+				<div class="text-right font-mono text-xs tracking-caps text-muted-foreground uppercase">
 					Off your bill<br />Length of stay
 				</div>
 			</div>
@@ -90,10 +97,11 @@
 			</div>
 		</div>
 	</div>
-	<div class="border-t border-(--border-2) bg-(--surface-2) px-5 pb-6 pt-4">
+	<div class="border-t border-(--border-2) bg-(--surface-2) px-5 pt-4 pb-6">
 		<button
 			type="button"
 			class="w-full rounded-xl border-0 bg-primary py-3.5 text-button font-medium text-primary-foreground"
-			onclick={() => onGoTo(6)}>Use my perk now</button>
+			onclick={() => onGoTo(6)}>Use my perk now</button
+		>
 	</div>
 </div>

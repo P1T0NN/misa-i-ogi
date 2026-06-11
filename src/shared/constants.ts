@@ -9,6 +9,7 @@ export const COMPANY_DATA = {
 
 export const ADMIN_PAGE_ENDPOINTS = {
 	DASHBOARD: '/admin/dashboard',
+	ANALYTICS: '/admin/analytics',
 	ACCOMMODATIONS: '/admin/accommodations',
 	ACCOMMODATION_ADD: '/admin/accommodations/add-accommodation',
 	HOSPITALITIES: '/admin/hospitalities',

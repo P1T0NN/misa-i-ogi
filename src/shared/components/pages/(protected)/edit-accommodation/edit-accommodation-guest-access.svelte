@@ -34,7 +34,7 @@
 			<h2 class="text-base font-semibold">
 				{m['EditAccommodationPage.sectionGuestAccessTitle']()}
 			</h2>
-			<p class="text-muted-foreground text-sm">
+			<p class="text-sm text-muted-foreground">
 				{m['EditAccommodationPage.sectionGuestAccessDescription']()}
 			</p>
 		</div>

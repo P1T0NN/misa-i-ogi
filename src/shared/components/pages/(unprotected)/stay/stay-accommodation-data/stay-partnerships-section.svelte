@@ -43,7 +43,10 @@
 			<p class="mb-0 font-mono text-[10px] tracking-eyebrow text-primary uppercase">
 				{m['StayPage.StayPartnershipsSection.partnerBenefitsEyebrow']()}
 			</p>
-			<h2 id="partners-heading" class="mb-0 font-serif text-2xl leading-tight font-medium sm:text-3xl">
+			<h2
+				id="partners-heading"
+				class="mb-0 font-serif text-2xl leading-tight font-medium sm:text-3xl"
+			>
 				{m['StayPage.StayPartnershipsSection.partnersTitle']({ city })}
 			</h2>
 			<p class="mb-0 max-w-prose text-sm leading-relaxed text-muted-foreground sm:text-base">

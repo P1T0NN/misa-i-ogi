@@ -1,6 +1,8 @@
 // LIBRARIES
 import { v } from 'convex/values';
 import { mutation } from '@/convex/_generated/server';
+import { enforceRateLimit } from '@/convex/rateLimits/enforceRateLimit';
+import { rateLimitKey } from '@/convex/rateLimits/keys';
 
 // HELPERS
 import { getActiveGuestSessionFromAuth } from '@/convex/tables/guests/helpers/getActiveGuestSessionFromAuth';
@@ -14,10 +16,7 @@ import { analytics } from '@/convex/analytics';
 import { mutationResultValidator, type MutationResult } from '@/convex/schemas/mutationResult';
 
 // UTILS
-import {
-	createAnalyticsResourceScopeId,
-	createAnalyticsScopeId
-} from '@piton-/analytics-convex';
+import { createAnalyticsResourceScope, createAnalyticsScopeId } from '@piton-/analytics-convex';
 import {
 	normalizeOptionalEmail,
 	normalizeRequiredPositiveInteger,
@@ -89,6 +88,9 @@ export const createReservation = mutation({
 			};
 		}
 
+		// Per-guest-session bucket — this endpoint fans out emails, keep it tight.
+		await enforceRateLimit(ctx, 'createReservation', rateLimitKey.guest(guest._id));
+
 		const hospitality = await ctx.db.get(args.hospitalityId);
 		const hasGuestAccess = await hasActiveAccommodationHospitalityPartnership(
 			ctx,
@@ -121,7 +123,7 @@ export const createReservation = mutation({
 			guestId: guest._id,
 			accommodationId: guest.accommodationId,
 			guestName: input.guestName,
-			email: input.email,
+			...(input.email ? { email: input.email } : {}),
 			phone: input.phone,
 			guestCount: input.guestCount,
 			requestedTime: input.requestedTime,
@@ -130,8 +132,8 @@ export const createReservation = mutation({
 
 		const accommodation = await ctx.db.get(guest.accommodationId);
 		if (accommodation) {
-			await analytics.writeTrack(ctx, {
-				name: 'reservation.created',
+			await analytics.track(ctx, 'reservation.created', {
+				subject: { type: 'hospitality', id: hospitality._id },
 				organizationId: hospitality.ownerId,
 				scopes: [
 					{ scopeType: 'organization', scopeId: accommodation.ownerId },
@@ -143,10 +145,7 @@ export const createReservation = mutation({
 						scopeType: 'organization',
 						scopeId: createAnalyticsScopeId('accommodationOwner', accommodation.ownerId)
 					},
-					{
-						scopeType: 'resource',
-						scopeId: createAnalyticsResourceScopeId('accommodation', accommodation._id)
-					}
+					createAnalyticsResourceScope('accommodation', accommodation._id)
 				],
 				properties: {
 					hospitalityId: hospitality._id,

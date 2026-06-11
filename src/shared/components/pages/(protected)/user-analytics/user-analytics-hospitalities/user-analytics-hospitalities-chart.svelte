@@ -11,7 +11,7 @@
 
 	const chartConfig = {
 		value: {
-			label: 'Requests',
+			label: 'Reservations',
 			color: 'var(--chart-1)'
 		}
 	} satisfies ChartConfig;

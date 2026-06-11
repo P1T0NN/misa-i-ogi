@@ -1,30 +1,23 @@
 // LIBRARIES
 import { v } from 'convex/values';
-import { mutation } from '@/convex/_generated/server';
+import { authMutation } from '@/convex/auth/middleware/authMiddleware';
 
 // HELPERS
-import { getAuthUserId } from '@/convex/auth/helpers/getAuthUserId';
 import { analytics } from '@/convex/analytics';
 
 // UTILS
-import {
-	createAnalyticsResourceScopeId,
-	createAnalyticsScopeId
-} from '@piton-/analytics-convex';
+import { createAnalyticsResourceScope, createAnalyticsScopeId } from '@piton-/analytics-convex';
 
 // SCHEMAS
 import { mutationResultValidator, type MutationResult } from '@/convex/schemas/mutationResult';
 
-export const cancelReservation = mutation({
+export const cancelReservation = authMutation('cancelReservation')({
 	args: {
 		reservationId: v.id('reservations')
 	},
 	returns: mutationResultValidator,
 	handler: async (ctx, args): Promise<MutationResult> => {
-		const ownerId = await getAuthUserId(ctx);
-		if (!ownerId) {
-			return { success: false, message: { key: 'GenericMessages.NOT_AUTHENTICATED' } };
-		}
+		const ownerId = ctx.userId;
 
 		const reservation = await ctx.db.get(args.reservationId);
 		if (!reservation || reservation.hospitalityOwnerId !== ownerId) {
@@ -42,8 +35,8 @@ export const cancelReservation = mutation({
 			ctx.db.get(reservation.accommodationId)
 		]);
 
-		await analytics.writeTrack(ctx, {
-			name: 'reservation.cancelled',
+		await analytics.track(ctx, 'reservation.cancelled', {
+			subject: { type: 'hospitality', id: reservation.hospitalityId },
 			organizationId: reservation.hospitalityOwnerId,
 			scopes: [
 				...(accommodation
@@ -51,26 +44,17 @@ export const cancelReservation = mutation({
 					: []),
 				{
 					scopeType: 'organization',
-					scopeId: createAnalyticsScopeId(
-						'hospitalityOwner',
-						reservation.hospitalityOwnerId
-					)
+					scopeId: createAnalyticsScopeId('hospitalityOwner', reservation.hospitalityOwnerId)
 				},
 				...(accommodation
 					? [
 							{
 								scopeType: 'organization' as const,
-								scopeId: createAnalyticsScopeId(
-									'accommodationOwner',
-									accommodation.ownerId
-								)
+								scopeId: createAnalyticsScopeId('accommodationOwner', accommodation.ownerId)
 							}
 						]
 					: []),
-				{
-					scopeType: 'resource',
-					scopeId: createAnalyticsResourceScopeId('accommodation', reservation.accommodationId)
-				}
+				createAnalyticsResourceScope('accommodation', reservation.accommodationId)
 			],
 			properties: {
 				hospitalityId: reservation.hospitalityId,

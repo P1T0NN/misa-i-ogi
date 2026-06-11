@@ -11,14 +11,14 @@
 
 	const chartConfig = {
 		value: {
-			label: 'Requests',
+			label: 'Reservations',
 			color: 'var(--chart-1)'
 		}
 	} satisfies ChartConfig;
 </script>
 
 {#if data.length === 0}
-    <UserAnalyticsAccommodationsChartEmpty />
+	<UserAnalyticsAccommodationsChartEmpty />
 {:else}
 	<BarChart
 		{data}

@@ -28,7 +28,7 @@
 			<h2 class="text-base font-semibold text-destructive">
 				{m['AdminUserPage.UserDangerZone.title']()}
 			</h2>
-			<p class="text-muted-foreground text-sm">
+			<p class="text-sm text-muted-foreground">
 				{m['AdminUserPage.UserDangerZone.description']()}
 			</p>
 		</header>

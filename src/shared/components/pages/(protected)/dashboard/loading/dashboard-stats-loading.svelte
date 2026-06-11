@@ -10,8 +10,7 @@
 			<CardContent class="flex items-start justify-between gap-4 p-4">
 				<div class="min-w-0 flex-1">
 					<Skeleton class="mb-2 h-3 w-16" />
-					<Skeleton class="mb-1.5 h-7 w-12" />
-					<Skeleton class="h-3 w-28" />
+					<Skeleton class="h-7 w-12" />
 				</div>
 				<Skeleton class="size-8 rounded-md" />
 			</CardContent>

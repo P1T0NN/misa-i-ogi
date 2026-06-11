@@ -175,7 +175,12 @@
 	onSuccess={() => appGoto(PROTECTED_PAGE_ENDPOINTS.MY_ACCOMMODATIONS)}
 />
 
-{#snippet coverField({ value, setValue, inputId, field }: MutationFormFieldSnippetProps<AccommodationEditFormInputs>)}
+{#snippet coverField({
+	value,
+	setValue,
+	inputId,
+	field
+}: MutationFormFieldSnippetProps<AccommodationEditFormInputs>)}
 	<UploadFileSingle
 		id={inputId}
 		accept={field.accept}

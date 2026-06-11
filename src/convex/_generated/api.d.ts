@@ -9,12 +9,12 @@
  */
 
 import type * as analytics from "../analytics.js";
-import type * as analytics_crons from "../analytics/crons.js";
+import type * as analytics_analyticsConstants from "../analytics/analyticsConstants.js";
+import type * as analytics_utils_analyticsQueryRange from "../analytics/utils/analyticsQueryRange.js";
 import type * as analytics_utils_buildActivityData from "../analytics/utils/buildActivityData.js";
 import type * as analytics_utils_buildAnalyticsRows from "../analytics/utils/buildAnalyticsRows.js";
 import type * as analytics_utils_buildUserAnalyticsChartData from "../analytics/utils/buildUserAnalyticsChartData.js";
-import type * as analytics_utils_createEmptyMetricComparison from "../analytics/utils/createEmptyMetricComparison.js";
-import type * as analytics_utils_formatAnalyticsMetricTrend from "../analytics/utils/formatAnalyticsMetricTrend.js";
+import type * as analytics_utils_comparedMetricUtils from "../analytics/utils/comparedMetricUtils.js";
 import type * as analytics_utils_getAnalyticsMetricValue from "../analytics/utils/getAnalyticsMetricValue.js";
 import type * as analytics_utils_sortAnalyticsItemsByMetric from "../analytics/utils/sortAnalyticsItemsByMetric.js";
 import type * as analytics_utils_sumAnalyticsMetricTotals from "../analytics/utils/sumAnalyticsMetricTotals.js";
@@ -40,8 +40,14 @@ import type * as helpers_fetchOptimized from "../helpers/fetchOptimized.js";
 import type * as helpers_paginationHelpers from "../helpers/paginationHelpers.js";
 import type * as helpers_uniqueIds from "../helpers/uniqueIds.js";
 import type * as http from "../http.js";
-import type * as pages_userAnalytics_helpers_getTopAccommodationNamesByHospitality from "../pages/userAnalytics/helpers/getTopAccommodationNamesByHospitality.js";
-import type * as pages_userAnalytics_helpers_getTopHospitalityNamesByAccommodation from "../pages/userAnalytics/helpers/getTopHospitalityNamesByAccommodation.js";
+import type * as pages_adminAnalytics_queries_fetchAdminAnalyticsOverviewPage from "../pages/adminAnalytics/queries/fetchAdminAnalyticsOverviewPage.js";
+import type * as pages_adminAnalytics_types_adminAnalyticsTypes from "../pages/adminAnalytics/types/adminAnalyticsTypes.js";
+import type * as pages_adminDashboard_helpers_countGuests from "../pages/adminDashboard/helpers/countGuests.js";
+import type * as pages_adminDashboard_queries_fetchAdminDashboardPage from "../pages/adminDashboard/queries/fetchAdminDashboardPage.js";
+import type * as pages_adminDashboard_types_adminDashboardTypes from "../pages/adminDashboard/types/adminDashboardTypes.js";
+import type * as pages_adminDashboard_utils_summarizeAccommodations from "../pages/adminDashboard/utils/summarizeAccommodations.js";
+import type * as pages_adminDashboard_utils_summarizeActivePartnerships from "../pages/adminDashboard/utils/summarizeActivePartnerships.js";
+import type * as pages_adminDashboard_utils_summarizeHospitalities from "../pages/adminDashboard/utils/summarizeHospitalities.js";
 import type * as pages_userAnalytics_helpers_getUserAnalyticsChartData from "../pages/userAnalytics/helpers/getUserAnalyticsChartData.js";
 import type * as pages_userAnalytics_queries_fetchUserAnalyticsAccommodationPage from "../pages/userAnalytics/queries/fetchUserAnalyticsAccommodationPage.js";
 import type * as pages_userAnalytics_queries_fetchUserAnalyticsAccommodationsPage from "../pages/userAnalytics/queries/fetchUserAnalyticsAccommodationsPage.js";
@@ -50,8 +56,6 @@ import type * as pages_userAnalytics_queries_fetchUserAnalyticsHospitalityPage f
 import type * as pages_userAnalytics_queries_fetchUserAnalyticsOverviewPage from "../pages/userAnalytics/queries/fetchUserAnalyticsOverviewPage.js";
 import type * as pages_userAnalytics_queries_fetchUserAnalyticsReservationsPage from "../pages/userAnalytics/queries/fetchUserAnalyticsReservationsPage.js";
 import type * as pages_userAnalytics_types_userAnalyticsTypes from "../pages/userAnalytics/types/userAnalyticsTypes.js";
-import type * as pages_userAnalytics_utils_dateUtils from "../pages/userAnalytics/utils/dateUtils.js";
-import type * as pages_userAnalytics_utils_rankingFormatUtils from "../pages/userAnalytics/utils/rankingFormatUtils.js";
 import type * as pages_userDashboard_helpers_getUserDashboardPendingReservations from "../pages/userDashboard/helpers/getUserDashboardPendingReservations.js";
 import type * as pages_userDashboard_helpers_getUserDashboardStats from "../pages/userDashboard/helpers/getUserDashboardStats.js";
 import type * as pages_userDashboard_queries_fetchUserDashboardPendingReservations from "../pages/userDashboard/queries/fetchUserDashboardPendingReservations.js";
@@ -141,6 +145,8 @@ import type * as tables_reservations_emails_sendReservationEmailToGuest from "..
 import type * as tables_reservations_emails_sendReservationEmailToHospitalityOwner from "../tables/reservations/emails/sendReservationEmailToHospitalityOwner.js";
 import type * as tables_reservations_helpers_createFetchReservationsQuery from "../tables/reservations/helpers/createFetchReservationsQuery.js";
 import type * as tables_reservations_helpers_getGuestActiveHospitalityReservation from "../tables/reservations/helpers/getGuestActiveHospitalityReservation.js";
+import type * as tables_reservations_helpers_getRecentReservations from "../tables/reservations/helpers/getRecentReservations.js";
+import type * as tables_reservations_helpers_getReservationCountsByStatus from "../tables/reservations/helpers/getReservationCountsByStatus.js";
 import type * as tables_reservations_helpers_getReservations from "../tables/reservations/helpers/getReservations.js";
 import type * as tables_reservations_helpers_getReservationsByAccommodations from "../tables/reservations/helpers/getReservationsByAccommodations.js";
 import type * as tables_reservations_helpers_groupReservationsByAccommodation from "../tables/reservations/helpers/groupReservationsByAccommodation.js";
@@ -167,12 +173,12 @@ import type {
 
 declare const fullApi: ApiFromModules<{
   analytics: typeof analytics;
-  "analytics/crons": typeof analytics_crons;
+  "analytics/analyticsConstants": typeof analytics_analyticsConstants;
+  "analytics/utils/analyticsQueryRange": typeof analytics_utils_analyticsQueryRange;
   "analytics/utils/buildActivityData": typeof analytics_utils_buildActivityData;
   "analytics/utils/buildAnalyticsRows": typeof analytics_utils_buildAnalyticsRows;
   "analytics/utils/buildUserAnalyticsChartData": typeof analytics_utils_buildUserAnalyticsChartData;
-  "analytics/utils/createEmptyMetricComparison": typeof analytics_utils_createEmptyMetricComparison;
-  "analytics/utils/formatAnalyticsMetricTrend": typeof analytics_utils_formatAnalyticsMetricTrend;
+  "analytics/utils/comparedMetricUtils": typeof analytics_utils_comparedMetricUtils;
   "analytics/utils/getAnalyticsMetricValue": typeof analytics_utils_getAnalyticsMetricValue;
   "analytics/utils/sortAnalyticsItemsByMetric": typeof analytics_utils_sortAnalyticsItemsByMetric;
   "analytics/utils/sumAnalyticsMetricTotals": typeof analytics_utils_sumAnalyticsMetricTotals;
@@ -198,8 +204,14 @@ declare const fullApi: ApiFromModules<{
   "helpers/paginationHelpers": typeof helpers_paginationHelpers;
   "helpers/uniqueIds": typeof helpers_uniqueIds;
   http: typeof http;
-  "pages/userAnalytics/helpers/getTopAccommodationNamesByHospitality": typeof pages_userAnalytics_helpers_getTopAccommodationNamesByHospitality;
-  "pages/userAnalytics/helpers/getTopHospitalityNamesByAccommodation": typeof pages_userAnalytics_helpers_getTopHospitalityNamesByAccommodation;
+  "pages/adminAnalytics/queries/fetchAdminAnalyticsOverviewPage": typeof pages_adminAnalytics_queries_fetchAdminAnalyticsOverviewPage;
+  "pages/adminAnalytics/types/adminAnalyticsTypes": typeof pages_adminAnalytics_types_adminAnalyticsTypes;
+  "pages/adminDashboard/helpers/countGuests": typeof pages_adminDashboard_helpers_countGuests;
+  "pages/adminDashboard/queries/fetchAdminDashboardPage": typeof pages_adminDashboard_queries_fetchAdminDashboardPage;
+  "pages/adminDashboard/types/adminDashboardTypes": typeof pages_adminDashboard_types_adminDashboardTypes;
+  "pages/adminDashboard/utils/summarizeAccommodations": typeof pages_adminDashboard_utils_summarizeAccommodations;
+  "pages/adminDashboard/utils/summarizeActivePartnerships": typeof pages_adminDashboard_utils_summarizeActivePartnerships;
+  "pages/adminDashboard/utils/summarizeHospitalities": typeof pages_adminDashboard_utils_summarizeHospitalities;
   "pages/userAnalytics/helpers/getUserAnalyticsChartData": typeof pages_userAnalytics_helpers_getUserAnalyticsChartData;
   "pages/userAnalytics/queries/fetchUserAnalyticsAccommodationPage": typeof pages_userAnalytics_queries_fetchUserAnalyticsAccommodationPage;
   "pages/userAnalytics/queries/fetchUserAnalyticsAccommodationsPage": typeof pages_userAnalytics_queries_fetchUserAnalyticsAccommodationsPage;
@@ -208,8 +220,6 @@ declare const fullApi: ApiFromModules<{
   "pages/userAnalytics/queries/fetchUserAnalyticsOverviewPage": typeof pages_userAnalytics_queries_fetchUserAnalyticsOverviewPage;
   "pages/userAnalytics/queries/fetchUserAnalyticsReservationsPage": typeof pages_userAnalytics_queries_fetchUserAnalyticsReservationsPage;
   "pages/userAnalytics/types/userAnalyticsTypes": typeof pages_userAnalytics_types_userAnalyticsTypes;
-  "pages/userAnalytics/utils/dateUtils": typeof pages_userAnalytics_utils_dateUtils;
-  "pages/userAnalytics/utils/rankingFormatUtils": typeof pages_userAnalytics_utils_rankingFormatUtils;
   "pages/userDashboard/helpers/getUserDashboardPendingReservations": typeof pages_userDashboard_helpers_getUserDashboardPendingReservations;
   "pages/userDashboard/helpers/getUserDashboardStats": typeof pages_userDashboard_helpers_getUserDashboardStats;
   "pages/userDashboard/queries/fetchUserDashboardPendingReservations": typeof pages_userDashboard_queries_fetchUserDashboardPendingReservations;
@@ -299,6 +309,8 @@ declare const fullApi: ApiFromModules<{
   "tables/reservations/emails/sendReservationEmailToHospitalityOwner": typeof tables_reservations_emails_sendReservationEmailToHospitalityOwner;
   "tables/reservations/helpers/createFetchReservationsQuery": typeof tables_reservations_helpers_createFetchReservationsQuery;
   "tables/reservations/helpers/getGuestActiveHospitalityReservation": typeof tables_reservations_helpers_getGuestActiveHospitalityReservation;
+  "tables/reservations/helpers/getRecentReservations": typeof tables_reservations_helpers_getRecentReservations;
+  "tables/reservations/helpers/getReservationCountsByStatus": typeof tables_reservations_helpers_getReservationCountsByStatus;
   "tables/reservations/helpers/getReservations": typeof tables_reservations_helpers_getReservations;
   "tables/reservations/helpers/getReservationsByAccommodations": typeof tables_reservations_helpers_getReservationsByAccommodations;
   "tables/reservations/helpers/groupReservationsByAccommodation": typeof tables_reservations_helpers_groupReservationsByAccommodation;

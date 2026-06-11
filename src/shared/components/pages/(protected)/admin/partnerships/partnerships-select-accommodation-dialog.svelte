@@ -43,7 +43,9 @@
 	);
 
 	const rows = $derived.by((): Doc<'accommodations'>[] => accommodationsQuery.data?.page ?? []);
-	const isLoading = $derived(accommodationsQuery.isLoading && accommodationsQuery.data === undefined);
+	const isLoading = $derived(
+		accommodationsQuery.isLoading && accommodationsQuery.data === undefined
+	);
 	const isTruncated = $derived(accommodationsQuery.data?.isDone === false);
 	const hasSelection = $derived(Boolean(value));
 
@@ -64,13 +66,13 @@
 	<div class="flex w-full flex-col gap-2">
 		{#if hasSelection && display}
 			<div
-				class="bg-primary/5 border-primary/25 flex w-full flex-col gap-0.5 rounded-lg border px-3 py-2.5"
+				class="flex w-full flex-col gap-0.5 rounded-lg border border-primary/25 bg-primary/5 px-3 py-2.5"
 				aria-live="polite"
 			>
 				{#if display.name}
-					<span class="text-primary font-medium leading-snug">{display.name}</span>
+					<span class="leading-snug font-medium text-primary">{display.name}</span>
 				{/if}
-				<span class="text-muted-foreground font-mono text-xs leading-snug">{display.id}</span>
+				<span class="font-mono text-xs leading-snug text-muted-foreground">{display.id}</span>
 			</div>
 			<button
 				type="button"
@@ -82,10 +84,7 @@
 				{m['AdminPartnershipAddPage.modifyAccommodation']()}
 			</button>
 		{:else}
-			<Dialog.Trigger
-				type="button"
-				class={cn(buttonVariants({ variant: 'outline' }), 'w-full')}
-			>
+			<Dialog.Trigger type="button" class={cn(buttonVariants({ variant: 'outline' }), 'w-full')}>
 				{m['AdminPartnershipAddPage.selectAccommodation']()}
 			</Dialog.Trigger>
 		{/if}
@@ -100,7 +99,11 @@
 			</Dialog.Title>
 		</Dialog.Header>
 
-		<div class="min-h-0 flex-1 overflow-y-auto px-2 py-2" role="listbox" aria-labelledby="{inputId}-dialog-title">
+		<div
+			class="min-h-0 flex-1 overflow-y-auto px-2 py-2"
+			role="listbox"
+			aria-labelledby="{inputId}-dialog-title"
+		>
 			{#if isLoading}
 				<PartnershipsSelectAccommodationDialogLoading />
 			{:else if rows.length === 0}
@@ -119,7 +122,9 @@
 		</div>
 
 		{#if isTruncated && rows.length > 0}
-			<p class="text-muted-foreground shrink-0 border-t border-border px-4 py-2 text-xs leading-relaxed">
+			<p
+				class="shrink-0 border-t border-border px-4 py-2 text-xs leading-relaxed text-muted-foreground"
+			>
 				{m['AdminPartnershipAddPage.selectAccommodationTruncated']({ count: rows.length })}
 			</p>
 		{/if}

@@ -8,6 +8,7 @@ import { mutation } from '@/convex/_generated/server';
 
 // HELPERS
 import { getActiveGuestSession } from '@/convex/tables/guests/helpers/getActiveGuestSession';
+import { hasActiveAccommodationHospitalityPartnership } from '@/convex/tables/partnerships/helpers/getAccommodationPartnerships';
 
 export const viewHospitality = mutation({
 	args: {
@@ -23,36 +24,36 @@ export const viewHospitality = mutation({
 		if (!hospitality?.isActive) return null;
 		if (!guest) return null;
 
-		const accommodationId = guest.accommodationId;
-
-		const accommodation = await ctx.db.get(accommodationId);
-		if (!accommodation?.isActive) return null;
+		const [accommodation, isPartnered] = await Promise.all([
+			ctx.db.get(guest.accommodationId),
+			hasActiveAccommodationHospitalityPartnership(ctx, guest.accommodationId, args.hospitalityId)
+		]);
+		// Only partnered venues are reachable from the stay page — anything else is a
+		// hand-crafted call and must not inflate view counts.
+		if (!accommodation?.isActive || !isPartnered) return null;
 
 		const scopes = [
 			{
 				scopeType: 'organization' as const,
 				scopeId: createAnalyticsScopeId('hospitalityOwner', hospitality.ownerId)
+			},
+			{
+				scopeType: 'organization' as const,
+				scopeId: createAnalyticsScopeId('accommodationOwner', accommodation.ownerId)
 			}
 		];
 
-		const properties: Record<string, string> = {
-			hospitalityId: hospitality._id,
-			hospitalityName: hospitality.name
-		};
-
-		scopes.push({
-			scopeType: 'organization' as const,
-			scopeId: createAnalyticsScopeId('accommodationOwner', accommodation.ownerId)
-		});
-		properties.accommodationId = accommodation._id;
-		properties.accommodationName = accommodation.name;
-
-		await analytics.writeTrack(ctx, {
-			name: 'hospitality.viewed',
+		await analytics.track(ctx, 'hospitality.viewed', {
 			actorId: guest._id,
+			subject: { type: 'hospitality', id: hospitality._id },
 			organizationId: hospitality.ownerId,
 			scopes,
-			properties,
+			properties: {
+				hospitalityId: hospitality._id,
+				hospitalityName: hospitality.name,
+				accommodationId: accommodation._id,
+				accommodationName: accommodation.name
+			},
 			unique: {
 				key: `guestView:${guest._id}:${args.hospitalityId}`
 			}

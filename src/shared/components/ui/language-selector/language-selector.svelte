@@ -86,7 +86,7 @@
 							{language.name()}
 						</span>
 
-						<span class="text-muted-foreground font-dm-sans text-xs">
+						<span class="font-dm-sans text-xs text-muted-foreground">
 							{language.short()}
 						</span>
 					</div>

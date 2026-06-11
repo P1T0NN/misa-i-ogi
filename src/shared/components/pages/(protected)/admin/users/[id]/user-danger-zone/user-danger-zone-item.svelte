@@ -25,7 +25,7 @@
 	>
 		<div class="flex flex-col gap-0.5">
 			<h3 class="text-sm font-semibold">{title}</h3>
-			<p class="text-muted-foreground text-sm">{description}</p>
+			<p class="text-sm text-muted-foreground">{description}</p>
 		</div>
 		<div class="shrink-0">{@render children()}</div>
 	</CardContent>

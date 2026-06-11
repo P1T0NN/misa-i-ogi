@@ -1,4 +1,4 @@
-﻿<script lang="ts" generics="T extends Record<string, unknown>">
+<script lang="ts" generics="T extends Record<string, unknown>">
 	// LIBRARIES
 	import { useConvexClient, useQuery } from 'convex-svelte';
 	import { toast } from 'svelte-sonner';
@@ -30,12 +30,7 @@
 		Record<string, unknown>,
 		PaginatedListPayload<T>
 	>;
-	type ConvexDeleteMutation = FunctionReference<
-		'mutation',
-		'public',
-		{ ids: string[] },
-		unknown
-	>;
+	type ConvexDeleteMutation = FunctionReference<'mutation', 'public', { ids: string[] }, unknown>;
 
 	type BackendMessage = Parameters<typeof translateFromBackend>[0];
 	type MutationEnvelope = { success: boolean; message: BackendMessage };

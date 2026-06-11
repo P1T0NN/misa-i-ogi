@@ -1,5 +1,5 @@
 <script lang="ts" module>
-    // LIBRARIES
+	// LIBRARIES
 	import { CalendarDate, getLocalTimeZone, type DateValue } from '@internationalized/date';
 
 	// TYPES
@@ -137,7 +137,7 @@
 </script>
 
 <script lang="ts">
-    // COMPONENTS
+	// COMPONENTS
 	import * as Select from '@/shared/components/ui/select/index.js';
 	import * as Popover from '@/shared/components/ui/popover/index.js';
 	import { Button } from '@/shared/components/ui/button/index.js';
@@ -196,7 +196,9 @@
 	let calendarOpen = $state(false);
 
 	const isCustom = $derived(value === 'custom');
-	const selectedLabel = $derived(formatTimeRangeLabel(value, customRange, options, locale, timeZone));
+	const selectedLabel = $derived(
+		formatTimeRangeLabel(value, customRange, options, locale, timeZone)
+	);
 	const customRangeLabel = $derived(formatDateRange(customRange, locale, undefined, timeZone));
 
 	function handleValueChange(nextValue: string) {

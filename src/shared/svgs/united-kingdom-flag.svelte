@@ -1,4 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 30" class="size-4 shrink-0 rounded-sm" aria-hidden="true">
+<svg
+	xmlns="http://www.w3.org/2000/svg"
+	viewBox="0 0 60 30"
+	class="size-4 shrink-0 rounded-sm"
+	aria-hidden="true"
+>
 	<clipPath id="uk-flag-clip">
 		<path d="M0 0v30h60V0z" />
 	</clipPath>

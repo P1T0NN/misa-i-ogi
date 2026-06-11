@@ -1,3 +1,5 @@
 {
-  "clone_groups": []
+	"clone_groups": [
+		"src/shared/components/pages/(protected)/user-analytics/user-analytics-accommodations/user-analytics-accommodations-table.svelte:3-32|src/shared/components/pages/(protected)/user-analytics/user-analytics-hospitalities/user-analytics-hospitalities-table.svelte:3-32|src/shared/components/pages/(protected)/user-analytics/user-analytics-overview/user-analytics-overview-top-accommodations.svelte:3-32"
+	]
 }

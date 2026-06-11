@@ -1,6 +1,13 @@
 <script lang="ts">
 	// COMPONENTS
 	import { Button } from '@/shared/components/ui/button/index.js';
+	import {
+		Card,
+		CardContent,
+		CardDescription,
+		CardHeader,
+		CardTitle
+	} from '@/shared/components/ui/card/index.js';
 	import DataTable from '@/shared/components/ui/data-table/data-table.svelte';
 
 	// UTILS
@@ -8,7 +15,7 @@
 		formatAnalyticsConversionRate,
 		formatAnalyticsCount,
 		formatAnalyticsType
-	} from '@/features/analytics/utils/analytics-display-formatters';
+	} from '@/features/analytics/utils/analyticsDisplayFormattersUtils';
 
 	// TYPES
 	import type { UserAnalyticsRankingRow } from '@/convex/pages/userAnalytics/types/userAnalyticsTypes';
@@ -57,7 +64,7 @@
 		},
 		{
 			id: 'requests',
-			header: 'Requests',
+			header: 'Reservations',
 			accessor: (row) => row.requests,
 			cellClass: 'tabular-nums'
 		},
@@ -98,23 +105,24 @@
 	</Button>
 {/snippet}
 
-<section class="flex min-w-0 flex-col gap-3" aria-labelledby="top-accommodations-title">
-	<div>
-		<h2 id="top-accommodations-title" class="text-lg font-semibold tracking-tight">
-			Top accommodations
-		</h2>
-		<p class="text-sm text-muted-foreground">
+<Card class="min-w-0">
+	<CardHeader>
+		<CardTitle class="text-base">Top accommodations</CardTitle>
+		<CardDescription>
 			Stays creating the strongest guest and reservation activity.
-		</p>
-	</div>
+		</CardDescription>
+	</CardHeader>
 
-	<DataTable
-		data={rows}
-		{columns}
-		getRowId={(row) => row.id}
-		customCells={{
-			action: actionCell
-		}}
-		showPagination={false}
-	/>
-</section>
+	<CardContent>
+		<DataTable
+			data={rows}
+			{columns}
+			getRowId={(row) => row.id}
+			customCells={{
+				action: actionCell
+			}}
+			borderless
+			showPagination={false}
+		/>
+	</CardContent>
+</Card>

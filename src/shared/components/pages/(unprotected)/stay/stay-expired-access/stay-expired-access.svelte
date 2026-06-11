@@ -15,13 +15,13 @@
 		</h1>
 
 		<Card.Root
-			class="border-destructive/30 bg-destructive/5 gap-2 rounded-xl border p-6 text-center shadow-none"
+			class="gap-2 rounded-xl border border-destructive/30 bg-destructive/5 p-6 text-center shadow-none"
 			role="status"
 		>
 			<Card.Title class="font-serif text-lg font-medium text-destructive">
 				{m['StayPage.StayExpiredAccess.title']()}
 			</Card.Title>
-			<Card.Description class="text-muted-foreground text-sm leading-relaxed">
+			<Card.Description class="text-sm leading-relaxed text-muted-foreground">
 				{m['StayPage.StayExpiredAccess.body']()}
 			</Card.Description>
 		</Card.Root>

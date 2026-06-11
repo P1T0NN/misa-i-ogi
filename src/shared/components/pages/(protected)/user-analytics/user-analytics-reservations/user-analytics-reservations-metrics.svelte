@@ -3,7 +3,7 @@
 	import AnalyticsMetrics from '@/features/analytics/components/analytics-metrics.svelte';
 
 	// UTILS
-	import { createComparedAnalyticsMetric } from '@/features/analytics/utils/analytics-display-formatters';
+	import { createComparedAnalyticsMetric } from '@/features/analytics/utils/createAnalyticsMetric';
 
 	// TYPES
 	import type { UserAnalyticsReservationsPageMetrics } from '@/convex/pages/userAnalytics/types/userAnalyticsTypes';
