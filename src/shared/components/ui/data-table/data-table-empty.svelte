@@ -23,8 +23,8 @@
 
 	let {
 		class: className,
-		title = m['DataTable.emptyTitle'](),
-		description = m['DataTable.emptyDescription'](),
+		title = m['DataTable.DataTableEmpty.title'](),
+		description = m['DataTable.DataTableEmpty.description'](),
 		children
 	}: Props = $props();
 </script>

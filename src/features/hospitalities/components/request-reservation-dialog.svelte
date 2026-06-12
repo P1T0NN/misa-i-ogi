@@ -2,6 +2,7 @@
 	// LIBRARIES
 	import { getConvexClient } from '@mmailaender/convex-svelte';
 	import { api } from '@/convex/_generated/api';
+	import { m } from '@/shared/lib/paraglide/messages';
 
 	// COMPONENTS
 	import * as Dialog from '@/shared/components/ui/dialog/index.js';
@@ -40,7 +41,7 @@
 		hospitalityId: Id<'hospitalities'>;
 	} = $props();
 
-	const sections: MutationFormSection[] = [
+	const sections = $derived<MutationFormSection[]>([
 		{
 			plain: true,
 			columns: 1,
@@ -48,8 +49,8 @@
 				{
 					id: 'guestName',
 					kind: 'input',
-					label: 'Guest name',
-					placeholder: 'Your full name',
+					label: m['HospitalityPage.RequestReservationDialog.fieldGuestName'](),
+					placeholder: m['HospitalityPage.RequestReservationDialog.fieldGuestNamePlaceholder'](),
 					autocomplete: 'name',
 					required: true,
 					autofocus: true
@@ -58,35 +59,34 @@
 					id: 'guestCount',
 					kind: 'input',
 					type: 'number',
-					label: 'Number of guests',
-					placeholder: '2',
+					label: m['HospitalityPage.RequestReservationDialog.fieldGuestCount'](),
+					placeholder: m['HospitalityPage.RequestReservationDialog.fieldGuestCountPlaceholder'](),
 					required: true,
-					description: 'Include everyone in your party.'
+					description: m['HospitalityPage.RequestReservationDialog.fieldGuestCountDescription']()
 				},
 				{
 					id: 'requestedTime',
 					kind: 'input',
-					label: 'Preferred time'
+					label: m['HospitalityPage.RequestReservationDialog.fieldRequestedTime']()
 				},
 				{
 					id: 'phone',
 					kind: 'input',
 					type: 'tel',
-					label: 'Phone number',
-					placeholder: '+381 6X XXX XXXX',
-					description:
-						'If your number is not Serbian, please write the full number with your country prefix (+...) and make sure it is a WhatsApp number — the hospitality owner will reach you there directly.'
+					label: m['HospitalityPage.RequestReservationDialog.fieldPhone'](),
+					placeholder: m['HospitalityPage.RequestReservationDialog.fieldPhonePlaceholder'](),
+					description: m['HospitalityPage.RequestReservationDialog.fieldPhoneDescription']()
 				},
 				{
 					id: 'email',
 					kind: 'input',
 					type: 'email',
-					label: 'Email (optional)',
-					placeholder: 'you@example.com'
+					label: m['HospitalityPage.RequestReservationDialog.fieldEmail'](),
+					placeholder: m['HospitalityPage.RequestReservationDialog.fieldEmailPlaceholder']()
 				}
 			]
 		}
-	];
+	]);
 
 	const convexClient = getConvexClient();
 
@@ -130,15 +130,22 @@
 	}}
 >
 	<Dialog.Trigger type="button" class={cn(buttonVariants(), 'h-11 w-full')}>
-		Request Reservation
+		{m['HospitalityPage.RequestReservationDialog.trigger']()}
 	</Dialog.Trigger>
 
 	<Dialog.Content class="sm:max-w-md">
 		<Dialog.Header>
-			<Dialog.Title class="font-serif text-xl">Request Reservation</Dialog.Title>
+			<Dialog.Title class="font-serif text-xl">
+				{m['HospitalityPage.RequestReservationDialog.title']()}
+			</Dialog.Title>
 			<Dialog.Description>
-				Fill in your details{#if hospitalityName}
-					and <strong>{hospitalityName}</strong> will contact you to confirm{/if}.
+				{#if hospitalityName}
+					{m['HospitalityPage.RequestReservationDialog.descriptionWithName']({
+						hospitalityName
+					})}
+				{:else}
+					{m['HospitalityPage.RequestReservationDialog.description']()}
+				{/if}
 			</Dialog.Description>
 		</Dialog.Header>
 
@@ -148,7 +155,7 @@
 			bind:values
 			schema={createReservationSchema}
 			runFunction={api.tables.reservations.mutations.createReservation.createReservation}
-			submitLabel="Send Request"
+			submitLabel={m['HospitalityPage.RequestReservationDialog.submitLabel']()}
 			resetOnSuccess={false}
 			{convexClient}
 			{prepareSubmit}
@@ -161,11 +168,11 @@
 				>
 					<AlertTriangleIcon class="mt-0.5 size-5 shrink-0 text-destructive" aria-hidden="true" />
 					<div class="flex flex-col gap-1 text-sm">
-						<p class="font-semibold text-destructive">Important — please read carefully</p>
+						<p class="font-semibold text-destructive">
+							{m['HospitalityPage.RequestReservationDialog.warningTitle']()}
+						</p>
 						<p class="text-foreground/90">
-							The hospitality owner <strong>WILL contact you</strong> to confirm your reservation.
-							If you <strong>do not answer back in time</strong>, your reservation
-							<strong>WILL BE CANCELLED</strong>.
+							{m['HospitalityPage.RequestReservationDialog.warningBody']()}
 						</p>
 					</div>
 				</div>
@@ -188,7 +195,7 @@
 		max={50}
 		step={1}
 		inputmode="numeric"
-		placeholder="2"
+		placeholder={m['HospitalityPage.RequestReservationDialog.fieldGuestCountPlaceholder']()}
 		required
 		value={value === undefined || value === null ? '' : String(value)}
 		oninput={(event) => setValue(event.currentTarget.value)}

@@ -79,29 +79,29 @@
 					icon: HospitalIcon
 				},
 				{
-					name: 'Reservations',
+					name: m['ProtectedSidebar.reservations'](),
 					url: PROTECTED_PAGE_ENDPOINTS.RESERVATIONS,
 					icon: CalendarCheckIcon
 				},
 				{
-					name: 'Analytics',
+					name: m['ProtectedSidebar.analytics'](),
 					icon: ChartBarIcon,
-					groupLabel: 'Analytics',
+					groupLabel: m['ProtectedSidebar.analyticsGroupLabel'](),
 					items: [
 						{
-							name: 'Overview',
+							name: m['ProtectedSidebar.analyticsOverview'](),
 							url: PROTECTED_PAGE_ENDPOINTS.ANALYTICS
 						},
 						{
-							name: 'Accommodations',
+							name: m['ProtectedSidebar.analyticsAccommodations'](),
 							url: PROTECTED_PAGE_ENDPOINTS.ANALYTICS_ACCOMMODATIONS
 						},
 						{
-							name: 'Hospitalities',
+							name: m['ProtectedSidebar.analyticsHospitalities'](),
 							url: PROTECTED_PAGE_ENDPOINTS.ANALYTICS_HOSPITALITIES
 						},
 						{
-							name: 'Reservations',
+							name: m['ProtectedSidebar.analyticsReservations'](),
 							url: PROTECTED_PAGE_ENDPOINTS.ANALYTICS_RESERVATIONS
 						}
 					]

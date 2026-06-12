@@ -1,9 +1,12 @@
 <script lang="ts">
+	// LIBRARIES
+	import { m } from '@/shared/lib/paraglide/messages';
+
 	// CONFIG
 	import { COMPANY_DATA, UNPROTECTED_PAGE_ENDPOINTS } from '@/shared/constants';
 
 	// COMPONENTS
-	import SignUpFormNoImage from '@/features/auth/components/sign-up-form/sign-up-form-no-image.svelte';
+	import SvelteHead from '@/shared/components/ui/svelte-head/svelte-head.svelte';
 	import SignUpFormWithImage from '@/features/auth/components/sign-up-form/sign-up-form-with-image.svelte';
 	import Link from '@/shared/components/ui/link/link.svelte';
 
@@ -11,11 +14,10 @@
 	import GalleryVerticalEndIcon from '@lucide/svelte/icons/gallery-vertical-end';
 </script>
 
-<div class="flex min-h-svh w-full items-center justify-center p-6 md:p-10">
-	<div class="w-full max-w-sm">
-		<SignUpFormNoImage />
-	</div>
-</div>
+<SvelteHead
+	title={m['SignUpPage.SEO.title']()}
+	description={m['SignUpPage.SEO.description']()}
+/>
 
 <div class="grid min-h-svh lg:grid-cols-2">
 	<div class="flex flex-col gap-4 p-6 md:p-10">

@@ -14,7 +14,6 @@
 	import { useQuery } from '@mmailaender/convex-svelte';
 	import { api } from '@/convex/_generated/api';
 	import { useAuth } from '@mmailaender/convex-better-auth-svelte/svelte';
-	import { injectAnalytics } from '@vercel/analytics/sveltekit';
 	import { injectSpeedInsights } from '@vercel/speed-insights/sveltekit';
 
 	// CLASSES
@@ -35,7 +34,11 @@
 	let { children, data } = $props();
 
 	const pathnameLogical = $derived(deLocalizeUrl(page.url).pathname);
-	const isLoginPage = $derived(pathnameLogical === UNPROTECTED_PAGE_ENDPOINTS.LOGIN);
+	const isAuthPage = $derived(
+		pathnameLogical === UNPROTECTED_PAGE_ENDPOINTS.LOGIN ||
+			pathnameLogical === UNPROTECTED_PAGE_ENDPOINTS.SIGNUP ||
+			pathnameLogical === UNPROTECTED_PAGE_ENDPOINTS.FORGOT_PASSWORD
+	);
 	const isAdminPage = $derived(
 		pathnameLogical === '/admin' || pathnameLogical.startsWith('/admin/')
 	);
@@ -45,7 +48,7 @@
 			page.route.id.startsWith('/(protected)/') &&
 			!page.route.id.startsWith('/(protected)/admin')
 	);
-	const showSiteChrome = $derived(!isLoginPage && !isAdminPage && !isProtectedPage);
+	const showSiteChrome = $derived(!isAuthPage && !isAdminPage && !isProtectedPage);
 
 	// Re-sync locale-prefixed URLs after hydration and client-side navigations.
 	// SSR document requests are handled by paraglideMiddleware in hooks.server.ts.
@@ -75,7 +78,6 @@
 		authClient,
 		getServerState: () => data.authState
 	});
-	injectAnalytics({ mode: dev ? 'development' : 'production' });
 	injectSpeedInsights();
 
 	// NOTE: Has to be after the `createSvelteAuthClient` call because it uses the `authClient` instance.

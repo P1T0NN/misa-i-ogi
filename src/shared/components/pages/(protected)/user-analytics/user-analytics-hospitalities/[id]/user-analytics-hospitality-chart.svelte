@@ -1,4 +1,7 @@
 <script lang="ts">
+	// LIBRARIES
+	import { m } from '@/shared/lib/paraglide/messages';
+
 	// COMPONENTS
 	import AreaChartInteractive from '@/shared/components/ui/custom-charts/area-chart-interactive.svelte';
 
@@ -12,11 +15,20 @@
 
 	const chartData = $derived(data.map((p) => ({ ...p, date: new Date(p.date) })));
 
-	const chartConfig = {
-		qrScans: { label: 'Guest views', color: 'var(--chart-1)' },
-		guestActivations: { label: 'Guest activations', color: 'var(--success)' },
-		reservations: { label: 'Reservations', color: 'var(--chart-3)' }
-	} satisfies ChartConfig;
+	const chartConfig = $derived({
+		qrScans: {
+			label: m['AnalyticsHospitalityDetailPage.UserAnalyticsHospitalityChart.guestViews'](),
+			color: 'var(--chart-1)'
+		},
+		guestActivations: {
+			label: m['AnalyticsHospitalityDetailPage.UserAnalyticsHospitalityChart.guestActivations'](),
+			color: 'var(--success)'
+		},
+		reservations: {
+			label: m['AnalyticsHospitalityDetailPage.UserAnalyticsHospitalityChart.reservations'](),
+			color: 'var(--chart-3)'
+		}
+	} satisfies ChartConfig);
 </script>
 
 <AreaChartInteractive
@@ -24,8 +36,8 @@
 	x="date"
 	config={chartConfig}
 	timeRange="30d"
-	title="Activity trend"
-	description="Recent guest views, activations, and reservation requests for this place."
+	title={m['AnalyticsHospitalityDetailPage.UserAnalyticsHospitalityChart.title']()}
+	description={m['AnalyticsHospitalityDetailPage.UserAnalyticsHospitalityChart.description']()}
 	cardClass="py-0"
 	cardContentClass="px-2 pb-4 sm:px-4"
 	containerClass="aspect-auto h-80 w-full"

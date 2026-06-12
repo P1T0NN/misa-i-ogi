@@ -1,4 +1,7 @@
 <script lang="ts">
+	// LIBRARIES
+	import { m } from '@/shared/lib/paraglide/messages';
+
 	// COMPONENTS
 	import {
 		Card,
@@ -11,12 +14,16 @@
 
 <Card>
 	<CardHeader>
-		<CardTitle>Reservation trend</CardTitle>
-		<CardDescription>Daily reservation outcomes across connected places.</CardDescription>
+		<CardTitle>
+			{m['AnalyticsReservationsPage.UserAnalyticsReservationsStatusChartEmpty.title']()}
+		</CardTitle>
+		<CardDescription>
+			{m['AnalyticsReservationsPage.UserAnalyticsReservationsStatusChartEmpty.description']()}
+		</CardDescription>
 	</CardHeader>
 	<CardContent class="flex h-80 items-center justify-center px-4 text-center">
 		<p class="text-sm text-muted-foreground">
-			Reservation status data will appear here after guests submit requests.
+			{m['AnalyticsReservationsPage.UserAnalyticsReservationsStatusChartEmpty.body']()}
 		</p>
 	</CardContent>
 </Card>

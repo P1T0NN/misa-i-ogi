@@ -1,4 +1,7 @@
 <script lang="ts">
+	// LIBRARIES
+	import { m } from '@/shared/lib/paraglide/messages';
+
 	// COMPONENTS
 	import {
 		Card,
@@ -17,8 +20,12 @@
 		<CardHeader>
 			<div class="flex items-start justify-between gap-3">
 				<div>
-					<CardTitle class="text-base">Pending reservations</CardTitle>
-					<CardDescription>Requests waiting for your response.</CardDescription>
+					<CardTitle class="text-base">
+						{m['DashboardPage.DashboardPendingReservationsEmpty.cardTitle']()}
+					</CardTitle>
+					<CardDescription>
+						{m['DashboardPage.DashboardPendingReservationsEmpty.cardDescription']()}
+					</CardDescription>
 				</div>
 				<CalendarCheckIcon class="size-5 text-muted-foreground" />
 			</div>
@@ -29,8 +36,12 @@
 				<CalendarCheckIcon class="size-5 text-muted-foreground" />
 			</div>
 			<div>
-				<p class="text-sm font-medium">All caught up</p>
-				<p class="mt-1 text-xs text-muted-foreground">No pending reservation requests to review.</p>
+				<p class="text-sm font-medium">
+					{m['DashboardPage.DashboardPendingReservationsEmpty.title']()}
+				</p>
+				<p class="mt-1 text-xs text-muted-foreground">
+					{m['DashboardPage.DashboardPendingReservationsEmpty.description']()}
+				</p>
 			</div>
 		</CardContent>
 	</Card>

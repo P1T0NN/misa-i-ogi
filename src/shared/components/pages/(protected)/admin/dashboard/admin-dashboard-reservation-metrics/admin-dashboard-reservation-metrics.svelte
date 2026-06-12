@@ -1,7 +1,13 @@
 <script lang="ts">
+	// LIBRARIES
+	import { m } from '@/shared/lib/paraglide/messages';
+
 	// COMPONENTS
 	import * as Card from '@/shared/components/ui/card/index.js';
 	import AnalyticsMetrics from '@/features/analytics/components/analytics-metrics.svelte';
+
+	// I18N
+	import { reservationStatusLabel } from '@/features/reservations/i18n/reservationDisplay';
 
 	// UTILS
 	import { createStaticAnalyticsMetric } from '@/features/analytics/utils/createAnalyticsMetric';
@@ -16,28 +22,25 @@
 	const metrics = $derived<AnalyticsMetric[]>([
 		createStaticAnalyticsMetric({
 			id: 'pending',
-			label: 'Pending',
+			label: reservationStatusLabel('pending'),
 			metric: { value: counts.pending },
 			analyticsLabel: getPresenceAnalyticsLabel(counts.pending)
 		}),
-
 		createStaticAnalyticsMetric({
 			id: 'confirmed',
-			label: 'Confirmed',
+			label: reservationStatusLabel('confirmed'),
 			metric: { value: counts.confirmed },
 			analyticsLabel: getPresenceAnalyticsLabel(counts.confirmed)
 		}),
-
 		createStaticAnalyticsMetric({
 			id: 'cancelled',
-			label: 'Cancelled',
+			label: reservationStatusLabel('cancelled'),
 			metric: { value: counts.cancelled },
 			analyticsLabel: getPresenceAnalyticsLabel(counts.cancelled)
 		}),
-
 		createStaticAnalyticsMetric({
 			id: 'no_show',
-			label: 'No-show',
+			label: reservationStatusLabel('no_show'),
 			metric: { value: counts.no_show },
 			analyticsLabel: getPresenceAnalyticsLabel(counts.no_show)
 		})
@@ -46,8 +49,10 @@
 
 <Card.Root>
 	<Card.Header>
-		<Card.Title>Reservation workload</Card.Title>
-		<Card.Description>Current reservation outcomes across the whole platform.</Card.Description>
+		<Card.Title>{m['AdminDashboardPage.AdminDashboardReservationMetrics.cardTitle']()}</Card.Title>
+		<Card.Description>
+			{m['AdminDashboardPage.AdminDashboardReservationMetrics.cardDescription']()}
+		</Card.Description>
 	</Card.Header>
 
 	<Card.Content>

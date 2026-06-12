@@ -2,6 +2,9 @@
 	// SVELTEKIT IMPORTS
 	import { onMount } from 'svelte';
 
+	// LIBRARIES
+	import { m } from '@/shared/lib/paraglide/messages';
+
 	// COMPONENTS
 	import SvelteHead from '@/shared/components/ui/svelte-head/svelte-head.svelte';
 
@@ -14,7 +17,10 @@
 	onMount(demo.mountKeyboard);
 </script>
 
-<SvelteHead />
+<SvelteHead
+	title={m['DemoPage.SEO.title']()}
+	description={m['DemoPage.SEO.description']()}
+/>
 
 <main id="content">
 	<DemoPhoneSection {demo} />

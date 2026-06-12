@@ -1,4 +1,7 @@
 <script lang="ts">
+	// LIBRARIES
+	import { m } from '@/shared/lib/paraglide/messages';
+
 	// COMPONENTS
 	import {
 		Card,
@@ -21,45 +24,49 @@
 
 	let { rows }: { rows: UserAnalyticsReservationSourceRow[] } = $props();
 
-	const columns = [
+	const columns = $derived([
 		{
 			id: 'source',
-			header: 'Source',
+			header: m['AnalyticsReservationsPage.UserAnalyticsReservationsTable.source'](),
 			accessor: (row) => row.name,
 			cellClass: 'font-medium',
 			wrap: true
 		},
 		{
 			id: 'created',
-			header: 'Created',
+			header: m['AnalyticsReservationsPage.UserAnalyticsReservationsTable.created'](),
 			accessor: (row) => formatAnalyticsCount(row.created),
 			cellClass: 'tabular-nums'
 		},
 		{
 			id: 'confirmed',
-			header: 'Confirmed',
+			header: m['AnalyticsReservationsPage.UserAnalyticsReservationsTable.confirmed'](),
 			accessor: (row) => formatAnalyticsCount(row.confirmed),
 			cellClass: 'tabular-nums'
 		},
 		{
 			id: 'cancelled',
-			header: 'Cancelled',
+			header: m['AnalyticsReservationsPage.UserAnalyticsReservationsTable.cancelled'](),
 			accessor: (row) => formatAnalyticsCount(row.cancelled),
 			cellClass: 'tabular-nums'
 		},
 		{
 			id: 'conversion',
-			header: 'Conversion',
+			header: m['AnalyticsReservationsPage.UserAnalyticsReservationsTable.conversion'](),
 			accessor: (row) => formatAnalyticsConversionRate(row.created, row.confirmed),
 			cellClass: 'tabular-nums'
 		}
-	] satisfies ColumnDef<UserAnalyticsReservationSourceRow>[];
+	] satisfies ColumnDef<UserAnalyticsReservationSourceRow>[]);
 </script>
 
 <Card>
 	<CardHeader>
-		<CardTitle class="text-base">Reservation sources</CardTitle>
-		<CardDescription>Where requests are coming from and how they convert.</CardDescription>
+		<CardTitle class="text-base">
+			{m['AnalyticsReservationsPage.UserAnalyticsReservationsTable.title']()}
+		</CardTitle>
+		<CardDescription>
+			{m['AnalyticsReservationsPage.UserAnalyticsReservationsTable.description']()}
+		</CardDescription>
 	</CardHeader>
 
 	<CardContent>

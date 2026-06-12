@@ -1,12 +1,7 @@
 <script lang="ts">
+	// COMPONENTS
 	import { Skeleton } from '@/shared/components/ui/skeleton/index.js';
-	import {
-		Card,
-		CardContent,
-		CardDescription,
-		CardHeader,
-		CardTitle
-	} from '@/shared/components/ui/card/index.js';
+	import { Card, CardContent, CardHeader } from '@/shared/components/ui/card/index.js';
 </script>
 
 <div class="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
@@ -24,9 +19,9 @@
 </div>
 
 <Card>
-	<CardHeader>
-		<CardTitle>Stays by reservation requests</CardTitle>
-		<CardDescription>Which accommodations create the most hospitality demand.</CardDescription>
+	<CardHeader class="gap-1.5">
+		<Skeleton class="h-5 w-48" />
+		<Skeleton class="h-4 w-72 max-w-full" />
 	</CardHeader>
 	<CardContent class="px-2 pb-4 sm:px-4">
 		<Skeleton class="h-80 w-full rounded-lg" />
@@ -34,9 +29,9 @@
 </Card>
 
 <Card>
-	<CardHeader>
-		<CardTitle class="text-base">Accommodation performance</CardTitle>
-		<CardDescription>Use this to find strong stays and quiet QR placements.</CardDescription>
+	<CardHeader class="gap-1.5">
+		<Skeleton class="h-5 w-44" />
+		<Skeleton class="h-4 w-80 max-w-full" />
 	</CardHeader>
 	<CardContent class="space-y-3">
 		{#each [...Array(5).keys()] as index (index)}

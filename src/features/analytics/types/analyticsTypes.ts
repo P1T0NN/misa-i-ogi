@@ -7,3 +7,5 @@ export type AnalyticsMetric = {
 	value: string;
 	analyticsLabel?: typesAnalyticsMetricLabel;
 };
+
+export type AnalyticsTopTableVariant = 'top' | 'performance' | 'admin';

@@ -4,5 +4,5 @@
 </script>
 
 <p class="px-2 py-8 text-center text-sm text-muted-foreground">
-	{m['AdminPartnershipAddPage.selectAccommodationEmpty']()}
+	{m['AdminPartnershipAddPage.PartnershipsSelectAccommodationDialogEmpty.description']()}
 </p>

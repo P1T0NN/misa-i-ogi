@@ -2,6 +2,9 @@
 	// SVELTEKIT IMPORTS
 	import { invalidateAll } from '$app/navigation';
 
+	// LIBRARIES
+	import { m } from '@/shared/lib/paraglide/messages';
+
 	// COMPONENTS
 	import { Button } from '@/shared/components/ui/button/index.js';
 
@@ -9,7 +12,7 @@
 	import RefreshCwIcon from '@lucide/svelte/icons/refresh-cw';
 
 	let {
-		label = 'Try again',
+		label = m['ErrorComponent.TryAgain.label'](),
 		class: className
 	}: {
 		label?: string;

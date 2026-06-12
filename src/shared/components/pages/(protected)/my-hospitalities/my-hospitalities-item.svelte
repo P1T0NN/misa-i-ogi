@@ -1,4 +1,7 @@
 <script lang="ts">
+	// LIBRARIES
+	import { m } from '@/shared/lib/paraglide/messages';
+
 	// CONFIG
 	import { PROTECTED_PAGE_ENDPOINTS, UNPROTECTED_PAGE_ENDPOINTS } from '@/shared/constants.js';
 
@@ -69,19 +72,27 @@
 				<span class="hidden h-3 w-px bg-border sm:block" aria-hidden="true"></span>
 
 				<span class="inline-flex items-center gap-1.5 whitespace-nowrap">
-					<span class="text-xs font-medium">Status</span>
+					<span class="text-xs font-medium">
+						{m['MyHospitalitiesPage.MyHospitalitiesItem.status']()}
+					</span>
 					{#if hospitality.isActive}
-						<Badge variant="success">Active</Badge>
+						<Badge variant="success">
+							{m['MyHospitalitiesPage.MyHospitalitiesItem.active']()}
+						</Badge>
 					{:else}
-						<Badge variant="secondary">Inactive</Badge>
+						<Badge variant="secondary">
+							{m['MyHospitalitiesPage.MyHospitalitiesItem.inactive']()}
+						</Badge>
 					{/if}
 				</span>
 
 				<span class="inline-flex items-center gap-1.5 whitespace-nowrap">
-					<span class="text-xs font-medium">Reservations</span>
+					<span class="text-xs font-medium">
+						{m['MyHospitalitiesPage.MyHospitalitiesItem.reservations']()}
+					</span>
 					<Button href={reservationsHref()} variant="ghost" size="xs">
 						<ListChecksIcon data-icon="inline-start" />
-						View
+						{m['MyHospitalitiesPage.MyHospitalitiesItem.view']()}
 					</Button>
 				</span>
 			</div>
@@ -90,14 +101,14 @@
 		<div class="flex gap-2 md:justify-end">
 			<Button href={editHref(hospitality)} variant="outline" size="sm">
 				<PencilIcon data-icon="inline-start" />
-				Edit
+				{m['MyHospitalitiesPage.MyHospitalitiesItem.edit']()}
 			</Button>
 
 			<Button
 				href={publicHref(hospitality)}
 				variant="ghost"
 				size="icon-sm"
-				aria-label="Open public page"
+				aria-label={m['MyHospitalitiesPage.MyHospitalitiesItem.openPublicPageAriaLabel']()}
 			>
 				<ExternalLinkIcon class="size-3.5" aria-hidden="true" />
 			</Button>

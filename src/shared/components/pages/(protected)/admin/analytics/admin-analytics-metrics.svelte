@@ -1,4 +1,7 @@
 <script lang="ts">
+	// LIBRARIES
+	import { m } from '@/shared/lib/paraglide/messages';
+
 	// COMPONENTS
 	import AnalyticsMetrics from '@/features/analytics/components/analytics-metrics.svelte';
 
@@ -16,31 +19,31 @@
 	const displayMetrics = $derived<AnalyticsMetric[]>([
 		createStaticAnalyticsMetric({
 			id: 'qrScans',
-			label: 'QR scans',
+			label: m['AdminAnalyticsPage.AdminAnalyticsMetrics.qrScans'](),
 			metric: { value: metrics.qrScans.value },
 			analyticsLabel: getPresenceAnalyticsLabel(metrics.qrScans.value)
 		}),
 		createStaticAnalyticsMetric({
 			id: 'guestActivations',
-			label: 'Guest activations',
+			label: m['AdminAnalyticsPage.AdminAnalyticsMetrics.guestActivations'](),
 			metric: { value: metrics.guestActivations.value },
 			analyticsLabel: getPresenceAnalyticsLabel(metrics.guestActivations.value)
 		}),
 		createStaticAnalyticsMetric({
 			id: 'hospitalityViews',
-			label: 'Hospitality views',
+			label: m['AdminAnalyticsPage.AdminAnalyticsMetrics.hospitalityViews'](),
 			metric: { value: metrics.hospitalityViews.value },
 			analyticsLabel: getPresenceAnalyticsLabel(metrics.hospitalityViews.value)
 		}),
 		createStaticAnalyticsMetric({
 			id: 'newReservations',
-			label: 'Reservation requests',
+			label: m['AdminAnalyticsPage.AdminAnalyticsMetrics.newReservations'](),
 			metric: { value: metrics.newReservations.value },
 			analyticsLabel: getPresenceAnalyticsLabel(metrics.newReservations.value)
 		}),
 		{
 			id: 'cancelledReservations',
-			label: 'Cancellation rate',
+			label: m['AdminAnalyticsPage.AdminAnalyticsMetrics.cancelledReservations'](),
 			value: `${formatAnalyticsCount(metrics.cancelledReservations.conversion?.ratePercent ?? 0)}%`,
 			analyticsLabel: getPresenceAnalyticsLabel(metrics.cancelledReservations.value)
 		}

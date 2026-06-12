@@ -1,5 +1,6 @@
 <script lang="ts">
 	// LIBRARIES
+	import { m } from '@/shared/lib/paraglide/messages';
 	import { api } from '@/convex/_generated/api';
 	import { useConvexClient } from 'convex-svelte';
 
@@ -50,9 +51,9 @@
 	class="w-full sm:w-auto"
 	{isPending}
 	isDestructive
-	title="Cancel reservation"
-	description={`Cancel ${guestName}'s reservation request? This will move it to cancelled reservations.`}
+	title={m['ReservationsPage.ReservationCancelButton.title']()}
+	description={m['ReservationsPage.ReservationCancelButton.description']({ guestName })}
 >
 	<XIcon data-icon="inline-start" />
-	Cancel
+	{m['ReservationsPage.ReservationCancelButton.label']()}
 </ActionButton>

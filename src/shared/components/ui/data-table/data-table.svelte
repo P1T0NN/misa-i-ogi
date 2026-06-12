@@ -258,7 +258,11 @@
 							<span class="truncate">
 								{#if activeSortLabel}
 									{m['DataTable.sortBy']()}: {activeSortLabel.header}
-									{#if activeSortLabel.direction === 'asc'}?{:else}?{/if}
+									{#if activeSortLabel.direction === 'asc'}
+										({m['DataTable.sortAscending']()})
+									{:else}
+										({m['DataTable.sortDescending']()})
+									{/if}
 								{:else}
 									{m['DataTable.sortBy']()}
 								{/if}
@@ -267,8 +271,12 @@
 						<SelectContent>
 							<SelectItem value="">{m['DataTable.sortDefault']()}</SelectItem>
 							{#each sortableColumns as col (col.id)}
-								<SelectItem value={`${col.id}:desc`}>{col.header} Gåô</SelectItem>
-								<SelectItem value={`${col.id}:asc`}>{col.header} Gåæ</SelectItem>
+								<SelectItem value={`${col.id}:desc`}>
+									{col.header} - {m['DataTable.sortDescending']()}
+								</SelectItem>
+								<SelectItem value={`${col.id}:asc`}>
+									{col.header} - {m['DataTable.sortAscending']()}
+								</SelectItem>
 							{/each}
 						</SelectContent>
 					</Select>

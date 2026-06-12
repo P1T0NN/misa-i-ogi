@@ -1,4 +1,7 @@
 <script lang="ts">
+	// LIBRARIES
+	import { m } from '@/shared/lib/paraglide/messages';
+
 	// COMPONENTS
 	import * as Card from '@/shared/components/ui/card/index.js';
 	import AnalyticsMetrics from '@/features/analytics/components/analytics-metrics.svelte';
@@ -16,31 +19,31 @@
 	const metrics = $derived<AnalyticsMetric[]>([
 		createStaticAnalyticsMetric({
 			id: 'users',
-			label: 'Users',
+			label: m['AdminDashboardPage.AdminDashboardMetrics.users'](),
 			metric: { value: totals.users },
 			analyticsLabel: getPresenceAnalyticsLabel(totals.users)
 		}),
 		createStaticAnalyticsMetric({
 			id: 'accommodations',
-			label: 'Accommodations',
+			label: m['AdminDashboardPage.AdminDashboardMetrics.accommodations'](),
 			metric: { value: totals.accommodations },
 			analyticsLabel: getPresenceAnalyticsLabel(totals.accommodations)
 		}),
 		createStaticAnalyticsMetric({
 			id: 'hospitalities',
-			label: 'Hospitalities',
+			label: m['AdminDashboardPage.AdminDashboardMetrics.hospitalities'](),
 			metric: { value: totals.hospitalities },
 			analyticsLabel: getPresenceAnalyticsLabel(totals.hospitalities)
 		}),
 		createStaticAnalyticsMetric({
 			id: 'partnerships',
-			label: 'Active links',
+			label: m['AdminDashboardPage.AdminDashboardMetrics.partnerships'](),
 			metric: { value: totals.partnerships },
 			analyticsLabel: getPresenceAnalyticsLabel(totals.partnerships)
 		}),
 		createStaticAnalyticsMetric({
 			id: 'guests',
-			label: 'Guest sessions',
+			label: m['AdminDashboardPage.AdminDashboardMetrics.guests'](),
 			metric: { value: totals.guests },
 			analyticsLabel: getPresenceAnalyticsLabel(totals.guests)
 		})
@@ -49,9 +52,9 @@
 
 <Card.Root>
 	<Card.Header>
-		<Card.Title>Platform totals</Card.Title>
+		<Card.Title>{m['AdminDashboardPage.AdminDashboardMetrics.cardTitle']()}</Card.Title>
 		<Card.Description>
-			Registered users, accommodations, hospitalities, and guest activity across the platform.
+			{m['AdminDashboardPage.AdminDashboardMetrics.cardDescription']()}
 		</Card.Description>
 	</Card.Header>
 

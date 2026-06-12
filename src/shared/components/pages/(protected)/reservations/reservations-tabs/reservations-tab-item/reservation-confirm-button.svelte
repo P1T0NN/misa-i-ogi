@@ -1,5 +1,6 @@
 <script lang="ts">
 	// LIBRARIES
+	import { m } from '@/shared/lib/paraglide/messages';
 	import { api } from '@/convex/_generated/api';
 	import { useConvexClient } from 'convex-svelte';
 
@@ -46,9 +47,9 @@
 	function={confirmReservation}
 	class="w-full bg-green-600 text-white hover:bg-green-600/90 focus-visible:ring-green-600/20 sm:w-auto"
 	{isPending}
-	title="Confirm reservation"
-	description={`Confirm ${guestName}'s reservation request? This will move it to confirmed reservations.`}
+	title={m['ReservationsPage.ReservationConfirmButton.title']()}
+	description={m['ReservationsPage.ReservationConfirmButton.description']({ guestName })}
 >
 	<CheckIcon data-icon="inline-start" />
-	Confirm
+	{m['ReservationsPage.ReservationConfirmButton.label']()}
 </ActionButton>

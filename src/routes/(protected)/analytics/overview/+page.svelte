@@ -3,6 +3,7 @@
 	import { authClass } from '@/features/auth/classes/authClass.svelte';
 
 	// LIBRARIES
+	import { m } from '@/shared/lib/paraglide/messages';
 	import { api } from '@/convex/_generated/api';
 	import { useQuery } from 'convex-svelte';
 
@@ -12,11 +13,11 @@
 	import UserAnalyticsOverviewQrScans from '@/shared/components/pages/(protected)/user-analytics/user-analytics-overview/user-analytics-overview-qr-scans.svelte';
 	import UserAnalyticsOverviewGuestActivations from '@/shared/components/pages/(protected)/user-analytics/user-analytics-overview/user-analytics-overview-guest-activations.svelte';
 	import UserAnalyticsOverviewReservations from '@/shared/components/pages/(protected)/user-analytics/user-analytics-overview/user-analytics-overview-reservations.svelte';
-	import UserAnalyticsOverviewTopAccommodations from '@/shared/components/pages/(protected)/user-analytics/user-analytics-overview/user-analytics-overview-top-accommodations.svelte';
-	import UserAnalyticsOverviewTopHospitalities from '@/shared/components/pages/(protected)/user-analytics/user-analytics-overview/user-analytics-overview-top-hospitalities.svelte';
+	import AnalyticsTopAccommodationsTable from '@/features/analytics/components/analytics-top-accommodations-table.svelte';
+	import AnalyticsTopHospitalitiesTable from '@/features/analytics/components/analytics-top-hospitalities-table.svelte';
 	import UserAnalyticsOverviewLoading from '@/shared/components/pages/(protected)/user-analytics/user-analytics-overview/loading/user-analytics-overview-loading.svelte';
 	import UserAnalyticsOverviewEmpty from '@/shared/components/pages/(protected)/user-analytics/user-analytics-overview/empty/user-analytics-overview-empty.svelte';
-	import UserAnalyticsOverviewError from '@/shared/components/pages/(protected)/user-analytics/user-analytics-overview/error/user-analytics-overview-error.svelte';
+	import { ErrorComponent } from '@/shared/components/ui/error-component/index.js';
 
 	// One `useQuery` for the whole overview (see `fetchUserAnalyticsOverviewPage` comment)
 	// instead of five widget-level subscriptions — fewer Convex watchers per active owner.
@@ -36,13 +37,16 @@
 	const pageData = $derived(overviewPageQuery.data);
 </script>
 
-<SvelteHead />
+<SvelteHead
+	title={m['AnalyticsOverviewPage.SEO.title']()}
+	description={m['AnalyticsOverviewPage.SEO.description']()}
+/>
 
 <section class="flex w-full flex-col gap-6 py-4 md:py-6 lg:gap-8">
 	<AnalyticsHeader
-		eyebrow="Analytics overview"
-		title="Owner analytics"
-		description="A practical snapshot of guest activity, reservation demand, and places that need attention."
+		eyebrow={m['AnalyticsOverviewPage.AnalyticsHeader.eyebrow']()}
+		title={m['AnalyticsOverviewPage.AnalyticsHeader.title']()}
+		description={m['AnalyticsOverviewPage.AnalyticsHeader.description']()}
 	/>
 
 	{#if isLoading}
@@ -50,7 +54,13 @@
 	{:else if !hasOwnedPortfolio}
 		<UserAnalyticsOverviewEmpty />
 	{:else if hasError}
-		<UserAnalyticsOverviewError />
+		<ErrorComponent
+			variant="card"
+			title={m['AnalyticsOverviewPage.UserAnalyticsOverviewError.title']()}
+			headerDescription={m['AnalyticsOverviewPage.UserAnalyticsOverviewError.headerDescription']()}
+			body={m['AnalyticsOverviewPage.UserAnalyticsOverviewError.body']()}
+			showRetry={false}
+		/>
 	{:else if pageData}
 		<UserAnalyticsOverviewQrScans data={pageData.qrScansChart} />
 
@@ -58,8 +68,8 @@
 
 		<UserAnalyticsOverviewReservations data={pageData.reservationsChart} />
 
-		<UserAnalyticsOverviewTopAccommodations rows={pageData.topAccommodations} />
+		<AnalyticsTopAccommodationsTable rows={pageData.topAccommodations} variant="top" />
 
-		<UserAnalyticsOverviewTopHospitalities rows={pageData.topHospitalities} />
+		<AnalyticsTopHospitalitiesTable rows={pageData.topHospitalities} variant="top" />
 	{/if}
 </section>

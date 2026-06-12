@@ -104,7 +104,10 @@
 	];
 </script>
 
-<SvelteHead />
+<SvelteHead
+	title={m['AdminAccommodationsPage.SEO.title']()}
+	description={m['AdminAccommodationsPage.SEO.description']()}
+/>
 
 <section class="flex w-full flex-col gap-4 p-4 md:p-6">
 	<header

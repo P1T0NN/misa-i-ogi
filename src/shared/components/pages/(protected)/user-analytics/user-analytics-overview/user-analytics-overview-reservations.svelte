@@ -1,4 +1,7 @@
 <script lang="ts">
+	// LIBRARIES
+	import { m } from '@/shared/lib/paraglide/messages';
+
 	// COMPONENTS
 	import AreaChartInteractive from '@/shared/components/ui/custom-charts/area-chart-interactive.svelte';
 
@@ -8,12 +11,12 @@
 
 	let { data }: { data: UserAnalyticsChartPoint[] } = $props();
 
-	const chartConfig = {
+	const chartConfig = $derived({
 		reservations: {
-			label: 'Reservations',
+			label: m['AnalyticsOverviewPage.UserAnalyticsOverviewReservations.reservations'](),
 			color: 'var(--chart-3)'
 		}
-	} satisfies ChartConfig;
+	} satisfies ChartConfig);
 
 	const chartData = $derived(
 		data.map((point) => ({
@@ -28,8 +31,8 @@
 	x="date"
 	config={chartConfig}
 	timeRange="30d"
-	title="Reservations"
-	description="Reservation requests created across connected venues."
+	title={m['AnalyticsOverviewPage.UserAnalyticsOverviewReservations.title']()}
+	description={m['AnalyticsOverviewPage.UserAnalyticsOverviewReservations.description']()}
 	cardClass="py-0"
 	cardContentClass="px-2 pb-4 sm:px-4"
 	containerClass="aspect-auto h-72 w-full"

@@ -1,5 +1,6 @@
 <script lang="ts">
 	// LIBRARIES
+	import { m } from '@/shared/lib/paraglide/messages';
 	import { api } from '@/convex/_generated/api';
 	import { useQuery } from 'convex-svelte';
 
@@ -13,7 +14,7 @@
 	import SvelteHead from '@/shared/components/ui/svelte-head/svelte-head.svelte';
 	import ConvexDataList from '@/shared/components/ui/data-list/convex-data-list.svelte';
 	import MyHospitalitiesEmpty from '@/shared/components/pages/(protected)/my-hospitalities/empty/my-hospitalities-empty.svelte';
-	import MyHospitalitiesError from '@/shared/components/pages/(protected)/my-hospitalities/error/my-hospitalities-error.svelte';
+	import { ErrorComponent } from '@/shared/components/ui/error-component/index.js';
 	import MyHospitalitiesHeader from '@/shared/components/pages/(protected)/my-hospitalities/my-hospitalities-header.svelte';
 	import MyHospitalitiesItem from '@/shared/components/pages/(protected)/my-hospitalities/my-hospitalities-item.svelte';
 	import MyHospitalitiesLoading from '@/shared/components/pages/(protected)/my-hospitalities/loading/my-hospitalities-loading.svelte';
@@ -35,7 +36,10 @@
 	);
 </script>
 
-<SvelteHead />
+<SvelteHead
+	title={m['MyHospitalitiesPage.SEO.title']()}
+	description={m['MyHospitalitiesPage.SEO.description']()}
+/>
 
 <section class="mx-auto flex w-full max-w-7xl flex-col gap-6 p-4 md:p-6 lg:p-8">
 	<MyHospitalitiesHeader
@@ -46,9 +50,11 @@
 
 	<div class="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
 		<div>
-			<h2 class="text-lg font-semibold tracking-normal">Assigned venues</h2>
+			<h2 class="text-lg font-semibold tracking-normal">
+				{m['MyHospitalitiesPage.assignedVenuesTitle']()}
+			</h2>
 			<p class="text-sm text-muted-foreground">
-				Compact overview of venue type, status, and guest-facing availability.
+				{m['MyHospitalitiesPage.assignedVenuesDescription']()}
 			</p>
 		</div>
 	</div>
@@ -58,7 +64,11 @@
 	{:else if !hasOwnedHospitalities}
 		<MyHospitalitiesEmpty />
 	{:else if summaryQuery.error}
-		<MyHospitalitiesError />
+		<ErrorComponent
+			variant="plain"
+			title={m['MyHospitalitiesPage.MyHospitalitiesError.title']()}
+			description={m['MyHospitalitiesPage.MyHospitalitiesError.description']()}
+		/>
 	{:else}
 		<ConvexDataList
 			query={api.tables.hospitalities.queries.fetchMyHospitalities.fetchMyHospitalities}
@@ -77,7 +87,11 @@
 			{/snippet}
 
 			{#snippet error()}
-				<MyHospitalitiesError />
+				<ErrorComponent
+					variant="plain"
+					title={m['MyHospitalitiesPage.MyHospitalitiesError.title']()}
+					description={m['MyHospitalitiesPage.MyHospitalitiesError.description']()}
+				/>
 			{/snippet}
 
 			{#snippet loading()}

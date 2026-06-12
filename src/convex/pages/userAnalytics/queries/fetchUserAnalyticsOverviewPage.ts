@@ -21,6 +21,7 @@ async function _buildOverviewTopAccommodations(ctx: QueryCtx, userId: string) {
 	const ownerScopeId = createAnalyticsScopeId('accommodationOwner', userId);
 
 	return buildTopAnalyticsRows({
+		entity: 'accommodation',
 		ctx,
 		scope: { type: 'organization', id: ownerScopeId },
 		dimensionKey: 'accommodationId',
@@ -40,6 +41,7 @@ async function _buildOverviewTopHospitalities(ctx: QueryCtx, userId: string) {
 	const ownerScopeId = createAnalyticsScopeId('hospitalityOwner', userId);
 
 	return buildTopAnalyticsRows({
+		entity: 'hospitality',
 		ctx,
 		scope: { type: 'organization', id: ownerScopeId },
 		dimensionKey: 'hospitalityId',

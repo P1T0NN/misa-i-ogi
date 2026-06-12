@@ -1,5 +1,6 @@
 <script lang="ts">
 	// LIBRARIES
+	import { m } from '@/shared/lib/paraglide/messages';
 	import { api } from '@/convex/_generated/api';
 	import { useQuery } from 'convex-svelte';
 	import { page } from '$app/state';
@@ -13,10 +14,11 @@
 	import { UNPROTECTED_PAGE_ENDPOINTS } from '@/shared/constants.js';
 
 	// COMPONENTS
+	import SvelteHead from '@/shared/components/ui/svelte-head/svelte-head.svelte';
 	import UserTabs from '@/shared/components/pages/(protected)/admin/users/[id]/user-tabs.svelte';
 	import UserPageLoading from '@/shared/components/pages/(protected)/admin/users/[id]/loading/user-page-loading.svelte';
 	import UserPageEmpty from '@/shared/components/pages/(protected)/admin/users/[id]/empty/user-page-empty.svelte';
-	import UserPageError from '@/shared/components/pages/(protected)/admin/users/[id]/error/user-page-error.svelte';
+	import { ErrorComponent } from '@/shared/components/ui/error-component/index.js';
 
 	// TYPES
 	import type { Doc } from '@/convex/auth/component/_generated/dataModel';
@@ -55,9 +57,19 @@
 	});
 </script>
 
+<SvelteHead
+	title={user?.name ?? m['AdminUserPage.SEO.title']()}
+	description={m['AdminUserPage.SEO.description']()}
+/>
+
 <section class="flex w-full flex-col gap-4 p-4 md:p-6">
 	{#if userQuery.error}
-		<UserPageError />
+		<ErrorComponent
+			variant="alert"
+			title={m['AdminUserPage.UserPageError.title']()}
+			description={m['AdminUserPage.UserPageError.description']()}
+			retryLabel={m['AdminUserPage.UserPageError.retry']()}
+		/>
 	{:else if user === null}
 		<UserPageEmpty />
 	{:else if user === undefined}

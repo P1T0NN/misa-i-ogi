@@ -117,9 +117,10 @@ export const fetchUserAnalyticsAccommodationsPage = query({
 			},
 			rows: buildAnalyticsRows({
 				output: 'ranking',
+				entity: 'accommodation',
 				items: accommodations,
 				primaryTotals: qrScanTotals,
-				secondaryTotals: guestActivationTotals,
+				guestActivationTotals: guestActivationTotals,
 				requestTotals: reservationTotals,
 				confirmedTotals
 			})

@@ -1,5 +1,6 @@
 <script lang="ts">
 	// LIBRARIES
+	import { m } from '@/shared/lib/paraglide/messages';
 	import { api } from '@/convex/_generated/api';
 	import { useQuery } from 'convex-svelte';
 
@@ -13,7 +14,7 @@
 	import UserAnalyticsReservationsStatusChart from '@/shared/components/pages/(protected)/user-analytics/user-analytics-reservations/user-analytics-reservations-status-chart.svelte';
 	import UserAnalyticsReservationsTable from '@/shared/components/pages/(protected)/user-analytics/user-analytics-reservations/user-analytics-reservations-table.svelte';
 	import UserAnalyticsReservationsLoading from '@/shared/components/pages/(protected)/user-analytics/user-analytics-reservations/loading/user-analytics-reservations-loading.svelte';
-	import UserAnalyticsReservationsError from '@/shared/components/pages/(protected)/user-analytics/user-analytics-reservations/error/user-analytics-reservations-error.svelte';
+	import { ErrorComponent } from '@/shared/components/ui/error-component/index.js';
 	import UserAnalyticsReservationsEmpty from '@/shared/components/pages/(protected)/user-analytics/user-analytics-reservations/empty/user-analytics-reservations-empty.svelte';
 
 	const hasOwnedHospitalities = $derived(authClass.currentUser?.hasHospitalities === true);
@@ -32,13 +33,16 @@
 	const pageData = $derived(reservationsPageQuery.data);
 </script>
 
-<SvelteHead />
+<SvelteHead
+	title={m['AnalyticsReservationsPage.SEO.title']()}
+	description={m['AnalyticsReservationsPage.SEO.description']()}
+/>
 
 <section class="flex w-full flex-col gap-6 py-4 md:py-6 lg:gap-8">
 	<AnalyticsHeader
-		eyebrow="Reservation analytics"
-		title="Reservation flow"
-		description="Understand request volume, confirmation health, and cancellation patterns."
+		eyebrow={m['AnalyticsReservationsPage.AnalyticsHeader.eyebrow']()}
+		title={m['AnalyticsReservationsPage.AnalyticsHeader.title']()}
+		description={m['AnalyticsReservationsPage.AnalyticsHeader.description']()}
 	/>
 
 	{#if isLoading}
@@ -46,7 +50,13 @@
 	{:else if !hasOwnedHospitalities}
 		<UserAnalyticsReservationsEmpty />
 	{:else if hasError}
-		<UserAnalyticsReservationsError />
+		<ErrorComponent
+			variant="card"
+			title={m['AnalyticsReservationsPage.UserAnalyticsReservationsError.title']()}
+			headerDescription={m['AnalyticsReservationsPage.UserAnalyticsReservationsError.headerDescription']()}
+			body={m['AnalyticsReservationsPage.UserAnalyticsReservationsError.body']()}
+			showRetry={false}
+		/>
 	{:else if pageData}
 		<UserAnalyticsReservationsMetrics metrics={pageData.metrics} />
 

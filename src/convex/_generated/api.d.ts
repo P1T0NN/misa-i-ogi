@@ -154,6 +154,7 @@ import type * as tables_reservations_helpers_groupReservationsByHospitality from
 import type * as tables_reservations_mutations_cancelReservation from "../tables/reservations/mutations/cancelReservation.js";
 import type * as tables_reservations_mutations_confirmReservation from "../tables/reservations/mutations/confirmReservation.js";
 import type * as tables_reservations_mutations_createReservation from "../tables/reservations/mutations/createReservation.js";
+import type * as tables_reservations_mutations_markReservationNoShow from "../tables/reservations/mutations/markReservationNoShow.js";
 import type * as tables_reservations_queries_fetchCancelledReservations from "../tables/reservations/queries/fetchCancelledReservations.js";
 import type * as tables_reservations_queries_fetchConfirmedReservations from "../tables/reservations/queries/fetchConfirmedReservations.js";
 import type * as tables_reservations_queries_fetchNoShowReservations from "../tables/reservations/queries/fetchNoShowReservations.js";
@@ -318,6 +319,7 @@ declare const fullApi: ApiFromModules<{
   "tables/reservations/mutations/cancelReservation": typeof tables_reservations_mutations_cancelReservation;
   "tables/reservations/mutations/confirmReservation": typeof tables_reservations_mutations_confirmReservation;
   "tables/reservations/mutations/createReservation": typeof tables_reservations_mutations_createReservation;
+  "tables/reservations/mutations/markReservationNoShow": typeof tables_reservations_mutations_markReservationNoShow;
   "tables/reservations/queries/fetchCancelledReservations": typeof tables_reservations_queries_fetchCancelledReservations;
   "tables/reservations/queries/fetchConfirmedReservations": typeof tables_reservations_queries_fetchConfirmedReservations;
   "tables/reservations/queries/fetchNoShowReservations": typeof tables_reservations_queries_fetchNoShowReservations;

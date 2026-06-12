@@ -4,15 +4,16 @@
 
 	// LIBRARIES
 	import { scrollY } from 'svelte/reactivity/window';
+	import { deLocalizeUrl } from '@/shared/lib/paraglide/runtime';
 
 	// CONFIG
 	import { COMPANY_DATA, PROTECTED_PAGE_ENDPOINTS } from '@/shared/constants.js';
 
 	// CLASSES
 	import { authClass } from '@/features/auth/classes/authClass.svelte';
+	import { m } from '@/shared/lib/paraglide/messages';
 	import {
-		isNavItemActive,
-		navItems,
+		getNormalHeaderNavItems,
 		navLinkActiveClass,
 		navLinkClass
 	} from './normal-header.svelte.ts';
@@ -26,8 +27,8 @@
 	import NormalHeaderUserMenu from './normal-header-user-menu.svelte';
 
 	// UTILS
-	import { deLocalizeUrl } from '@/shared/lib/paraglide/runtime';
 	import { cn } from '@/shared/utils/utils.js';
+	import { isNavItemActive } from '@/shared/utils/isNavItemActive.js';
 
 	type Props = {
 		class?: string;
@@ -59,6 +60,7 @@
 
 	const scrolledPastTop = $derived((scrollY.current ?? 0) > 8);
 	const useSolidBar = $derived(!isTransparent || (changeBgOnScroll && scrolledPastTop));
+	const navItems = $derived(getNormalHeaderNavItems());
 </script>
 
 <header
@@ -85,7 +87,7 @@
 			{/if}
 		</div>
 
-		<nav class="hidden min-w-0 flex-1 justify-center lg:flex" aria-label="Main">
+		<nav class="hidden min-w-0 flex-1 justify-center lg:flex" aria-label={m['Header.navAriaLabel']()}>
 			<ul class="flex max-w-full min-w-0 flex-wrap items-center justify-center gap-1">
 				{#each navItems as item (item.href)}
 					{@const active = isNavItemActive(pathnameLogical, item.href)}

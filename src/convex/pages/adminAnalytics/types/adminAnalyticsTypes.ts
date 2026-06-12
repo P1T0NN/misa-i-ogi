@@ -18,20 +18,30 @@ export type AdminAnalyticsTrendPoint = {
 	confirmedReservations: number;
 };
 
-export type AdminAnalyticsTopEntityRow = {
+export type AdminAnalyticsTopAccommodationRow = {
 	id: string;
 	name: string;
 	type: string;
 	city: string;
-	primaryValue: number;
-	secondaryValue: number;
-	requests: number;
+	scans: number;
+	guestActivations: number;
+	reservations: number;
+	confirmed: number;
+};
+
+export type AdminAnalyticsTopHospitalityRow = {
+	id: string;
+	name: string;
+	type: string;
+	city: string;
+	guestViews: number;
+	reservations: number;
 	confirmed: number;
 };
 
 export type AdminAnalyticsOverviewPageResult = {
 	metrics: AdminAnalyticsDashboardMetrics;
 	trend: AdminAnalyticsTrendPoint[];
-	topAccommodations: AdminAnalyticsTopEntityRow[];
-	topHospitalities: AdminAnalyticsTopEntityRow[];
+	topAccommodations: AdminAnalyticsTopAccommodationRow[];
+	topHospitalities: AdminAnalyticsTopHospitalityRow[];
 };

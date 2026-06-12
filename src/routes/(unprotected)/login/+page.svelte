@@ -1,8 +1,12 @@
 <script lang="ts">
+	// LIBRARIES
+	import { m } from '@/shared/lib/paraglide/messages';
+
 	// CONFIG
 	import { COMPANY_DATA, UNPROTECTED_PAGE_ENDPOINTS } from '@/shared/constants';
 
 	// COMPONENTS
+	import SvelteHead from '@/shared/components/ui/svelte-head/svelte-head.svelte';
 	import LoginFormNoImage from '@/features/auth/components/login-form/login-form-no-image.svelte';
 	import LoginFormWithImage from '@/features/auth/components/login-form/login-form-with-image.svelte';
 	import Link from '@/shared/components/ui/link/link.svelte';
@@ -10,6 +14,11 @@
 	// LUCIDE ICONS
 	import GalleryVerticalEndIcon from '@lucide/svelte/icons/gallery-vertical-end';
 </script>
+
+<SvelteHead
+	title={m['LoginPage.SEO.title']()}
+	description={m['LoginPage.SEO.description']()}
+/>
 
 <div class="flex h-screen w-full items-center justify-center px-4 lg:hidden">
 	<LoginFormNoImage />

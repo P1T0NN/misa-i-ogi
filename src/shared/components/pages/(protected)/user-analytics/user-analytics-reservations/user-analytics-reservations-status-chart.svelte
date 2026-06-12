@@ -1,4 +1,7 @@
 <script lang="ts">
+	// LIBRARIES
+	import { m } from '@/shared/lib/paraglide/messages';
+
 	// COMPONENTS
 	import AreaChartInteractive from '@/shared/components/ui/custom-charts/area-chart-interactive.svelte';
 	import UserAnalyticsReservationsStatusChartEmpty from './empty/user-analytics-reservations-status-chart-empty.svelte';
@@ -14,20 +17,20 @@
 	);
 	const chartData = $derived(data.map((row) => ({ ...row, date: new Date(row.date) })));
 
-	const chartConfig = {
+	const chartConfig = $derived({
 		created: {
-			label: 'Created',
+			label: m['AnalyticsReservationsPage.UserAnalyticsReservationsStatusChart.created'](),
 			color: 'var(--chart-1)'
 		},
 		confirmed: {
-			label: 'Confirmed',
+			label: m['AnalyticsReservationsPage.UserAnalyticsReservationsStatusChart.confirmed'](),
 			color: 'var(--chart-2)'
 		},
 		cancelled: {
-			label: 'Cancelled',
+			label: m['AnalyticsReservationsPage.UserAnalyticsReservationsStatusChart.cancelled'](),
 			color: 'var(--chart-5)'
 		}
-	} satisfies ChartConfig;
+	} satisfies ChartConfig);
 </script>
 
 {#if !hasStatusData}
@@ -38,8 +41,8 @@
 		x="date"
 		config={chartConfig}
 		timeRange="30d"
-		title="Reservation trend"
-		description="Daily reservation outcomes across connected places."
+		title={m['AnalyticsReservationsPage.UserAnalyticsReservationsStatusChart.title']()}
+		description={m['AnalyticsReservationsPage.UserAnalyticsReservationsStatusChart.description']()}
 		cardContentClass="px-2 pb-4 sm:px-4"
 		containerClass="aspect-auto h-80 w-full"
 		tooltipIndicator="dot"

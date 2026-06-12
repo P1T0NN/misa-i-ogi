@@ -3,6 +3,7 @@
 	import { page } from '$app/state';
 
 	// LIBRARIES
+	import { m } from '@/shared/lib/paraglide/messages';
 	import { api } from '@/convex/_generated/api';
 	import { useQuery } from 'convex-svelte';
 	import { labelAccommodationType } from '@/features/accommodations/data/accommodationsData';
@@ -17,7 +18,7 @@
 	import UserAnalyticsAccommodationChart from '@/shared/components/pages/(protected)/user-analytics/user-analytics-accommodations/[id]/user-analytics-accommodation-chart.svelte';
 	import UserAnalyticsAccommodationPerformanceTable from '@/shared/components/pages/(protected)/user-analytics/user-analytics-accommodations/[id]/user-analytics-accommodation-performance-table.svelte';
 	import UserAnalyticsAccommodationsLoading from '@/shared/components/pages/(protected)/user-analytics/user-analytics-accommodations/loading/user-analytics-accommodations-loading.svelte';
-	import UserAnalyticsAccommodationsError from '@/shared/components/pages/(protected)/user-analytics/user-analytics-accommodations/error/user-analytics-accommodations-error.svelte';
+	import { ErrorComponent } from '@/shared/components/ui/error-component/index.js';
 
 	// TYPES
 	import type { Id } from '@/convex/_generated/dataModel';
@@ -40,18 +41,27 @@
 	});
 </script>
 
-<SvelteHead />
+<SvelteHead
+	title={data?.accommodation.name ?? m['AnalyticsAccommodationDetailPage.SEO.title']()}
+	description={m['AnalyticsAccommodationDetailPage.SEO.description']()}
+/>
 
 {#if isLoading}
 	<UserAnalyticsAccommodationsLoading />
 {:else if hasError}
-	<UserAnalyticsAccommodationsError />
+	<ErrorComponent
+		variant="card"
+		title={m['AnalyticsAccommodationsPage.UserAnalyticsAccommodationsError.title']()}
+		headerDescription={m['AnalyticsAccommodationsPage.UserAnalyticsAccommodationsError.headerDescription']()}
+		body={m['AnalyticsAccommodationsPage.UserAnalyticsAccommodationsError.body']()}
+		showRetry={false}
+	/>
 {:else if data}
 	<section class="flex w-full flex-col gap-6 py-4 md:py-6 lg:gap-8">
 		<AnalyticsHeader
-			eyebrow="Accommodation analytics"
+			eyebrow={m['AnalyticsAccommodationDetailPage.AnalyticsHeader.eyebrow']()}
 			title={data.accommodation.name}
-			description="Guest access, partner demand, and reservation flow for this accommodation."
+			description={m['AnalyticsAccommodationDetailPage.AnalyticsHeader.description']()}
 			badge={labelAccommodationType(data.accommodation.type)}
 		/>
 

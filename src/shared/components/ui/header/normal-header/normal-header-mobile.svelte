@@ -8,10 +8,10 @@
 
 	// CLASSES
 	import { authClass } from '@/features/auth/classes/authClass.svelte';
+	import { m } from '@/shared/lib/paraglide/messages';
 	import {
-		isNavItemActive,
+		getNormalHeaderNavItems,
 		normalHeader,
-		navItems,
 		navLinkActiveClass,
 		navLinkClass
 	} from './normal-header.svelte.ts';
@@ -30,6 +30,7 @@
 	// UTILS
 	import { deLocalizeUrl } from '@/shared/lib/paraglide/runtime';
 	import { cn } from '@/shared/utils/utils.js';
+	import { isNavItemActive } from '@/shared/utils/isNavItemActive.js';
 
 	// TYPES
 	import type { ClassValue } from 'clsx';
@@ -44,6 +45,7 @@
 	const showAccountMenu = $derived(authClass.userLoading || user !== null);
 
 	const pathnameLogical = $derived(deLocalizeUrl(page.url).pathname);
+	const navItems = $derived(getNormalHeaderNavItems());
 
 	afterNavigate(() => {
 		normalHeader.closeMenu();
@@ -73,7 +75,9 @@
 					props.class as ClassValue
 				)}
 				aria-controls="site-mobile-nav"
-				aria-label={normalHeader.menuOpen ? 'Close menu' : 'Open menu'}
+				aria-label={normalHeader.menuOpen
+					? m['Header.closeMenuAriaLabel']()
+					: m['Header.openMenuAriaLabel']()}
 			>
 				{#if normalHeader.menuOpen}
 					<XIcon class="size-5" />
@@ -104,14 +108,14 @@
 					variant="ghost"
 					size="icon"
 					class="shrink-0 touch-manipulation"
-					aria-label="Close menu"
+					aria-label={m['Header.closeMenuAriaLabel']()}
 				>
 					<XIcon class="size-5" />
 				</Button>
 			</DrawerClose>
 		</div>
 
-		<nav aria-label="Mobile main">
+		<nav aria-label={m['Header.mobileNavAriaLabel']()}>
 			<ul class="flex flex-col gap-1">
 				{#each navItems as item, i (item.href)}
 					{@const active = isNavItemActive(pathnameLogical, item.href)}

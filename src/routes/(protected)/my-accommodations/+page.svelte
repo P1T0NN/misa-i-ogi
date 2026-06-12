@@ -1,5 +1,6 @@
 <script lang="ts">
 	// LIBRARIES
+	import { m } from '@/shared/lib/paraglide/messages';
 	import { api } from '@/convex/_generated/api';
 	import { useQuery } from 'convex-svelte';
 
@@ -13,7 +14,7 @@
 	import SvelteHead from '@/shared/components/ui/svelte-head/svelte-head.svelte';
 	import ConvexDataList from '@/shared/components/ui/data-list/convex-data-list.svelte';
 	import MyAccommodationsEmpty from '@/shared/components/pages/(protected)/my-accommodations/empty/my-accommodations-empty.svelte';
-	import MyAccommodationsError from '@/shared/components/pages/(protected)/my-accommodations/error/my-accommodations-error.svelte';
+	import { ErrorComponent } from '@/shared/components/ui/error-component/index.js';
 	import MyAccommodationsHeader from '@/shared/components/pages/(protected)/my-accommodations/my-accommodations-header.svelte';
 	import MyAccommodationsItem from '@/shared/components/pages/(protected)/my-accommodations/my-accommodations-item.svelte';
 	import MyAccommodationsLoading from '@/shared/components/pages/(protected)/my-accommodations/loading/my-accommodations-loading.svelte';
@@ -35,7 +36,10 @@
 	);
 </script>
 
-<SvelteHead />
+<SvelteHead
+	title={m['MyAccommodationsPage.SEO.title']()}
+	description={m['MyAccommodationsPage.SEO.description']()}
+/>
 
 <section class="mx-auto flex w-full max-w-7xl flex-col gap-6 p-4 md:p-6 lg:p-8">
 	<MyAccommodationsHeader
@@ -46,9 +50,11 @@
 
 	<div class="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
 		<div>
-			<h2 class="text-lg font-semibold tracking-normal">Assigned stays</h2>
+			<h2 class="text-lg font-semibold tracking-normal">
+				{m['MyAccommodationsPage.assignedStaysTitle']()}
+			</h2>
 			<p class="text-sm text-muted-foreground">
-				Compact overview of stay type, status, and location for each assigned accommodation.
+				{m['MyAccommodationsPage.assignedStaysDescription']()}
 			</p>
 		</div>
 	</div>
@@ -58,7 +64,11 @@
 	{:else if !hasOwnedAccommodations}
 		<MyAccommodationsEmpty />
 	{:else if summaryQuery.error}
-		<MyAccommodationsError />
+		<ErrorComponent
+			variant="plain"
+			title={m['MyAccommodationsPage.MyAccommodationsError.title']()}
+			description={m['MyAccommodationsPage.MyAccommodationsError.description']()}
+		/>
 	{:else}
 		<ConvexDataList
 			query={api.tables.accommodations.queries.fetchMyAccommodations.fetchMyAccommodations}
@@ -77,7 +87,11 @@
 			{/snippet}
 
 			{#snippet error()}
-				<MyAccommodationsError />
+				<ErrorComponent
+					variant="plain"
+					title={m['MyAccommodationsPage.MyAccommodationsError.title']()}
+					description={m['MyAccommodationsPage.MyAccommodationsError.description']()}
+				/>
 			{/snippet}
 
 			{#snippet loading()}

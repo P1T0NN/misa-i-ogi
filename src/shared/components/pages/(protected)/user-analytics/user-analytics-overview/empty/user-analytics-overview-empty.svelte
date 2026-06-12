@@ -1,4 +1,7 @@
 <script lang="ts">
+	// LIBRARIES
+	import { m } from '@/shared/lib/paraglide/messages';
+
 	// CONFIG
 	import { COMPANY_DATA } from '@/shared/constants';
 
@@ -15,11 +18,12 @@
 
 	<div class="mt-4 flex flex-col items-center gap-2">
 		<h2 class="text-lg font-semibold tracking-normal">
-			You do not own any accommodations or hospitalities
+			{m['AnalyticsOverviewPage.UserAnalyticsOverviewEmpty.title']()}
 		</h2>
 		<p class="mt-1 max-w-md text-sm text-muted-foreground">
-			Analytics will appear here once stays or venues are assigned to your account by the
-			{COMPANY_DATA.NAME} team.
+			{m['AnalyticsOverviewPage.UserAnalyticsOverviewEmpty.description']({
+				companyName: COMPANY_DATA.NAME
+			})}
 		</p>
 	</div>
 </div>

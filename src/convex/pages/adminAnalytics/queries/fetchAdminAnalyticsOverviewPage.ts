@@ -23,7 +23,8 @@ import { createAnalyticsQueryDayRange } from '@/convex/analytics/utils/analytics
 import type { Id } from '@/convex/_generated/dataModel';
 import type {
 	AdminAnalyticsOverviewPageResult,
-	AdminAnalyticsTopEntityRow,
+	AdminAnalyticsTopAccommodationRow,
+	AdminAnalyticsTopHospitalityRow,
 	AdminAnalyticsTrendPoint
 } from '../types/adminAnalyticsTypes';
 
@@ -96,7 +97,7 @@ function orderByIds<TItem extends { _id: string }>(ids: string[], items: TItem[]
 	return ids.flatMap((id) => byId.get(id) ?? []);
 }
 
-async function buildTopAccommodations(ctx: QueryCtx): Promise<AdminAnalyticsTopEntityRow[]> {
+async function buildTopAccommodations(ctx: QueryCtx): Promise<AdminAnalyticsTopAccommodationRow[]> {
 	const [qrScanTotals, guestActivationTotals, reservationTotals, confirmedTotals] =
 		await Promise.all([
 			fetchPlatformTotalsByDimension(ctx, 'qrScans', 'accommodationId'),
@@ -128,14 +129,14 @@ async function buildTopAccommodations(ctx: QueryCtx): Promise<AdminAnalyticsTopE
 		name: accommodation.name,
 		type: accommodation.type,
 		city: accommodation.city,
-		primaryValue: getAnalyticsMetricValue(qrScanTotals, accommodation._id),
-		secondaryValue: getAnalyticsMetricValue(guestActivationTotals, accommodation._id),
-		requests: getAnalyticsMetricValue(reservationTotals, accommodation._id),
+		scans: getAnalyticsMetricValue(qrScanTotals, accommodation._id),
+		guestActivations: getAnalyticsMetricValue(guestActivationTotals, accommodation._id),
+		reservations: getAnalyticsMetricValue(reservationTotals, accommodation._id),
 		confirmed: getAnalyticsMetricValue(confirmedTotals, accommodation._id)
 	}));
 }
 
-async function buildTopHospitalities(ctx: QueryCtx): Promise<AdminAnalyticsTopEntityRow[]> {
+async function buildTopHospitalities(ctx: QueryCtx): Promise<AdminAnalyticsTopHospitalityRow[]> {
 	const [viewTotals, reservationTotals, confirmedTotals] = await Promise.all([
 		fetchPlatformTotalsByDimension(ctx, 'hospitalityViews', 'hospitalityId'),
 		fetchPlatformTotalsByDimension(ctx, 'newReservations', 'hospitalityId'),
@@ -161,9 +162,8 @@ async function buildTopHospitalities(ctx: QueryCtx): Promise<AdminAnalyticsTopEn
 		name: hospitality.name,
 		type: hospitality.type,
 		city: hospitality.city,
-		primaryValue: getAnalyticsMetricValue(viewTotals, hospitality._id),
-		secondaryValue: getAnalyticsMetricValue(reservationTotals, hospitality._id),
-		requests: getAnalyticsMetricValue(reservationTotals, hospitality._id),
+		guestViews: getAnalyticsMetricValue(viewTotals, hospitality._id),
+		reservations: getAnalyticsMetricValue(reservationTotals, hospitality._id),
 		confirmed: getAnalyticsMetricValue(confirmedTotals, hospitality._id)
 	}));
 }

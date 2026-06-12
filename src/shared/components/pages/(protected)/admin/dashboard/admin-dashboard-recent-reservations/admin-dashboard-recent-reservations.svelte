@@ -1,4 +1,7 @@
 <script lang="ts">
+	// LIBRARIES
+	import { m } from '@/shared/lib/paraglide/messages';
+
 	// COMPONENTS
 	import * as Card from '@/shared/components/ui/card/index.js';
 	import AdminDashboardRecentReservationsEmpty from '../empty/admin-dashboard-recent-reservations-empty.svelte';
@@ -12,8 +15,10 @@
 
 <Card.Root>
 	<Card.Header>
-		<Card.Title>Recent reservations</Card.Title>
-		<Card.Description>Newest guest requests across all hospitality owners.</Card.Description>
+		<Card.Title>{m['AdminDashboardPage.AdminDashboardRecentReservations.cardTitle']()}</Card.Title>
+		<Card.Description>
+			{m['AdminDashboardPage.AdminDashboardRecentReservations.cardDescription']()}
+		</Card.Description>
 	</Card.Header>
 
 	<Card.Content class="space-y-3">

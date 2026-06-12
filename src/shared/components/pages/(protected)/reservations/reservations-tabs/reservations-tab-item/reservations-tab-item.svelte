@@ -1,4 +1,7 @@
 <script lang="ts">
+	// LIBRARIES
+	import { m } from '@/shared/lib/paraglide/messages';
+
 	// COMPONENTS
 	import { Avatar, AvatarFallback } from '@/shared/components/ui/avatar/index.js';
 	import { Badge } from '@/shared/components/ui/badge/index.js';
@@ -7,6 +10,7 @@
 	import ContactViaWhatsappButton from './contact-via-whatsapp-button.svelte';
 	import ReservationCancelButton from './reservation-cancel-button.svelte';
 	import ReservationConfirmButton from './reservation-confirm-button.svelte';
+	import ReservationMarkNoShowButton from './reservation-mark-no-show-button.svelte';
 
 	// UTILS
 	import { formatReservationGuestCount } from '@/features/reservations/utils/formatReservationGuestCount';
@@ -26,7 +30,11 @@
 	let { reservation }: { reservation: ReservationDoc } = $props();
 
 	const statusMeta = $derived(getReservationStatusMeta(reservation.status));
-	const guestDisplayName = $derived(reservation.guestName?.trim() || reservation.email || 'Guest');
+	const guestDisplayName = $derived(
+		reservation.guestName?.trim() ||
+			reservation.email ||
+			m['ReservationsPage.ReservationsTabItem.guestFallback']()
+	);
 	const hospitalityDisplayName = $derived(
 		reservation.hospitalityName?.trim() || String(reservation.hospitalityId)
 	);
@@ -78,11 +86,15 @@
 					<ReservationConfirmButton reservationId={reservation._id} guestName={guestDisplayName} />
 				</div>
 			{:else if reservation.status === 'confirmed'}
-				<div class="flex w-full items-center sm:w-auto sm:self-center">
+				<div class="grid w-full grid-cols-2 gap-2 sm:flex sm:w-auto sm:items-center sm:self-center">
 					<ContactViaWhatsappButton
 						phone={reservation.phone}
 						guestName={guestDisplayName}
 						hospitalityName={hospitalityDisplayName}
+					/>
+					<ReservationMarkNoShowButton
+						reservationId={reservation._id}
+						guestName={guestDisplayName}
 					/>
 				</div>
 			{/if}
@@ -104,7 +116,7 @@
 				</span>
 			{/if}
 			<span class="flex min-w-0 items-center gap-1 sm:ml-auto">
-				<span class="shrink-0">Reservation ID</span>
+				<span class="shrink-0">{m['ReservationsPage.ReservationsTabItem.reservationId']()}</span>
 				<span class="truncate font-mono">{reservation._id}</span>
 			</span>
 		</div>

@@ -1,4 +1,7 @@
 <script lang="ts">
+	// LIBRARIES
+	import { m } from '@/shared/lib/paraglide/messages';
+
 	// COMPONENTS
 	import { Button } from '@/shared/components/ui/button/index.js';
 	import * as Card from '@/shared/components/ui/card/index.js';
@@ -44,10 +47,10 @@
 		>
 			{#if isConfirmed}
 				<CheckCircle2Icon data-icon="inline-start" class="size-4" aria-hidden="true" />
-				Reservation Confirmed
+				{m['HospitalityPage.GuestReservationCard.statusConfirmed']()}
 			{:else}
 				<ClockIcon data-icon="inline-start" class="size-4" aria-hidden="true" />
-				Reservation Pending
+				{m['HospitalityPage.GuestReservationCard.statusPending']()}
 			{/if}
 		</Button>
 
@@ -55,26 +58,32 @@
 			<div class="space-y-1">
 				{#if isConfirmed}
 					<p class="font-serif text-lg leading-tight font-medium tracking-tight">
-						You're confirmed
+						{m['HospitalityPage.GuestReservationCard.confirmedTitle']()}
 					</p>
 					{#if hospitalityName}
 						<p class="text-sm leading-relaxed text-muted-foreground">
-							{hospitalityName} accepted your reservation. Keep these details handy for your visit.
+							{m['HospitalityPage.GuestReservationCard.confirmedDescriptionWithName']({
+								hospitalityName
+							})}
 						</p>
 					{:else}
 						<p class="text-sm leading-relaxed text-muted-foreground">
-							The hospitality accepted your reservation. Keep these details handy for your visit.
+							{m['HospitalityPage.GuestReservationCard.confirmedDescription']()}
 						</p>
 					{/if}
 				{:else}
-					<p class="font-serif text-lg leading-tight font-medium tracking-tight">Request sent</p>
+					<p class="font-serif text-lg leading-tight font-medium tracking-tight">
+						{m['HospitalityPage.GuestReservationCard.pendingTitle']()}
+					</p>
 					{#if hospitalityName}
 						<p class="text-sm leading-relaxed text-muted-foreground">
-							{hospitalityName} has your details and can contact you to confirm.
+							{m['HospitalityPage.GuestReservationCard.pendingDescriptionWithName']({
+								hospitalityName
+							})}
 						</p>
 					{:else}
 						<p class="text-sm leading-relaxed text-muted-foreground">
-							The hospitality has your details and can contact you to confirm.
+							{m['HospitalityPage.GuestReservationCard.pendingDescription']()}
 						</p>
 					{/if}
 				{/if}
@@ -85,7 +94,7 @@
 					<ClockIcon class="mt-0.5 size-4 shrink-0 text-primary" aria-hidden="true" />
 					<div class="min-w-0">
 						<dt class="font-mono text-[10px] tracking-widest text-muted-foreground uppercase">
-							Preferred time
+							{m['HospitalityPage.GuestReservationCard.dlPreferredTime']()}
 						</dt>
 						<dd class="mt-0.5 font-medium text-foreground">{reservation.requestedTime}</dd>
 					</div>
@@ -95,7 +104,7 @@
 					<UserRoundIcon class="mt-0.5 size-4 shrink-0 text-primary" aria-hidden="true" />
 					<div class="min-w-0">
 						<dt class="font-mono text-[10px] tracking-widest text-muted-foreground uppercase">
-							Guest name
+							{m['HospitalityPage.GuestReservationCard.dlGuestName']()}
 						</dt>
 						<dd class="mt-0.5 truncate font-medium text-foreground">{reservation.guestName}</dd>
 					</div>
@@ -105,7 +114,7 @@
 					<UsersIcon class="mt-0.5 size-4 shrink-0 text-primary" aria-hidden="true" />
 					<div class="min-w-0">
 						<dt class="font-mono text-[10px] tracking-widest text-muted-foreground uppercase">
-							Number of guests
+							{m['HospitalityPage.GuestReservationCard.dlGuestCount']()}
 						</dt>
 						<dd class="mt-0.5 font-medium text-foreground">
 							{formatReservationGuestCount(reservation.guestCount)}
@@ -117,7 +126,7 @@
 					<PhoneIcon class="mt-0.5 size-4 shrink-0 text-primary" aria-hidden="true" />
 					<div class="min-w-0">
 						<dt class="font-mono text-[10px] tracking-widest text-muted-foreground uppercase">
-							Phone
+							{m['HospitalityPage.GuestReservationCard.dlPhone']()}
 						</dt>
 						<dd class="mt-0.5 font-medium wrap-break-word text-foreground">{reservation.phone}</dd>
 					</div>
@@ -128,7 +137,7 @@
 						<MailIcon class="mt-0.5 size-4 shrink-0 text-primary" aria-hidden="true" />
 						<div class="min-w-0">
 							<dt class="font-mono text-[10px] tracking-widest text-muted-foreground uppercase">
-								Email
+								{m['HospitalityPage.GuestReservationCard.dlEmail']()}
 							</dt>
 							<dd class="mt-0.5 font-medium wrap-break-word text-foreground">
 								{reservation.email}

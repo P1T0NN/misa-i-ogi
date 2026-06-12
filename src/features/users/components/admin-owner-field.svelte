@@ -1,5 +1,6 @@
 <script lang="ts">
 	// LIBRARIES
+	import { m } from '@/shared/lib/paraglide/messages';
 	import { api } from '@/convex/_generated/api';
 
 	// COMPONENTS
@@ -63,10 +64,10 @@
 		query={api.tables.users.userQueries.listUsers}
 		queryArgs={{ searchField: 'name' }}
 		mapItem={mapUserToItem}
-		placeholder="Search users by name"
-		aria-label="Search owner"
-		emptyTitle="No users found"
-		emptyDescription="Try a different owner name."
+		placeholder={m['UsersComponents.AdminOwnerField.placeholder']()}
+		aria-label={m['UsersComponents.AdminOwnerField.ariaLabel']()}
+		emptyTitle={m['UsersComponents.AdminOwnerField.emptyTitle']()}
+		emptyDescription={m['UsersComponents.AdminOwnerField.emptyDescription']()}
 		{disabled}
 		onSelect={selectOwner}
 	/>
@@ -84,7 +85,7 @@
 				type="button"
 				variant="ghost"
 				size="icon-sm"
-				aria-label="Clear owner"
+				aria-label={m['UsersComponents.AdminOwnerField.clearOwnerAriaLabel']()}
 				{disabled}
 				onclick={clearOwner}
 			>

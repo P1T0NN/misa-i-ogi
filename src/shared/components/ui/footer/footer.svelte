@@ -2,8 +2,11 @@
 	// CONFIG
 	import { COMPANY_DATA, PROTECTED_PAGE_ENDPOINTS } from '@/shared/constants.js';
 
+	// LIBRARIES
+	import { m } from '@/shared/lib/paraglide/messages';
+
 	// CLASSES
-	import { footerLinkClass, footerLinkGroups } from './footer.svelte.ts';
+	import { footerLinkClass, getFooterLinkGroups } from './footer.svelte.ts';
 
 	// COMPONENTS
 	import Link from '@/shared/components/ui/link/link.svelte';
@@ -16,13 +19,14 @@
 		class?: string;
 		/** Show [`Logo`](@/shared/components/ui/logo/logo.svelte); if false, use the company name link. */
 		hasLogo?: boolean;
-		/** Render [`footerLinkGroups`](./footer.svelte.ts). */
+		/** Render [`getFooterLinkGroups`](./footer.svelte.ts). */
 		showNav?: boolean;
 	};
 
 	let { class: className, hasLogo = true, showNav = true }: Props = $props();
 
 	const year = new Date().getFullYear();
+	const linkGroups = $derived(getFooterLinkGroups());
 </script>
 
 <footer
@@ -54,7 +58,7 @@
 				<div
 					class="grid min-w-0 grid-cols-2 gap-x-8 gap-y-10 sm:grid-cols-3 lg:col-span-8 lg:justify-self-end"
 				>
-					{#each footerLinkGroups as group (group.id)}
+					{#each linkGroups as group (group.id)}
 						<nav aria-label={group.heading} class="min-w-0">
 							<p class="text-[0.6875rem] font-semibold tracking-[0.14em] text-foreground uppercase">
 								{group.heading}
@@ -78,7 +82,7 @@
 		<div class="mt-14 border-t border-border pt-8 text-xs text-muted-foreground">
 			<p>
 				© {year}
-				{COMPANY_DATA.NAME}. All rights reserved.
+				{COMPANY_DATA.NAME}. {m['Footer.copyright']()}
 			</p>
 		</div>
 	</div>

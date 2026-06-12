@@ -108,6 +108,7 @@ export const convexRateLimitRegistry = {
 	createReservation: limitPresets.guestReservationCreate,
 	confirmReservation: limitPresets.interactiveWrite,
 	cancelReservation: limitPresets.interactiveWrite,
+	markReservationNoShow: limitPresets.interactiveWrite,
 
 	// Domain admin writes
 	createAccommodation: limitPresets.interactiveWrite,

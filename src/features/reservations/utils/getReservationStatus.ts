@@ -1,3 +1,6 @@
+// I18N
+import { reservationStatusLabel } from '@/features/reservations/i18n/reservationDisplay';
+
 // TYPES
 import type { BadgeVariant } from '@/shared/components/ui/badge/index.js';
 import type { ReservationStatus } from '@/convex/tables/reservations/types/reservationsTypes.js';
@@ -12,15 +15,15 @@ export function getReservationStatusMeta(status: ReservationStatus): Reservation
 	switch (status) {
 		case 'pending':
 			return {
-				label: 'Pending',
+				label: reservationStatusLabel(status),
 				badgeVariant: 'default',
 				badgeClass: 'bg-yellow-500 text-white hover:bg-yellow-500/90'
 			};
 		case 'confirmed':
-			return { label: 'Confirmed', badgeVariant: 'success' };
+			return { label: reservationStatusLabel(status), badgeVariant: 'success' };
 		case 'cancelled':
-			return { label: 'Cancelled', badgeVariant: 'destructive' };
+			return { label: reservationStatusLabel(status), badgeVariant: 'destructive' };
 		case 'no_show':
-			return { label: 'No-show', badgeVariant: 'secondary' };
+			return { label: reservationStatusLabel(status), badgeVariant: 'secondary' };
 	}
 }

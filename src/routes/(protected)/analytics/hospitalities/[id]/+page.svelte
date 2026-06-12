@@ -3,6 +3,7 @@
 	import { page } from '$app/state';
 
 	// LIBRARIES
+	import { m } from '@/shared/lib/paraglide/messages';
 	import { api } from '@/convex/_generated/api';
 	import { useQuery } from 'convex-svelte';
 
@@ -16,7 +17,7 @@
 	import UserAnalyticsHospitalityChart from '@/shared/components/pages/(protected)/user-analytics/user-analytics-hospitalities/[id]/user-analytics-hospitality-chart.svelte';
 	import UserAnalyticsHospitalityPerformanceTable from '@/shared/components/pages/(protected)/user-analytics/user-analytics-hospitalities/[id]/user-analytics-hospitality-performance-table.svelte';
 	import UserAnalyticsHospitalitiesLoading from '@/shared/components/pages/(protected)/user-analytics/user-analytics-hospitalities/loading/user-analytics-hospitalities-loading.svelte';
-	import UserAnalyticsHospitalitiesError from '@/shared/components/pages/(protected)/user-analytics/user-analytics-hospitalities/error/user-analytics-hospitalities-error.svelte';
+	import { ErrorComponent } from '@/shared/components/ui/error-component/index.js';
 
 	// DATA
 	import { labelHospitalityType } from '@/features/hospitalities/data/hospitalitiesData';
@@ -42,18 +43,27 @@
 	});
 </script>
 
-<SvelteHead />
+<SvelteHead
+	title={data?.hospitality.name ?? m['AnalyticsHospitalityDetailPage.SEO.title']()}
+	description={m['AnalyticsHospitalityDetailPage.SEO.description']()}
+/>
 
 {#if isLoading}
 	<UserAnalyticsHospitalitiesLoading />
 {:else if hasError}
-	<UserAnalyticsHospitalitiesError />
+	<ErrorComponent
+		variant="card"
+		title={m['AnalyticsHospitalitiesPage.UserAnalyticsHospitalitiesError.title']()}
+		headerDescription={m['AnalyticsHospitalitiesPage.UserAnalyticsHospitalitiesError.headerDescription']()}
+		body={m['AnalyticsHospitalitiesPage.UserAnalyticsHospitalitiesError.body']()}
+		showRetry={false}
+	/>
 {:else if data}
 	<section class="flex w-full flex-col gap-6 py-4 md:py-6 lg:gap-8">
 		<AnalyticsHeader
-			eyebrow="Hospitality analytics"
+			eyebrow={m['AnalyticsHospitalityDetailPage.AnalyticsHeader.eyebrow']()}
 			title={data.hospitality.name}
-			description="Guest demand, reservation flow, and source stays for this hospitality."
+			description={m['AnalyticsHospitalityDetailPage.AnalyticsHeader.description']()}
 			badge={labelHospitalityType(data.hospitality.type)}
 		/>
 

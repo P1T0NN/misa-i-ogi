@@ -11,7 +11,15 @@
 	// UTILS
 	import { deLocalizeUrl } from '@/shared/lib/paraglide/runtime';
 
-	let { title }: { title?: string } = $props();
+	let {
+		title,
+		description,
+		noindex = false
+	}: {
+		title?: string;
+		description?: string;
+		noindex?: boolean;
+	} = $props();
 
 	const pathname = $derived(deLocalizeUrl(page.url).pathname);
 
@@ -25,14 +33,17 @@
 
 	const resolvedTitle = $derived(title ?? breadcrumbLabel.current ?? titleFromPath);
 	const fullTitle = $derived(`${resolvedTitle} | ${COMPANY_DATA.NAME}`);
-	const description = $derived(
-		`${resolvedTitle} page on ${COMPANY_DATA.NAME}. ${COMPANY_DATA.DESCRIPTION}`
+	const resolvedDescription = $derived(
+		description ?? `${resolvedTitle} page on ${COMPANY_DATA.NAME}. ${COMPANY_DATA.DESCRIPTION}`
 	);
 </script>
 
 <svelte:head>
 	<title>{fullTitle}</title>
-	<meta name="description" content={description} />
+	<meta name="description" content={resolvedDescription} />
 	<meta property="og:title" content={fullTitle} />
-	<meta property="og:description" content={description} />
+	<meta property="og:description" content={resolvedDescription} />
+	{#if noindex}
+		<meta name="robots" content="noindex" />
+	{/if}
 </svelte:head>

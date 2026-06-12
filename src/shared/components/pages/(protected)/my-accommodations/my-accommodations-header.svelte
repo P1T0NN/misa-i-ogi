@@ -1,4 +1,7 @@
 <script lang="ts">
+	// LIBRARIES
+	import { m } from '@/shared/lib/paraglide/messages';
+
 	// COMPONENTS
 	import { Badge } from '@/shared/components/ui/badge/index.js';
 	import Spinner from '@/shared/components/ui/spinner/spinner.svelte';
@@ -24,12 +27,14 @@
 
 	const overviewItems = $derived([
 		{
-			label: 'Active stays',
+			id: 'active-stays',
+			label: m['MyAccommodationsPage.MyAccommodationsHeader.activeStays'](),
 			value: summary?.activeCount ?? 0,
 			icon: Building2Icon
 		},
 		{
-			label: 'Partnerships',
+			id: 'partnerships',
+			label: m['MyAccommodationsPage.MyAccommodationsHeader.partnerships'](),
 			value: summary?.activePartnershipsCount ?? 0,
 			icon: Link2Icon
 		}
@@ -41,22 +46,25 @@
 		<div class="flex max-w-3xl min-w-0 flex-col gap-2">
 			<div class="flex flex-wrap items-center gap-2">
 				{#if !isLoading && !hasError}
-					<Badge variant="outline">{totalCount} total</Badge>
+					<Badge variant="outline">
+						{m['MyAccommodationsPage.MyAccommodationsHeader.totalBadge']({ count: totalCount })}
+					</Badge>
 				{/if}
 			</div>
 
 			<div>
-				<h1 class="text-2xl font-semibold tracking-normal md:text-3xl">My accommodations</h1>
+				<h1 class="text-2xl font-semibold tracking-normal md:text-3xl">
+					{m['MyAccommodationsPage.MyAccommodationsHeader.title']()}
+				</h1>
 
 				<p class="mt-2 text-sm leading-relaxed text-muted-foreground">
-					Review stays assigned to your account. Edit details and check whether each guest QR page
-					is active.
+					{m['MyAccommodationsPage.MyAccommodationsHeader.description']()}
 				</p>
 			</div>
 		</div>
 
 		<div class="grid gap-3 sm:grid-cols-2 lg:min-w-80">
-			{#each overviewItems as item (item.label)}
+			{#each overviewItems as item (item.id)}
 				<div class="rounded-lg border border-border bg-background/70 p-3">
 					<div class="flex items-center justify-between gap-3">
 						<span class="text-xs leading-none font-medium text-muted-foreground">{item.label}</span>

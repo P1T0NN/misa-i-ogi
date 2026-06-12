@@ -1,4 +1,7 @@
 <script lang="ts">
+	// LIBRARIES
+	import { m } from '@/shared/lib/paraglide/messages';
+
 	// COMPONENTS
 	import {
 		Card,
@@ -11,12 +14,16 @@
 
 <Card>
 	<CardHeader>
-		<CardTitle>Venues by reservation requests</CardTitle>
-		<CardDescription>Which hospitalities convert guest discovery into demand.</CardDescription>
+		<CardTitle>
+			{m['AnalyticsHospitalitiesPage.UserAnalyticsHospitalitiesChartEmpty.title']()}
+		</CardTitle>
+		<CardDescription>
+			{m['AnalyticsHospitalitiesPage.UserAnalyticsHospitalitiesChartEmpty.description']()}
+		</CardDescription>
 	</CardHeader>
 	<CardContent class="flex h-80 items-center justify-center px-4 text-center">
 		<p class="text-sm text-muted-foreground">
-			Reservation activity will appear here after guests submit requests to your venues.
+			{m['AnalyticsHospitalitiesPage.UserAnalyticsHospitalitiesChartEmpty.body']()}
 		</p>
 	</CardContent>
 </Card>

@@ -1,8 +1,16 @@
+<script lang="ts">
+	// LIBRARIES
+	import { m } from '@/shared/lib/paraglide/messages';
+</script>
+
 <div class="flex max-w-3xl flex-col gap-2">
-	<p class="font-mono text-xs tracking-[0.14em] text-primary uppercase">Platform owner</p>
-	<h1 class="text-2xl font-semibold tracking-tight sm:text-3xl">Admin dashboard</h1>
+	<p class="font-mono text-xs tracking-[0.14em] text-primary uppercase">
+		{m['AdminDashboardPage.AdminDashboardHeader.eyebrow']()}
+	</p>
+	<h1 class="text-2xl font-semibold tracking-tight sm:text-3xl">
+		{m['AdminDashboardPage.AdminDashboardHeader.title']()}
+	</h1>
 	<p class="text-sm leading-relaxed text-muted-foreground sm:text-base">
-		Operational snapshot of the full platform: setup health, reservation workload, and recent
-		activity.
+		{m['AdminDashboardPage.AdminDashboardHeader.description']()}
 	</p>
 </div>

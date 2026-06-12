@@ -87,7 +87,10 @@
 	];
 </script>
 
-<SvelteHead />
+<SvelteHead
+	title={m['AdminUsersPage.SEO.title']()}
+	description={m['AdminUsersPage.SEO.description']()}
+/>
 
 <section class="flex w-full flex-col gap-4 p-4 md:p-6">
 	<header class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">

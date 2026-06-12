@@ -43,7 +43,10 @@
 	const isNotPartnered = $derived(hospitalityResult?.status === 'not_partnered');
 </script>
 
-<SvelteHead title={hospitality?.name} />
+<SvelteHead
+	title={hospitality?.name}
+	description={m['HospitalityPage.SEO.description']()}
+/>
 
 <div class="bg-background text-foreground">
 	{#if detailQuery.error}

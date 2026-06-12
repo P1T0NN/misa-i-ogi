@@ -1,4 +1,7 @@
 <script lang="ts">
+	// LIBRARIES
+	import { m } from '@/shared/lib/paraglide/messages';
+
 	// CONFIG
 	import { PROTECTED_PAGE_ENDPOINTS } from '@/shared/constants.js';
 
@@ -64,11 +67,17 @@
 				<span class="hidden h-3 w-px bg-border sm:block" aria-hidden="true"></span>
 
 				<span class="inline-flex items-center gap-1.5 whitespace-nowrap">
-					<span class="text-xs font-medium">Status</span>
+					<span class="text-xs font-medium">
+						{m['MyAccommodationsPage.MyAccommodationsItem.status']()}
+					</span>
 					{#if accommodation.isActive}
-						<Badge variant="success">Active</Badge>
+						<Badge variant="success">
+							{m['MyAccommodationsPage.MyAccommodationsItem.active']()}
+						</Badge>
 					{:else}
-						<Badge variant="secondary">Inactive</Badge>
+						<Badge variant="secondary">
+							{m['MyAccommodationsPage.MyAccommodationsItem.inactive']()}
+						</Badge>
 					{/if}
 				</span>
 
@@ -82,14 +91,14 @@
 		<div class="flex gap-2 md:justify-end">
 			<Button href={editHref(accommodation)} variant="outline" size="sm">
 				<PencilIcon data-icon="inline-start" />
-				Edit
+				{m['MyAccommodationsPage.MyAccommodationsItem.edit']()}
 			</Button>
 
 			<Button
 				type="button"
 				variant="ghost"
 				size="icon-sm"
-				aria-label="Show guest QR code"
+				aria-label={m['MyAccommodationsPage.MyAccommodationsItem.showQrAriaLabel']()}
 				onclick={() => (qrDialogOpen = true)}
 			>
 				<QrCodeIcon class="size-3.5" aria-hidden="true" />

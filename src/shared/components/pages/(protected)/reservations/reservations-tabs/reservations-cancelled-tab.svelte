@@ -1,12 +1,13 @@
 <script lang="ts">
 	// LIBRARIES
+	import { m } from '@/shared/lib/paraglide/messages';
 	import { api } from '@/convex/_generated/api';
 
 	// COMPONENTS
 	import ConvexDataList from '@/shared/components/ui/data-list/convex-data-list.svelte';
 	import { TabsContent } from '@/shared/components/ui/tabs/index.js';
 	import ReservationsCancelledTabEmpty from '../empty/reservations-cancelled-tab-empty.svelte';
-	import ReservationsTabsError from '../error/reservations-tabs-error.svelte';
+	import { ErrorComponent } from '@/shared/components/ui/error-component/index.js';
 	import ReservationsTabsLoading from '../loading/reservations-tabs-loading.svelte';
 	import ReservationsTabItem from './reservations-tab-item/reservations-tab-item.svelte';
 
@@ -39,7 +40,12 @@
 		{/snippet}
 
 		{#snippet error()}
-			<ReservationsTabsError />
+			<ErrorComponent
+				variant="card"
+				title={m['ReservationsPage.ReservationsTabsError.title']()}
+				description={m['ReservationsPage.ReservationsTabsError.description']()}
+				showRetry={false}
+			/>
 		{/snippet}
 
 		{#snippet loading()}

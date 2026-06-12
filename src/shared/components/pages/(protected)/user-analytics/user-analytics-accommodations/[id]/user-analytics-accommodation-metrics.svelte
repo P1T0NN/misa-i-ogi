@@ -1,4 +1,7 @@
 <script lang="ts">
+	// LIBRARIES
+	import { m } from '@/shared/lib/paraglide/messages';
+
 	// COMPONENTS
 	import AnalyticsMetrics from '@/features/analytics/components/analytics-metrics.svelte';
 
@@ -17,23 +20,23 @@
 	const displayMetrics = $derived([
 		createStaticAnalyticsMetric({
 			id: 'tracked-stays',
-			label: 'Tracked stays',
+			label: m['AnalyticsAccommodationDetailPage.UserAnalyticsAccommodationMetrics.trackedStays'](),
 			metric: metrics.trackedStays,
 			analyticsLabel: getPresenceAnalyticsLabel(metrics.trackedStays.value)
 		}),
 		createComparedAnalyticsMetric({
 			id: 'qr-scans',
-			label: 'QR scans',
+			label: m['AnalyticsAccommodationDetailPage.UserAnalyticsAccommodationMetrics.qrScans'](),
 			metric: metrics.qrScans
 		}),
 		createComparedAnalyticsMetric({
 			id: 'guest-activations',
-			label: 'Guest activations',
+			label: m['AnalyticsAccommodationDetailPage.UserAnalyticsAccommodationMetrics.guestActivations'](),
 			metric: metrics.guestActivations
 		}),
 		createComparedAnalyticsMetric({
 			id: 'requests-generated',
-			label: 'Reservations',
+			label: m['AnalyticsAccommodationDetailPage.UserAnalyticsAccommodationMetrics.reservations'](),
 			metric: metrics.requestsGenerated
 		})
 	]);

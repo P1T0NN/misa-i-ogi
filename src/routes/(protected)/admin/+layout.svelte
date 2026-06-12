@@ -26,32 +26,32 @@
 	const navItems: AppSidebarNavItems = {
 		navMain: [
 			{
-				name: 'Dashboard',
+				name: m['AdminSidebar.dashboard'](),
 				url: ADMIN_PAGE_ENDPOINTS.DASHBOARD,
 				icon: LayoutDashboardIcon
 			},
 			{
-				name: 'Analytics',
+				name: m['AdminSidebar.analytics'](),
 				url: ADMIN_PAGE_ENDPOINTS.ANALYTICS,
 				icon: ChartBarIcon
 			},
 			{
-				name: 'Users',
+				name: m['AdminSidebar.users'](),
 				url: ADMIN_PAGE_ENDPOINTS.USERS,
 				icon: UsersIcon
 			},
 			{
-				name: 'Accommodations',
+				name: m['AdminSidebar.accommodations'](),
 				url: ADMIN_PAGE_ENDPOINTS.ACCOMMODATIONS,
 				icon: BuildingIcon
 			},
 			{
-				name: 'Hospitalities',
+				name: m['AdminSidebar.hospitalities'](),
 				url: ADMIN_PAGE_ENDPOINTS.HOSPITALITIES,
 				icon: StoreIcon
 			},
 			{
-				name: 'Partnerships',
+				name: m['AdminSidebar.partnerships'](),
 				url: ADMIN_PAGE_ENDPOINTS.PARTNERSHIPS,
 				icon: Link2Icon
 			}

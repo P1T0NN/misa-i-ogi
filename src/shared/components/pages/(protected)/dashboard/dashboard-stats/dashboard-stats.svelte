@@ -16,13 +16,14 @@
 
 <script lang="ts">
 	// LIBRARIES
+	import { m } from '@/shared/lib/paraglide/messages';
 	import { api } from '@/convex/_generated/api';
 	import { useQuery } from 'convex-svelte';
 
 	// COMPONENTS
 	import DashboardStatsItem from './dashboard-stats-item.svelte';
 	import DashboardStatsLoading from '../loading/dashboard-stats-loading.svelte';
-	import DashboardStatsError from '../error/dashboard-stats-error.svelte';
+	import { ErrorComponent } from '@/shared/components/ui/error-component/index.js';
 
 	// UTILS
 	import { formatAnalyticsCount } from '@/features/analytics/utils/analyticsDisplayFormattersUtils';
@@ -57,22 +58,22 @@
 			? [
 					{
 						id: 'accommodations',
-						label: 'Stays',
+						label: m['DashboardPage.DashboardStats.accommodations'](),
 						value: formatAnalyticsCount(counts.accommodations)
 					},
 					{
 						id: 'hospitalities',
-						label: 'Venues',
+						label: m['DashboardPage.DashboardStats.hospitalities'](),
 						value: formatAnalyticsCount(counts.hospitalities)
 					},
 					{
 						id: 'partnerships',
-						label: 'Active links',
+						label: m['DashboardPage.DashboardStats.partnerships'](),
 						value: formatAnalyticsCount(counts.partnerships)
 					},
 					{
 						id: 'pendingReservations',
-						label: 'Pending',
+						label: m['DashboardPage.DashboardStats.pendingReservations'](),
 						value: formatAnalyticsCount(counts.pendingReservations)
 					}
 				]
@@ -83,7 +84,11 @@
 {#if isLoading}
 	<DashboardStatsLoading />
 {:else if hasError}
-	<DashboardStatsError />
+	<ErrorComponent
+		variant="plain"
+		title={m['DashboardPage.DashboardStatsError.title']()}
+		description={m['DashboardPage.DashboardStatsError.description']()}
+	/>
 {:else}
 	<div class="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
 		{#each metrics as metric (metric.id)}

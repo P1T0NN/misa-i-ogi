@@ -6,8 +6,8 @@
 	// COMPONENTS
 	import ConvexDataTable from '@/shared/components/ui/data-table/convex-data-table.svelte';
 
-	// UTILS
-	import { capitalize } from '@/shared/utils/stringUtils';
+	// I18N
+	import { auditActionLabel } from '@/features/audit/i18n/auditActionLabel';
 
 	// TYPES
 	import type { Doc } from '@/convex/_generated/dataModel';
@@ -23,16 +23,11 @@
 
 	const queryArgs = $derived({ userId });
 
-	/** `user.role.update` → `User role update`. */
-	function formatAction(action: string): string {
-		return capitalize(action.replaceAll('.', ' ').replaceAll('_', ' '));
-	}
-
 	const columns: ColumnDef<Doc<'auditLogs'>>[] = [
 		{
 			id: 'action',
 			header: m['AdminUserPage.UserActivity.colAction'](),
-			accessor: (r) => formatAction(r.action)
+			accessor: (r) => auditActionLabel(r.action)
 		},
 		{
 			id: 'status',

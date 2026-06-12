@@ -1,4 +1,7 @@
 <script lang="ts">
+	// LIBRARIES
+	import { m } from '@/shared/lib/paraglide/messages';
+
 	// COMPONENTS
 	import { Button } from '@/shared/components/ui/button/index.js';
 	import { NotificationBadge } from '@/shared/components/ui/notification-badge/index.js';
@@ -10,7 +13,7 @@
 		SelectItem,
 		SelectTrigger
 	} from '@/shared/components/ui/select/index.js';
-	import ReservationsTabsError from '../error/reservations-tabs-error.svelte';
+	import { ErrorComponent } from '@/shared/components/ui/error-component/index.js';
 	import ReservationsTabsLoading from '../loading/reservations-tabs-loading.svelte';
 	import ReservationsPendingTab from './reservations-pending-tab.svelte';
 	import ReservationsConfirmedTab from './reservations-confirmed-tab.svelte';
@@ -72,7 +75,7 @@
 	<div class="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
 		<TabsList>
 			<TabsTrigger value="pending">
-				Pending
+				{m['ReservationsPage.ReservationsTabs.tabPending']()}
 				<NotificationBadge
 					count={counts.pending}
 					variant={pendingStatusMeta.badgeVariant}
@@ -81,7 +84,7 @@
 			</TabsTrigger>
 
 			<TabsTrigger value="confirmed">
-				Confirmed
+				{m['ReservationsPage.ReservationsTabs.tabConfirmed']()}
 				<NotificationBadge
 					count={counts.confirmed}
 					variant={confirmedStatusMeta.badgeVariant}
@@ -90,7 +93,7 @@
 			</TabsTrigger>
 
 			<TabsTrigger value="cancelled">
-				Cancelled
+				{m['ReservationsPage.ReservationsTabs.tabCancelled']()}
 				<NotificationBadge
 					count={counts.cancelled}
 					variant={cancelledStatusMeta.badgeVariant}
@@ -99,7 +102,7 @@
 			</TabsTrigger>
 
 			<TabsTrigger value="no_show">
-				No-show
+				{m['ReservationsPage.ReservationsTabs.tabNoShow']()}
 				<NotificationBadge
 					count={counts.no_show}
 					variant={noShowStatusMeta.badgeVariant}
@@ -116,7 +119,7 @@
 
 				<Input
 					class="h-8 w-44 pl-8 text-xs"
-					placeholder="Search guest, venue, phone…"
+					placeholder={m['ReservationsPage.ReservationsTabs.searchPlaceholder']()}
 					bind:value={searchQuery}
 				/>
 			</div>
@@ -125,14 +128,16 @@
 				<SelectTrigger class="h-8 w-40 text-xs">
 					<StoreIcon class="mr-1.5 size-3.5 text-muted-foreground" />
 					{#if selectedHospitality === 'all'}
-						<span class="text-xs text-muted-foreground">All venues</span>
+						<span class="text-xs text-muted-foreground">
+							{m['ReservationsPage.ReservationsTabs.allVenues']()}
+						</span>
 					{:else}
 						<span class="truncate text-xs">{selectedHospitality}</span>
 					{/if}
 				</SelectTrigger>
 
 				<SelectContent>
-					<SelectItem value="all">All venues</SelectItem>
+					<SelectItem value="all">{m['ReservationsPage.ReservationsTabs.allVenues']()}</SelectItem>
 					{#each hospitalityNames as hospitalityName (hospitalityName)}
 						<SelectItem value={hospitalityName}>{hospitalityName}</SelectItem>
 					{/each}
@@ -140,7 +145,12 @@
 			</Select>
 
 			{#if searchQuery.trim() || selectedHospitality !== 'all'}
-				<Button variant="ghost" size="icon-sm" onclick={clearFilters} aria-label="Clear filters">
+				<Button
+					variant="ghost"
+					size="icon-sm"
+					onclick={clearFilters}
+					aria-label={m['ReservationsPage.ReservationsTabs.clearFiltersAriaLabel']()}
+				>
 					<FilterXIcon class="size-3.5" />
 				</Button>
 			{/if}
@@ -150,7 +160,12 @@
 	{#if isLoading}
 		<ReservationsTabsLoading />
 	{:else if hasError}
-		<ReservationsTabsError />
+		<ErrorComponent
+			variant="card"
+			title={m['ReservationsPage.ReservationsTabsError.title']()}
+			description={m['ReservationsPage.ReservationsTabsError.description']()}
+			showRetry={false}
+		/>
 	{:else}
 		{#if visitedTabs.includes('pending')}
 			<ReservationsPendingTab {searchQuery} {selectedHospitality} />

@@ -13,8 +13,9 @@ import { sortAnalyticsItemsByMetric } from './sortAnalyticsItemsByMetric';
 
 // TYPES
 import type {
-	UserAnalyticsPlaceDetailPerformanceRow,
-	UserAnalyticsRankingRow
+	UserAnalyticsAccommodationTableRow,
+	UserAnalyticsHospitalityTableRow,
+	UserAnalyticsPlaceDetailPerformanceRow
 } from '@/convex/pages/userAnalytics/types/userAnalyticsTypes';
 import type { QueryCtx } from '@/convex/_generated/server';
 
@@ -33,10 +34,19 @@ type BuildAnalyticsRowsBase<TItem extends AnalyticsEntityItem> = {
 	confirmedTotals: Map<string, number>;
 };
 
-type BuildAnalyticsRowsRanking<TItem extends AnalyticsEntityItem> =
+type BuildAnalyticsRowsRankingAccommodation<TItem extends AnalyticsEntityItem> =
 	BuildAnalyticsRowsBase<TItem> & {
 		output: 'ranking';
-		secondaryTotals?: Map<string, number>;
+		entity: 'accommodation';
+		guestActivationTotals: Map<string, number>;
+		/** Default `true`. Pass `false` when items are already ranked (e.g. overview top N). */
+		sortByPrimary?: boolean;
+	};
+
+type BuildAnalyticsRowsRankingHospitality<TItem extends AnalyticsEntityItem> =
+	BuildAnalyticsRowsBase<TItem> & {
+		output: 'ranking';
+		entity: 'hospitality';
 		/** Default `true`. Pass `false` when items are already ranked (e.g. overview top N). */
 		sortByPrimary?: boolean;
 	};
@@ -83,7 +93,25 @@ function orderAnalyticsEntitiesByIds<TItem extends { _id: string }>(
 export async function buildTopAnalyticsRows<
 	TId extends string,
 	TItem extends AnalyticsEntityItem & { isActive: boolean }
->(args: BuildTopAnalyticsRowsArgs<TId, TItem>): Promise<UserAnalyticsRankingRow[]> {
+>(
+	args: BuildTopAnalyticsRowsArgs<TId, TItem> & { entity: 'accommodation' }
+): Promise<UserAnalyticsAccommodationTableRow[]>;
+
+export async function buildTopAnalyticsRows<
+	TId extends string,
+	TItem extends AnalyticsEntityItem & { isActive: boolean }
+>(
+	args: BuildTopAnalyticsRowsArgs<TId, TItem> & { entity: 'hospitality' }
+): Promise<UserAnalyticsHospitalityTableRow[]>;
+
+export async function buildTopAnalyticsRows<
+	TId extends string,
+	TItem extends AnalyticsEntityItem & { isActive: boolean }
+>(
+	args: BuildTopAnalyticsRowsArgs<TId, TItem> & {
+		entity: 'accommodation' | 'hospitality';
+	}
+): Promise<UserAnalyticsAccommodationTableRow[] | UserAnalyticsHospitalityTableRow[]> {
 	const requestedMetrics = uniqueIds(
 		[
 			...args.candidateMetrics,
@@ -127,29 +155,53 @@ export async function buildTopAnalyticsRows<
 	if (topIds.length === 0) return [];
 
 	const items = await args.getItemsByIds(args.ctx, topIds);
+	const orderedItems = orderAnalyticsEntitiesByIds(topIds, items);
+
+	if (args.entity === 'accommodation') {
+		return buildAnalyticsRows({
+			output: 'ranking',
+			entity: 'accommodation',
+			sortByPrimary: false,
+			items: orderedItems,
+			primaryTotals: getTotals(args.primaryMetric),
+			guestActivationTotals: getTotals(args.secondaryMetric ?? args.primaryMetric),
+			requestTotals: getTotals(args.requestMetric),
+			confirmedTotals: getTotals(args.confirmedMetric)
+		});
+	}
 
 	return buildAnalyticsRows({
 		output: 'ranking',
+		entity: 'hospitality',
 		sortByPrimary: false,
-		items: orderAnalyticsEntitiesByIds(topIds, items),
+		items: orderedItems,
 		primaryTotals: getTotals(args.primaryMetric),
-		secondaryTotals: args.secondaryMetric ? getTotals(args.secondaryMetric) : undefined,
 		requestTotals: getTotals(args.requestMetric),
 		confirmedTotals: getTotals(args.confirmedMetric)
 	});
 }
 
 export function buildAnalyticsRows<TItem extends AnalyticsEntityItem & { isActive: boolean }>(
-	args: BuildAnalyticsRowsRanking<TItem>
-): UserAnalyticsRankingRow[];
+	args: BuildAnalyticsRowsRankingAccommodation<TItem>
+): UserAnalyticsAccommodationTableRow[];
+
+export function buildAnalyticsRows<TItem extends AnalyticsEntityItem & { isActive: boolean }>(
+	args: BuildAnalyticsRowsRankingHospitality<TItem>
+): UserAnalyticsHospitalityTableRow[];
 
 export function buildAnalyticsRows<TItem extends AnalyticsEntityItem>(
 	args: BuildAnalyticsRowsPerformance<TItem>
 ): UserAnalyticsPlaceDetailPerformanceRow<TItem['type']>[];
 
 export function buildAnalyticsRows<TItem extends AnalyticsEntityItem>(
-	args: BuildAnalyticsRowsRanking<TItem> | BuildAnalyticsRowsPerformance<TItem>
-): UserAnalyticsRankingRow[] | UserAnalyticsPlaceDetailPerformanceRow[] {
+	args:
+		| BuildAnalyticsRowsRankingAccommodation<TItem>
+		| BuildAnalyticsRowsRankingHospitality<TItem>
+		| BuildAnalyticsRowsPerformance<TItem>
+):
+	| UserAnalyticsAccommodationTableRow[]
+	| UserAnalyticsHospitalityTableRow[]
+	| UserAnalyticsPlaceDetailPerformanceRow[] {
 	const items =
 		args.output === 'ranking' && args.sortByPrimary !== false
 			? sortAnalyticsItemsByMetric(args.items, args.primaryTotals, args.requestTotals)
@@ -180,24 +232,28 @@ export function buildAnalyticsRows<TItem extends AnalyticsEntityItem>(
 			);
 	}
 
-	return items.map((item) => {
-		const requests = getAnalyticsMetricValue(args.requestTotals, item._id);
-		const confirmed = getAnalyticsMetricValue(args.confirmedTotals, item._id);
-
-		return {
+	if (args.entity === 'accommodation') {
+		return items.map((item) => ({
 			id: item._id,
 			name: item.name,
 			type: item.type,
 			city: item.city,
 			isActive: item.isActive ?? true,
-			primaryMetricValue: getAnalyticsMetricValue(args.primaryTotals, item._id),
-			...(args.secondaryTotals
-				? {
-						secondaryMetricValue: getAnalyticsMetricValue(args.secondaryTotals, item._id)
-					}
-				: {}),
-			requests,
-			confirmed
-		};
-	});
+			scans: getAnalyticsMetricValue(args.primaryTotals, item._id),
+			guestActivations: getAnalyticsMetricValue(args.guestActivationTotals, item._id),
+			reservations: getAnalyticsMetricValue(args.requestTotals, item._id),
+			confirmed: getAnalyticsMetricValue(args.confirmedTotals, item._id)
+		}));
+	}
+
+	return items.map((item) => ({
+		id: item._id,
+		name: item.name,
+		type: item.type,
+		city: item.city,
+		isActive: item.isActive ?? true,
+		guestViews: getAnalyticsMetricValue(args.primaryTotals, item._id),
+		reservations: getAnalyticsMetricValue(args.requestTotals, item._id),
+		confirmed: getAnalyticsMetricValue(args.confirmedTotals, item._id)
+	}));
 }

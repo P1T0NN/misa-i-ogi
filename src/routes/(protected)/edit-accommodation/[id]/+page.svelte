@@ -3,6 +3,7 @@
 	import { page } from '$app/state';
 
 	// LIBRARIES
+	import { m } from '@/shared/lib/paraglide/messages';
 	import { api } from '@/convex/_generated/api';
 	import { useQuery } from 'convex-svelte';
 
@@ -15,7 +16,7 @@
 	import EditAccommodationGuestAccess from '@/shared/components/pages/(protected)/edit-accommodation/edit-accommodation-guest-access.svelte';
 	import EditAccommodationForm from '@/shared/components/pages/(protected)/edit-accommodation/edit-accommodation-form.svelte';
 	import EditAccommodationLoading from '@/shared/components/pages/(protected)/edit-accommodation/loading/edit-accommodation-loading.svelte';
-	import EditAccommodationError from '@/shared/components/pages/(protected)/edit-accommodation/error/edit-accommodation-error.svelte';
+	import { ErrorComponent } from '@/shared/components/ui/error-component/index.js';
 	import EditAccommodationEmpty from '@/shared/components/pages/(protected)/edit-accommodation/empty/edit-accommodation-empty.svelte';
 
 	// TYPES
@@ -36,14 +37,22 @@
 	});
 </script>
 
-<SvelteHead />
+<SvelteHead
+	title={accommodation?.name ?? m['EditAccommodationPage.SEO.title']()}
+	description={m['EditAccommodationPage.SEO.description']()}
+/>
 
 <section class="flex w-full justify-center px-4 py-6 md:px-6 md:py-8">
 	<div class="flex w-full max-w-3xl flex-col gap-6">
 		<EditAccommodationHeader />
 
 		{#if accommodationQuery.error}
-			<EditAccommodationError />
+			<ErrorComponent
+				variant="minimal"
+				title={m['EditAccommodationPage.EditAccommodationError.title']()}
+				description={m['EditAccommodationPage.EditAccommodationError.description']()}
+				showRetry={false}
+			/>
 		{:else if accommodation === null}
 			<EditAccommodationEmpty />
 		{:else if accommodation === undefined}

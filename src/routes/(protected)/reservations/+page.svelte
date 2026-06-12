@@ -1,5 +1,6 @@
 <script lang="ts">
 	// LIBRARIES
+	import { m } from '@/shared/lib/paraglide/messages';
 	import { api } from '@/convex/_generated/api';
 	import { useQuery } from 'convex-svelte';
 
@@ -10,7 +11,7 @@
 	import SvelteHead from '@/shared/components/ui/svelte-head/svelte-head.svelte';
 	import ReservationsHeader from '@/shared/components/pages/(protected)/reservations/reservations-header.svelte';
 	import ReservationsTabs from '@/shared/components/pages/(protected)/reservations/reservations-tabs/reservations-tabs.svelte';
-	import ReservationsTabsError from '@/shared/components/pages/(protected)/reservations/error/reservations-tabs-error.svelte';
+	import { ErrorComponent } from '@/shared/components/ui/error-component/index.js';
 	import ReservationsTabsLoading from '@/shared/components/pages/(protected)/reservations/loading/reservations-tabs-loading.svelte';
 	import ReservationsEmpty from '@/shared/components/pages/(protected)/reservations/empty/reservations-empty.svelte';
 
@@ -49,7 +50,10 @@
 	const pendingCount = $derived(counts.pending);
 </script>
 
-<SvelteHead />
+<SvelteHead
+	title={m['ReservationsPage.SEO.title']()}
+	description={m['ReservationsPage.SEO.description']()}
+/>
 
 <section class="flex w-full flex-col gap-6 py-4 md:py-6 lg:gap-8">
 	<ReservationsHeader {pendingCount} />
@@ -59,7 +63,12 @@
 	{:else if !hasOwnedHospitalities}
 		<ReservationsEmpty />
 	{:else if hasError}
-		<ReservationsTabsError />
+		<ErrorComponent
+			variant="card"
+			title={m['ReservationsPage.ReservationsTabsError.title']()}
+			description={m['ReservationsPage.ReservationsTabsError.description']()}
+			showRetry={false}
+		/>
 	{:else}
 		<ReservationsTabs {hospitalityNames} {counts} {isLoading} {hasError} />
 	{/if}

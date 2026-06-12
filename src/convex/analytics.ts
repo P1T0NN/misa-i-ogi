@@ -73,6 +73,17 @@ export const analytics = defineAnalytics(components.analytics, {
 				reason: property.string()
 			}
 		}),
+		reservationNoShow: event('reservation.no_show', {
+			label: 'Reservation no-show',
+			properties: {
+				hospitalityId: property.string({ required: true }),
+				hospitalityName: property.string(),
+				hospitalityType: property.string(),
+				accommodationId: property.string(),
+				accommodationName: property.string(),
+				reason: property.string()
+			}
+		}),
 		accommodationRegistered: event('accommodation.registered', {
 			label: 'Accommodation registered',
 			properties: {

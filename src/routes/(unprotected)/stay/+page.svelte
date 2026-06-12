@@ -1,9 +1,11 @@
 <script lang="ts">
 	// LIBRARIES
+	import { m } from '@/shared/lib/paraglide/messages';
 	import { useQuery } from '@mmailaender/convex-svelte';
 	import { api } from '@/convex/_generated/api';
 
 	// COMPONENTS
+	import SvelteHead from '@/shared/components/ui/svelte-head/svelte-head.svelte';
 	import StayError from '@/shared/components/pages/(unprotected)/stay/error/stay-error.svelte';
 	import StayLoading from '@/shared/components/pages/(unprotected)/stay/loading/stay-loading.svelte';
 	import StayAccommodationData from '@/shared/components/pages/(unprotected)/stay/stay-accommodation-data/stay-accommodation-data.svelte';
@@ -30,6 +32,11 @@
 	const loadError = $derived(Boolean(accommodationQuery.error));
 	const partnersUnlocked = $derived(accommodation != null);
 </script>
+
+<SvelteHead
+	title={accommodation?.name ?? m['StayPage.SEO.title']()}
+	description={m['StayPage.SEO.description']()}
+/>
 
 {#if loadError}
 	<StayError />

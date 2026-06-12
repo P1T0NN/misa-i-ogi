@@ -29,24 +29,31 @@ export type UserAnalyticsBarChartRow = {
 	value: number;
 };
 
-export type UserAnalyticsRankingRow = {
+type UserAnalyticsEntityTableRowBase = {
 	id: string;
 	name: string;
 	type: string;
 	city: string;
 	isActive: boolean;
-	primaryMetricValue: number;
-	secondaryMetricValue?: number;
-	requests: number;
+	reservations: number;
 	confirmed: number;
+};
+
+export type UserAnalyticsAccommodationTableRow = UserAnalyticsEntityTableRowBase & {
+	scans: number;
+	guestActivations: number;
+};
+
+export type UserAnalyticsHospitalityTableRow = UserAnalyticsEntityTableRowBase & {
+	guestViews: number;
 };
 
 export type UserAnalyticsOverviewPageResult = {
 	qrScansChart: UserAnalyticsChartPoint[];
 	guestActivationsChart: UserAnalyticsChartPoint[];
 	reservationsChart: UserAnalyticsChartPoint[];
-	topAccommodations: UserAnalyticsRankingRow[];
-	topHospitalities: UserAnalyticsRankingRow[];
+	topAccommodations: UserAnalyticsAccommodationTableRow[];
+	topHospitalities: UserAnalyticsHospitalityTableRow[];
 };
 
 export type UserAnalyticsAccommodationsPageMetrics = {
@@ -61,7 +68,7 @@ export type UserAnalyticsAccommodationsPageResult = {
 	chart: {
 		data: UserAnalyticsBarChartRow[];
 	};
-	rows: UserAnalyticsRankingRow[];
+	rows: UserAnalyticsAccommodationTableRow[];
 };
 
 export type UserAnalyticsHospitalitiesPageMetrics = {
@@ -76,7 +83,7 @@ export type UserAnalyticsHospitalitiesPageResult = {
 	chart: {
 		data: UserAnalyticsBarChartRow[];
 	};
-	rows: UserAnalyticsRankingRow[];
+	rows: UserAnalyticsHospitalityTableRow[];
 };
 
 export type UserAnalyticsReservationsPageMetrics = {

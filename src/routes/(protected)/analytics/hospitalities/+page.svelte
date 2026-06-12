@@ -1,5 +1,6 @@
 <script lang="ts">
 	// LIBRARIES
+	import { m } from '@/shared/lib/paraglide/messages';
 	import { api } from '@/convex/_generated/api';
 	import { useQuery } from 'convex-svelte';
 
@@ -11,9 +12,9 @@
 	import AnalyticsHeader from '@/features/analytics/components/analytics-header.svelte';
 	import UserAnalyticsHospitalitiesChart from '@/shared/components/pages/(protected)/user-analytics/user-analytics-hospitalities/user-analytics-hospitalities-chart.svelte';
 	import UserAnalyticsHospitalitiesMetrics from '@/shared/components/pages/(protected)/user-analytics/user-analytics-hospitalities/user-analytics-hospitalities-metrics.svelte';
-	import UserAnalyticsHospitalitiesTable from '@/shared/components/pages/(protected)/user-analytics/user-analytics-hospitalities/user-analytics-hospitalities-table.svelte';
+	import AnalyticsTopHospitalitiesTable from '@/features/analytics/components/analytics-top-hospitalities-table.svelte';
 	import UserAnalyticsHospitalitiesLoading from '@/shared/components/pages/(protected)/user-analytics/user-analytics-hospitalities/loading/user-analytics-hospitalities-loading.svelte';
-	import UserAnalyticsHospitalitiesError from '@/shared/components/pages/(protected)/user-analytics/user-analytics-hospitalities/error/user-analytics-hospitalities-error.svelte';
+	import { ErrorComponent } from '@/shared/components/ui/error-component/index.js';
 	import UserAnalyticsHospitalitiesEmpty from '@/shared/components/pages/(protected)/user-analytics/user-analytics-hospitalities/empty/user-analytics-hospitalities-empty.svelte';
 
 	const hasOwnedHospitalities = $derived(authClass.currentUser?.hasHospitalities === true);
@@ -32,13 +33,16 @@
 	const pageData = $derived(hospitalitiesPageQuery.data);
 </script>
 
-<SvelteHead />
+<SvelteHead
+	title={m['AnalyticsHospitalitiesPage.SEO.title']()}
+	description={m['AnalyticsHospitalitiesPage.SEO.description']()}
+/>
 
 <section class="flex w-full flex-col gap-6 py-4 md:py-6 lg:gap-8">
 	<AnalyticsHeader
-		eyebrow="Hospitality analytics"
-		title="Venue demand from connected guests"
-		description="Track which restaurants, cafes, tours, and wellness partners guests actually open and request."
+		eyebrow={m['AnalyticsHospitalitiesPage.AnalyticsHeader.eyebrow']()}
+		title={m['AnalyticsHospitalitiesPage.AnalyticsHeader.title']()}
+		description={m['AnalyticsHospitalitiesPage.AnalyticsHeader.description']()}
 	/>
 
 	{#if isLoading}
@@ -46,12 +50,18 @@
 	{:else if !hasOwnedHospitalities}
 		<UserAnalyticsHospitalitiesEmpty />
 	{:else if hasError}
-		<UserAnalyticsHospitalitiesError />
+		<ErrorComponent
+			variant="card"
+			title={m['AnalyticsHospitalitiesPage.UserAnalyticsHospitalitiesError.title']()}
+			headerDescription={m['AnalyticsHospitalitiesPage.UserAnalyticsHospitalitiesError.headerDescription']()}
+			body={m['AnalyticsHospitalitiesPage.UserAnalyticsHospitalitiesError.body']()}
+			showRetry={false}
+		/>
 	{:else if pageData}
 		<UserAnalyticsHospitalitiesMetrics metrics={pageData.metrics} />
 
 		<UserAnalyticsHospitalitiesChart data={pageData.chart.data} />
 
-		<UserAnalyticsHospitalitiesTable rows={pageData.rows} />
+		<AnalyticsTopHospitalitiesTable rows={pageData.rows} variant="performance" />
 	{/if}
 </section>

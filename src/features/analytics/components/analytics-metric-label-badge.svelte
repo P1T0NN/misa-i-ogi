@@ -1,10 +1,9 @@
 <script lang="ts">
 	// LIBRARIES
-	import {
-		ANALYTICS_METRIC_LABELS,
-		metricLabelSentiment,
-		type typesAnalyticsMetricLabel
-	} from '@piton-/analytics-convex';
+	import { metricLabelSentiment, type typesAnalyticsMetricLabel } from '@piton-/analytics-convex';
+
+	// I18N
+	import { analyticsMetricLabel } from '@/features/analytics/i18n/analyticsMetricLabel';
 
 	// COMPONENTS
 	import { Badge } from '@/shared/components/ui/badge/index.js';
@@ -14,7 +13,7 @@
 
 	let { analyticsLabel }: { analyticsLabel: typesAnalyticsMetricLabel } = $props();
 
-	const label = $derived(ANALYTICS_METRIC_LABELS[analyticsLabel]);
+	const label = $derived(analyticsMetricLabel(analyticsLabel));
 	const sentiment = $derived(metricLabelSentiment(analyticsLabel));
 </script>
 

@@ -1,4 +1,7 @@
 <script lang="ts">
+	// LIBRARIES
+	import { m } from '@/shared/lib/paraglide/messages';
+
 	// CONFIG
 	import { COMPANY_DATA } from '@/shared/constants';
 
@@ -15,12 +18,14 @@
 	</div>
 
 	<div class="mt-4 flex flex-col items-center gap-2">
-		<h2 class="text-lg font-semibold tracking-normal">No hospitality venues assigned yet</h2>
+		<h2 class="text-lg font-semibold tracking-normal">
+			{m['MyHospitalitiesPage.MyHospitalitiesEmpty.title']()}
+		</h2>
 		<p class="mt-1 max-w-md text-sm text-muted-foreground">
-			When the {COMPANY_DATA.NAME} team assigns a hospitality venue to your account, it will appear here.
+			{m['MyHospitalitiesPage.MyHospitalitiesEmpty.description']({ companyName: COMPANY_DATA.NAME })}
 		</p>
 		<p class="mt-2 flex items-center gap-1.5 text-xs font-medium text-muted-foreground">
-			<span>Assigned venues become editable from this page</span>
+			<span>{m['MyHospitalitiesPage.MyHospitalitiesEmpty.hint']()}</span>
 			<ArrowRightIcon class="size-3.5" aria-hidden="true" />
 		</p>
 	</div>

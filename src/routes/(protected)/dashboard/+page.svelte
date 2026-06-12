@@ -1,4 +1,7 @@
 <script lang="ts">
+	// LIBRARIES
+	import { m } from '@/shared/lib/paraglide/messages';
+
 	// CLASSES
 	import { authClass } from '@/features/auth/classes/authClass.svelte';
 
@@ -17,7 +20,10 @@
 	);
 </script>
 
-<SvelteHead />
+<SvelteHead
+	title={m['DashboardPage.SEO.title']()}
+	description={m['DashboardPage.SEO.description']()}
+/>
 
 <section class="flex w-full flex-col gap-6 py-4 md:py-6 lg:gap-8">
 	<DashboardHeader />

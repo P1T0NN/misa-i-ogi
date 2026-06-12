@@ -1,4 +1,7 @@
 <script lang="ts">
+	// LIBRARIES
+	import { m } from '@/shared/lib/paraglide/messages';
+
 	// COMPONENTS
 	import {
 		Card,
@@ -27,48 +30,52 @@
 
 	let { rows }: { rows: PerformanceRow[] } = $props();
 
-	const columns: ColumnDef<Record<string, unknown>>[] = [
+	const columns = $derived([
 		{
 			id: 'name',
-			header: 'Accommodation',
+			header: m['AnalyticsHospitalityDetailPage.UserAnalyticsHospitalityPerformanceTable.accommodation'](),
 			accessor: (row) => (row as PerformanceRow).name,
 			cellClass: 'font-medium',
 			wrap: true
 		},
 		{
 			id: 'views',
-			header: 'Views',
+			header: m['AnalyticsHospitalityDetailPage.UserAnalyticsHospitalityPerformanceTable.views'](),
 			accessor: (row) => (row as PerformanceRow).views,
 			cellClass: 'tabular-nums'
 		},
 		{
 			id: 'requests',
-			header: 'Reservations',
+			header: m['AnalyticsHospitalityDetailPage.UserAnalyticsHospitalityPerformanceTable.reservations'](),
 			accessor: (row) => (row as PerformanceRow).requests,
 			cellClass: 'tabular-nums'
 		},
 		{
 			id: 'confirmed',
-			header: 'Confirmed',
+			header: m['AnalyticsHospitalityDetailPage.UserAnalyticsHospitalityPerformanceTable.confirmed'](),
 			accessor: (row) => (row as PerformanceRow).confirmed,
 			cellClass: 'tabular-nums'
 		},
 		{
 			id: 'conversionRate',
-			header: 'Conversion',
+			header: m['AnalyticsHospitalityDetailPage.UserAnalyticsHospitalityPerformanceTable.conversion'](),
 			accessor: (row) => {
 				const performanceRow = row as PerformanceRow;
 				return formatAnalyticsConversionRate(performanceRow.requests, performanceRow.confirmed);
 			},
 			cellClass: 'tabular-nums'
 		}
-	] satisfies ColumnDef<Record<string, unknown>>[];
+	] satisfies ColumnDef<Record<string, unknown>>[]);
 </script>
 
 <Card>
 	<CardHeader>
-		<CardTitle class="text-base">Source stays</CardTitle>
-		<CardDescription>Accommodations that send guests to this hospitality.</CardDescription>
+		<CardTitle class="text-base">
+			{m['AnalyticsHospitalityDetailPage.UserAnalyticsHospitalityPerformanceTable.title']()}
+		</CardTitle>
+		<CardDescription>
+			{m['AnalyticsHospitalityDetailPage.UserAnalyticsHospitalityPerformanceTable.description']()}
+		</CardDescription>
 	</CardHeader>
 
 	<CardContent>

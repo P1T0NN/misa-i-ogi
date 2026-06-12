@@ -61,11 +61,11 @@ export type ColumnDef<T> = {
 	/**
 	 * Opt out of single-line ellipsis truncation. When true, the cell wrapper drops
 	 * `truncate` so multi-line content (badges, stacked metadata, long-form text) can
-	 * wrap normally. Default is `false` ΓÇö tabular data should stay one line per row.
+	 * wrap normally. Default is `false`; tabular data should stay one line per row.
 	 */
 	wrap?: boolean;
 	/**
-	 * Render the header as a clickable sort toggle. Clicking cycles `desc ΓåÆ asc ΓåÆ off` and
+	 * Render the header as a clickable sort toggle. Clicking cycles `desc -> asc -> off` and
 	 * surfaces `{ sortColumn: col.id, sortDirection }` through the table's `queryArgs`.
 	 * Server is responsible for picking the right index per `sortColumn` (typically inside
 	 * the `fetchOptimized` `where` builder).

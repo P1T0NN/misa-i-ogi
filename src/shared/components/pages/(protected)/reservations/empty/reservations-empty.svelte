@@ -1,4 +1,7 @@
 <script lang="ts">
+	// LIBRARIES
+	import { m } from '@/shared/lib/paraglide/messages';
+
 	// CONFIG
 	import { COMPANY_DATA } from '@/shared/constants';
 
@@ -14,10 +17,11 @@
 	</div>
 
 	<div class="mt-4 flex flex-col items-center gap-2">
-		<h2 class="text-lg font-semibold tracking-normal">You do not own any hospitalities</h2>
+		<h2 class="text-lg font-semibold tracking-normal">
+			{m['ReservationsPage.ReservationsEmpty.title']()}
+		</h2>
 		<p class="mt-1 max-w-md text-sm text-muted-foreground">
-			Reservation requests will appear here once venues are assigned to your account by the
-			{COMPANY_DATA.NAME} team.
+			{m['ReservationsPage.ReservationsEmpty.description']({ companyName: COMPANY_DATA.NAME })}
 		</p>
 	</div>
 </div>
