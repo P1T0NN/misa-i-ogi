@@ -18,7 +18,7 @@
 		"audit:fallow": "fallow audit --gate new-only"
 	},
 	"devDependencies": {
-		"@eslint/compat": "^1.4.0",
+		"@eslint/compat": "^2.1.0",
 		"@eslint/js": "^9.39.1",
 		"@inlang/paraglide-js": "2.18.1",
 		"@internationalized/date": "^3.12.0",
