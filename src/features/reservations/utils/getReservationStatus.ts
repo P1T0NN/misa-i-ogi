@@ -16,8 +16,7 @@ export function getReservationStatusMeta(status: ReservationStatus): Reservation
 		case 'pending':
 			return {
 				label: reservationStatusLabel(status),
-				badgeVariant: 'default',
-				badgeClass: 'bg-yellow-500 text-white hover:bg-yellow-500/90'
+				badgeVariant: 'default'
 			};
 		case 'confirmed':
 			return { label: reservationStatusLabel(status), badgeVariant: 'success' };

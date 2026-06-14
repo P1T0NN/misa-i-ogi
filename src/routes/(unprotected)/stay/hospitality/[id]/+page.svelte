@@ -38,6 +38,9 @@
 	const guestReservation = $derived(
 		hospitalityResult?.status === 'available' ? hospitalityResult.guestReservation : null
 	);
+	const partnership = $derived(
+		hospitalityResult?.status === 'available' ? hospitalityResult.partnership : null
+	);
 	const isLoading = $derived(hospitalityResult === undefined && !detailQuery.error);
 	const isNotFound = $derived(hospitalityResult?.status === 'not_found');
 	const isNotPartnered = $derived(hospitalityResult?.status === 'not_partnered');
@@ -105,10 +108,6 @@
 		>
 			<div class="flex min-w-0 flex-col gap-12 lg:gap-14">
 				<section class="scroll-mt-28" aria-labelledby="about-heading">
-					<p class="mb-2 font-mono text-[11px] tracking-[0.14em] text-primary uppercase">
-						{m['HospitalityPage.aboutEyebrow']()}
-					</p>
-
 					<h2 id="about-heading" class="font-serif text-2xl font-medium tracking-tight sm:text-3xl">
 						{m['HospitalityPage.aboutTitle']()}
 					</h2>
@@ -126,6 +125,43 @@
 			</div>
 
 			<aside class="space-y-6 lg:sticky lg:top-28">
+				{#if partnership}
+					<Card.Root class="overflow-hidden border-primary/20 bg-accent/40">
+						<Card.Header class="pb-3">
+							<p class="mb-2 font-mono text-[10px] tracking-[0.14em] text-primary uppercase">
+								{m['HospitalityPage.benefitEyebrow']()}
+							</p>
+
+							{#if partnership.discountPercentage != null}
+								<Card.Title class="font-serif text-3xl leading-none">
+									{m['HospitalityPage.benefitDiscountTitle']({
+										percent: partnership.discountPercentage
+									})}
+								</Card.Title>
+							{:else}
+								<Card.Title class="font-serif text-2xl leading-tight">
+									{m['HospitalityPage.benefitGenericTitle']()}
+								</Card.Title>
+							{/if}
+						</Card.Header>
+						<Card.Content class="space-y-3">
+							{#if partnership.discountPercentage != null}
+								<p class="text-sm leading-relaxed text-muted-foreground">
+									{m['HospitalityPage.benefitDiscountBody']({ hospitalityName: h.name })}
+								</p>
+							{:else}
+								<p class="text-sm leading-relaxed text-muted-foreground">
+									{m['HospitalityPage.benefitGenericBody']({ hospitalityName: h.name })}
+								</p>
+							{/if}
+
+							<p class="border-t border-primary/15 pt-3 text-xs leading-relaxed text-muted-foreground">
+								{m['HospitalityPage.benefitSourceNote']()}
+							</p>
+						</Card.Content>
+					</Card.Root>
+				{/if}
+
 				{#if guestReservation}
 					<GuestReservationCard reservation={guestReservation} hospitalityName={h.name} />
 				{:else}

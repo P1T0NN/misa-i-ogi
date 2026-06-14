@@ -20,10 +20,6 @@
 			label: m['AnalyticsHospitalityDetailPage.UserAnalyticsHospitalityChart.guestViews'](),
 			color: 'var(--chart-1)'
 		},
-		guestActivations: {
-			label: m['AnalyticsHospitalityDetailPage.UserAnalyticsHospitalityChart.guestActivations'](),
-			color: 'var(--success)'
-		},
 		reservations: {
 			label: m['AnalyticsHospitalityDetailPage.UserAnalyticsHospitalityChart.reservations'](),
 			color: 'var(--chart-3)'

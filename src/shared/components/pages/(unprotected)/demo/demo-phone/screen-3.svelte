@@ -3,7 +3,7 @@
 </script>
 
 <div
-	class="absolute inset-0 flex flex-col bg-(--surface-2) transition-opacity duration-300 ease-out {layerClass}"
+	class="absolute inset-0 flex flex-col bg-surface-2 transition-opacity duration-300 ease-out {layerClass}"
 >
 	<div
 		class="type-phone-status-bar flex items-center justify-between px-7 pt-4 pb-1.5 text-foreground"
@@ -54,19 +54,19 @@
 		</h2>
 		<p class="mb-5 text-sm text-muted-foreground">Active until Sunday, 19 May at 14:00.</p>
 		<div class="mb-6 grid grid-cols-3 gap-2">
-			<div class="rounded-lg border border-(--border-2) bg-card p-3 text-center">
+			<div class="rounded-lg border border-border-2 bg-card p-3 text-center">
 				<div class="font-display text-phone-stat font-medium text-primary">22</div>
 				<div class="mt-1.5 font-mono text-xs tracking-caps text-muted-foreground uppercase">
 					Venues
 				</div>
 			</div>
-			<div class="rounded-lg border border-(--border-2) bg-card p-3 text-center">
+			<div class="rounded-lg border border-border-2 bg-card p-3 text-center">
 				<div class="font-display text-phone-stat font-medium text-primary">9</div>
 				<div class="mt-1.5 font-mono text-xs tracking-caps text-muted-foreground uppercase">
 					Categories
 				</div>
 			</div>
-			<div class="rounded-lg border border-(--border-2) bg-card p-3 text-center">
+			<div class="rounded-lg border border-border-2 bg-card p-3 text-center">
 				<div class="font-display text-phone-stat font-medium text-primary">7m</div>
 				<div class="mt-1.5 font-mono text-xs tracking-caps text-muted-foreground uppercase">
 					Median walk

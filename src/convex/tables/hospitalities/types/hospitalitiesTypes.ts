@@ -20,6 +20,11 @@ export type HospitalityGuestReservation = Pick<
 	status: 'pending' | 'confirmed';
 };
 
+export type HospitalityPartnershipBenefit = Pick<
+	Doc<'partnerships'>,
+	'_id' | 'discountPercentage'
+>;
+
 /** @deprecated Use `HospitalityGuestReservation`. */
 export type HospitalityGuestPendingReservation = HospitalityGuestReservation;
 
@@ -27,6 +32,7 @@ export type HospitalityDetailsResult =
 	| {
 			status: 'available';
 			hospitality: HospitalityDetailsSafe;
+			partnership: HospitalityPartnershipBenefit | null;
 			guestReservation: HospitalityGuestReservation | null;
 	  }
 	| { status: 'not_found' }

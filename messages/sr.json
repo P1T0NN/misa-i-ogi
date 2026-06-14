@@ -62,26 +62,6 @@
 			"title": "What clients say"
 		}
 	},
-	"ContactSection": {
-		"ContactRightContent": {
-			"sendMessage": "Pošalji poruku",
-			"shareEnquiry": "Share your enquiry and Teresa will reply as soon as she can — usually within 24 hours.",
-			"yourName": "Vaše ime",
-			"yourFullName": "Vaše puno ime",
-			"email": "Email",
-			"yourEmail": "you@example.com",
-			"message": "Poruka",
-			"messagePlaceholder": "Dates, venue, vibe, allergies — whatever helps Teresa prepare.",
-			"noSpam": "No spam — just a thoughtful reply when she is back at her desk."
-		},
-		"ContactSubmitButton": {
-			"sendMessage": "Send message"
-		},
-		"ContactLeftContent": {
-			"contact": "Kontakt",
-			"preferEmail": "Prefer email?"
-		}
-	},
 	"LoginForm": {
 		"LoginFormNoImage": {
 			"title": "Prijava",
@@ -159,6 +139,10 @@
 		"typeOtherVenue": "Ostalo"
 	},
 	"ActivatePage": {
+		"SEO": {
+			"title": "Vaš boravak počinje ovde",
+			"description": "Otključajte pogodnosti koje je domaćin pripremio za ovaj boravak."
+		},
 		"title": "Vaš boravak počinje ovde",
 		"description": "Otključajte pogodnosti koje je domaćin pripremio za ovaj boravak.",
 		"start": "Započni boravak",
@@ -280,6 +264,12 @@
 		"reserveNoChannels": "Broj telefona još nije naveden.",
 		"hospitalityDetailsTitle": "Detalji ugostiteljskog objekta",
 		"dlType": "Tip",
+		"benefitEyebrow": "Benefit za vas boravak",
+		"benefitDiscountTitle": "{percent}% popusta",
+		"benefitGenericTitle": "Partnerski benefit je aktivan",
+		"benefitDiscountBody": "Pokazite ovu stranicu u objektu {hospitalityName} kako bi osoblje primenilo popust.",
+		"benefitGenericBody": "Pokazite ovu stranicu u objektu {hospitalityName}; osoblje moze da ispuni benefit dogovoren sa vasim smestajem.",
+		"benefitSourceNote": "Ovaj benefit dolazi iz smestaja iz kog ste skenirali QR kod.",
 		"dlAddress": "Adresa",
 		"dlPhone": "Phone",
 		"dlPartner": "Active partner",

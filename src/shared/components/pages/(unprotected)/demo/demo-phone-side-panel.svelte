@@ -37,7 +37,7 @@
 	</p>
 
 	<div
-		class="max-w-measure-narrow mb-7 flex items-start gap-2.5 rounded-lg border border-(--border-2) bg-card p-3.5 text-sm"
+		class="max-w-measure-narrow mb-7 flex items-start gap-2.5 rounded-lg border border-border-2 bg-card p-3.5 text-sm"
 	>
 		<span
 			class="mt-px shrink-0 rounded-md bg-accent px-2 py-0.5 font-mono text-xs tracking-widest text-primary uppercase"

@@ -11,7 +11,7 @@
 </script>
 
 <div
-	class="absolute inset-0 flex flex-col bg-(--surface-2) transition-opacity duration-300 ease-out {layerClass}"
+	class="absolute inset-0 flex flex-col bg-surface-2 transition-opacity duration-300 ease-out {layerClass}"
 >
 	<div
 		class="type-phone-status-bar flex items-center justify-between px-7 pt-4 pb-1.5 text-foreground"

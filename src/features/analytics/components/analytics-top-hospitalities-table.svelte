@@ -22,7 +22,10 @@
 
 	// TYPES
 	import type { AdminAnalyticsTopHospitalityRow } from '@/convex/pages/adminAnalytics/types/adminAnalyticsTypes';
-	import type { UserAnalyticsHospitalityTableRow } from '@/convex/pages/userAnalytics/types/userAnalyticsTypes';
+	import type {
+		UserAnalyticsHospitalityTableRow,
+		UserAnalyticsPlaceDetailPerformanceRow
+	} from '@/convex/pages/userAnalytics/types/userAnalyticsTypes';
 	import type { AnalyticsTopTableVariant } from '@/features/analytics/types/analyticsTypes';
 	import type {
 		ColumnDef,
@@ -33,53 +36,70 @@
 	import ArrowRightIcon from '@lucide/svelte/icons/arrow-right';
 
 	type HospitalityTableRow = UserAnalyticsHospitalityTableRow | AdminAnalyticsTopHospitalityRow;
+	type DetailPerformanceRow = UserAnalyticsPlaceDetailPerformanceRow;
+	type TableRow = HospitalityTableRow | DetailPerformanceRow;
 
 	let {
 		rows,
-		variant = 'top'
+		variant = 'top',
+		title: titleOverride,
+		description: descriptionOverride
 	}: {
-		rows: HospitalityTableRow[];
+		rows: TableRow[];
 		variant?: AnalyticsTopTableVariant;
+		title?: string;
+		description?: string;
 	} = $props();
 
 	const title = $derived(
-		variant === 'performance'
-			? m['AnalyticsComponents.AnalyticsTopHospitalitiesTable.performanceTitle']()
-			: variant === 'admin'
-				? m['AnalyticsComponents.AnalyticsTopHospitalitiesTable.adminTitle']()
-				: m['AnalyticsComponents.AnalyticsTopHospitalitiesTable.topTitle']()
+		titleOverride ??
+			(variant === 'performance'
+				? m['AnalyticsComponents.AnalyticsTopHospitalitiesTable.performanceTitle']()
+				: variant === 'admin'
+					? m['AnalyticsComponents.AnalyticsTopHospitalitiesTable.adminTitle']()
+					: variant === 'detailPerformance' || variant === 'dummy'
+						? m['AnalyticsComponents.AnalyticsTopHospitalitiesTable.detailPerformanceTitle']()
+						: m['AnalyticsComponents.AnalyticsTopHospitalitiesTable.topTitle']())
 	);
 
 	const description = $derived(
-		variant === 'performance'
-			? m['AnalyticsComponents.AnalyticsTopHospitalitiesTable.performanceDescription']()
-			: variant === 'admin'
-				? m['AnalyticsComponents.AnalyticsTopHospitalitiesTable.adminDescription']()
-				: m['AnalyticsComponents.AnalyticsTopHospitalitiesTable.topDescription']()
+		descriptionOverride ??
+			(variant === 'performance'
+				? m['AnalyticsComponents.AnalyticsTopHospitalitiesTable.performanceDescription']()
+				: variant === 'admin'
+					? m['AnalyticsComponents.AnalyticsTopHospitalitiesTable.adminDescription']()
+					: variant === 'detailPerformance' || variant === 'dummy'
+						? m['AnalyticsComponents.AnalyticsTopHospitalitiesTable.detailPerformanceDescription']()
+						: m['AnalyticsComponents.AnalyticsTopHospitalitiesTable.topDescription']())
 	);
 
-	const showAction = $derived(variant !== 'admin');
+	const showAction = $derived(
+		variant !== 'admin' && variant !== 'detailPerformance' && variant !== 'dummy'
+	);
 
-	function getDetailHref(row: HospitalityTableRow) {
+	function getDetailHref(row: TableRow) {
 		return `/analytics/hospitalities/${row.id}`;
 	}
 
-	function buildColumns(tableVariant: AnalyticsTopTableVariant): ColumnDef<HospitalityTableRow>[] {
-		const columns: ColumnDef<HospitalityTableRow>[] = [
+	function buildColumns(tableVariant: AnalyticsTopTableVariant): ColumnDef<TableRow>[] {
+		const columns: ColumnDef<TableRow>[] = [
 			{
 				id: 'entity',
 				header: m['AnalyticsComponents.AnalyticsTopHospitalitiesTable.entity'](),
 				accessor: (row) => row.name,
 				cellClass: 'font-medium',
 				wrap: true
-			},
-			{
+			}
+		];
+
+		if (tableVariant !== 'dummy') {
+			columns.push({
 				id: 'type',
 				header: m['AnalyticsComponents.AnalyticsTopHospitalitiesTable.type'](),
 				accessor: (row) => formatAnalyticsType(row.type),
 				hideBelow: 'md'
-			}
-		];
+			});
+		}
 
 		if (tableVariant === 'admin') {
 			columns.push({
@@ -90,30 +110,71 @@
 			});
 		}
 
+		if (tableVariant === 'detailPerformance' || tableVariant === 'dummy') {
+			columns.push(
+				{
+					id: 'views',
+					header: m['AnalyticsComponents.AnalyticsTopHospitalitiesTable.views'](),
+					accessor: (row) => formatAnalyticsCount((row as DetailPerformanceRow).views),
+					cellClass: 'tabular-nums'
+				},
+				{
+					id: 'reservations',
+					header: m['AnalyticsComponents.AnalyticsTopHospitalitiesTable.reservations'](),
+					accessor: (row) => formatAnalyticsCount((row as DetailPerformanceRow).requests),
+					cellClass: 'tabular-nums'
+				},
+				{
+					id: 'confirmed',
+					header: m['AnalyticsComponents.AnalyticsTopHospitalitiesTable.confirmed'](),
+					accessor: (row) => formatAnalyticsCount((row as DetailPerformanceRow).confirmed),
+					hideBelow: 'md',
+					cellClass: 'tabular-nums'
+				},
+				{
+					id: 'conversionRate',
+					header: m['AnalyticsComponents.AnalyticsTopHospitalitiesTable.conversion'](),
+					accessor: (row) => {
+						const performanceRow = row as DetailPerformanceRow;
+						return formatAnalyticsConversionRate(performanceRow.requests, performanceRow.confirmed);
+					},
+					cellClass: 'tabular-nums'
+				}
+			);
+
+			return columns;
+		}
+
 		columns.push(
 			{
 				id: 'guestViews',
 				header: m['AnalyticsComponents.AnalyticsTopHospitalitiesTable.guestViews'](),
-				accessor: (row) => formatAnalyticsCount(row.guestViews),
+				accessor: (row) => formatAnalyticsCount((row as HospitalityTableRow).guestViews),
 				cellClass: 'tabular-nums'
 			},
 			{
 				id: 'reservations',
 				header: m['AnalyticsComponents.AnalyticsTopHospitalitiesTable.reservations'](),
-				accessor: (row) => row.reservations,
+				accessor: (row) => (row as HospitalityTableRow).reservations,
 				cellClass: 'tabular-nums'
 			},
 			{
 				id: 'confirmed',
 				header: m['AnalyticsComponents.AnalyticsTopHospitalitiesTable.confirmed'](),
-				accessor: (row) => row.confirmed,
+				accessor: (row) => (row as HospitalityTableRow).confirmed,
 				hideBelow: 'md',
 				cellClass: 'tabular-nums'
 			},
 			{
 				id: 'conversionRate',
 				header: m['AnalyticsComponents.AnalyticsTopHospitalitiesTable.conversion'](),
-				accessor: (row) => formatAnalyticsConversionRate(row.reservations, row.confirmed),
+				accessor: (row) => {
+					const hospitalityRow = row as HospitalityTableRow;
+					return formatAnalyticsConversionRate(
+						hospitalityRow.reservations,
+						hospitalityRow.confirmed
+					);
+				},
 				cellClass: 'tabular-nums'
 			}
 		);
@@ -135,13 +196,15 @@
 	const columns = $derived(buildColumns(variant));
 </script>
 
-{#snippet actionCell({ row }: DataTableCellSnippetProps<HospitalityTableRow>)}
+{#snippet actionCell({ row }: DataTableCellSnippetProps<TableRow>)}
 	<Button
 		href={getDetailHref(row)}
 		variant="ghost"
 		size="sm"
 		class="px-0 md:px-3"
-		aria-label={m['AnalyticsComponents.AnalyticsTopHospitalitiesTable.detailsAriaLabel']({ name: row.name })}
+		aria-label={m['AnalyticsComponents.AnalyticsTopHospitalitiesTable.detailsAriaLabel']({
+			name: row.name
+		})}
 	>
 		{m['AnalyticsComponents.AnalyticsTopHospitalitiesTable.details']()}
 		<ArrowRightIcon data-icon="inline-end" />

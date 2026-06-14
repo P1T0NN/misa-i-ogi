@@ -30,11 +30,6 @@
 			metric: metrics.hospitalityViews
 		}),
 		createComparedAnalyticsMetric({
-			id: 'guest-activations',
-			label: m['AnalyticsHospitalityDetailPage.UserAnalyticsHospitalityMetrics.guestActivations'](),
-			metric: metrics.guestActivations
-		}),
-		createComparedAnalyticsMetric({
 			id: 'requests-generated',
 			label: m['AnalyticsHospitalityDetailPage.UserAnalyticsHospitalityMetrics.reservations'](),
 			metric: metrics.requestsGenerated

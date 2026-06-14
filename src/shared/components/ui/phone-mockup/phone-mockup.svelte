@@ -44,8 +44,6 @@
 	{/if}
 
 	<div class={cn('phone-mockup-bezel', chassisClass)}>
-		<div class="phone-mockup-notch" aria-hidden="true"></div>
-
 		<div class="phone-mockup-home-indicator" aria-hidden="true"></div>
 
 		<div class={cn('phone-mockup-screen', screenClass)}>

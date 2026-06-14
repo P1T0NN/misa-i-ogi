@@ -14,9 +14,9 @@
 	// COMPONENTS
 	import SvelteHead from '@/shared/components/ui/svelte-head/svelte-head.svelte';
 	import AnalyticsHeader from '@/features/analytics/components/analytics-header.svelte';
+	import AnalyticsTopHospitalitiesTable from '@/features/analytics/components/analytics-top-hospitalities-table.svelte';
 	import UserAnalyticsAccommodationMetrics from '@/shared/components/pages/(protected)/user-analytics/user-analytics-accommodations/[id]/user-analytics-accommodation-metrics.svelte';
 	import UserAnalyticsAccommodationChart from '@/shared/components/pages/(protected)/user-analytics/user-analytics-accommodations/[id]/user-analytics-accommodation-chart.svelte';
-	import UserAnalyticsAccommodationPerformanceTable from '@/shared/components/pages/(protected)/user-analytics/user-analytics-accommodations/[id]/user-analytics-accommodation-performance-table.svelte';
 	import UserAnalyticsAccommodationsLoading from '@/shared/components/pages/(protected)/user-analytics/user-analytics-accommodations/loading/user-analytics-accommodations-loading.svelte';
 	import { ErrorComponent } from '@/shared/components/ui/error-component/index.js';
 
@@ -52,7 +52,9 @@
 	<ErrorComponent
 		variant="card"
 		title={m['AnalyticsAccommodationsPage.UserAnalyticsAccommodationsError.title']()}
-		headerDescription={m['AnalyticsAccommodationsPage.UserAnalyticsAccommodationsError.headerDescription']()}
+		headerDescription={m[
+			'AnalyticsAccommodationsPage.UserAnalyticsAccommodationsError.headerDescription'
+		]()}
 		body={m['AnalyticsAccommodationsPage.UserAnalyticsAccommodationsError.body']()}
 		showRetry={false}
 	/>
@@ -69,6 +71,6 @@
 
 		<UserAnalyticsAccommodationChart data={data.activityData} />
 
-		<UserAnalyticsAccommodationPerformanceTable rows={data.performance.rows} />
+		<AnalyticsTopHospitalitiesTable rows={data.performance.rows} variant="detailPerformance" />
 	</section>
 {/if}

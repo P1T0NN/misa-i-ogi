@@ -23,7 +23,7 @@
 </script>
 
 <div
-	class="absolute inset-0 flex flex-col bg-(--surface-2) transition-opacity duration-300 ease-out {layerClass}"
+	class="absolute inset-0 flex flex-col bg-surface-2 transition-opacity duration-300 ease-out {layerClass}"
 >
 	<div
 		class="type-phone-status-bar flex items-center justify-between px-7 pt-4 pb-1.5 text-foreground"
@@ -45,10 +45,10 @@
 			</div>
 		</div>
 	</div>
-	<div class="flex items-center gap-3 border-b border-(--border-2) bg-(--surface-2) px-5 py-3.5">
+	<div class="flex items-center gap-3 border-b border-border-2 bg-surface-2 px-5 py-3.5">
 		<button
 			type="button"
-			class="grid size-8 shrink-0 place-items-center rounded-lg border border-(--border-2) bg-card text-foreground"
+			class="grid size-8 shrink-0 place-items-center rounded-lg border border-border-2 bg-card text-foreground"
 			aria-label="Back"
 			onclick={() => onGoTo(4)}
 		>
@@ -61,16 +61,14 @@
 		</h3>
 	</div>
 	<div class="flex min-h-0 flex-1 flex-col overflow-y-auto">
-		<div
-			class="border-b border-(--border-2) bg-linear-to-br from-accent to-(--surface-2) px-6 pt-5 pb-6"
-		>
+		<div class="border-b border-border-2 bg-linear-to-br from-accent to-surface-2 px-6 pt-5 pb-6">
 			<p class="mb-2 font-mono text-xs tracking-widest text-primary uppercase">{venue.catLine}</p>
 			<h2 class="mb-2 font-display text-phone-title leading-tight font-medium text-foreground">
 				{venue.name}
 			</h2>
 			<p class="m-0 text-sm text-muted-foreground">{venue.loc}</p>
 			<div
-				class="mt-5 flex items-center justify-between rounded-xl border border-(--border-2) bg-(--surface-2) p-4"
+				class="mt-5 flex items-center justify-between rounded-xl border border-border-2 bg-surface-2 p-4"
 			>
 				<span class="font-display text-4xl leading-none font-medium tracking-tight text-primary"
 					>{@html venue.pctHtml}</span
@@ -85,10 +83,7 @@
 			<div class="my-4">
 				{#each DETAIL_KV as row, i (row.k)}
 					<div
-						class={cn(
-							'flex justify-between py-2.5 text-xs',
-							i > 0 && 'border-t border-(--border-2)'
-						)}
+						class={cn('flex justify-between py-2.5 text-xs', i > 0 && 'border-t border-border-2')}
 					>
 						<span class="text-muted-foreground">{row.k}</span>
 						<span class="font-mono text-foreground">{row.v}</span>
@@ -97,7 +92,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="border-t border-(--border-2) bg-(--surface-2) px-5 pt-4 pb-6">
+	<div class="border-t border-border-2 bg-surface-2 px-5 pt-4 pb-6">
 		<button
 			type="button"
 			class="w-full rounded-xl border-0 bg-primary py-3.5 text-button font-medium text-primary-foreground"

@@ -1,7 +1,4 @@
 <script lang="ts">
-	// LIBRARIES
-	import { m } from '@/shared/lib/paraglide/messages';
-
 	// CLASSES
 	import { contactSectionClass } from './contactSection.svelte.ts';
 
@@ -23,14 +20,13 @@
 	import { clearFieldErrorOn } from '@/shared/utils/validationUtils.js';
 </script>
 
-<Card.Root class="gap-0 border-0 bg-background p-4 shadow-xl sm:p-5">
+<Card.Root class="shadow-card-soft gap-0 border border-border-2 bg-card p-4 sm:p-5">
 	<Card.Header class="p-0">
-		<Card.Title class="text-base font-semibold text-foreground"
-			>{m['ContactSection.ContactRightContent.sendMessage']()}</Card.Title
-		>
+		<Card.Title class="text-base font-semibold text-foreground">Send a message</Card.Title>
 
 		<Card.Description class="mt-1 text-sm text-muted-foreground">
-			{m['ContactSection.ContactRightContent.shareEnquiry']()}
+			Tell us whether you run accommodations, hospitality venues, or both. We will reply with the
+			best next step for your network.
 		</Card.Description>
 	</Card.Header>
 
@@ -38,9 +34,7 @@
 		<FieldSet>
 			<FieldGroup class="gap-4">
 				<Field data-invalid={Boolean(contactSectionClass.fieldErrors.name)}>
-					<FieldLabel for="contact-name"
-						>{m['ContactSection.ContactRightContent.yourName']()}</FieldLabel
-					>
+					<FieldLabel for="contact-name">Your name</FieldLabel>
 
 					<FieldContent>
 						<Input
@@ -49,7 +43,7 @@
 							type="text"
 							name="name"
 							autocomplete="name"
-							placeholder={m['ContactSection.ContactRightContent.yourFullName']()}
+							placeholder="Your full name"
 							aria-invalid={Boolean(contactSectionClass.fieldErrors.name)}
 							oninput={clearFieldErrorOn(contactSectionClass, 'name')}
 						/>
@@ -61,9 +55,7 @@
 				</Field>
 
 				<Field data-invalid={Boolean(contactSectionClass.fieldErrors.email)}>
-					<FieldLabel for="contact-email"
-						>{m['ContactSection.ContactRightContent.email']()}</FieldLabel
-					>
+					<FieldLabel for="contact-email">Email</FieldLabel>
 
 					<FieldContent>
 						<Input
@@ -72,7 +64,7 @@
 							type="email"
 							name="email"
 							autocomplete="email"
-							placeholder={m['ContactSection.ContactRightContent.yourEmail']()}
+							placeholder="you@example.com"
 							aria-invalid={Boolean(contactSectionClass.fieldErrors.email)}
 							oninput={clearFieldErrorOn(contactSectionClass, 'email')}
 						/>
@@ -84,9 +76,7 @@
 				</Field>
 
 				<Field data-invalid={Boolean(contactSectionClass.fieldErrors.message)}>
-					<FieldLabel for="contact-message"
-						>{m['ContactSection.ContactRightContent.message']()}</FieldLabel
-					>
+					<FieldLabel for="contact-message">Message</FieldLabel>
 
 					<FieldContent>
 						<Textarea
@@ -94,7 +84,7 @@
 							bind:value={contactSectionClass.contactInputs.message}
 							name="message"
 							rows={5}
-							placeholder={m['ContactSection.ContactRightContent.messagePlaceholder']()}
+							placeholder="City, number of stays or venues, and what kind of partnership you want to build."
 							aria-invalid={Boolean(contactSectionClass.fieldErrors.message)}
 							oninput={clearFieldErrorOn(contactSectionClass, 'message')}
 							class="resize-none"
@@ -109,7 +99,7 @@
 		</FieldSet>
 
 		<!--
-			Honeypot — invisible to humans (off-screen + aria-hidden + tabindex=-1),
+			Honeypot - invisible to humans (off-screen + aria-hidden + tabindex=-1),
 			but most form-stuffing bots will fill it in. Server rejects any non-empty value.
 		-->
 		<div
@@ -130,7 +120,7 @@
 		<ContactSubmitButton />
 
 		<p class="mt-4 text-center text-xs leading-relaxed text-muted-foreground">
-			{m['ContactSection.ContactRightContent.noSpam']()}
+			No spam. Just a practical reply about your accommodation or hospitality network.
 		</p>
 	</Card.Content>
 </Card.Root>

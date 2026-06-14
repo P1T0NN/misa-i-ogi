@@ -1,7 +1,4 @@
 <script lang="ts">
-	// LIBRARIES
-	import { m } from '@/shared/lib/paraglide/messages';
-
 	// CONFIG
 	import { COMPANY_DATA } from '@/shared/constants';
 
@@ -11,36 +8,32 @@
 </script>
 
 <div>
-	<p class="mb-3 text-xs font-semibold tracking-[0.3em] text-primary-foreground/60 uppercase">
-		{m['ContactSection.ContactLeftContent.contact']()}
-	</p>
+	<p class="mb-3 font-mono text-xs tracking-eyebrow text-accent-2 uppercase">Contact</p>
 
 	<h2
 		id="contact-heading"
-		class="text-4xl leading-[1.05] font-normal text-primary-foreground md:text-5xl"
+		class="max-w-[11ch] font-display text-4xl leading-[1.05] font-medium text-ivory md:text-5xl"
 	>
-		Let's plan<br />
-		<span class="font-serif italic">your makeup</span>
+		Plan your<br />
+		<span class="text-accent-2">guest network</span>
 	</h2>
 
-	<p class="mt-6 max-w-sm text-base leading-relaxed text-primary-foreground/70">
-		Whether it's a wedding in Valencia, a special event, or a trial before the big day — tell Teresa
-		what you have in mind. She reads every message and usually replies within 24 hours.
+	<p class="mt-6 max-w-sm text-base leading-relaxed text-silver">
+		Large operators, boutique stays, restaurants, bars, spas, tours, and local experiences can all
+		enter through the same conversation.
 	</p>
 
-	<div class="my-10 h-px bg-linear-to-r from-primary-foreground/20 to-transparent"></div>
+	<div class="my-10 h-px bg-linear-to-r from-ivory/20 to-transparent"></div>
 
-	<p class="mb-5 text-sm text-primary-foreground/60">
-		{m['ContactSection.ContactLeftContent.preferEmail']()}
-	</p>
+	<p class="mb-5 text-sm text-silver">Prefer email?</p>
 
 	<div class="flex flex-col gap-4">
 		<a
 			href={`mailto:${COMPANY_DATA.EMAIL}`}
 			rel="external"
-			class="group inline-flex items-center gap-2 text-sm font-semibold text-primary-foreground transition-colors hover:text-primary-foreground/70"
+			class="group inline-flex items-center gap-2 text-sm font-semibold text-ivory transition-colors hover:text-accent-2"
 		>
-			<MailIcon class="h-4 w-4 text-primary-foreground" />
+			<MailIcon class="h-4 w-4 text-accent-2" />
 			{COMPANY_DATA.EMAIL}
 			<ArrowRightIcon class="h-4 w-4 transition-transform group-hover:translate-x-1" />
 		</a>

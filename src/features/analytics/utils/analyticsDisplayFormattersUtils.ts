@@ -1,8 +1,11 @@
 // LIBRARIES
 import { computeConversionRatePercent } from '@piton-/analytics-convex';
+import { getLocale } from '@/shared/lib/paraglide/runtime';
 
 export function formatAnalyticsCount(value: number) {
-	return value.toLocaleString('en-US');
+	const locale = getLocale();
+
+	return value.toLocaleString(locale);
 }
 
 export function formatAnalyticsConversionRate(requests: number, confirmed: number) {

@@ -4,15 +4,15 @@ import { getHospitalitySafe } from '@/convex/tables/hospitalities/helpers/getHos
 
 // TYPES
 import type { AccommodationPartnershipSafe } from '@/convex/tables/partnerships/types/partnershipsTypes';
-import type { Id } from '@/convex/_generated/dataModel';
+import type { Doc, Id } from '@/convex/_generated/dataModel';
 import type { MutationCtx, QueryCtx } from '@/convex/_generated/server';
 
-/** Returns whether an active accommodation ↔ hospitality partnership exists. */
-export async function hasActiveAccommodationHospitalityPartnership(
+/** Returns the active accommodation partnership for a hospitality, when one exists. */
+export async function getActiveAccommodationHospitalityPartnership(
 	ctx: QueryCtx | MutationCtx,
 	accommodationId: Id<'accommodations'>,
 	hospitalityId: Id<'hospitalities'>
-): Promise<boolean> {
+): Promise<Doc<'partnerships'> | null> {
 	const partnership = await ctx.db
 		.query('partnerships')
 		.withIndex('by_pair', (q) =>
@@ -20,7 +20,24 @@ export async function hasActiveAccommodationHospitalityPartnership(
 		)
 		.first();
 
-	return partnership?.isActive === true;
+	if (!partnership?.isActive) return null;
+
+	return partnership;
+}
+
+/** Returns whether an active accommodation ↔ hospitality partnership exists. */
+export async function hasActiveAccommodationHospitalityPartnership(
+	ctx: QueryCtx | MutationCtx,
+	accommodationId: Id<'accommodations'>,
+	hospitalityId: Id<'hospitalities'>
+): Promise<boolean> {
+	const partnership = await getActiveAccommodationHospitalityPartnership(
+		ctx,
+		accommodationId,
+		hospitalityId
+	);
+
+	return partnership !== null;
 }
 
 /**

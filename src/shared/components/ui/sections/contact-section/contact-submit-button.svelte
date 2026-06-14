@@ -1,6 +1,5 @@
 <script lang="ts">
 	// LIBRARIES
-	import { m } from '@/shared/lib/paraglide/messages';
 	import { safeParse } from 'valibot';
 
 	// CLASSES
@@ -62,5 +61,5 @@
 	{#if submitting}
 		<Spinner />
 	{/if}
-	{m['ContactSection.ContactSubmitButton.sendMessage']()}
+	Send message
 </Button>

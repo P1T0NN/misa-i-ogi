@@ -8,7 +8,7 @@
 <Section
 	id="contact"
 	surface="transparent"
-	class="bg-primary"
+	class="border-t border-ivory/10 bg-dark text-ivory"
 	yPadding="lg"
 	ariaLabelledby="contact-heading"
 >

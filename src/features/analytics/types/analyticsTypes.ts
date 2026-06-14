@@ -8,4 +8,9 @@ export type AnalyticsMetric = {
 	analyticsLabel?: typesAnalyticsMetricLabel;
 };
 
-export type AnalyticsTopTableVariant = 'top' | 'performance' | 'admin';
+export type AnalyticsTopTableVariant =
+	| 'top'
+	| 'performance'
+	| 'detailPerformance'
+	| 'admin'
+	| 'dummy';

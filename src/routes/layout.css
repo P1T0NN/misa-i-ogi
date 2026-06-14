@@ -9,6 +9,8 @@
  * shadcn semantic names (--background, --primary, …) bridge to these for components.
  */
 :root {
+	color-scheme: light;
+
 	--bg: #f5f4ed;
 	--surface: #faf9f5;
 	--surface-2: #ffffff;
@@ -87,29 +89,43 @@
 }
 
 .dark {
-	--bg: var(--dark);
-	--fg: var(--ivory);
-	--surface: var(--dark-2);
-	--border: color-mix(in oklch, var(--ivory) 12%, transparent);
-	--border-2: color-mix(in oklch, var(--ivory) 16%, transparent);
-	--muted: var(--silver);
-	--muted-2: var(--silver);
-	--accent-tint: color-mix(in oklch, var(--accent-2) 12%, var(--dark));
+	color-scheme: dark;
 
-	--background: var(--dark);
-	--foreground: var(--ivory);
-	--card: var(--dark-2);
-	--card-foreground: var(--ivory);
-	--popover: var(--dark-2);
-	--popover-foreground: var(--ivory);
+	--bg: #11100d;
+	--surface: #1a1814;
+	--surface-2: #221f1a;
+	--fg: #fbf5ea;
+	--muted: #c7bdab;
+	--muted-2: #948a79;
+	--border: #211e19;
+	--border-2: color-mix(in oklch, var(--ivory) 14%, transparent);
+	--accent: #d97757;
+	--accent-2: #f0a07a;
+	--accent-soft: color-mix(in oklch, var(--accent-2) 18%, transparent);
+	--accent-tint: color-mix(in oklch, var(--accent) 14%, var(--bg));
+	--dark: #0c0b09;
+	--dark-2: #171511;
+	--ivory: #fbf5ea;
+	--silver: #bfb5a3;
+	--warm-sand: #2d2922;
+	--charcoal-warm: #34302a;
+	--success: #7cb88a;
+	--success-foreground: #0f1a12;
+
+	--background: var(--bg);
+	--foreground: var(--fg);
+	--card: var(--surface);
+	--card-foreground: var(--fg);
+	--popover: var(--surface-2);
+	--popover-foreground: var(--fg);
 	--primary: var(--accent-2);
 	--primary-foreground: var(--dark);
-	--secondary: var(--dark-2);
-	--secondary-foreground: var(--ivory);
+	--secondary: var(--warm-sand);
+	--secondary-foreground: var(--fg);
 	--destructive: #c44;
 	--destructive-foreground: var(--ivory);
 	--input: color-mix(in oklch, var(--ivory) 16%, transparent);
-	--ring: var(--focus);
+	--ring: var(--accent-2);
 
 	--chart-1: var(--accent-2);
 	--chart-2: var(--silver);
@@ -125,9 +141,6 @@
 	--sidebar-accent-foreground: var(--ivory);
 	--sidebar-border: color-mix(in oklch, var(--ivory) 12%, transparent);
 	--sidebar-ring: var(--focus);
-
-	--success: #7cb88a;
-	--success-foreground: #0f1a12;
 }
 
 @theme inline {
@@ -144,12 +157,16 @@
 
 	--color-background: var(--background);
 	--color-foreground: var(--foreground);
+	--color-surface: var(--surface);
+	--color-surface-2: var(--surface-2);
 	--color-card: var(--card);
 	--color-card-foreground: var(--card-foreground);
 	--color-popover: var(--popover);
 	--color-popover-foreground: var(--popover-foreground);
 	--color-primary: var(--primary);
 	--color-primary-foreground: var(--primary-foreground);
+	--color-brand-accent: var(--accent);
+	--color-accent-2: var(--accent-2);
 	--color-secondary: var(--secondary);
 	--color-secondary-foreground: var(--secondary-foreground);
 	--color-muted: var(--border);
@@ -161,8 +178,13 @@
 	--color-success: var(--success);
 	--color-success-foreground: var(--success-foreground);
 	--color-border: var(--border);
+	--color-border-2: var(--border-2);
 	--color-input: var(--input);
 	--color-ring: var(--ring);
+	--color-dark: var(--dark);
+	--color-dark-2: var(--dark-2);
+	--color-ivory: var(--ivory);
+	--color-silver: var(--silver);
 	--color-chart-1: var(--chart-1);
 	--color-chart-2: var(--chart-2);
 	--color-chart-3: var(--chart-3);
@@ -360,6 +382,14 @@
 		box-shadow: 0 24px 60px -20px rgba(0, 0, 0, 0.5);
 	}
 
+	.shadow-card-soft {
+		box-shadow: 0 4px 24px color-mix(in oklch, var(--dark) 18%, transparent);
+	}
+
+	.shadow-dashboard-card {
+		box-shadow: 0 34px 90px -44px color-mix(in oklch, var(--dark) 75%, transparent);
+	}
+
 	.surface-glass-ivory {
 		border-color: color-mix(in oklch, var(--ivory) 10%, transparent);
 		background-color: color-mix(in oklch, var(--ivory) 6%, transparent);
@@ -405,18 +435,6 @@
 			0 0 0 2px var(--dark-2),
 			inset 0 0 0 2px var(--charcoal-warm);
 		aspect-ratio: 9 / 19.5;
-	}
-
-	.phone-mockup-notch {
-		position: absolute;
-		left: 50%;
-		top: 0.875rem;
-		z-index: 5;
-		height: 30px;
-		width: 110px;
-		transform: translateX(-50%);
-		border-radius: 9999px;
-		background: var(--dark);
 	}
 
 	.phone-mockup-home-indicator {

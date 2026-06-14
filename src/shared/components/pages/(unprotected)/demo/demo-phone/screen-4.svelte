@@ -59,12 +59,12 @@
 		</div>
 	</div>
 	<div
-		class="bg-app-bar-blur relative z-2 border-b border-(--border-2) px-5 pt-3.5 pb-3 backdrop-blur-xl"
+		class="bg-app-bar-blur relative z-2 border-b border-border-2 px-5 pt-3.5 pb-3 backdrop-blur-xl"
 	>
 		<div class="mb-3 flex items-center gap-3">
 			<button
 				type="button"
-				class="grid size-8 shrink-0 place-items-center rounded-lg border border-(--border-2) bg-card text-foreground"
+				class="grid size-8 shrink-0 place-items-center rounded-lg border border-border-2 bg-card text-foreground"
 				aria-label="Back"
 				onclick={() => onGoTo(3)}
 			>
@@ -84,8 +84,8 @@
 					class={cn(
 						'shrink-0 rounded-full border px-3 py-1.5 text-xs font-medium transition-colors',
 						listFilter === f.id
-							? 'border-foreground bg-foreground text-(--ivory)'
-							: 'border-(--border-2) bg-card text-muted-foreground'
+							? 'border-foreground bg-foreground text-ivory'
+							: 'border-border-2 bg-card text-muted-foreground'
 					)}
 					onclick={(e) => {
 						e.stopPropagation();
@@ -104,7 +104,7 @@
 			{#if demoVenueMatchesFilter(venue, listFilter)}
 				<button
 					type="button"
-					class="grid-phone-list-row grid w-full items-center gap-3 border-b border-(--border-2) py-3 text-left last:border-b-0"
+					class="grid-phone-list-row grid w-full items-center gap-3 border-b border-border-2 py-3 text-left last:border-b-0"
 					class:opacity-50={redeemed[key]}
 					onclick={() => onOpenDetail(key)}
 				>

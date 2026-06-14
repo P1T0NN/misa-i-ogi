@@ -1,15 +1,15 @@
 // LIBRARIES
 import { v } from 'convex/values';
 import { query } from '@/convex/_generated/server';
+import { authComponent } from '@/convex/auth/auth';
 
 // HELPERS
 import { getActiveGuestSessionFromAuth } from '@/convex/tables/guests/helpers/getActiveGuestSessionFromAuth';
-import { hasActiveAccommodationHospitalityPartnership } from '@/convex/tables/partnerships/helpers/getAccommodationPartnerships';
+import { getActiveAccommodationHospitalityPartnership } from '@/convex/tables/partnerships/helpers/getAccommodationPartnerships';
 import { getGuestActiveHospitalityReservation } from '@/convex/tables/reservations/helpers/getGuestActiveHospitalityReservation';
-import { isGuestStayIdentity } from '@/convex/tables/guests/utils/isGuestStayIdentity';
 
 // UTILS
-import { authComponent } from '@/convex/auth/auth';
+import { isGuestStayIdentity } from '@/convex/tables/guests/utils/isGuestStayIdentity';
 
 // TYPES
 import type { Doc } from '@/convex/_generated/dataModel';
@@ -37,6 +37,8 @@ export const fetchHospitalityDetails = query({
 
 		const identity = await ctx.auth.getUserIdentity();
 		const activeGuest = await getActiveGuestSessionFromAuth(ctx);
+
+		let activePartnership: Doc<'partnerships'> | null = null;
 		let guestReservation: Doc<'reservations'> | null = null;
 
 		if (isGuestStayIdentity(identity) && !activeGuest) {
@@ -44,12 +46,12 @@ export const fetchHospitalityDetails = query({
 		}
 
 		if (activeGuest) {
-			const hasGuestAccess = await hasActiveAccommodationHospitalityPartnership(
+			activePartnership = await getActiveAccommodationHospitalityPartnership(
 				ctx,
 				activeGuest.accommodationId,
 				hospitality._id
 			);
-			if (!hasGuestAccess) return { status: 'not_partnered' };
+			if (!activePartnership) return { status: 'not_partnered' };
 
 			guestReservation = await getGuestActiveHospitalityReservation(
 				ctx,
@@ -77,6 +79,12 @@ export const fetchHospitalityDetails = query({
 				contactPhone: hospitality.contactPhone,
 				coverImageUrl: hospitality.coverImageUrl
 			},
+			partnership: activePartnership
+				? {
+						_id: activePartnership._id,
+						discountPercentage: activePartnership.discountPercentage
+					}
+				: null,
 			guestReservation: guestReservation
 				? {
 						guestName: guestReservation.guestName,

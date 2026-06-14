@@ -41,6 +41,8 @@ export const UNPROTECTED_PAGE_ENDPOINTS = {
 	SIGNUP: '/signup',
 	FORGOT_PASSWORD: '/forgot-password',
 	CONTACT: '/contact',
+	/** Interactive guest-experience walkthrough (phone-frame demo). */
+	DEMO: '/demo',
 	/** Sets the guest-stay cookie then redirects to {@link STAY}. Encoded in printed QRs. */
 	ACTIVATE: '/activate/:token',
 	/** Guest perks page — bookmarkable; no token in URL. Perks gated by guest-stay cookie. */

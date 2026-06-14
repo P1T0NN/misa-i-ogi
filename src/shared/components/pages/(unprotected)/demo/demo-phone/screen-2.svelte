@@ -3,11 +3,9 @@
 </script>
 
 <div
-	class="absolute inset-0 flex flex-col bg-(--dark) text-(--ivory) transition-opacity duration-300 ease-out {layerClass}"
+	class="absolute inset-0 flex flex-col bg-dark text-ivory transition-opacity duration-300 ease-out {layerClass}"
 >
-	<div
-		class="type-phone-status-bar flex items-center justify-between px-7 pt-4 pb-1.5 text-(--ivory)"
-	>
+	<div class="type-phone-status-bar flex items-center justify-between px-7 pt-4 pb-1.5 text-ivory">
 		<span>9:41</span>
 		<div class="flex items-center gap-1.5">
 			<svg width="14" height="10" viewBox="0 0 18 12" fill="currentColor" aria-hidden="true"
@@ -27,7 +25,7 @@
 	</div>
 	<div class="flex flex-1 flex-col pt-14">
 		<div
-			class="flex items-center justify-between px-6 py-4 font-mono text-xs tracking-caps-wide text-(--silver) uppercase"
+			class="flex items-center justify-between px-6 py-4 font-mono text-xs tracking-caps-wide text-silver uppercase"
 		>
 			<span>Camera</span>
 			<span>QR · Mode</span>
@@ -51,7 +49,7 @@
 				class="demo-scan-line shadow-accent-glow absolute inset-x-4 h-0.5 bg-linear-to-r from-transparent via-primary to-transparent"
 			></div>
 		</div>
-		<p class="px-6 pb-6 text-center text-sm text-(--silver)">Hold the camera steady on the card.</p>
+		<p class="px-6 pb-6 text-center text-sm text-silver">Hold the camera steady on the card.</p>
 		<div class="mx-6 mb-6 h-1 overflow-hidden rounded-sm bg-white/10">
 			<div
 				class="linear h-full rounded-sm bg-primary transition-all duration-300"

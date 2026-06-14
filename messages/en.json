@@ -14,12 +14,6 @@
 		"logout": "Logout",
 		"logoutSuccess": "Logged out successfully."
 	},
-	"HomePage": {
-		"SEO": {
-			"title": "Home",
-			"description": "Discover guest perks and hospitality experiences."
-		}
-	},
 	"LoginPage": {
 		"SEO": {
 			"title": "Login",
@@ -129,26 +123,6 @@
 		"hospitalities": "Hospitalities",
 		"partnerships": "Partnerships",
 		"backToUserDashboard": "Back to User Dashboard"
-	},
-	"ContactSection": {
-		"ContactRightContent": {
-			"sendMessage": "Send a message",
-			"shareEnquiry": "Share your enquiry and Teresa will reply as soon as she can — usually within 24 hours.",
-			"yourName": "Your name",
-			"yourFullName": "Your full name",
-			"email": "Email",
-			"yourEmail": "you@example.com",
-			"message": "Message",
-			"messagePlaceholder": "Dates, hospitality, vibe, allergies — whatever helps Teresa prepare.",
-			"noSpam": "No spam — just a thoughtful reply when she is back at her desk."
-		},
-		"ContactSubmitButton": {
-			"sendMessage": "Send message"
-		},
-		"ContactLeftContent": {
-			"contact": "Contact",
-			"preferEmail": "Prefer email?"
-		}
 	},
 	"LoginForm": {
 		"LoginFormNoImage": {
@@ -311,11 +285,16 @@
 		},
 		"addressLineMeta": "{address} · {city} · {country}",
 		"factArea": "Location",
-		"aboutEyebrow": "About",
 		"aboutTitle": "About this hospitality",
 		"aboutSideNote": "Details from the hospitality listing.",
 		"hospitalityDetailsTitle": "Hospitality details",
 		"dlType": "Type",
+		"benefitEyebrow": "Your stay benefit",
+		"benefitDiscountTitle": "{percent}% off",
+		"benefitGenericTitle": "Partner benefit active",
+		"benefitDiscountBody": "Show this stay page at {hospitalityName} so staff can apply the discount.",
+		"benefitGenericBody": "Show this stay page at {hospitalityName}; staff can honor the benefit agreed with your accommodation.",
+		"benefitSourceNote": "This benefit comes from the accommodation you scanned from.",
 		"RequestReservationDialog": {
 			"trigger": "Request Reservation",
 			"title": "Request Reservation",
@@ -487,11 +466,14 @@
 			"topDescription": "Stays creating the strongest guest and reservation activity.",
 			"performanceTitle": "Accommodation performance",
 			"performanceDescription": "Use this to find strong stays and quiet QR placements.",
+			"detailPerformanceTitle": "Accommodation performance",
+			"detailPerformanceDescription": "Accommodations that send guests to this hospitality.",
 			"adminTitle": "Top accommodations",
 			"adminDescription": "Accommodations generating the strongest guest access and reservation demand.",
 			"entity": "Accommodation",
 			"type": "Type",
 			"city": "City",
+			"views": "Views",
 			"scans": "Scans",
 			"guestActivations": "Guest activations",
 			"reservations": "Reservations",
@@ -506,11 +488,14 @@
 			"topDescription": "Venues guests are discovering and turning into reservations.",
 			"performanceTitle": "Hospitality performance",
 			"performanceDescription": "Use this to find strong venues and quiet guest discovery paths.",
+			"detailPerformanceTitle": "Partner performance",
+			"detailPerformanceDescription": "Hospitalities guests opened from this accommodation.",
 			"adminTitle": "Top hospitalities",
 			"adminDescription": "Hospitalities converting discovery into reservation requests.",
 			"entity": "Hospitality",
 			"type": "Type",
 			"city": "City",
+			"views": "Views",
 			"guestViews": "Guest views",
 			"reservations": "Reservations",
 			"confirmed": "Confirmed",
@@ -577,15 +562,6 @@
 			"reservations": "Reservations",
 			"title": "Activity trend",
 			"description": "Recent scans, guest activations, and reservation requests for this place."
-		},
-		"UserAnalyticsAccommodationPerformanceTable": {
-			"title": "Partner performance",
-			"description": "Hospitalities guests opened from this accommodation.",
-			"hospitality": "Hospitality",
-			"views": "Views",
-			"reservations": "Reservations",
-			"confirmed": "Confirmed",
-			"conversion": "Conversion"
 		}
 	},
 	"AnalyticsHospitalitiesPage": {
@@ -645,15 +621,6 @@
 			"reservations": "Reservations",
 			"title": "Activity trend",
 			"description": "Recent guest views, activations, and reservation requests for this place."
-		},
-		"UserAnalyticsHospitalityPerformanceTable": {
-			"title": "Source stays",
-			"description": "Accommodations that send guests to this hospitality.",
-			"accommodation": "Accommodation",
-			"views": "Views",
-			"reservations": "Reservations",
-			"confirmed": "Confirmed",
-			"conversion": "Conversion"
 		}
 	},
 	"AnalyticsOverviewPage": {
