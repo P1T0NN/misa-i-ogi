@@ -1,11 +1,16 @@
 <script lang="ts">
 	// CONFIG
-	import { COMPANY_DATA, PROTECTED_PAGE_ENDPOINTS } from '@/shared/constants.js';
+	import {
+		COMPANY_DATA,
+		PROTECTED_PAGE_ENDPOINTS,
+		UNPROTECTED_PAGE_ENDPOINTS
+	} from '@/shared/constants.js';
 
 	// LIBRARIES
 	import { m } from '@/shared/lib/paraglide/messages';
 
 	// CLASSES
+	import { authClass } from '@/features/auth/classes/authClass.svelte';
 	import { footerLinkClass, getFooterLinkGroups } from './footer.svelte.ts';
 
 	// COMPONENTS
@@ -14,6 +19,10 @@
 
 	// UTILS
 	import { cn } from '@/shared/utils/utils.js';
+
+	// LUCIDE ICONS
+	import MailIcon from '@lucide/svelte/icons/mail';
+	import MapPinIcon from '@lucide/svelte/icons/map-pin';
 
 	type Props = {
 		class?: string;
@@ -27,6 +36,11 @@
 
 	const year = new Date().getFullYear();
 	const linkGroups = $derived(getFooterLinkGroups());
+
+	const user = $derived(authClass.currentUser);
+	const homeHref = $derived(
+		user ? PROTECTED_PAGE_ENDPOINTS.DASHBOARD : UNPROTECTED_PAGE_ENDPOINTS.ROOT
+	);
 </script>
 
 <footer
@@ -39,19 +53,32 @@
 		<div class="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-10 lg:gap-y-0">
 			<div class="min-w-0 lg:col-span-4">
 				{#if hasLogo}
-					<Logo size="md" />
+					<Logo size="md" href={homeHref} />
 				{:else}
-					<Link
-						href={PROTECTED_PAGE_ENDPOINTS.DASHBOARD}
-						class="text-base font-semibold tracking-tight text-foreground"
-					>
+					<Link href={homeHref} class="text-base font-semibold tracking-tight text-foreground">
 						{COMPANY_DATA.NAME}
 					</Link>
 				{/if}
 
 				<p class="mt-4 max-w-sm text-sm leading-relaxed text-muted-foreground">
-					{COMPANY_DATA.DESCRIPTION}
+					{m['Footer.tagline']()}
 				</p>
+
+				<div class="mt-6 flex flex-col gap-3 text-sm">
+					<a
+						href={`mailto:${COMPANY_DATA.EMAIL}`}
+						rel="external"
+						class="inline-flex w-fit items-center gap-2 text-muted-foreground transition-colors hover:text-foreground"
+					>
+						<MailIcon class="size-4 shrink-0 text-primary" aria-hidden="true" />
+						{COMPANY_DATA.EMAIL}
+					</a>
+
+					<p class="mb-0 inline-flex items-center gap-2 text-muted-foreground">
+						<MapPinIcon class="size-4 shrink-0 text-primary" aria-hidden="true" />
+						Belgrade, Serbia
+					</p>
+				</div>
 			</div>
 
 			{#if showNav}

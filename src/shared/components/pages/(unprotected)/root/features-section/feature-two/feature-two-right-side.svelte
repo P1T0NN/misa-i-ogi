@@ -1,5 +1,5 @@
 <div class="max-w-2xl">
-	<p class="mb-0 text-sm font-bold tracking-caps text-primary uppercase">Partner performance</p>
+	<p class="mb-0 landing-eyebrow text-primary">Partner performance</p>
 
 	<h2
 		class="mt-4 max-w-[13ch] font-display text-4xl leading-tight font-medium text-foreground sm:text-5xl lg:text-6xl"
@@ -9,7 +9,7 @@
 
 	<div class="mt-10 grid gap-8 border-t border-border-2 pt-8">
         <div>
-			<p class="mb-0 text-sm font-bold tracking-caps text-primary uppercase">
+			<p class="mb-0 landing-eyebrow text-primary">
 				For accommodation owners
 			</p>
 
@@ -20,13 +20,13 @@
 		</div>
         
 		<div>
-			<p class="mb-0 text-sm font-bold tracking-caps text-primary uppercase">
+			<p class="mb-0 landing-eyebrow text-primary">
 				For hospitality owners
 			</p>
 
 			<p class="mt-3 mb-0 max-w-136 text-base leading-relaxed text-muted-foreground">
 				Rank the accommodations sending the most guest attention and reservation intent to your
-				venue.
+				hospitality.
 			</p>
 		</div>
 	</div>

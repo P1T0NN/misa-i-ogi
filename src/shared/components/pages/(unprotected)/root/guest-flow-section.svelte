@@ -9,19 +9,22 @@
 		title: string;
 		body: string;
 		image: string;
+		/** Photos fill the screen (cover); UI screenshots fit without cropping (contain, default). */
+		fit?: 'cover' | 'contain';
 	};
 
 	const flowSteps = $derived([
 		{
 			kicker: '01',
 			title: 'QR code waits in the accommodation',
-			body: 'A guest arrives and finds one QR card inside the stay. No app, no account, no reception explanation needed.',
-			image: '/images/landing/flow-section/step1.png'
+			body: 'A guest arrives and finds one QR card inside the accommodation. No app, no account, no reception explanation needed.',
+			image: '/images/landing/flow-section/step1.png',
+			fit: 'cover'
 		},
 		{
 			kicker: '02',
-			title: 'Guest opens the stay benefits page',
-			body: 'The page is tied to that accommodation and shows benefits selected for that exact stay.',
+			title: 'Guest opens the accommodation benefits page',
+			body: 'The page is tied to that accommodation and shows benefits selected for that exact accommodation.',
 			image: '/images/landing/flow-section/step2.png'
 		},
 		{
@@ -67,7 +70,7 @@
 >
 	<div class="grid gap-8 lg:grid-cols-[minmax(0,0.78fr)_minmax(0,1fr)] lg:items-end">
 		<div>
-			<p class="font-mono text-xs tracking-eyebrow text-primary uppercase">Guest flow</p>
+			<p class="landing-section-eyebrow text-primary">How it works</p>
 			<h2
 				id="guest-flow-heading"
 				class="mt-4 max-w-[15ch] font-display text-4xl leading-tight font-medium text-foreground sm:text-5xl"
@@ -112,7 +115,9 @@
 							<img
 								src={step.image}
 								alt={step.title}
-								class="size-full bg-background object-contain object-top"
+								class="size-full bg-background {step.fit === 'cover'
+									? 'object-cover object-center'
+									: 'object-contain object-top'}"
 								loading={index === 0 ? 'eager' : 'lazy'}
 								decoding="async"
 							/>
@@ -123,7 +128,7 @@
 				<div
 					class="flex min-h-[24rem] w-full max-w-full min-w-0 flex-col justify-center overflow-hidden p-6 sm:p-8 lg:p-10 xl:p-12"
 				>
-					<p class="mb-0 font-mono text-xs tracking-caps text-primary">
+					<p class="landing-eyebrow mb-0 text-primary">
 						{step.kicker} / 0{flowSteps.length}
 					</p>
 					<h3
@@ -138,7 +143,7 @@
 					</p>
 
 					<div class="mt-10 border-t border-border-2 pt-5">
-						<p class="mb-0 font-mono text-xs tracking-caps text-muted-foreground uppercase">
+						<p class="landing-eyebrow mb-0 text-muted-foreground">
 							Step {index + 1} of {flowSteps.length}
 						</p>
 					</div>

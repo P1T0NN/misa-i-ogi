@@ -55,7 +55,9 @@
 		queryLoading = false,
 		hasResult = true,
 		onDeleteSelected,
-		borderless = false
+		borderless = false,
+		showMobileCards = true,
+		tableClass
 	}: {
 		class?: string;
 		caption?: string;
@@ -100,6 +102,10 @@
 		hasResult?: boolean;
 		/** Remove row borders for a cleaner, card-embedded look. */
 		borderless?: boolean;
+		/** Render stacked mobile row cards below the table. */
+		showMobileCards?: boolean;
+		/** Classes applied to the underlying table element. */
+		tableClass?: string;
 		/** Optional bulk-delete handler. Return `false` to keep the current selection. */
 		onDeleteSelected?: DeleteSelectedHandler;
 	} = $props();
@@ -319,6 +325,8 @@
 		onSort={onHeaderSort}
 		{isSearching}
 		{borderless}
+		{showMobileCards}
+		{tableClass}
 	/>
 
 	{#if showPagination && controlsPlace === 'bottom'}

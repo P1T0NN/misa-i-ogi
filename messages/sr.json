@@ -1,7 +1,12 @@
 {
 	"$schema": "https://inlang.com/schema/inlang-message-format",
 	"Header": {
-		"login": "Prijava"
+		"login": "Prijava",
+		"linkBenefits": "Pogodnosti",
+		"linkHowItWorks": "Kako funkcioniše",
+		"linkFeatures": "Mogućnosti",
+		"linkFaq": "Česta pitanja",
+		"registerFree": "Registrujte se besplatno"
 	},
 	"LanguageSelector": {
 		"english": "Engleski",

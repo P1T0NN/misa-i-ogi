@@ -390,6 +390,14 @@
 		box-shadow: 0 34px 90px -44px color-mix(in oklch, var(--dark) 75%, transparent);
 	}
 
+	.landing-eyebrow {
+		@apply text-sm font-bold tracking-caps uppercase;
+	}
+
+	.landing-section-eyebrow {
+		@apply max-w-none font-mono text-xs tracking-eyebrow uppercase;
+	}
+
 	.surface-glass-ivory {
 		border-color: color-mix(in oklch, var(--ivory) 10%, transparent);
 		background-color: color-mix(in oklch, var(--ivory) 6%, transparent);

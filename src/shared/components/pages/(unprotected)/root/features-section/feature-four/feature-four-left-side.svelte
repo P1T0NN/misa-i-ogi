@@ -31,7 +31,7 @@
 			>
 				<div class="min-w-0">
 					<CardTitle class="text-base">Partnerships</CardTitle>
-					<CardDescription>Benefits guests unlock on this stay.</CardDescription>
+					<CardDescription>Benefits guests unlock on this accommodation.</CardDescription>
 				</div>
 
 				<Badge variant="success">Free</Badge>

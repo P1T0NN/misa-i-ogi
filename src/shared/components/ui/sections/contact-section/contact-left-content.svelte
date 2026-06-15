@@ -8,7 +8,7 @@
 </script>
 
 <div>
-	<p class="mb-3 font-mono text-xs tracking-eyebrow text-accent-2 uppercase">Contact</p>
+	<p class="landing-section-eyebrow mb-3 text-accent-2">Contact</p>
 
 	<h2
 		id="contact-heading"
@@ -19,7 +19,7 @@
 	</h2>
 
 	<p class="mt-6 max-w-sm text-base leading-relaxed text-silver">
-		Large operators, boutique stays, restaurants, bars, spas, tours, and local experiences can all
+		Large operators, boutique accommodations, restaurants, bars, spas, tours, and local experiences can all
 		enter through the same conversation.
 	</p>
 

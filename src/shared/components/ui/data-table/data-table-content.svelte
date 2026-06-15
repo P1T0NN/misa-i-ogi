@@ -58,6 +58,8 @@
 		 */
 		isSearching?: boolean;
 		borderless?: boolean;
+		showMobileCards?: boolean;
+		tableClass?: string;
 	};
 
 	let {
@@ -78,6 +80,8 @@
 		onSort,
 		isSearching = false,
 		borderless = false,
+		showMobileCards = true,
+		tableClass,
 		...restProps
 	}: Props = $props();
 
@@ -101,7 +105,7 @@
 			aria-busy={isLoading}
 			aria-label={caption ?? m['DataTable.ariaDataTable']()}
 		>
-			<Table class="min-w-lg">
+			<Table class={cn('min-w-lg', tableClass)}>
 				{#if caption}
 					<TableCaption
 						class="mt-0 border-b px-4 py-3 text-left text-sm font-medium text-muted-foreground"
@@ -190,40 +194,42 @@
 			</Table>
 		</div>
 
-		<!-- Mobile: stacked row cards -->
-		<div
-			class="flex flex-col gap-3 md:hidden"
-			role="list"
-			aria-label={caption ?? m['DataTable.ariaDataRows']()}
-		>
-			{#if selectable && !isLoading && data.length > 0}
-				<div class="flex items-center gap-2 px-1 py-1">
-					<Checkbox
-						checked={headerSelectionState === 'all'}
-						indeterminate={headerSelectionState === 'some'}
-						onCheckedChange={() => onToggleAllOnPage?.()}
-						aria-label={m['DataTable.selectAllRowsOnThisPage']()}
-					/>
-					<span class="text-xs font-medium text-muted-foreground">
-						{m['DataTable.selectAllOnPage']()}
-					</span>
-				</div>
-			{/if}
-			{#if isLoading}
-				<DataTableContentItemLoading variant="mobile" columns={mobileColumns} {selectable} />
-			{:else}
-				{#each data as row, rowIndex (rowKey(row, rowIndex))}
-					{@const id = rowKey(row, rowIndex)}
-					<DataTableContentItemMobile
-						{row}
-						columns={mobileColumns}
-						{customCells}
-						{selectable}
-						isSelected={selectedSet?.has(id) ?? false}
-						onToggle={() => onToggleRow?.(id)}
-					/>
-				{/each}
-			{/if}
-		</div>
+		{#if showMobileCards}
+			<!-- Mobile: stacked row cards -->
+			<div
+				class="flex flex-col gap-3 md:hidden"
+				role="list"
+				aria-label={caption ?? m['DataTable.ariaDataRows']()}
+			>
+				{#if selectable && !isLoading && data.length > 0}
+					<div class="flex items-center gap-2 px-1 py-1">
+						<Checkbox
+							checked={headerSelectionState === 'all'}
+							indeterminate={headerSelectionState === 'some'}
+							onCheckedChange={() => onToggleAllOnPage?.()}
+							aria-label={m['DataTable.selectAllRowsOnThisPage']()}
+						/>
+						<span class="text-xs font-medium text-muted-foreground">
+							{m['DataTable.selectAllOnPage']()}
+						</span>
+					</div>
+				{/if}
+				{#if isLoading}
+					<DataTableContentItemLoading variant="mobile" columns={mobileColumns} {selectable} />
+				{:else}
+					{#each data as row, rowIndex (rowKey(row, rowIndex))}
+						{@const id = rowKey(row, rowIndex)}
+						<DataTableContentItemMobile
+							{row}
+							columns={mobileColumns}
+							{customCells}
+							{selectable}
+							isSelected={selectedSet?.has(id) ?? false}
+							onToggle={() => onToggleRow?.(id)}
+						/>
+					{/each}
+				{/if}
+			</div>
+		{/if}
 	{/if}
 </div>

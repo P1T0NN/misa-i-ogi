@@ -76,6 +76,7 @@
 	const showAction = $derived(
 		variant !== 'admin' && variant !== 'detailPerformance' && variant !== 'dummy'
 	);
+	const isPreview = $derived(variant === 'dummy');
 
 	function getDetailHref(row: TableRow) {
 		return `/analytics/hospitalities/${row.id}`;
@@ -225,6 +226,8 @@
 			customCells={showAction ? { action: actionCell } : {}}
 			borderless
 			showPagination={false}
+			showMobileCards={!isPreview}
+			tableClass={isPreview ? 'text-xs sm:text-sm' : undefined}
 		/>
 	</CardContent>
 </Card>

@@ -4,13 +4,14 @@
 	import { page } from '$app/state';
 
 	// CONFIG
-	import { COMPANY_DATA } from '@/shared/constants.js';
+	import { COMPANY_DATA, UNPROTECTED_PAGE_ENDPOINTS } from '@/shared/constants.js';
 
 	// CLASSES
 	import { authClass } from '@/features/auth/classes/authClass.svelte';
 	import { m } from '@/shared/lib/paraglide/messages';
 	import {
 		getNormalHeaderNavItems,
+		isHeaderNavActive,
 		normalHeader,
 		navLinkActiveClass,
 		navLinkClass
@@ -30,7 +31,6 @@
 	// UTILS
 	import { deLocalizeUrl } from '@/shared/lib/paraglide/runtime';
 	import { cn } from '@/shared/utils/utils.js';
-	import { isNavItemActive } from '@/shared/utils/isNavItemActive.js';
 
 	// TYPES
 	import type { ClassValue } from 'clsx';
@@ -118,7 +118,11 @@
 		<nav aria-label={m['Header.mobileNavAriaLabel']()}>
 			<ul class="flex flex-col gap-1">
 				{#each navItems as item, i (item.href)}
-					{@const active = isNavItemActive(pathnameLogical, item.href)}
+					{@const active = isHeaderNavActive(
+						item.href,
+						pathnameLogical,
+						normalHeader.activeSection
+					)}
 					<li>
 						<Link
 							id={i === 0 ? 'site-mobile-nav-first' : undefined}
@@ -145,7 +149,16 @@
 				{#if showAccountMenu}
 					<NormalHeaderUserMenu side="top" />
 				{:else}
-					<LoginButton />
+					<div class="flex flex-col gap-2">
+						<Button
+							href={UNPROTECTED_PAGE_ENDPOINTS.SIGNUP}
+							class="w-full"
+							onclick={normalHeader.closeMenu}
+						>
+							{m['Header.registerFree']()}
+						</Button>
+						<LoginButton />
+					</div>
 				{/if}
 			</div>
 		</div>

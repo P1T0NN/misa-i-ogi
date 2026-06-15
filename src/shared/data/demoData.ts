@@ -155,18 +155,18 @@ export const DEMO_NARR: Record<number, DemoNarrStep> = {
 	},
 	3: {
 		title: 'The page is now personalized to this apartment.',
-		body: 'The site knows it was opened from card DOR-014 — Solunska 22, Apt 3. The list it builds is shaped by that exact location, with venues ranked by walking distance.',
+		body: 'The site knows it was opened from card DOR-014 — Solunska 22, Apt 3. The list it builds is shaped by that exact location, with hospitalities ranked by walking distance.',
 		keyTag: 'PER APARTMENT',
-		key: 'Each card has its own curated list. A Vračar stay shows different venues than this Dorćol one — the neighborhood is the filter.'
+		key: 'Each card has its own curated list. A Vračar accommodation shows different hospitalities than this Dorćol one — the neighborhood is the filter.'
 	},
 	4: {
 		title: 'Browse, filter, decide.',
-		body: 'Twenty-two venues, sorted by walk time and grouped into categories — eat, drink, experience, late night. Tap a chip to filter the list to one mood.',
+		body: 'Twenty-two hospitalities, sorted by walk time and grouped into categories — eat, drink, experience, late night. Tap a chip to filter the list to one mood.',
 		keyTag: 'SEASONAL',
 		key: 'Summer adds the river beaches and rooftop bars. Winter rotates in saunas and warm-up kafanas.'
 	},
 	5: {
-		title: 'Open a venue to see the detail.',
+		title: 'Open a hospitality to see the detail.',
 		body: 'Hours, walking time, what the perk actually is, and a phone number you can tap to call. Most guests use this screen to decide whether to walk now or save for tomorrow.',
 		keyTag: 'NO RESERVATION',
 		key: 'The perk does not require a booking. Walk in, show the voucher, sit down.'
@@ -175,7 +175,7 @@ export const DEMO_NARR: Record<number, DemoNarrStep> = {
 		title: 'Voucher screen — show to staff.',
 		body: "When you tap 'Use my perk', the page becomes a small voucher card. Hand the phone over the bar or counter. The staff confirms with a single tap.",
 		keyTag: 'REUSABLE',
-		key: 'Perks are valid for the length of your stay. You can return tomorrow and the same voucher still works.'
+		key: 'Perks are valid for the length of your accommodation. You can return tomorrow and the same voucher still works.'
 	}
 };
 
@@ -183,8 +183,8 @@ export const DEMO_STEP_THUMBS = [
 	{ step: 1, title: 'Arrive', desc: 'Welcome screen for this specific apartment.' },
 	{ step: 2, title: 'Scan', desc: 'Camera reads the QR card by the door.' },
 	{ step: 3, title: 'Unlock', desc: 'Confirmation and a quick summary of what’s inside.' },
-	{ step: 4, title: 'Browse', desc: 'Filtered list of nearby venues and perks.' },
-	{ step: 5, title: 'Detail', desc: 'Single venue, with hours and walking time.' },
+	{ step: 4, title: 'Browse', desc: 'Filtered list of nearby hospitalities and perks.' },
+	{ step: 5, title: 'Detail', desc: 'Single hospitality, with hours and walking time.' },
 	{ step: 6, title: 'Redeem', desc: 'Voucher screen for the staff to confirm.' }
 ] as const;
 

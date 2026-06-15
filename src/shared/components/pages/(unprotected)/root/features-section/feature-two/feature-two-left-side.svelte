@@ -14,7 +14,7 @@
 </script>
 
 <div
-	class="relative grid gap-5 sm:gap-6 lg:block lg:min-h-188"
+	class="relative grid min-w-0 gap-5 sm:gap-6 lg:block lg:min-h-188"
 	aria-label="Example partner performance dashboard tables"
 >
 	<div
@@ -22,23 +22,25 @@
 		aria-hidden="true"
 	></div>
 
-	<div class="relative z-20 w-full lg:absolute lg:-top-8 lg:left-0 lg:w-[92%] {tableCardClass}">
+	<div
+		class="relative z-20 w-full min-w-0 lg:absolute lg:-top-8 lg:left-0 lg:w-[92%] {tableCardClass}"
+	>
 		<AnalyticsTopAccommodationsTable
 			rows={landingOwnerFeaturesHospitalityAnalyticsTopAccommodationsTableRows}
 			variant="dummy"
 			title="Accommodation performance"
-			description="Example source stays sending guests to this hospitality."
+			description="Example source accommodations sending guests to this hospitality."
 		/>
 	</div>
 
 	<div
-		class="relative z-10 w-full lg:absolute lg:right-0 lg:bottom-0 lg:w-[92%] lg:translate-y-10 {tableCardClass}"
+		class="relative z-10 w-full min-w-0 lg:absolute lg:right-0 lg:bottom-0 lg:w-[92%] lg:translate-y-10 {tableCardClass}"
 	>
 		<AnalyticsTopHospitalitiesTable
 			rows={landingOwnerFeaturesAccommodationAnalyticsTopHospitalitiesTableRows}
 			variant="dummy"
 			title="Hospitality performance"
-			description="Example partner venues receiving attention from this accommodation."
+			description="Example partner hospitalities receiving attention from this accommodation."
 		/>
 	</div>
 </div>

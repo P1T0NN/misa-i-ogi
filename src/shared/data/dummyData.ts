@@ -327,7 +327,7 @@ export const landingOwnerFeaturesReservationRequests: LandingReservationRequestR
 		guestCount: 2,
 		requestedTime: 'Tonight · 20:00',
 		status: 'pending',
-		image: '/images/landing/feature-section/reservations/restaurant-1.png'
+		image: '/images/dummyHospitalities/restaurant1.png'
 	},
 	{
 		id: 'landing-reservation-02',
@@ -338,7 +338,7 @@ export const landingOwnerFeaturesReservationRequests: LandingReservationRequestR
 		guestCount: 1,
 		requestedTime: 'Tomorrow · 11:30',
 		status: 'confirmed',
-		image: '/images/landing/feature-section/reservations/massage-1.png'
+		image: '/images/dummyHospitalities/massage1.png'
 	},
 	{
 		id: 'landing-reservation-03',
@@ -349,7 +349,7 @@ export const landingOwnerFeaturesReservationRequests: LandingReservationRequestR
 		guestCount: 4,
 		requestedTime: 'Wed · 21:00',
 		status: 'no_show',
-		image: '/images/landing/feature-section/reservations/restaurant-2.png'
+		image: '/images/dummyHospitalities/restaurant1.png'
 	},
 	{
 		id: 'landing-reservation-04',
@@ -360,7 +360,7 @@ export const landingOwnerFeaturesReservationRequests: LandingReservationRequestR
 		guestCount: 3,
 		requestedTime: 'Sat · 23:00',
 		status: 'cancelled',
-		image: '/images/landing/feature-section/reservations/night-club-1.png'
+		image: '/images/dummyHospitalities/nightclub1.png'
 	}
 ];
 
@@ -389,7 +389,7 @@ export const landingOwnerFeaturesPartnershipPartners: LandingPartnershipPartner[
 		type: 'restaurant',
 		offer: '15% off dinner',
 		offerKind: 'discount',
-		image: '/images/landing/feature-section/partnerships/restaurant-1.png'
+		image: '/images/dummyHospitalities/restaurant1.png'
 	},
 	{
 		id: 'landing-partnership-partner-02',
@@ -397,7 +397,7 @@ export const landingOwnerFeaturesPartnershipPartners: LandingPartnershipPartner[
 		type: 'massage',
 		offer: '20% off treatments',
 		offerKind: 'discount',
-		image: '/images/landing/feature-section/partnerships/massage-1.png'
+		image: '/images/dummyHospitalities/massage1.png'
 	},
 	{
 		id: 'landing-partnership-partner-03',
@@ -405,7 +405,7 @@ export const landingOwnerFeaturesPartnershipPartners: LandingPartnershipPartner[
 		type: 'bar',
 		offer: '10% off the bill',
 		offerKind: 'discount',
-		image: '/images/landing/feature-section/partnerships/wine-bar-1.png'
+		image: '/images/dummyHospitalities/winebar1.png'
 	},
 	{
 		id: 'landing-partnership-partner-04',
@@ -413,6 +413,6 @@ export const landingOwnerFeaturesPartnershipPartners: LandingPartnershipPartner[
 		type: 'restaurant',
 		offer: 'Welcome drink',
 		offerKind: 'perk',
-		image: '/images/landing/feature-section/partnerships/restaurant-2.png'
+		image: '/images/dummyHospitalities/restaurant1.png'
 	}
 ];

@@ -33,12 +33,6 @@
 			"description": "Request a code to reset your password."
 		}
 	},
-	"DemoPage": {
-		"SEO": {
-			"title": "Demo",
-			"description": "Product demo."
-		}
-	},
 	"CreatedByOmnilabs": {
 		"label": "Created by"
 	},
@@ -46,10 +40,16 @@
 		"navAriaLabel": "Main",
 		"mobileNavAriaLabel": "Mobile main",
 		"linkHome": "Home",
+		"linkBenefits": "Benefits",
+		"linkHowItWorks": "How it works",
+		"linkFeatures": "Features",
+		"linkFaq": "FAQ",
+		"registerFree": "Register free",
 		"openMenuAriaLabel": "Open menu",
 		"closeMenuAriaLabel": "Close menu"
 	},
 	"Footer": {
+		"tagline": "Guest perks that make every stay feel local. Free for accommodations; hospitalities pay only on real results.",
 		"groupProduct": "Product",
 		"linkOverview": "Overview",
 		"linkDashboard": "Dashboard",
@@ -202,55 +202,55 @@
 	},
 	"ActivatePage": {
 		"SEO": {
-			"title": "Your stay starts here",
-			"description": "Unlock the perks your host prepared for this stay."
+			"title": "Your accommodation starts here",
+			"description": "Unlock the perks your host prepared for this accommodation."
 		},
-		"title": "Your stay starts here",
-		"description": "Unlock the perks your host prepared for this stay.",
-		"start": "Start my stay",
-		"activating": "Starting your stay…"
+		"title": "Your accommodation starts here",
+		"description": "Unlock the perks your host prepared for this accommodation.",
+		"start": "Start my accommodation",
+		"activating": "Starting your accommodation…"
 	},
 	"StayPage": {
 		"SEO": {
-			"title": "Your stay",
-			"description": "View your stay details and partner perks."
+			"title": "Your accommodation",
+			"description": "View your accommodation details and partner perks."
 		},
 		"StayAccommodationData": {
-			"eyebrow": "Your stay"
+			"eyebrow": "Your accommodation"
 		},
 		"StaySharingCode": {
-			"eyebrow": "Share this stay",
+			"eyebrow": "Share this accommodation",
 			"title": "Let your room companions in",
 			"body": "Anyone staying with you can scan the room QR code, then enter this sharing code.",
 			"privacy": "Share this code only with people in your accommodation.",
 			"copy": "Copy sharing code"
 		},
 		"StayJoinAccess": {
-			"eyebrow": "Your stay"
+			"eyebrow": "Your accommodation"
 		},
 		"StayJoinAccessForm": {
-			"title": "Join an unlocked stay",
-			"activeTitle": "Someone has already unlocked this stay",
+			"title": "Join an unlocked accommodation",
+			"activeTitle": "Someone has already unlocked this accommodation",
 			"body": "If you are staying together, enter the sharing code from their partners page to open the same benefits on this device.",
-			"directBody": "Already staying with someone who has unlocked partners? Ask for the sharing code shown on their stay page.",
+			"directBody": "Already staying with someone who has unlocked partners? Ask for the sharing code shown on their accommodation page.",
 			"label": "Sharing code",
 			"placeholder": "ABCD",
-			"hint": "The code appears at the top of the unlocked stay page.",
+			"hint": "The code appears at the top of the unlocked accommodation page.",
 			"submit": "Open partners",
 			"unavailable": "Could not check that code. Check your connection and try again.",
-			"scanInstead": "You can also scan the QR code in your room to start a new stay."
+			"scanInstead": "You can also scan the QR code in your room to start a new accommodation."
 		},
 		"StayLoading": {
-			"announce": "Loading your stay…"
+			"announce": "Loading your accommodation…"
 		},
 		"StayEmpty": {
-			"title": "Stay not found",
-			"body": "This QR points to a stay that isn’t active. Double-check the code or ask your host.",
+			"title": "Accommodation not found",
+			"body": "This QR points to an accommodation that isn’t active. Double-check the code or ask your host.",
 			"cta": "Back to home"
 		},
 		"StayPartnershipsEmpty": {
 			"title": "No partners linked yet",
-			"body": "Your host hasn’t connected this stay to a partner hospitality yet. Ask them about it — they can add partners in seconds."
+			"body": "Your host hasn’t connected this accommodation to a partner hospitality yet. Ask them about it — they can add partners in seconds."
 		},
 		"StayError": {
 			"title": "Couldn’t load your partners",
@@ -265,12 +265,12 @@
 			"announce": "Loading partners…"
 		},
 		"StayExpiredAccess": {
-			"eyebrow": "Your stay",
-			"title": "Your stay session has expired",
+			"eyebrow": "Your accommodation",
+			"title": "Your accommodation session has expired",
 			"body": "Scan the QR in your room to unlock your partners again."
 		},
 		"StayPartnershipsSection": {
-			"partnerBenefitsEyebrow": "Included with your stay",
+			"partnerBenefitsEyebrow": "Included with your accommodation",
 			"partnersTitle": "Your partners in {city}",
 			"partnersLead": "Show this page to staff at any partner hospitality. No app, no account."
 		},
@@ -289,11 +289,11 @@
 		"aboutSideNote": "Details from the hospitality listing.",
 		"hospitalityDetailsTitle": "Hospitality details",
 		"dlType": "Type",
-		"benefitEyebrow": "Your stay benefit",
+		"benefitEyebrow": "Your accommodation benefit",
 		"benefitDiscountTitle": "{percent}% off",
 		"benefitGenericTitle": "Partner benefit active",
-		"benefitDiscountBody": "Show this stay page at {hospitalityName} so staff can apply the discount.",
-		"benefitGenericBody": "Show this stay page at {hospitalityName}; staff can honor the benefit agreed with your accommodation.",
+		"benefitDiscountBody": "Show this accommodation page at {hospitalityName} so staff can apply the discount.",
+		"benefitGenericBody": "Show this accommodation page at {hospitalityName}; staff can honor the benefit agreed with your accommodation.",
 		"benefitSourceNote": "This benefit comes from the accommodation you scanned from.",
 		"RequestReservationDialog": {
 			"trigger": "Request Reservation",
@@ -338,8 +338,8 @@
 		"HospitalityEmpty": {
 			"title": "Hospitality not available",
 			"body": "This hospitality page is missing or no longer active.",
-			"notPartneredTitle": "Hospitality not included with this stay",
-			"notPartneredBody": "This accommodation is not partnered with this hospitality. Open a hospitality from your stay partners list instead.",
+			"notPartneredTitle": "Hospitality not included with this accommodation",
+			"notPartneredBody": "This accommodation is not partnered with this hospitality. Open a hospitality from your accommodation partners list instead.",
 			"cta": "Back to home"
 		},
 		"HospitalityLoading": {
@@ -420,7 +420,7 @@
 	},
 	"AccommodationQrDialog": {
 		"title": "QR for {name}",
-		"description": "Print this code in the unit. Guests scan it to unlock perks for this stay.",
+		"description": "Print this code in the unit. Guests scan it to unlock perks for this accommodation.",
 		"imageAlt": "QR code for {name}",
 		"generating": "Generating QR…",
 		"activateUrl": "Activate URL",
@@ -463,9 +463,9 @@
 	"AnalyticsComponents": {
 		"AnalyticsTopAccommodationsTable": {
 			"topTitle": "Top accommodations",
-			"topDescription": "Stays creating the strongest guest and reservation activity.",
+			"topDescription": "Accommodations creating the strongest guest and reservation activity.",
 			"performanceTitle": "Accommodation performance",
-			"performanceDescription": "Use this to find strong stays and quiet QR placements.",
+			"performanceDescription": "Use this to find strong accommodations and quiet QR placements.",
 			"detailPerformanceTitle": "Accommodation performance",
 			"detailPerformanceDescription": "Accommodations that send guests to this hospitality.",
 			"adminTitle": "Top accommodations",
@@ -485,9 +485,9 @@
 		},
 		"AnalyticsTopHospitalitiesTable": {
 			"topTitle": "Top hospitalities",
-			"topDescription": "Venues guests are discovering and turning into reservations.",
+			"topDescription": "Hospitalities guests are discovering and turning into reservations.",
 			"performanceTitle": "Hospitality performance",
-			"performanceDescription": "Use this to find strong venues and quiet guest discovery paths.",
+			"performanceDescription": "Use this to find strong hospitalities and quiet guest discovery paths.",
 			"detailPerformanceTitle": "Partner performance",
 			"detailPerformanceDescription": "Hospitalities guests opened from this accommodation.",
 			"adminTitle": "Top hospitalities",
@@ -508,12 +508,12 @@
 	"AnalyticsAccommodationsPage": {
 		"SEO": {
 			"title": "Accommodations analytics",
-			"description": "Compare your stays by QR scan volume, guest activations, and reservation requests generated."
+			"description": "Compare your accommodations by QR scan volume, guest activations, and reservation requests generated."
 		},
 		"AnalyticsHeader": {
 			"eyebrow": "Accommodation analytics",
 			"title": "Guest access by accommodation",
-			"description": "Compare your stays by QR scan volume, guest activations, and reservation requests generated."
+			"description": "Compare your accommodations by QR scan volume, guest activations, and reservation requests generated."
 		},
 		"UserAnalyticsAccommodationsMetrics": {
 			"accommodations": "Accommodations",
@@ -523,17 +523,17 @@
 		},
 		"UserAnalyticsAccommodationsChart": {
 			"reservations": "Reservations",
-			"title": "Stays by reservation requests",
+			"title": "Accommodations by reservation requests",
 			"description": "Which accommodations create the most hospitality demand."
 		},
 		"UserAnalyticsAccommodationsEmpty": {
 			"title": "You do not own any accommodations",
-			"description": "Accommodation analytics will appear here once stays are assigned to your account by the {companyName} team."
+			"description": "Accommodation analytics will appear here once accommodations are assigned to your account by the {companyName} team."
 		},
 		"UserAnalyticsAccommodationsChartEmpty": {
-			"title": "Stays by reservation requests",
+			"title": "Accommodations by reservation requests",
 			"description": "Which accommodations create the most hospitality demand.",
-			"body": "Reservation activity will appear here after guests submit requests from your stays."
+			"body": "Reservation activity will appear here after guests submit requests from your accommodations."
 		},
 		"UserAnalyticsAccommodationsError": {
 			"title": "Could not load accommodation analytics",
@@ -551,7 +551,7 @@
 			"description": "Guest access, partner demand, and reservation flow for this accommodation."
 		},
 		"UserAnalyticsAccommodationMetrics": {
-			"trackedStays": "Tracked stays",
+			"trackedStays": "Tracked accommodations",
 			"qrScans": "QR scans",
 			"guestActivations": "Guest activations",
 			"reservations": "Reservations"
@@ -571,7 +571,7 @@
 		},
 		"AnalyticsHeader": {
 			"eyebrow": "Hospitality analytics",
-			"title": "Venue demand from connected guests",
+			"title": "Hospitality demand from connected guests",
 			"description": "Track which restaurants, cafes, tours, and wellness partners guests actually open and request."
 		},
 		"UserAnalyticsHospitalitiesMetrics": {
@@ -582,17 +582,17 @@
 		},
 		"UserAnalyticsHospitalitiesChart": {
 			"reservations": "Reservations",
-			"title": "Venues by reservation requests",
+			"title": "Hospitalities by reservation requests",
 			"description": "Which hospitalities convert guest discovery into demand."
 		},
 		"UserAnalyticsHospitalitiesEmpty": {
 			"title": "You do not own any hospitalities",
-			"description": "Hospitality analytics will appear here once venues are assigned to your account by the {companyName} team."
+			"description": "Hospitality analytics will appear here once hospitalities are assigned to your account by the {companyName} team."
 		},
 		"UserAnalyticsHospitalitiesChartEmpty": {
-			"title": "Venues by reservation requests",
+			"title": "Hospitalities by reservation requests",
 			"description": "Which hospitalities convert guest discovery into demand.",
-			"body": "Reservation activity will appear here after guests submit requests to your venues."
+			"body": "Reservation activity will appear here after guests submit requests to your hospitalities."
 		},
 		"UserAnalyticsHospitalitiesError": {
 			"title": "Could not load hospitalities data",
@@ -603,14 +603,14 @@
 	"AnalyticsHospitalityDetailPage": {
 		"SEO": {
 			"title": "Hospitality analytics",
-			"description": "Guest demand, reservation flow, and source stays for this hospitality."
+			"description": "Guest demand, reservation flow, and source accommodations for this hospitality."
 		},
 		"AnalyticsHeader": {
 			"eyebrow": "Hospitality analytics",
-			"description": "Guest demand, reservation flow, and source stays for this hospitality."
+			"description": "Guest demand, reservation flow, and source accommodations for this hospitality."
 		},
 		"UserAnalyticsHospitalityMetrics": {
-			"trackedVenues": "Tracked venues",
+			"trackedVenues": "Tracked hospitalities",
 			"guestViews": "Guest views",
 			"guestActivations": "Guest activations",
 			"reservations": "Reservations"
@@ -636,7 +636,7 @@
 		"UserAnalyticsOverviewQrScans": {
 			"qrScans": "QR scans",
 			"title": "QR scans",
-			"description": "Guest check-in scans from connected stays over time."
+			"description": "Guest check-in scans from connected accommodations over time."
 		},
 		"UserAnalyticsOverviewGuestActivations": {
 			"guestActivations": "Guest activations",
@@ -646,11 +646,11 @@
 		"UserAnalyticsOverviewReservations": {
 			"reservations": "Reservations",
 			"title": "Reservations",
-			"description": "Reservation requests created across connected venues."
+			"description": "Reservation requests created across connected hospitalities."
 		},
 		"UserAnalyticsOverviewEmpty": {
 			"title": "You do not own any accommodations or hospitalities",
-			"description": "Analytics will appear here once stays or venues are assigned to your account by the {companyName} team."
+			"description": "Analytics will appear here once accommodations or hospitalities are assigned to your account by the {companyName} team."
 		},
 		"UserAnalyticsOverviewError": {
 			"title": "Could not load analytics overview",
@@ -691,7 +691,7 @@
 		},
 		"UserAnalyticsReservationsEmpty": {
 			"title": "You do not own any hospitalities",
-			"description": "Reservation analytics will appear here once venues are assigned to your account by the {companyName} team."
+			"description": "Reservation analytics will appear here once hospitalities are assigned to your account by the {companyName} team."
 		},
 		"UserAnalyticsReservationsStatusChartEmpty": {
 			"title": "Reservation trend",
@@ -711,7 +711,7 @@
 		},
 		"DashboardEmpty": {
 			"title": "You do not own any accommodations or hospitalities",
-			"description": "Your dashboard will populate once stays or venues are assigned to your account by the {companyName} team."
+			"description": "Your dashboard will populate once accommodations or hospitalities are assigned to your account by the {companyName} team."
 		},
 		"DashboardPendingReservationsEmpty": {
 			"cardTitle": "Pending reservations",
@@ -728,7 +728,7 @@
 		},
 		"DashboardStatsError": {
 			"title": "Could not load dashboard stats",
-			"description": "Your stay and venue counts could not be loaded right now. Please try again."
+			"description": "Your accommodation and hospitality counts could not be loaded right now. Please try again."
 		},
 		"DashboardHeader": {
 			"partnerDashboard": "Partner dashboard",
@@ -796,15 +796,15 @@
 	"MyAccommodationsPage": {
 		"SEO": {
 			"title": "My accommodations",
-			"description": "Review stays assigned to your account. Edit details and check whether each guest QR page is active."
+			"description": "Review accommodations assigned to your account. Edit details and check whether each guest QR page is active."
 		},
-		"assignedStaysTitle": "Assigned stays",
-		"assignedStaysDescription": "Compact overview of stay type, status, and location for each assigned accommodation.",
+		"assignedStaysTitle": "Assigned accommodations",
+		"assignedStaysDescription": "Compact overview of accommodation type, status, and location for each assigned accommodation.",
 		"MyAccommodationsHeader": {
 			"totalBadge": "{count} total",
 			"title": "My accommodations",
-			"description": "Review stays assigned to your account. Edit details and check whether each guest QR page is active.",
-			"activeStays": "Active stays",
+			"description": "Review accommodations assigned to your account. Edit details and check whether each guest QR page is active.",
+			"activeStays": "Active accommodations",
 			"partnerships": "Partnerships"
 		},
 		"MyAccommodationsItem": {
@@ -820,22 +820,22 @@
 		},
 		"MyAccommodationsEmpty": {
 			"title": "No accommodations assigned yet",
-			"description": "When the {companyName} team assigns a stay to your account, it will appear here.",
-			"hint": "Assigned stays become editable from this page"
+			"description": "When the {companyName} team assigns an accommodation to your account, it will appear here.",
+			"hint": "Assigned accommodations become editable from this page"
 		}
 	},
 	"MyHospitalitiesPage": {
 		"SEO": {
 			"title": "My hospitalities",
-			"description": "Manage venue details, guest-facing availability, and accommodation connections for the hospitalities assigned to your account."
+			"description": "Manage hospitality details, guest-facing availability, and accommodation connections for the hospitalities assigned to your account."
 		},
-		"assignedVenuesTitle": "Assigned venues",
-		"assignedVenuesDescription": "Compact overview of venue type, status, and guest-facing availability.",
+		"assignedVenuesTitle": "Assigned hospitalities",
+		"assignedVenuesDescription": "Compact overview of hospitality type, status, and guest-facing availability.",
 		"MyHospitalitiesHeader": {
 			"totalBadge": "{count} total",
 			"title": "My hospitalities",
-			"description": "Manage venue details, guest-facing availability, and accommodation connections for the hospitalities assigned to your account.",
-			"activeVenues": "Active venues",
+			"description": "Manage hospitality details, guest-facing availability, and accommodation connections for the hospitalities assigned to your account.",
+			"activeVenues": "Active hospitalities",
 			"partnerships": "Partnerships"
 		},
 		"MyHospitalitiesItem": {
@@ -849,12 +849,12 @@
 		},
 		"MyHospitalitiesError": {
 			"title": "Something went wrong",
-			"description": "Could not load your hospitality venues."
+			"description": "Could not load your hospitalities."
 		},
 		"MyHospitalitiesEmpty": {
-			"title": "No hospitality venues assigned yet",
-			"description": "When the {companyName} team assigns a hospitality venue to your account, it will appear here.",
-			"hint": "Assigned venues become editable from this page"
+			"title": "No hospitalities assigned yet",
+			"description": "When the {companyName} team assigns a hospitality to your account, it will appear here.",
+			"hint": "Assigned hospitalities become editable from this page"
 		}
 	},
 	"ReservationsPage": {
@@ -872,8 +872,8 @@
 			"tabConfirmed": "Confirmed",
 			"tabCancelled": "Cancelled",
 			"tabNoShow": "No-show",
-			"searchPlaceholder": "Search guest, venue, phone…",
-			"allVenues": "All venues",
+			"searchPlaceholder": "Search guest, hospitality, phone…",
+			"allVenues": "All hospitalities",
 			"clearFiltersAriaLabel": "Clear filters"
 		},
 		"ReservationsTabItem": {
@@ -906,7 +906,7 @@
 		},
 		"ReservationsEmpty": {
 			"title": "You do not own any hospitalities",
-			"description": "Reservation requests will appear here once venues are assigned to your account by the {companyName} team."
+			"description": "Reservation requests will appear here once hospitalities are assigned to your account by the {companyName} team."
 		},
 		"ReservationsPendingTabEmpty": {
 			"title": "No pending reservations",
@@ -932,14 +932,14 @@
 	"EditAccommodationPage": {
 		"SEO": {
 			"title": "Edit accommodation",
-			"description": "Update how this stay appears to guests. The in-room QR code stays the same."
+			"description": "Update how this accommodation appears to guests. The in-room QR code stays the same."
 		},
 		"title": "Edit accommodation",
-		"description": "Update how this stay appears to guests. The in-room QR code stays the same.",
+		"description": "Update how this accommodation appears to guests. The in-room QR code stays the same.",
 		"back": "Back to my accommodations",
 		"EditAccommodationEmpty": {
 			"title": "Accommodation not found",
-			"description": "This stay may have been removed or is not assigned to your account."
+			"description": "This accommodation may have been removed or is not assigned to your account."
 		},
 		"EditAccommodationError": {
 			"title": "Could not load accommodation",
@@ -1049,10 +1049,10 @@
 	"AdminPartnershipAddPage": {
 		"SEO": {
 			"title": "Add partnership",
-			"description": "Connect a stay to a partner hospitality. Guests of that accommodation see the offer after scanning the QR."
+			"description": "Connect an accommodation to a partner hospitality. Guests of that accommodation see the offer after scanning the QR."
 		},
 		"title": "Add partnership",
-		"description": "Connect a stay to a partner hospitality. Guests of that accommodation see the offer after scanning the QR.",
+		"description": "Connect an accommodation to a partner hospitality. Guests of that accommodation see the offer after scanning the QR.",
 		"back": "Back to list",
 		"submit": "Create partnerships",
 		"sectionPartnersTitle": "Partners",
@@ -1515,10 +1515,10 @@
 		"HOSPITALITY_UPDATED": "Hospitality updated successfully!",
 		"ACCOMMODATION_NOT_FOUND": "Accommodation not found.",
 		"ACCOMMODATION_CANNOT_DELETE_ACTIVE_GUEST": "This accommodation cannot be deleted. There is an active guest in it using the app, please wait for it to expire and then try again!",
-		"GUEST_CREATED": "Guest stay unlocked.",
-		"GUEST_ALREADY_ACTIVE": "This stay is already unlocked.",
+		"GUEST_CREATED": "Guest accommodation unlocked.",
+		"GUEST_ALREADY_ACTIVE": "This accommodation is already unlocked.",
 		"GUEST_SHARING_CODE_INVALID": "That sharing code is invalid or has expired.",
-		"GUEST_SHARED_ACCESS_GRANTED": "Stay access shared.",
+		"GUEST_SHARED_ACCESS_GRANTED": "Accommodation access shared.",
 		"HOSPITALITY_NOT_FOUND": "Hospitality not found.",
 		"RESERVATION_CREATED": "Reservation request sent.",
 		"RESERVATION_CONFIRMED": "Reservation confirmed.",

@@ -5,7 +5,7 @@
 </script>
 
 <div class="max-w-2xl">
-	<p class="mb-0 text-sm font-bold tracking-caps text-primary uppercase">Partnerships</p>
+	<p class="mb-0 landing-eyebrow text-primary">Partnerships</p>
 
 	<h2
 		class="mt-4 max-w-[16ch] font-display text-4xl leading-tight font-medium text-foreground sm:text-5xl lg:text-6xl"
@@ -16,7 +16,7 @@
 	<div class="mt-10 grid gap-8 border-t border-border-2 pt-8">
 		<div>
 			<div class="flex flex-wrap items-center gap-2">
-				<p class="mb-0 text-sm font-bold tracking-caps text-primary uppercase">
+				<p class="mb-0 landing-eyebrow text-primary">
 					Included with free registration
 				</p>
 
@@ -25,14 +25,14 @@
 
 			<p class="mt-3 mb-0 max-w-136 text-base leading-relaxed text-muted-foreground">
 				Register your accommodation for free and your guests instantly unlock benefits from our
-				platform's partner hospitality venues — real discounts at the best places nearby. No setup,
+				platform's partner hospitalities — real discounts at the best places nearby. No setup,
 				no negotiation, guaranteed from day one.
 			</p>
 		</div>
 
 		<div>
 			<div class="flex flex-wrap items-center gap-2">
-				<p class="mb-0 text-sm font-bold tracking-caps text-primary uppercase">
+				<p class="mb-0 landing-eyebrow text-primary">
 					Bonus — your own custom partnerships
 				</p>
 
@@ -41,7 +41,7 @@
 
 			<p class="mt-3 mb-0 max-w-136 text-base leading-relaxed text-muted-foreground">
 				Want more? On top of the included benefits, you can form your own partnerships directly with
-				other hospitality venues, with the discounts or perks you arrange yourself.
+				other hospitalities, with the discounts or perks you arrange yourself.
 			</p>
 		</div>
 	</div>

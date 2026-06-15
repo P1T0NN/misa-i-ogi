@@ -88,7 +88,7 @@
 			timeRangeOptions={chartTimeRangeOptions}
 			areaChartProps={landingAnalyticsAreaChartProps}
 			title="Accommodation analytics"
-			description="Example dashboard data for one stay."
+			description="Example dashboard data for one accommodation."
 			cardClass="overflow-hidden rounded-2xl border border-border-2 bg-card py-0 shadow-dashboard-card"
 			cardHeaderClass="flex items-start gap-3 border-b border-border-2 px-4 py-4 sm:flex-row"
 			cardContentClass="px-2 pt-3 pb-4 sm:px-4"
@@ -107,7 +107,7 @@
 			timeRangeOptions={chartTimeRangeOptions}
 			areaChartProps={landingAnalyticsAreaChartProps}
 			title="Hospitality analytics"
-			description="Example dashboard data for one venue."
+			description="Example dashboard data for one hospitality."
 			cardClass="overflow-hidden rounded-2xl border border-border-2 bg-card py-0 shadow-dashboard-card"
 			cardHeaderClass="flex items-start gap-3 border-b border-border-2 px-4 py-4 sm:flex-row"
 			cardContentClass="px-2 pt-3 pb-4 sm:px-4"

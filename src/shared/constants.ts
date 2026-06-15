@@ -1,3 +1,6 @@
+// SVELTEKIT IMPORTS
+import { resolve } from '$app/paths';
+
 export const COMPANY_DATA = {
 	NAME: 'Company Name',
 	EMAIL: 'company@gmail.com',
@@ -8,45 +11,46 @@ export const COMPANY_DATA = {
 } as const;
 
 export const ADMIN_PAGE_ENDPOINTS = {
-	DASHBOARD: '/admin/dashboard',
-	ANALYTICS: '/admin/analytics',
+	DASHBOARD: resolve('/admin/dashboard'),
+	ANALYTICS: resolve('/admin/analytics'),
 	ACCOMMODATIONS: '/admin/accommodations',
-	ACCOMMODATION_ADD: '/admin/accommodations/add-accommodation',
-	HOSPITALITIES: '/admin/hospitalities',
-	HOSPITALITY_ADD: '/admin/hospitalities/add-hospitality',
-	PARTNERSHIPS: '/admin/partnerships',
-	PARTNERSHIP_ADD: '/admin/partnerships/add-partnership',
-	USERS: '/admin/users',
-	USER_ADD: '/admin/users/add-user',
+	ACCOMMODATION_ADD: resolve('/admin/accommodations/add-accommodation'),
+	HOSPITALITIES: resolve('/admin/hospitalities'),
+	HOSPITALITY_ADD: resolve('/admin/hospitalities/add-hospitality'),
+	PARTNERSHIPS: resolve('/admin/partnerships'),
+	PARTNERSHIP_ADD: resolve('/admin/partnerships/add-partnership'),
+	USERS: resolve('/admin/users'),
+	USER_ADD: resolve('/admin/users/add-user'),
+	// Template filled at the call site via .replace(':id', …) — not a concrete route, so not resolve()d.
 	USER: '/admin/users/:id'
 };
 
 export const PROTECTED_PAGE_ENDPOINTS = {
-	DASHBOARD: '/dashboard',
-	ANALYTICS: '/analytics/overview',
-	ANALYTICS_ACCOMMODATIONS: '/analytics/accommodations',
-	ANALYTICS_HOSPITALITIES: '/analytics/hospitalities',
-	ANALYTICS_RESERVATIONS: '/analytics/reservations',
-	MY_ACCOMMODATIONS: '/my-accommodations',
-	MY_HOSPITALITIES: '/my-hospitalities',
-	RESERVATIONS: '/reservations',
+	DASHBOARD: resolve('/dashboard'),
+	ANALYTICS: resolve('/analytics/overview'),
+	ANALYTICS_ACCOMMODATIONS: resolve('/analytics/accommodations'),
+	ANALYTICS_HOSPITALITIES: resolve('/analytics/hospitalities'),
+	ANALYTICS_RESERVATIONS: resolve('/analytics/reservations'),
+	MY_ACCOMMODATIONS: resolve('/my-accommodations'),
+	MY_HOSPITALITIES: resolve('/my-hospitalities'),
+	RESERVATIONS: resolve('/reservations'),
+	// Templates filled at the call site via .replace(':id', …) — not concrete routes, so not resolve()d.
 	EDIT_ACCOMMODATION: '/edit-accommodation/:id',
 	EDIT_HOSPITALITY: '/edit-hospitality/:id'
 } as const;
 
 export const UNPROTECTED_PAGE_ENDPOINTS = {
 	ROOT: '/',
-	LOGIN: '/login',
-	TERMS_OF_SERVICE: '/terms',
-	SIGNUP: '/signup',
-	FORGOT_PASSWORD: '/forgot-password',
-	CONTACT: '/contact',
-	/** Interactive guest-experience walkthrough (phone-frame demo). */
-	DEMO: '/demo',
+	LOGIN: resolve('/login'),
+	TERMS_OF_SERVICE: resolve('/terms'),
+	SIGNUP: resolve('/signup'),
+	FORGOT_PASSWORD: resolve('/forgot-password'),
+	/** Anchor to the contact section on the landing — not a route, so it must NOT be wrapped in resolve(). */
+	CONTACT: '/#contact',
 	/** Sets the guest-stay cookie then redirects to {@link STAY}. Encoded in printed QRs. */
 	ACTIVATE: '/activate/:token',
 	/** Guest perks page — bookmarkable; no token in URL. Perks gated by guest-stay cookie. */
-	STAY: '/stay',
+	STAY: resolve('/stay'),
 	/** Guest-stay venue detail. Requires active guest access, admin, or hospitality owner. */
 	HOSPITALITY: '/stay/hospitality/:id'
 } as const;

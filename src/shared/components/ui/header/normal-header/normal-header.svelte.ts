@@ -4,8 +4,35 @@ import { m } from '@/shared/lib/paraglide/messages';
 // CONFIG
 import { UNPROTECTED_PAGE_ENDPOINTS } from '@/shared/constants.js';
 
+// UTILS
+import { isNavItemActive } from '@/shared/utils/isNavItemActive.js';
+
 export function getNormalHeaderNavItems() {
-	return [{ href: UNPROTECTED_PAGE_ENDPOINTS.ROOT, label: m['Header.linkHome']() }];
+	const root = UNPROTECTED_PAGE_ENDPOINTS.ROOT;
+	return [
+		{ href: `${root}#benefits`, label: m['Header.linkBenefits']() },
+		{ href: `${root}#guest-flow`, label: m['Header.linkHowItWorks']() },
+		{ href: `${root}#owner-features`, label: m['Header.linkFeatures']() },
+		{ href: `${root}#faq`, label: m['Header.linkFaq']() }
+	];
+}
+
+/**
+ * Active state for the header nav. Items are in-page anchors (e.g. `/#faq`) that all share the
+ * pathname `/`, so we match on the section currently in view (driven by the header's scroll-spy).
+ * Falls back to pathname matching for non-anchor items.
+ */
+export function isHeaderNavActive(href: string, pathname: string, activeHash: string): boolean {
+	const hashIndex = href.indexOf('#');
+	if (hashIndex === -1) return isNavItemActive(pathname, href);
+	return activeHash !== '' && href.slice(hashIndex) === activeHash;
+}
+
+/** Section ids (without `#`) that the header scroll-spy observes, derived from the nav items. */
+export function getNormalHeaderSectionIds(): string[] {
+	return getNormalHeaderNavItems()
+		.map((item) => (item.href.includes('#') ? item.href.slice(item.href.indexOf('#') + 1) : null))
+		.filter((id): id is string => id !== null);
 }
 
 export const navLinkClass =
@@ -16,6 +43,8 @@ export const navLinkActiveClass =
 
 class NormalHeader {
 	menuOpen = $state(false);
+	/** Hash of the section currently in view (e.g. `#faq`), updated by the header scroll-spy. */
+	activeSection = $state('');
 
 	closeMenu() {
 		this.menuOpen = false;
