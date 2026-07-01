@@ -11,20 +11,22 @@ import { mutationResultValidator } from '@/convex/schemas/mutationResult';
 
 // UTILS
 import { createAnalyticsScopeId } from '@piton-/analytics-convex';
-import { normalizeOptionalNumber } from '@/convex/utils/convexValidationUtils';
 
 // TYPES
 import type { MutationResult } from '@/convex/schemas/mutationResult';
+
+const PARTNERSHIP_BENEFIT_MAX_LENGTH = 15;
 
 export const createPartnership = adminMutation('createPartnership')({
 	args: {
 		accommodationId: v.id('accommodations'),
 		hospitalityIds: v.array(v.id('hospitalities')),
-		discountPercentage: v.optional(v.string())
+		benefit: v.string()
 	},
 	returns: mutationResultValidator,
 	handler: async (ctx, args): Promise<MutationResult> => {
 		const hospitalityIds = [...new Set(args.hospitalityIds)];
+		const benefit = args.benefit.trim();
 
 		if (hospitalityIds.length === 0) {
 			return { success: false, message: { key: 'GenericMessages.NO_ITEMS_PROVIDED' } };
@@ -35,14 +37,10 @@ export const createPartnership = adminMutation('createPartnership')({
 			return { success: false, message: { key: 'GenericMessages.ACCOMMODATION_NOT_FOUND' } };
 		}
 
-		const discountPercentage = normalizeOptionalNumber(args.discountPercentage, {
-			min: 1,
-			max: 100
-		});
-		if (discountPercentage === null) {
+		if (benefit.length === 0 || benefit.length > PARTNERSHIP_BENEFIT_MAX_LENGTH) {
 			return {
 				success: false,
-				message: { key: 'GenericMessages.PARTNERSHIP_DISCOUNT_INVALID' }
+				message: { key: 'GenericMessages.PARTNERSHIP_BENEFIT_INVALID' }
 			};
 		}
 
@@ -77,7 +75,7 @@ export const createPartnership = adminMutation('createPartnership')({
 				accommodationId: args.accommodationId,
 				accommodationScanToken: accommodation.scanToken,
 				hospitalityId,
-				discountPercentage,
+				benefit,
 				isActive: true
 			});
 
@@ -87,7 +85,7 @@ export const createPartnership = adminMutation('createPartnership')({
 					accommodationId: args.accommodationId,
 					accommodationScanToken: accommodation.scanToken,
 					hospitalityId,
-					discountPercentage,
+					benefit,
 					isActive: true
 				}
 			});
@@ -112,7 +110,7 @@ export const createPartnership = adminMutation('createPartnership')({
 					accommodationName: accommodation.name,
 					hospitalityId: hospitality._id,
 					hospitalityName: hospitality.name,
-					...(discountPercentage === undefined ? {} : { discountPercent: discountPercentage }),
+					benefit,
 					partnershipDelta: 1
 				}
 			});

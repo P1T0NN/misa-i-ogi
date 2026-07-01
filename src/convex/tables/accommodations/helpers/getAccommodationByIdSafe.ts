@@ -20,6 +20,8 @@ export async function getAccommodationByIdSafe(
 		address: a.address,
 		city: a.city,
 		country: a.country,
+		latitude: a.latitude,
+		longitude: a.longitude,
 		description: a.description,
 		coverImageUrl: a.coverImageUrl
 	};

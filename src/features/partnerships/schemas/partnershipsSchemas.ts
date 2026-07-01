@@ -11,15 +11,11 @@ export const partnershipAddFormSchema = v.object({
 		v.array(v.string()),
 		v.minLength(1, m['ValidationMessages.CreatePartnershipSchema.hospitalityRequired']())
 	),
-	discountPercentage: v.optional(
-		v.pipe(
-			v.string(),
-			v.trim(),
-			v.check(
-				(s) => s === '' || (!Number.isNaN(Number(s)) && Number(s) >= 1 && Number(s) <= 100),
-				m['ValidationMessages.CreatePartnershipSchema.discountRange']()
-			)
-		)
+	benefit: v.pipe(
+		v.string(),
+		v.trim(),
+		v.minLength(1, m['ValidationMessages.CreatePartnershipSchema.benefitRequired']()),
+		v.maxLength(15, m['ValidationMessages.CreatePartnershipSchema.benefitMaxLength']())
 	)
 });
 

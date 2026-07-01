@@ -173,7 +173,8 @@
 			{sections}
 			bind:values
 			schema={accommodationAddFormSchema}
-			runFunction={api.tables.accommodations.mutations.createAccommodation.createAccommodation}
+			runFunction={api.tables.accommodations.mutations.adminCreateAccommodation
+				.adminCreateAccommodation}
 			submitLabel={m['AdminAccommodationAddPage.submit']()}
 			customFields={{ ownerId: ownerField }}
 			resetOnSuccess={false}

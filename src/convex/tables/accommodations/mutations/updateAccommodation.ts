@@ -26,6 +26,9 @@ export const updateAccommodation = authMutation('updateAccommodation')({
 		address: v.string(),
 		city: v.string(),
 		country: v.string(),
+		addressNumber: v.optional(v.string()),
+		latitude: v.number(),
+		longitude: v.number(),
 		description: v.optional(v.string()),
 		isActive: v.boolean(),
 		coverImageKey: v.optional(v.string())
@@ -61,12 +64,17 @@ export const updateAccommodation = authMutation('updateAccommodation')({
 		}
 
 		const description = args.description?.trim();
+		const addressNumber = args.addressNumber?.trim();
 		await ctx.db.patch(args.accommodationId, {
 			name: args.name.trim(),
 			type: args.type,
-			address: args.address.trim(),
+			// Full street line in `address` (what displays read) + the bare number for the edit form.
+			address: [args.address.trim(), addressNumber].filter(Boolean).join(' '),
+			addressNumber: addressNumber || undefined,
 			city: args.city.trim(),
 			country: args.country.trim(),
+			latitude: args.latitude,
+			longitude: args.longitude,
 			description: description ? description : undefined,
 			isActive: args.isActive,
 			coverImageKey,

@@ -13,6 +13,7 @@
 	import HospitalityEmpty from '@/shared/components/pages/(unprotected)/hospitality/empty/hospitality-empty.svelte';
 	import HospitalityError from '@/shared/components/pages/(unprotected)/hospitality/error/hospitality-error.svelte';
 	import HospitalityLoading from '@/shared/components/pages/(unprotected)/hospitality/loading/hospitality-loading.svelte';
+	import LocationMap from '@/shared/components/ui/location-map/location-map.svelte';
 
 	// DATA
 	import { labelHospitalityType } from '@/features/hospitalities/data/hospitalitiesData';
@@ -46,10 +47,7 @@
 	const isNotPartnered = $derived(hospitalityResult?.status === 'not_partnered');
 </script>
 
-<SvelteHead
-	title={hospitality?.name}
-	description={m['HospitalityPage.SEO.description']()}
-/>
+<SvelteHead title={hospitality?.name} description={m['HospitalityPage.SEO.description']()} />
 
 <div class="bg-background text-foreground">
 	{#if detailQuery.error}
@@ -122,40 +120,61 @@
 						{h.description}
 					</p>
 				</section>
+
+				<section class="scroll-mt-28" aria-labelledby="location-heading">
+					<h2
+						id="location-heading"
+						class="font-serif text-2xl font-medium tracking-tight sm:text-3xl"
+					>
+						{m['HospitalityPage.locationTitle']()}
+					</h2>
+
+					<p class="mt-1 text-sm text-muted-foreground">
+						{m['HospitalityPage.addressLineMeta']({
+							address: h.address,
+							city: h.city,
+							country: h.country
+						})}
+					</p>
+
+					{#if typeof h.latitude === 'number' && typeof h.longitude === 'number'}
+						<LocationMap
+							lat={h.latitude}
+							lng={h.longitude}
+							query={`${h.address}, ${h.city}, ${h.country}`}
+							zoom={15}
+							iframe
+							class="mt-6 aspect-16/10 sm:aspect-2/1"
+						/>
+					{/if}
+				</section>
 			</div>
 
 			<aside class="space-y-6 lg:sticky lg:top-28">
 				{#if partnership}
+					{@const benefitTitle =
+						partnership.benefit ??
+						(partnership.discountPercentage == null
+							? m['HospitalityPage.benefitGenericTitle']()
+							: m['HospitalityPage.benefitLegacyDiscountTitle']({
+									percent: partnership.discountPercentage
+								}))}
 					<Card.Root class="overflow-hidden border-primary/20 bg-accent/40">
 						<Card.Header class="pb-3">
 							<p class="mb-2 font-mono text-[10px] tracking-[0.14em] text-primary uppercase">
 								{m['HospitalityPage.benefitEyebrow']()}
 							</p>
 
-							{#if partnership.discountPercentage != null}
-								<Card.Title class="font-serif text-3xl leading-none">
-									{m['HospitalityPage.benefitDiscountTitle']({
-										percent: partnership.discountPercentage
-									})}
-								</Card.Title>
-							{:else}
-								<Card.Title class="font-serif text-2xl leading-tight">
-									{m['HospitalityPage.benefitGenericTitle']()}
-								</Card.Title>
-							{/if}
+							<Card.Title class="font-serif text-3xl leading-none">{benefitTitle}</Card.Title>
 						</Card.Header>
 						<Card.Content class="space-y-3">
-							{#if partnership.discountPercentage != null}
-								<p class="text-sm leading-relaxed text-muted-foreground">
-									{m['HospitalityPage.benefitDiscountBody']({ hospitalityName: h.name })}
-								</p>
-							{:else}
-								<p class="text-sm leading-relaxed text-muted-foreground">
-									{m['HospitalityPage.benefitGenericBody']({ hospitalityName: h.name })}
-								</p>
-							{/if}
+							<p class="text-sm leading-relaxed text-muted-foreground">
+								{m['HospitalityPage.benefitBody']({ hospitalityName: h.name })}
+							</p>
 
-							<p class="border-t border-primary/15 pt-3 text-xs leading-relaxed text-muted-foreground">
+							<p
+								class="border-t border-primary/15 pt-3 text-xs leading-relaxed text-muted-foreground"
+							>
 								{m['HospitalityPage.benefitSourceNote']()}
 							</p>
 						</Card.Content>

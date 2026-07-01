@@ -1,7 +1,5 @@
 <script lang="ts">
 	// LIBRARIES
-	import { useQuery } from '@mmailaender/convex-svelte';
-	import { api } from '@/convex/_generated/api';
 	import { m } from '@/shared/lib/paraglide/messages';
 
 	// COMPONENTS
@@ -15,21 +13,25 @@
 
 	let {
 		city,
-		enabled = true
+		enabled = true,
+		partnerships,
+		isLoading = false,
+		hasError = false,
+		originLat,
+		originLng,
+		onHover
 	}: {
 		city: string;
 		enabled?: boolean;
+		partnerships: AccommodationPartnershipSafe[] | undefined;
+		isLoading?: boolean;
+		hasError?: boolean;
+		/** Accommodation coordinates, forwarded so each card can show its distance. */
+		originLat?: number | null;
+		originLng?: number | null;
+		/** Bubbled from a card on hover/focus so the map can spotlight that partner's pin. */
+		onHover?: (hospitalityId: string | null) => void;
 	} = $props();
-
-	const partnershipsQuery = useQuery(
-		api.tables.partnerships.queries.fetchAccommodationPartnerships.fetchAccommodationPartnerships,
-		() => (enabled ? {} : 'skip')
-	);
-
-	const partnerships = $derived(
-		partnershipsQuery.data as AccommodationPartnershipSafe[] | undefined
-	);
-	const isLoading = $derived(enabled && partnerships === undefined && !partnershipsQuery.error);
 </script>
 
 <section aria-labelledby="partners-heading" aria-busy={isLoading} class="flex flex-col gap-4">
@@ -54,7 +56,7 @@
 			</p>
 		</header>
 
-		{#if partnershipsQuery.error}
+		{#if hasError}
 			<StayPartnershipsError />
 		{:else if isLoading}
 			<StayPartnershipsLoading />
@@ -63,7 +65,7 @@
 		{:else if partnerships}
 			<ul class="flex flex-col gap-3 sm:gap-4">
 				{#each partnerships as partnership (partnership._id)}
-					<StayPartnershipsSectionItem {partnership} />
+					<StayPartnershipsSectionItem {partnership} {originLat} {originLng} {onHover} />
 				{/each}
 			</ul>
 		{/if}

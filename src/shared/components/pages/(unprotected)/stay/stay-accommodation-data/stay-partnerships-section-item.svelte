@@ -9,6 +9,9 @@
 	import { Badge } from '@/shared/components/ui/badge/index.js';
 	import Link from '@/shared/components/ui/link/link.svelte';
 
+	// UTILS
+	import { distanceMeters, formatDistance } from '@/utils/distance';
+
 	// DATA
 	import { labelHospitalityType } from '@/features/hospitalities/data/hospitalitiesData';
 
@@ -18,16 +21,51 @@
 	// LUCIDE ICONS
 	import ArrowRightIcon from '@lucide/svelte/icons/arrow-right';
 	import StoreIcon from '@lucide/svelte/icons/store';
+	import MapPinIcon from '@lucide/svelte/icons/map-pin';
 
-	let { partnership }: { partnership: AccommodationPartnershipSafe } = $props();
+	let {
+		partnership,
+		originLat,
+		originLng,
+		onHover
+	}: {
+		partnership: AccommodationPartnershipSafe;
+		/** Accommodation coordinates, to show how far this partner is. */
+		originLat?: number | null;
+		originLng?: number | null;
+		onHover?: (hospitalityId: string | null) => void;
+	} = $props();
 
 	const hospitality = $derived(partnership.hospitality);
+	const distanceLabel = $derived.by(() => {
+		if (
+			typeof originLat !== 'number' ||
+			typeof originLng !== 'number' ||
+			typeof hospitality.latitude !== 'number' ||
+			typeof hospitality.longitude !== 'number'
+		) {
+			return null;
+		}
+		return formatDistance(
+			distanceMeters(originLat, originLng, hospitality.latitude, hospitality.longitude)
+		);
+	});
+	const benefit = $derived(
+		partnership.benefit ??
+			(partnership.discountPercentage == null
+				? undefined
+				: `${partnership.discountPercentage}% ${m['StayPage.StayPartnershipsSectionItem.off']()}`)
+	);
 </script>
 
 <li>
 	<Link
 		href={UNPROTECTED_PAGE_ENDPOINTS.HOSPITALITY.replace(':id', hospitality._id)}
 		class="group flex gap-3 rounded-xl border border-border/80 bg-card p-3 text-foreground no-underline transition-[background-color,border-color,box-shadow] hover:border-primary/25 hover:bg-accent/40 hover:no-underline focus-visible:ring-[3px] focus-visible:ring-ring/50 sm:gap-4 sm:p-4"
+		onmouseenter={() => onHover?.(hospitality._id)}
+		onmouseleave={() => onHover?.(null)}
+		onfocus={() => onHover?.(hospitality._id)}
+		onblur={() => onHover?.(null)}
 	>
 		<div class="relative size-24 shrink-0 overflow-hidden rounded-lg bg-muted">
 			{#if hospitality.coverImageUrl}
@@ -54,10 +92,17 @@
 				{hospitality.name}
 			</h3>
 
+			{#if distanceLabel}
+				<span class="flex items-center gap-1 text-xs text-muted-foreground">
+					<MapPinIcon class="size-3 shrink-0" aria-hidden="true" />
+					{m['StayPage.StayPartnershipsSectionItem.distanceAway']({ distance: distanceLabel })}
+				</span>
+			{/if}
+
 			<div class="mt-auto flex flex-wrap items-center justify-between gap-x-3 gap-y-2 pt-2">
-				{#if partnership.discountPercentage != null}
+				{#if benefit}
 					<Badge variant="secondary" class="bg-accent text-primary">
-						{partnership.discountPercentage}% {m['StayPage.StayPartnershipsSectionItem.off']()}
+						{benefit}
 					</Badge>
 				{:else}
 					<span class="text-sm text-muted-foreground">{hospitality.city}</span>

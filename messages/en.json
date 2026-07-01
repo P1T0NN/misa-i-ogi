@@ -36,6 +36,21 @@
 	"CreatedByOmnilabs": {
 		"label": "Created by"
 	},
+	"PlacesAutocomplete": {
+		"placeholder": "Start typing an address...",
+		"regionPlaceholder": "Search for a city or country...",
+		"error": "Could not load the selected place.",
+		"noMatches": "No matches found."
+	},
+	"GoogleMap": {
+		"failedToLoad": "Could not load the map."
+	},
+	"LocationMap": {
+		"mapLocation": "Map location picker",
+		"description": "The pin and coordinates appear here automatically once you select an address above.",
+		"error": "Could not load the map.",
+		"embedTitle": "Map showing the location"
+	},
 	"Header": {
 		"navAriaLabel": "Main",
 		"mobileNavAriaLabel": "Mobile main",
@@ -50,6 +65,7 @@
 	},
 	"Footer": {
 		"tagline": "Guest perks that make every stay feel local. Free for accommodations; hospitalities pay only on real results.",
+		"navLabel": "Footer",
 		"groupProduct": "Product",
 		"linkOverview": "Overview",
 		"linkDashboard": "Dashboard",
@@ -269,6 +285,11 @@
 			"title": "Your accommodation session has expired",
 			"body": "Scan the QR in your room to unlock your partners again."
 		},
+		"StayLocationSection": {
+			"title": "Partners nearby",
+			"yourStay": "Your stay",
+			"closePanel": "Close partner details"
+		},
 		"StayPartnershipsSection": {
 			"partnerBenefitsEyebrow": "Included with your accommodation",
 			"partnersTitle": "Your partners in {city}",
@@ -276,7 +297,8 @@
 		},
 		"StayPartnershipsSectionItem": {
 			"off": "off",
-			"viewDetails": "View details"
+			"viewDetails": "View details",
+			"distanceAway": "{distance} away"
 		}
 	},
 	"HospitalityPage": {
@@ -285,15 +307,16 @@
 		},
 		"addressLineMeta": "{address} · {city} · {country}",
 		"factArea": "Location",
+		"locationTitle": "Where to find it",
+		"getDirections": "Get directions",
 		"aboutTitle": "About this hospitality",
 		"aboutSideNote": "Details from the hospitality listing.",
 		"hospitalityDetailsTitle": "Hospitality details",
 		"dlType": "Type",
 		"benefitEyebrow": "Your accommodation benefit",
-		"benefitDiscountTitle": "{percent}% off",
+		"benefitLegacyDiscountTitle": "{percent}% off",
 		"benefitGenericTitle": "Partner benefit active",
-		"benefitDiscountBody": "Show this accommodation page at {hospitalityName} so staff can apply the discount.",
-		"benefitGenericBody": "Show this accommodation page at {hospitalityName}; staff can honor the benefit agreed with your accommodation.",
+		"benefitBody": "Show this accommodation page at {hospitalityName}; staff can honor the listed benefit.",
 		"benefitSourceNote": "This benefit comes from the accommodation you scanned from.",
 		"RequestReservationDialog": {
 			"trigger": "Request Reservation",
@@ -824,6 +847,43 @@
 			"hint": "Assigned accommodations become editable from this page"
 		}
 	},
+	"AddAccommodationPage": {
+		"SEO": {
+			"title": "Add accommodation",
+			"description": "Create an accommodation owned by your account. A guest QR token is generated automatically."
+		},
+		"navLabel": "Add accommodation",
+		"title": "Add accommodation",
+		"description": "Create an accommodation for your account. The guest QR token is generated automatically.",
+		"back": "Back to my accommodations",
+		"sectionBasicsTitle": "Basics",
+		"sectionBasicsDescription": "What guests and staff will see at a glance.",
+		"sectionLocationTitle": "Location",
+		"sectionLocationDescription": "Shown on the guest scan page and used for filtering.",
+		"sectionCoverTitle": "Cover image",
+		"sectionCoverDescription": "Shown on the guest scan page. PNG or JPG recommended; aim for a wide aspect ratio.",
+		"sectionDetailsTitle": "Details",
+		"sectionDetailsDescription": "Optional notes shown on the guest benefits page.",
+		"fieldName": "Name",
+		"fieldNamePlaceholder": "Sunset Loft #12",
+		"fieldType": "Type",
+		"fieldTypePlaceholder": "Pick a type",
+		"fieldAddress": "Address",
+		"fieldAddressPlaceholder": "Calle Mayor 14, 2nd floor",
+		"fieldAddressNumber": "Address number",
+		"fieldAddressNumberPlaceholder": "11",
+		"fieldCity": "City",
+		"fieldCityPlaceholder": "Madrid",
+		"fieldCountry": "Country",
+		"fieldCountryPlaceholder": "Spain",
+		"fieldLatitude": "Latitude",
+		"fieldLongitude": "Longitude",
+		"fieldCoordinatesPlaceholder": "These will automatically populate once you wrote the address",
+		"fieldDescription": "Description",
+		"fieldDescriptionPlaceholder": "Short description shown on the benefits page (optional).",
+		"fieldCoverImage": "Cover image",
+		"submit": "Create accommodation"
+	},
 	"MyHospitalitiesPage": {
 		"SEO": {
 			"title": "My hospitalities",
@@ -963,10 +1023,15 @@
 		"fieldTypePlaceholder": "Pick a type",
 		"fieldAddress": "Address",
 		"fieldAddressPlaceholder": "Calle Mayor 14, 2nd floor",
+		"fieldAddressNumber": "Address number",
+		"fieldAddressNumberPlaceholder": "11",
 		"fieldCity": "City",
 		"fieldCityPlaceholder": "Madrid",
 		"fieldCountry": "Country",
 		"fieldCountryPlaceholder": "Spain",
+		"fieldLatitude": "Latitude",
+		"fieldLongitude": "Longitude",
+		"fieldCoordinatesPlaceholder": "These will automatically populate once you wrote the address",
 		"fieldDescription": "Description",
 		"fieldDescriptionPlaceholder": "Short description shown on the benefits page (optional).",
 		"fieldIsActive": "Active",
@@ -1040,10 +1105,10 @@
 		"columnAccommodation": "Accommodation ID",
 		"columnAccommodationScanToken": "Accommodation scan token",
 		"columnHospitality": "Hospitality ID",
-		"columnDiscount": "Discount",
+		"columnBenefit": "Benefit",
 		"columnCreated": "Created",
-		"discountNone": "No discount",
-		"discountValue": "{percent}% off",
+		"benefitNone": "No benefit",
+		"legacyDiscountValue": "{percent}% off",
 		"addPartnership": "Add partnership"
 	},
 	"AdminPartnershipAddPage": {
@@ -1078,10 +1143,10 @@
 		"selectHospitalityTruncated": "Showing the first {count} — add more from the hospitalities admin list.",
 		"modifyHospitality": "Modify",
 		"sectionOfferTitle": "Offer",
-		"sectionOfferDescription": "Optional percent-off; leave blank for non-percent perks.",
-		"fieldDiscount": "Discount % (optional)",
-		"fieldDiscountPlaceholder": "e.g. 10",
-		"fieldDiscountDescription": "Shown on the guest perks list when set."
+		"sectionOfferDescription": "A short guest-facing benefit that staff can honor in person.",
+		"fieldBenefit": "Benefit",
+		"fieldBenefitPlaceholder": "15% off",
+		"fieldBenefitDescription": "Example: 15% off"
 	},
 	"AdminHospitalitiesPage": {
 		"SEO": {
@@ -1128,10 +1193,15 @@
 		"fieldOwner": "Owner",
 		"fieldAddress": "Address",
 		"fieldAddressPlaceholder": "Plaza del Sol 3",
+		"fieldAddressNumber": "Address number",
+		"fieldAddressNumberPlaceholder": "3",
 		"fieldCity": "City",
 		"fieldCityPlaceholder": "Madrid",
 		"fieldCountry": "Country",
 		"fieldCountryPlaceholder": "Spain",
+		"fieldLatitude": "Latitude",
+		"fieldLongitude": "Longitude",
+		"fieldCoordinatesPlaceholder": "These will automatically populate once you wrote the address",
 		"fieldContactPhone": "Phone",
 		"fieldContactPhonePlaceholder": "+34 600 000 000",
 		"fieldReservationMode": "Reservation mode",
@@ -1175,10 +1245,15 @@
 		"fieldTypePlaceholder": "Pick a type",
 		"fieldAddress": "Address",
 		"fieldAddressPlaceholder": "Plaza del Sol 3",
+		"fieldAddressNumber": "Address number",
+		"fieldAddressNumberPlaceholder": "3",
 		"fieldCity": "City",
 		"fieldCityPlaceholder": "Madrid",
 		"fieldCountry": "Country",
 		"fieldCountryPlaceholder": "Spain",
+		"fieldLatitude": "Latitude",
+		"fieldLongitude": "Longitude",
+		"fieldCoordinatesPlaceholder": "These will automatically populate once you wrote the address",
 		"fieldContactPhone": "Phone",
 		"fieldContactPhonePlaceholder": "+34 600 000 000",
 		"fieldReservationMode": "Reservation mode",
@@ -1460,6 +1535,7 @@
 			"addressRequired": "Address is required.",
 			"cityRequired": "City is required.",
 			"countryRequired": "Country is required.",
+			"coordinatesRequired": "Enter a complete address so latitude and longitude can be filled in automatically.",
 			"coverRequired": "Add a cover image."
 		},
 		"CreateHospitalitySchema": {
@@ -1468,6 +1544,7 @@
 			"addressRequired": "Address is required.",
 			"cityRequired": "City is required.",
 			"countryRequired": "Country is required.",
+			"coordinatesRequired": "Pick an address from the suggestions so we can place the map pin.",
 			"descriptionRequired": "Description is required.",
 			"phoneRequired": "Phone number is required.",
 			"coverRequired": "Add a cover image."
@@ -1475,7 +1552,8 @@
 		"CreatePartnershipSchema": {
 			"accommodationRequired": "Pick an accommodation.",
 			"hospitalityRequired": "Pick at least one hospitality.",
-			"discountRange": "Discount must be between 1 and 100, or leave blank."
+			"benefitRequired": "Benefit is required.",
+			"benefitMaxLength": "Benefit must be 15 characters or fewer."
 		},
 		"JoinGuestStaySchema": {
 			"sharingCodeInvalid": "That sharing code is invalid."
@@ -1529,7 +1607,7 @@
 		"PARTNERSHIP_CREATED": "Partnership created.",
 		"PARTNERSHIPS_CREATED": "Created {count} partnerships.",
 		"PARTNERSHIP_PAIR_EXISTS": "This accommodation is already linked to that hospitality.",
-		"PARTNERSHIP_DISCOUNT_INVALID": "Discount must be between 1 and 100.",
+		"PARTNERSHIP_BENEFIT_INVALID": "Benefit must be 1 to 15 characters.",
 		"USER_DELETED": "User deleted.",
 		"USER_CREATED": "User created.",
 		"USER_BANNED": "User banned.",

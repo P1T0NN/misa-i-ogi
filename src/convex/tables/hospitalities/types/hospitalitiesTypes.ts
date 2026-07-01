@@ -22,7 +22,7 @@ export type HospitalityGuestReservation = Pick<
 
 export type HospitalityPartnershipBenefit = Pick<
 	Doc<'partnerships'>,
-	'_id' | 'discountPercentage'
+	'_id' | 'benefit' | 'discountPercentage'
 >;
 
 /** @deprecated Use `HospitalityGuestReservation`. */

@@ -241,6 +241,8 @@
 		"ctaFindStay": "Find a stay",
 		"aboutEyebrow": "About",
 		"aboutTitle": "O ovom objektu",
+		"locationTitle": "Gde se nalazi",
+		"getDirections": "Navigacija",
 		"aboutSideNote": "Detalji iz objave ugostiteljskog objekta.",
 		"perkEyebrow": "Sample perk",
 		"perkMedallionLabel": "Sample",
@@ -894,6 +896,7 @@
 			"addressRequired": "Address is required.",
 			"cityRequired": "City is required.",
 			"countryRequired": "Country is required.",
+			"coordinatesRequired": "Unesite kompletnu adresu da bi se geografska širina i dužina automatski popunile.",
 			"coverRequired": "Add a cover image."
 		},
 		"CreateHospitalitySchema": {
@@ -902,6 +905,7 @@
 			"addressRequired": "Address is required.",
 			"cityRequired": "City is required.",
 			"countryRequired": "Country is required.",
+			"coordinatesRequired": "Izaberite adresu iz predloga da bismo postavili oznaku na mapi.",
 			"descriptionRequired": "Description is required.",
 			"phoneRequired": "Phone number is required.",
 			"coverRequired": "Add a cover image."

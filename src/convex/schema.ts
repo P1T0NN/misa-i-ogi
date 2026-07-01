@@ -39,6 +39,13 @@ const schema = defineSchema({
 		address: v.string(),
 		city: v.string(),
 		country: v.string(),
+		// Just the street number (e.g. "10"), kept alongside the full `address` so edit
+		// forms can rehydrate the separate number input. Optional for legacy rows.
+		addressNumber: v.optional(v.string()),
+		// Map pin. Optional so existing rows validate; add/edit forms require them
+		// going forward (filled by Places autocomplete).
+		latitude: v.optional(v.number()),
+		longitude: v.optional(v.number()),
 		description: v.optional(v.string()),
 
 		ownerId: v.string(),
@@ -75,6 +82,13 @@ const schema = defineSchema({
 		address: v.string(),
 		city: v.string(),
 		country: v.string(),
+		// Just the street number (e.g. "10"), kept alongside the full `address` so edit
+		// forms can rehydrate the separate number input. Optional for legacy rows.
+		addressNumber: v.optional(v.string()),
+		// Map pin. Optional so existing rows validate; add/edit forms require them
+		// going forward (filled by Places autocomplete).
+		latitude: v.optional(v.number()),
+		longitude: v.optional(v.number()),
 		description: v.string(),
 
 		contactPhone: v.string(),
@@ -96,8 +110,9 @@ const schema = defineSchema({
 	/**
 	 * Join row linking an accommodation to a partner hospitality. One
 	 * accommodation has many partnerships (one per venue) and one hospitality
-	 * serves many accommodations. Optional `discountPercentage` when the perk is
-	 * a percent-off offer. `isActive` disables a link without deleting history.
+	 * serves many accommodations. `benefit` is the short guest-facing offer label.
+	 * Legacy rows may still have `discountPercentage`. `isActive` disables a link
+	 * without deleting history.
 	 */
 	partnerships: defineTable({
 		accommodationId: v.id('accommodations'),
@@ -105,6 +120,7 @@ const schema = defineSchema({
 		accommodationScanToken: v.string(),
 		hospitalityId: v.id('hospitalities'),
 
+		benefit: v.optional(v.string()),
 		discountPercentage: v.optional(v.number()),
 
 		isActive: v.boolean()

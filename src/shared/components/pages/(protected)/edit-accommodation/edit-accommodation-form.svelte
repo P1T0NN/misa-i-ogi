@@ -10,6 +10,8 @@
 	// COMPONENTS
 	import ConvexMutationForm from '@/shared/components/ui/mutation-form/convex-mutation-form.svelte';
 	import UploadFileSingle from '@/features/uploadFile/components/upload-file-single/upload-file-single.svelte';
+	import GooglePlacesAutocomplete from '@/shared/components/ui/google-places-autocomplete/google-places-autocomplete.svelte';
+	import LocationMap from '@/shared/components/ui/location-map/location-map.svelte';
 
 	// SCHEMAS
 	import {
@@ -34,6 +36,13 @@
 	>;
 
 	let { accommodation }: { accommodation: AccommodationForEdit } = $props();
+
+	/** Recover just the street name from the stored full address. We append the number ourselves on
+	 *  save, so stripping that exact known suffix is precise — no fuzzy address parsing. */
+	function streetNameOf(address: string, number?: string): string {
+		if (number && address.endsWith(number)) return address.slice(0, -number.length).trim();
+		return address;
+	}
 
 	const sections: MutationFormSection[] = [
 		{
@@ -72,6 +81,13 @@
 					autocomplete: 'street-address'
 				},
 				{
+					id: 'addressNumber',
+					kind: 'input',
+					label: m['EditAccommodationPage.fieldAddressNumber'](),
+					placeholder: m['EditAccommodationPage.fieldAddressNumberPlaceholder'](),
+					colSpan: 1
+				},
+				{
 					id: 'city',
 					kind: 'input',
 					label: m['EditAccommodationPage.fieldCity'](),
@@ -85,6 +101,24 @@
 					label: m['EditAccommodationPage.fieldCountry'](),
 					placeholder: m['EditAccommodationPage.fieldCountryPlaceholder'](),
 					autocomplete: 'country-name',
+					colSpan: 1
+				},
+				{
+					id: 'latitude',
+					kind: 'input',
+					type: 'number',
+					label: m['EditAccommodationPage.fieldLatitude'](),
+					placeholder: m['EditAccommodationPage.fieldCoordinatesPlaceholder'](),
+					disabled: true,
+					colSpan: 1
+				},
+				{
+					id: 'longitude',
+					kind: 'input',
+					type: 'number',
+					label: m['EditAccommodationPage.fieldLongitude'](),
+					placeholder: m['EditAccommodationPage.fieldCoordinatesPlaceholder'](),
+					disabled: true,
 					colSpan: 1
 				}
 			]
@@ -130,8 +164,11 @@
 		name: '',
 		type: '' as AccommodationEditFormInputs['type'],
 		address: '',
+		addressNumber: '',
 		city: '',
 		country: '',
+		latitude: null,
+		longitude: null,
 		description: '',
 		isActive: true,
 		coverImageKey: null
@@ -152,9 +189,12 @@
 			accommodationId: row._id,
 			name: row.name,
 			type: row.type,
-			address: row.address,
+			address: streetNameOf(row.address, row.addressNumber),
+			addressNumber: row.addressNumber ?? '',
 			city: row.city,
 			country: row.country,
+			latitude: row.latitude ?? null,
+			longitude: row.longitude ?? null,
 			description: row.description ?? '',
 			isActive: row.isActive,
 			coverImageKey: null
@@ -171,9 +211,37 @@
 	runFunction={api.tables.accommodations.mutations.updateAccommodation.updateAccommodation}
 	submitLabel={m['EditAccommodationPage.submit']()}
 	resetOnSuccess={false}
-	customFields={{ coverImageKey: coverField }}
+	customFields={{ address: addressField, coverImageKey: coverField }}
 	onSuccess={() => appGoto(PROTECTED_PAGE_ENDPOINTS.MY_ACCOMMODATIONS)}
 />
+
+{#snippet addressField({
+	value,
+	setValue,
+	error,
+	inputId
+}: MutationFormFieldSnippetProps<AccommodationEditFormInputs>)}
+	<GooglePlacesAutocomplete
+		id={inputId}
+		value={value as string}
+		invalid={!!error}
+		onInput={(next) => {
+			setValue(next);
+			// A manual edit invalidates the last picked pin — coordinates only come from a real selection.
+			values.latitude = null;
+			values.longitude = null;
+		}}
+		onSelect={(place) => {
+			setValue(place.street || place.addressLine);
+			values.addressNumber = place.streetNumber;
+			values.city = place.city;
+			values.country = place.country;
+			values.latitude = place.lat;
+			values.longitude = place.lng;
+		}}
+	/>
+	<LocationMap lat={values.latitude} lng={values.longitude} class="mt-3" />
+{/snippet}
 
 {#snippet coverField({
 	value,

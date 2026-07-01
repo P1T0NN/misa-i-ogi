@@ -11,6 +11,8 @@
 	import ConvexMutationForm from '@/shared/components/ui/mutation-form/convex-mutation-form.svelte';
 	import UploadFileSingle from '@/features/uploadFile/components/upload-file-single/upload-file-single.svelte';
 	import ReservationModeField from '@/features/hospitalities/components/reservation-mode-field.svelte';
+	import GooglePlacesAutocomplete from '@/shared/components/ui/google-places-autocomplete/google-places-autocomplete.svelte';
+	import LocationMap from '@/shared/components/ui/location-map/location-map.svelte';
 
 	// SCHEMAS
 	import {
@@ -38,6 +40,13 @@
 	>;
 
 	let { hospitality }: { hospitality: HospitalityForEdit } = $props();
+
+	/** Recover just the street name from the stored full address. We append the number ourselves on
+	 *  save, so stripping that exact known suffix is precise — no fuzzy address parsing. */
+	function streetNameOf(address: string, number?: string): string {
+		if (number && address.endsWith(number)) return address.slice(0, -number.length).trim();
+		return address;
+	}
 
 	const sections: MutationFormSection[] = [
 		{
@@ -76,6 +85,13 @@
 					autocomplete: 'street-address'
 				},
 				{
+					id: 'addressNumber',
+					kind: 'input',
+					label: m['EditHospitalityPage.fieldAddressNumber'](),
+					placeholder: m['EditHospitalityPage.fieldAddressNumberPlaceholder'](),
+					colSpan: 1
+				},
+				{
 					id: 'city',
 					kind: 'input',
 					label: m['EditHospitalityPage.fieldCity'](),
@@ -89,6 +105,24 @@
 					label: m['EditHospitalityPage.fieldCountry'](),
 					placeholder: m['EditHospitalityPage.fieldCountryPlaceholder'](),
 					autocomplete: 'country-name',
+					colSpan: 1
+				},
+				{
+					id: 'latitude',
+					kind: 'input',
+					type: 'number',
+					label: m['EditHospitalityPage.fieldLatitude'](),
+					placeholder: m['EditHospitalityPage.fieldCoordinatesPlaceholder'](),
+					disabled: true,
+					colSpan: 1
+				},
+				{
+					id: 'longitude',
+					kind: 'input',
+					type: 'number',
+					label: m['EditHospitalityPage.fieldLongitude'](),
+					placeholder: m['EditHospitalityPage.fieldCoordinatesPlaceholder'](),
+					disabled: true,
 					colSpan: 1
 				}
 			]
@@ -156,8 +190,11 @@
 		name: '',
 		type: '' as HospitalityEditFormInputs['type'],
 		address: '',
+		addressNumber: '',
 		city: '',
 		country: '',
+		latitude: null,
+		longitude: null,
 		description: '',
 		contactPhone: '',
 		reservationMode: 'managed_request',
@@ -180,9 +217,12 @@
 			hospitalityId: row._id,
 			name: row.name,
 			type: row.type,
-			address: row.address,
+			address: streetNameOf(row.address, row.addressNumber),
+			addressNumber: row.addressNumber ?? '',
 			city: row.city,
 			country: row.country,
+			latitude: row.latitude ?? null,
+			longitude: row.longitude ?? null,
 			description: row.description,
 			contactPhone: row.contactPhone,
 			reservationMode: row.reservationMode,
@@ -201,9 +241,40 @@
 	runFunction={api.tables.hospitalities.mutations.updateHospitality.updateHospitality}
 	submitLabel={m['EditHospitalityPage.submit']()}
 	resetOnSuccess={false}
-	customFields={{ coverImageKey: coverField, reservationMode: reservationModeField }}
+	customFields={{
+		address: addressField,
+		coverImageKey: coverField,
+		reservationMode: reservationModeField
+	}}
 	onSuccess={() => appGoto(PROTECTED_PAGE_ENDPOINTS.MY_HOSPITALITIES)}
 />
+
+{#snippet addressField({
+	value,
+	setValue,
+	error,
+	inputId
+}: MutationFormFieldSnippetProps<HospitalityEditFormInputs>)}
+	<GooglePlacesAutocomplete
+		id={inputId}
+		value={value as string}
+		invalid={!!error}
+		onInput={(next) => {
+			setValue(next);
+			values.latitude = null;
+			values.longitude = null;
+		}}
+		onSelect={(place) => {
+			setValue(place.street || place.addressLine);
+			values.addressNumber = place.streetNumber;
+			values.city = place.city;
+			values.country = place.country;
+			values.latitude = place.lat;
+			values.longitude = place.lng;
+		}}
+	/>
+	<LocationMap lat={values.latitude} lng={values.longitude} class="mt-3" />
+{/snippet}
 
 {#snippet coverField({
 	value,

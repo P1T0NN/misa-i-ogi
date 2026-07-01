@@ -31,6 +31,9 @@ export const createHospitality = adminMutation('createHospitality')({
 		address: v.string(),
 		city: v.string(),
 		country: v.string(),
+		addressNumber: v.optional(v.string()),
+		latitude: v.optional(v.number()),
+		longitude: v.optional(v.number()),
 		description: v.string(),
 		contactPhone: v.string(),
 		reservationMode: v.literal('managed_request'),
@@ -42,6 +45,9 @@ export const createHospitality = adminMutation('createHospitality')({
 	returns: mutationResultValidator,
 	handler: async (ctx, args): Promise<MutationResult> => {
 		const { coverImageKey: uploadedKey, ownerId, ...rest } = args;
+		const addressNumber = rest.addressNumber?.trim();
+		// Full street line in `address` (what displays read) + the bare number for the edit form.
+		const address = [rest.address.trim(), addressNumber].filter(Boolean).join(' ');
 		const selectedOwnerId = ownerId?.trim() || undefined;
 		const resolvedOwnerId = selectedOwnerId ?? ctx.userId;
 
@@ -76,6 +82,8 @@ export const createHospitality = adminMutation('createHospitality')({
 			reservationMode: 'managed_request';
 		} = {
 			...rest,
+			address,
+			addressNumber: addressNumber || undefined,
 			coverImageKey: uploaded.key,
 			coverImageUrl,
 			ownerId: resolvedOwnerId,

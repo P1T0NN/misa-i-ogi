@@ -35,7 +35,9 @@ const config = {
 					'self',
 					'blob:',
 					'https://va.vercel-scripts.com',
-					'https://umami-sable-iota.vercel.app'
+					'https://umami-sable-iota.vercel.app',
+					// Google Maps JS API bootstrap + lazily-imported libraries
+					'https://maps.googleapis.com'
 				],
 				'worker-src': ['self', 'blob:'],
 				'style-src': ['self', 'unsafe-inline'],
@@ -53,9 +55,18 @@ const config = {
 					// Cloudflare R2 — direct browser PUT to signed upload URLs and GET on public objects
 					'https://*.r2.cloudflarestorage.com',
 					'https://*.r2.dev',
-					'https://umami-sable-iota.vercel.app'
+					'https://umami-sable-iota.vercel.app',
+					// Google Maps/Places (New) fetch calls + Maps vector tiles
+					'https://maps.googleapis.com',
+					'https://places.googleapis.com',
+					'https://maps.gstatic.com'
 				],
-				'frame-src': ['self', 'https://accounts.google.com'],
+				'frame-src': [
+					'self',
+					'https://accounts.google.com',
+					'https://www.google.com',
+					'https://maps.google.com'
+				],
 				'object-src': ['none'],
 				'base-uri': ['self'],
 				'form-action': ['self'],

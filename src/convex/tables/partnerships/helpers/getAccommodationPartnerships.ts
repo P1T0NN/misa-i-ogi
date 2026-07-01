@@ -65,13 +65,16 @@ export async function getAccommodationPartnershipsByAccommodationIdSafe(
 
 				return {
 					_id: partnership._id,
+					benefit: partnership.benefit,
 					discountPercentage: partnership.discountPercentage,
 					hospitality: {
 						_id: hospitality._id,
 						name: hospitality.name,
 						type: hospitality.type,
 						city: hospitality.city,
-						coverImageUrl: hospitality.coverImageUrl
+						coverImageUrl: hospitality.coverImageUrl,
+						latitude: hospitality.latitude,
+						longitude: hospitality.longitude
 					}
 				};
 			})

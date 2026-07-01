@@ -24,6 +24,8 @@ export async function getHospitalitySafe(
 		country: h.country,
 		description: h.description,
 		contactPhone: h.contactPhone,
-		coverImageUrl: h.coverImageUrl
+		coverImageUrl: h.coverImageUrl,
+		latitude: h.latitude,
+		longitude: h.longitude
 	};
 }

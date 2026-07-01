@@ -2,6 +2,14 @@
 import * as v from 'valibot';
 import { m } from '@/shared/lib/paraglide/messages';
 
+const hospitalityCoordinate = v.pipe(
+	v.nullable(v.number()),
+	v.check(
+		(value) => value !== null,
+		m['ValidationMessages.CreateHospitalitySchema.coordinatesRequired']()
+	)
+);
+
 export const hospitalityAddFormSchema = v.object({
 	name: v.pipe(
 		v.string(),
@@ -37,6 +45,9 @@ export const hospitalityAddFormSchema = v.object({
 		v.trim(),
 		v.minLength(1, m['ValidationMessages.CreateHospitalitySchema.phoneRequired']())
 	),
+	addressNumber: v.optional(v.pipe(v.string(), v.trim())),
+	latitude: hospitalityCoordinate,
+	longitude: hospitalityCoordinate,
 	reservationMode: v.literal('managed_request'),
 	ownerId: v.optional(v.pipe(v.string(), v.trim())),
 	isActive: v.boolean(),
@@ -88,6 +99,9 @@ export const hospitalityEditFormSchema = v.object({
 		v.trim(),
 		v.minLength(1, m['ValidationMessages.CreateHospitalitySchema.phoneRequired']())
 	),
+	addressNumber: v.optional(v.pipe(v.string(), v.trim())),
+	latitude: hospitalityCoordinate,
+	longitude: hospitalityCoordinate,
 	reservationMode: v.literal('managed_request'),
 	isActive: v.boolean(),
 	coverImageKey: v.optional(v.union([v.null(), v.file()]))

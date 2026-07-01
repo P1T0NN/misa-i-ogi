@@ -28,7 +28,7 @@ export default defineConfig({
 	ssr: {
 		// UI imports constants from @piton-/analytics-convex; Vite must bundle the
 		// package for SSR because its dist still uses extensionless relative imports.
-		noExternal: ['layerchart', '@dagrejs/dagre', '@piton-/analytics-convex']
+		noExternal: ['layerchart', '@dagrejs/dagre', '@piton-/analytics-convex', '@googlemaps/markerclusterer']
 	},
 	plugins: [
 		paraglideVitePlugin({

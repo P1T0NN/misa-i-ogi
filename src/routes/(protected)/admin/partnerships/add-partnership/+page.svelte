@@ -13,6 +13,8 @@
 	import SvelteHead from '@/shared/components/ui/svelte-head/svelte-head.svelte';
 	import ConvexMutationForm from '@/shared/components/ui/mutation-form/convex-mutation-form.svelte';
 	import { Button } from '@/shared/components/ui/button/index.js';
+	import { FieldDescription } from '@/shared/components/ui/field/index.js';
+	import { Input } from '@/shared/components/ui/input/index.js';
 	import PartnershipsSelectAccommodationDialog from '@/shared/components/pages/(protected)/admin/partnerships/partnerships-select-accommodation-dialog.svelte';
 	import PartnershipsSelectHospitalityDialog from '@/shared/components/pages/(protected)/admin/partnerships/partnerships-select-hospitality-dialog.svelte';
 
@@ -31,6 +33,8 @@
 
 	// LUCIDE ICONS
 	import ArrowLeftIcon from '@lucide/svelte/icons/arrow-left';
+
+	const BENEFIT_MAX_LENGTH = 15;
 
 	const sections: MutationFormSection[] = [
 		{
@@ -58,12 +62,11 @@
 			description: m['AdminPartnershipAddPage.sectionOfferDescription'](),
 			fields: [
 				{
-					id: 'discountPercentage',
+					id: 'benefit',
 					kind: 'input',
-					type: 'number',
-					label: m['AdminPartnershipAddPage.fieldDiscount'](),
-					placeholder: m['AdminPartnershipAddPage.fieldDiscountPlaceholder'](),
-					description: m['AdminPartnershipAddPage.fieldDiscountDescription']()
+					label: m['AdminPartnershipAddPage.fieldBenefit'](),
+					placeholder: m['AdminPartnershipAddPage.fieldBenefitPlaceholder'](),
+					required: true
 				}
 			]
 		}
@@ -72,12 +75,13 @@
 	let values = $state<PartnershipAddFormInputs>({
 		accommodationId: '',
 		hospitalityIds: [],
-		discountPercentage: ''
+		benefit: ''
 	});
 
 	const customFields: MutationFormCustomFields<PartnershipAddFormInputs> = {
 		accommodationId: accommodationField,
-		hospitalityIds: hospitalityField
+		hospitalityIds: hospitalityField,
+		benefit: benefitField
 	};
 </script>
 
@@ -148,4 +152,28 @@
 		value={Array.isArray(value) ? value : []}
 		{setValue}
 	/>
+{/snippet}
+
+{#snippet benefitField({
+	inputId,
+	value,
+	setValue,
+	error
+}: MutationFormFieldSnippetProps<PartnershipAddFormInputs>)}
+	{@const benefitValue = typeof value === 'string' ? value : ''}
+	<Input
+		id={inputId}
+		name="benefit"
+		value={benefitValue}
+		maxlength={BENEFIT_MAX_LENGTH}
+		placeholder={m['AdminPartnershipAddPage.fieldBenefitPlaceholder']()}
+		required
+		aria-invalid={error ? 'true' : undefined}
+		aria-describedby={`${inputId}-hint`}
+		oninput={(event) => setValue(event.currentTarget.value)}
+	/>
+	<FieldDescription id={`${inputId}-hint`} class="flex items-center justify-between gap-3">
+		<span>{m['AdminPartnershipAddPage.fieldBenefitDescription']()}</span>
+		<span class="shrink-0 tabular-nums">{benefitValue.length}/{BENEFIT_MAX_LENGTH}</span>
+	</FieldDescription>
 {/snippet}

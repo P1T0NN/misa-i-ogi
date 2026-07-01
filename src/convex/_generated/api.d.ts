@@ -83,7 +83,9 @@ import type * as tables_accommodations_helpers_getAccommodationsByIds from "../t
 import type * as tables_accommodations_helpers_getOwnedAccommodation from "../tables/accommodations/helpers/getOwnedAccommodation.js";
 import type * as tables_accommodations_helpers_getUserOwnedAccommodationIds from "../tables/accommodations/helpers/getUserOwnedAccommodationIds.js";
 import type * as tables_accommodations_helpers_getUserOwnedAccommodations from "../tables/accommodations/helpers/getUserOwnedAccommodations.js";
-import type * as tables_accommodations_mutations_createAccommodation from "../tables/accommodations/mutations/createAccommodation.js";
+import type * as tables_accommodations_mutations_adminCreateAccommodation from "../tables/accommodations/mutations/adminCreateAccommodation.js";
+import type * as tables_accommodations_mutations_createAccommodationForOwner from "../tables/accommodations/mutations/createAccommodationForOwner.js";
+import type * as tables_accommodations_mutations_createMyAccommodation from "../tables/accommodations/mutations/createMyAccommodation.js";
 import type * as tables_accommodations_mutations_deleteAccommodations from "../tables/accommodations/mutations/deleteAccommodations.js";
 import type * as tables_accommodations_mutations_updateAccommodation from "../tables/accommodations/mutations/updateAccommodation.js";
 import type * as tables_accommodations_queries_fetchAccommodationDetails from "../tables/accommodations/queries/fetchAccommodationDetails.js";
@@ -248,7 +250,9 @@ declare const fullApi: ApiFromModules<{
   "tables/accommodations/helpers/getOwnedAccommodation": typeof tables_accommodations_helpers_getOwnedAccommodation;
   "tables/accommodations/helpers/getUserOwnedAccommodationIds": typeof tables_accommodations_helpers_getUserOwnedAccommodationIds;
   "tables/accommodations/helpers/getUserOwnedAccommodations": typeof tables_accommodations_helpers_getUserOwnedAccommodations;
-  "tables/accommodations/mutations/createAccommodation": typeof tables_accommodations_mutations_createAccommodation;
+  "tables/accommodations/mutations/adminCreateAccommodation": typeof tables_accommodations_mutations_adminCreateAccommodation;
+  "tables/accommodations/mutations/createAccommodationForOwner": typeof tables_accommodations_mutations_createAccommodationForOwner;
+  "tables/accommodations/mutations/createMyAccommodation": typeof tables_accommodations_mutations_createMyAccommodation;
   "tables/accommodations/mutations/deleteAccommodations": typeof tables_accommodations_mutations_deleteAccommodations;
   "tables/accommodations/mutations/updateAccommodation": typeof tables_accommodations_mutations_updateAccommodation;
   "tables/accommodations/queries/fetchAccommodationDetails": typeof tables_accommodations_queries_fetchAccommodationDetails;

@@ -4,14 +4,33 @@ import { PROTECTED_PAGE_ENDPOINTS, UNPROTECTED_PAGE_ENDPOINTS } from '@/shared/c
 // LIBRARIES
 import { m } from '@/shared/lib/paraglide/messages';
 
-export function getFooterLinkGroups() {
+/** When to show a footer link relative to auth state. Omit for "always". */
+type FooterLinkVisibility = 'guest' | 'user';
+
+type FooterLink = {
+	href: string;
+	label: string;
+	visibility?: FooterLinkVisibility;
+};
+
+type FooterLinkGroup = {
+	id: string;
+	heading: string;
+	links: FooterLink[];
+};
+
+export function getFooterLinkGroups(): FooterLinkGroup[] {
 	return [
 		{
 			id: 'product',
 			heading: m['Footer.groupProduct'](),
 			links: [
 				{ href: UNPROTECTED_PAGE_ENDPOINTS.ROOT, label: m['Footer.linkOverview']() },
-				{ href: PROTECTED_PAGE_ENDPOINTS.DASHBOARD, label: m['Footer.linkDashboard']() }
+				{
+					href: PROTECTED_PAGE_ENDPOINTS.DASHBOARD,
+					label: m['Footer.linkDashboard'](),
+					visibility: 'user'
+				}
 			]
 		},
 		{
@@ -27,9 +46,18 @@ export function getFooterLinkGroups() {
 		{
 			id: 'account',
 			heading: m['Footer.groupAccount'](),
-			links: [{ href: UNPROTECTED_PAGE_ENDPOINTS.LOGIN, label: m['Footer.linkSignIn']() }]
+			links: [
+				{ href: UNPROTECTED_PAGE_ENDPOINTS.LOGIN, label: m['Footer.linkSignIn'](), visibility: 'guest' }
+			]
 		}
 	];
+}
+
+/** Keep links whose visibility matches the current auth state. */
+export function isFooterLinkVisible(link: FooterLink, isAuthenticated: boolean): boolean {
+	if (link.visibility === 'guest') return !isAuthenticated;
+	if (link.visibility === 'user') return isAuthenticated;
+	return true;
 }
 
 /** Inline footer links — no pill chrome; matches enterprise site footers. */

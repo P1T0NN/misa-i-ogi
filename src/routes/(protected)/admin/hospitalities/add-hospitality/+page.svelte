@@ -17,6 +17,8 @@
 	// COMPONENTS
 	import SvelteHead from '@/shared/components/ui/svelte-head/svelte-head.svelte';
 	import ConvexMutationForm from '@/shared/components/ui/mutation-form/convex-mutation-form.svelte';
+	import GooglePlacesAutocomplete from '@/shared/components/ui/google-places-autocomplete/google-places-autocomplete.svelte';
+	import LocationMap from '@/shared/components/ui/location-map/location-map.svelte';
 	import { Button } from '@/shared/components/ui/button/index.js';
 	import AdminOwnerField from '@/features/users/components/admin-owner-field.svelte';
 
@@ -78,6 +80,13 @@
 					autocomplete: 'street-address'
 				},
 				{
+					id: 'addressNumber',
+					kind: 'input',
+					label: m['AdminHospitalityAddPage.fieldAddressNumber'](),
+					placeholder: m['AdminHospitalityAddPage.fieldAddressNumberPlaceholder'](),
+					colSpan: 1
+				},
+				{
 					id: 'city',
 					kind: 'input',
 					label: m['AdminHospitalityAddPage.fieldCity'](),
@@ -91,6 +100,24 @@
 					label: m['AdminHospitalityAddPage.fieldCountry'](),
 					placeholder: m['AdminHospitalityAddPage.fieldCountryPlaceholder'](),
 					autocomplete: 'country-name',
+					colSpan: 1
+				},
+				{
+					id: 'latitude',
+					kind: 'input',
+					type: 'number',
+					label: m['AdminHospitalityAddPage.fieldLatitude'](),
+					placeholder: m['AdminHospitalityAddPage.fieldCoordinatesPlaceholder'](),
+					disabled: true,
+					colSpan: 1
+				},
+				{
+					id: 'longitude',
+					kind: 'input',
+					type: 'number',
+					label: m['AdminHospitalityAddPage.fieldLongitude'](),
+					placeholder: m['AdminHospitalityAddPage.fieldCoordinatesPlaceholder'](),
+					disabled: true,
 					colSpan: 1
 				}
 			]
@@ -157,8 +184,11 @@
 		name: '',
 		type: '' as HospitalityAddFormInputs['type'],
 		address: '',
+		addressNumber: '',
 		city: '',
 		country: '',
+		latitude: null,
+		longitude: null,
 		description: '',
 		contactPhone: '',
 		reservationMode: 'managed_request',
@@ -203,12 +233,43 @@
 			schema={hospitalityAddFormSchema}
 			runFunction={api.tables.hospitalities.mutations.createHospitality.createHospitality}
 			submitLabel={m['AdminHospitalityAddPage.submit']()}
-			customFields={{ ownerId: ownerField, reservationMode: reservationModeField }}
+			customFields={{
+				address: addressField,
+				ownerId: ownerField,
+				reservationMode: reservationModeField
+			}}
 			resetOnSuccess={false}
 			onSuccess={() => appGoto(ADMIN_PAGE_ENDPOINTS.HOSPITALITIES)}
 		/>
 	</div>
 </section>
+
+{#snippet addressField({
+	value,
+	setValue,
+	error,
+	inputId
+}: MutationFormFieldSnippetProps<HospitalityAddFormInputs>)}
+	<GooglePlacesAutocomplete
+		id={inputId}
+		value={value as string}
+		invalid={!!error}
+		onInput={(next) => {
+			setValue(next);
+			values.latitude = null;
+			values.longitude = null;
+		}}
+		onSelect={(place) => {
+			setValue(place.street || place.addressLine);
+			values.addressNumber = place.streetNumber;
+			values.city = place.city;
+			values.country = place.country;
+			values.latitude = place.lat;
+			values.longitude = place.lng;
+		}}
+	/>
+	<LocationMap lat={values.latitude} lng={values.longitude} class="mt-3" />
+{/snippet}
 
 {#snippet ownerField({
 	value,

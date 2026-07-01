@@ -5,6 +5,7 @@ export const COMPANY_DATA = {
 	NAME: 'Company Name',
 	EMAIL: 'company@gmail.com',
 	DOMAIN: 'company.com',
+	LOCATION: 'Belgrade, Serbia',
 	LOGO: '/logo/logo.webp',
 	DESCRIPTION:
 		'We build dependable software and services so your team can focus on what matters most.'
@@ -32,6 +33,7 @@ export const PROTECTED_PAGE_ENDPOINTS = {
 	ANALYTICS_HOSPITALITIES: resolve('/analytics/hospitalities'),
 	ANALYTICS_RESERVATIONS: resolve('/analytics/reservations'),
 	MY_ACCOMMODATIONS: resolve('/my-accommodations'),
+	MY_ACCOMMODATION_ADD: resolve('/add-accommodation'),
 	MY_HOSPITALITIES: resolve('/my-hospitalities'),
 	RESERVATIONS: resolve('/reservations'),
 	// Templates filled at the call site via .replace(':id', …) — not concrete routes, so not resolve()d.

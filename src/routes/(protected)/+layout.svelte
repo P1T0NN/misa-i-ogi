@@ -34,6 +34,7 @@
 	import CalendarCheckIcon from '@lucide/svelte/icons/calendar-check';
 	import ShieldCheckIcon from '@lucide/svelte/icons/shield-check';
 	import HomeIcon from '@lucide/svelte/icons/home';
+	import CirclePlusIcon from '@lucide/svelte/icons/circle-plus';
 
 	let { children } = $props();
 
@@ -72,6 +73,11 @@
 					name: m['ProtectedSidebar.myAccommodations'](),
 					url: PROTECTED_PAGE_ENDPOINTS.MY_ACCOMMODATIONS,
 					icon: BuildingIcon
+				},
+				{
+					name: m['AddAccommodationPage.navLabel'](),
+					url: PROTECTED_PAGE_ENDPOINTS.MY_ACCOMMODATION_ADD,
+					icon: CirclePlusIcon
 				},
 				{
 					name: m['ProtectedSidebar.myHospitalities'](),

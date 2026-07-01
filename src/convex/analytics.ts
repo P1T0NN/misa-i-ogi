@@ -107,7 +107,7 @@ export const analytics = defineAnalytics(components.analytics, {
 				accommodationName: property.string(),
 				hospitalityId: property.string({ required: true }),
 				hospitalityName: property.string(),
-				discountPercent: property.number(),
+				benefit: property.string(),
 				partnershipDelta: property.number({ required: true })
 			}
 		}),

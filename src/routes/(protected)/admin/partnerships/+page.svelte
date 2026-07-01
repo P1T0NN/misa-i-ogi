@@ -31,11 +31,14 @@
 		sortDirection
 	});
 
-	function discountLabel(row: Doc<'partnerships'>) {
-		if (row.discountPercentage == null) {
-			return m['AdminPartnershipsPage.discountNone']();
+	function benefitLabel(row: Doc<'partnerships'>) {
+		if (row.benefit) {
+			return row.benefit;
 		}
-		return m['AdminPartnershipsPage.discountValue']({ percent: row.discountPercentage });
+		if (row.discountPercentage != null) {
+			return m['AdminPartnershipsPage.legacyDiscountValue']({ percent: row.discountPercentage });
+		}
+		return m['AdminPartnershipsPage.benefitNone']();
 	}
 
 	const columns: ColumnDef<Doc<'partnerships'>>[] = [
@@ -64,9 +67,9 @@
 			cellClass: 'max-w-[10rem] font-mono text-xs md:max-w-xs'
 		},
 		{
-			id: 'discount',
-			header: m['AdminPartnershipsPage.columnDiscount'](),
-			accessor: (r) => discountLabel(r),
+			id: 'benefit',
+			header: m['AdminPartnershipsPage.columnBenefit'](),
+			accessor: (r) => benefitLabel(r),
 			hideBelow: 'sm'
 		},
 		{
@@ -110,7 +113,7 @@
 		customCells={{
 			accommodation: accommodationCell,
 			hospitality: hospitalityCell,
-			discount: discountCell
+			benefit: benefitCell
 		}}
 		bind:sortColumn
 		bind:sortDirection
@@ -137,10 +140,14 @@
 	</Link>
 {/snippet}
 
-{#snippet discountCell({ row }: DataTableCellSnippetProps<Doc<'partnerships'>>)}
-	{#if row.discountPercentage != null}
-		<Badge variant="secondary">{row.discountPercentage}%</Badge>
+{#snippet benefitCell({ row }: DataTableCellSnippetProps<Doc<'partnerships'>>)}
+	{#if row.benefit}
+		<Badge variant="secondary">{row.benefit}</Badge>
+	{:else if row.discountPercentage != null}
+		<Badge variant="secondary">
+			{m['AdminPartnershipsPage.legacyDiscountValue']({ percent: row.discountPercentage })}
+		</Badge>
 	{:else}
-		<span class="text-sm text-muted-foreground">{m['AdminPartnershipsPage.discountNone']()}</span>
+		<span class="text-sm text-muted-foreground">{m['AdminPartnershipsPage.benefitNone']()}</span>
 	{/if}
 {/snippet}

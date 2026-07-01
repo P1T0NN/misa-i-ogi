@@ -75,6 +75,8 @@ export const fetchHospitalityDetails = query({
 				address: hospitality.address,
 				city: hospitality.city,
 				country: hospitality.country,
+				latitude: hospitality.latitude,
+				longitude: hospitality.longitude,
 				description: hospitality.description,
 				contactPhone: hospitality.contactPhone,
 				coverImageUrl: hospitality.coverImageUrl
@@ -82,6 +84,7 @@ export const fetchHospitalityDetails = query({
 			partnership: activePartnership
 				? {
 						_id: activePartnership._id,
+						benefit: activePartnership.benefit,
 						discountPercentage: activePartnership.discountPercentage
 					}
 				: null,

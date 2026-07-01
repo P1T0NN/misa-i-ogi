@@ -1,12 +1,12 @@
 <script lang="ts">
-	// LIBRARIES
-	import { ArrowRight } from '@lucide/svelte';
-
 	// CONFIG
 	import { UNPROTECTED_PAGE_ENDPOINTS } from '@/shared/constants';
 
 	// COMPONENTS
 	import { Button } from '@/shared/components/ui/button/index.js';
+
+	// LUCIDE ICONS
+	import { ArrowRight } from '@lucide/svelte';
 </script>
 
 <section
@@ -69,6 +69,7 @@
 				</Button>
 
 				<Button
+					href={UNPROTECTED_PAGE_ENDPOINTS.CONTACT}
 					variant="outline"
 					size="lg"
 					class="h-11 border-ivory/30 bg-ivory/10 px-5 text-button text-ivory hover:bg-ivory/20 hover:text-ivory"
