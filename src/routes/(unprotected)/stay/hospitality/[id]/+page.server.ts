@@ -36,13 +36,13 @@ export const load: PageServerLoad = async (event) => {
 		throw redirect(302, UNPROTECTED_PAGE_ENDPOINTS.STAY);
 	}
 
-	// Track the hospitality view for analytics — fire-and-forget
-	client
+	// Track the hospitality view for analytics. Awaited because serverless
+	// functions can freeze right after the response is sent, dropping any
+	// still-in-flight request; errors are swallowed so tracking never breaks the page.
+	await client
 		.mutation(api.tables.hospitalities.mutations.viewHospitality.viewHospitality, {
 			hospitalityId: params.id as Id<'hospitalities'>,
 			guestStayCookie
 		})
-		.catch(() => {
-			// Best-effort — don't block the page render
-		});
+		.catch(() => {});
 };

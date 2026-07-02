@@ -57,8 +57,7 @@
 		...partnerships
 			.filter(
 				(p) =>
-					typeof p.hospitality.latitude === 'number' &&
-					typeof p.hospitality.longitude === 'number'
+					typeof p.hospitality.latitude === 'number' && typeof p.hospitality.longitude === 'number'
 			)
 			.map((p): StayMarker => {
 				const lat = p.hospitality.latitude as number;
@@ -106,10 +105,7 @@
 	});
 
 	$effect(() => {
-		if (
-			selectedPartnerId &&
-			!partnerships.some((p) => p.hospitality._id === selectedPartnerId)
-		) {
+		if (selectedPartnerId && !partnerships.some((p) => p.hospitality._id === selectedPartnerId)) {
 			clearSelection();
 		}
 	});

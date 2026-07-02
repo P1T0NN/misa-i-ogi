@@ -3,22 +3,16 @@
 	import { m } from '@/shared/lib/paraglide/messages';
 
 	// CONFIG
-	import { COMPANY_DATA, UNPROTECTED_PAGE_ENDPOINTS } from '@/shared/constants';
+	import { UNPROTECTED_PAGE_ENDPOINTS } from '@/shared/constants';
 
 	// COMPONENTS
 	import SvelteHead from '@/shared/components/ui/svelte-head/svelte-head.svelte';
 	import LoginFormNoImage from '@/features/auth/components/login-form/login-form-no-image.svelte';
 	import LoginFormWithImage from '@/features/auth/components/login-form/login-form-with-image.svelte';
-	import Link from '@/shared/components/ui/link/link.svelte';
-
-	// LUCIDE ICONS
-	import GalleryVerticalEndIcon from '@lucide/svelte/icons/gallery-vertical-end';
+	import Logo from '@/shared/components/ui/logo/logo.svelte';
 </script>
 
-<SvelteHead
-	title={m['LoginPage.SEO.title']()}
-	description={m['LoginPage.SEO.description']()}
-/>
+<SvelteHead title={m['LoginPage.SEO.title']()} description={m['LoginPage.SEO.description']()} />
 
 <div class="flex h-screen w-full items-center justify-center px-4 lg:hidden">
 	<LoginFormNoImage />
@@ -27,15 +21,7 @@
 <div class="hidden min-h-svh lg:grid lg:grid-cols-2">
 	<div class="flex flex-col gap-4 p-6 md:p-10">
 		<div class="flex justify-center gap-2 md:justify-start">
-			<Link href={UNPROTECTED_PAGE_ENDPOINTS.ROOT} class="flex items-center gap-2 font-medium">
-				<div
-					class="flex size-6 items-center justify-center rounded-md bg-primary text-primary-foreground"
-				>
-					<GalleryVerticalEndIcon class="size-4" />
-				</div>
-
-				{COMPANY_DATA.NAME}
-			</Link>
+			<Logo href={UNPROTECTED_PAGE_ENDPOINTS.ROOT} size="sm" withText />
 		</div>
 
 		<div class="flex flex-1 items-center justify-center">

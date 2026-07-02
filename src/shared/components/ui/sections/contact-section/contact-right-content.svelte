@@ -25,8 +25,8 @@
 		<Card.Title class="text-base font-semibold text-foreground">Send a message</Card.Title>
 
 		<Card.Description class="mt-1 text-sm text-muted-foreground">
-			Tell us whether you run accommodations, hospitalities, or both. We will reply with the
-			best next step for your network.
+			Tell us whether you run accommodations, hospitalities, or both. We will reply with the best
+			next step for your network.
 		</Card.Description>
 	</Card.Header>
 

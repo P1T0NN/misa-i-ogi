@@ -9,7 +9,7 @@
 	import { Badge } from '@/shared/components/ui/badge/index.js';
 	import { Button } from '@/shared/components/ui/button/index.js';
 
-    // DATA
+	// DATA
 	import { labelHospitalityType } from '@/features/hospitalities/data/hospitalitiesData';
 
 	// TYPES

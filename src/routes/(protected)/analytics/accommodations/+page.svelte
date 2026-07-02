@@ -2,7 +2,7 @@
 	// LIBRARIES
 	import { m } from '@/shared/lib/paraglide/messages';
 	import { api } from '@/convex/_generated/api';
-	import { useQuery } from 'convex-svelte';
+	import { useQuery } from '@mmailaender/convex-svelte';
 
 	// CLASSES
 	import { authClass } from '@/features/auth/classes/authClass.svelte';
@@ -53,7 +53,9 @@
 		<ErrorComponent
 			variant="card"
 			title={m['AnalyticsAccommodationsPage.UserAnalyticsAccommodationsError.title']()}
-			headerDescription={m['AnalyticsAccommodationsPage.UserAnalyticsAccommodationsError.headerDescription']()}
+			headerDescription={m[
+				'AnalyticsAccommodationsPage.UserAnalyticsAccommodationsError.headerDescription'
+			]()}
 			body={m['AnalyticsAccommodationsPage.UserAnalyticsAccommodationsError.body']()}
 			showRetry={false}
 		/>

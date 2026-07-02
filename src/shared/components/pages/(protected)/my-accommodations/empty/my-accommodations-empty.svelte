@@ -22,7 +22,9 @@
 			{m['MyAccommodationsPage.MyAccommodationsEmpty.title']()}
 		</h2>
 		<p class="mt-1 max-w-md text-sm text-muted-foreground">
-			{m['MyAccommodationsPage.MyAccommodationsEmpty.description']({ companyName: COMPANY_DATA.NAME })}
+			{m['MyAccommodationsPage.MyAccommodationsEmpty.description']({
+				companyName: COMPANY_DATA.NAME
+			})}
 		</p>
 		<p class="mt-2 flex items-center gap-1.5 text-xs font-medium text-muted-foreground">
 			<span>{m['MyAccommodationsPage.MyAccommodationsEmpty.hint']()}</span>

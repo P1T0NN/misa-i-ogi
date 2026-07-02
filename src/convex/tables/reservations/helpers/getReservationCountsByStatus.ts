@@ -1,20 +1,23 @@
+// HELPERS
+import { analytics } from '@/convex/analytics';
+import { RESERVATION_STATUSES, reservationStatusCounterKey } from '@/convex/helpers/counterKeys';
+
 // TYPES
 import type { QueryCtx } from '@/convex/_generated/server';
 import type { ReservationStatus } from '@/convex/tables/reservations/types/reservationsTypes';
 
-const RESERVATION_STATUSES: ReservationStatus[] = ['pending', 'confirmed', 'cancelled', 'no_show'];
-
+/**
+ * O(1) exact per-status counts — reads the `reservations.*` counters
+ * maintained transactionally by the reservation mutations instead of
+ * collecting every row in all four status indexes.
+ */
 export async function getReservationCountsByStatus(ctx: QueryCtx) {
-	const counts = await Promise.all(
-		RESERVATION_STATUSES.map(async (status) => {
-			const reservations = await ctx.db
-				.query('reservations')
-				.withIndex('by_status', (q) => q.eq('status', status))
-				.collect();
-
-			return [status, reservations.length] as const;
-		})
+	const counts = await analytics.counters.getMany(
+		ctx,
+		RESERVATION_STATUSES.map(reservationStatusCounterKey)
 	);
 
-	return Object.fromEntries(counts) as Record<ReservationStatus, number>;
+	return Object.fromEntries(
+		RESERVATION_STATUSES.map((status) => [status, counts[reservationStatusCounterKey(status)] ?? 0])
+	) as Record<ReservationStatus, number>;
 }

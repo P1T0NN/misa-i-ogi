@@ -55,7 +55,7 @@ Osnovna tenzija: naš prihod je procenat od onoga što gosti potroše u pouzdani
 
 - **Smeštajni objekti ostaju besplatni, zauvek.** Besplatni stanovi su ponuda koja čini objekte spremnima da plaćaju. Naplaćivanje vlasniku da se pridruži preseći bi naš sopstveni lanac ponude. Besplatna registracija je trojanski konj — ne budite pohlepni s tim.
 
-- **Zarađujemo kroz čisto, proverljivo iskorišćavanje — ne kroz samoprijavljeni promet.** Vežite naš procenat za ponudu koju gost zapravo iskoristi (kod pokazan lično, potvrđen od strane objekta u trenutku korišćenja, idealno usklađen sa fiskalnim računom). Uzimamo naš procenat od *te verifikovane, popustne transakcije*, a ne od broja koji nam objekat predaje na kraju meseca. Ovo je najvažniji dizajnerski izbor za Srbiju.
+- **Zarađujemo kroz čisto, proverljivo iskorišćavanje — ne kroz samoprijavljeni promet.** Vežite naš procenat za ponudu koju gost zapravo iskoristi (kod pokazan lično, potvrđen od strane objekta u trenutku korišćenja, idealno usklađen sa fiskalnim računom). Uzimamo naš procenat od _te verifikovane, popustne transakcije_, a ne od broja koji nam objekat predaje na kraju meseca. Ovo je najvažniji dizajnerski izbor za Srbiju.
 
 - **Vodite jakim, stvarnim pogodnostima.** Simbolično dobrodošlice piće neće privući gosta koji pazi na troškove. Vodite pogodnostima koje gost može osetiti — stvaran popust, besplatno jelo, nadogradnja. Pogodnost je ono što pokreće ceo zamajac; slabe pogodnosti znače nema skeniranja, nema iskorišćavanja, nema prihoda.
 

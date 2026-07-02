@@ -62,15 +62,13 @@
 	const showIcon = $derived(variant !== 'minimal' && variant !== 'header');
 	const isEmbedded = $derived(variant === 'content');
 	const showCardContent = $derived(
-		variant !== 'header' && (showIcon || resolvedBody || resolvedBodyDescription || showRetry || children)
+		variant !== 'header' &&
+			(showIcon || resolvedBody || resolvedBodyDescription || showRetry || children)
 	);
 </script>
 
 {#if isEmbedded}
-	<div
-		role="alert"
-		class={cn('flex flex-col items-center gap-4 py-8 text-center', className)}
-	>
+	<div role="alert" class={cn('flex flex-col items-center gap-4 py-8 text-center', className)}>
 		{#if showIcon}
 			<div
 				class="flex size-12 items-center justify-center rounded-full bg-destructive/10 text-destructive"
@@ -149,16 +147,10 @@
 	</div>
 {:else}
 	<Card
-		class={cn(
-			'overflow-hidden py-0',
-			variant === 'panel' && 'border-border',
-			className
-		)}
+		class={cn('overflow-hidden py-0', variant === 'panel' && 'border-border', className)}
 		role="alert"
 	>
-		<CardHeader
-			class={cn(variant === 'panel' && 'border-b border-border/60 bg-muted/20')}
-		>
+		<CardHeader class={cn(variant === 'panel' && 'border-b border-border/60 bg-muted/20')}>
 			<CardTitle>{title}</CardTitle>
 			<CardDescription>{resolvedHeaderDescription}</CardDescription>
 		</CardHeader>

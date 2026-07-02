@@ -47,7 +47,11 @@ export function getFooterLinkGroups(): FooterLinkGroup[] {
 			id: 'account',
 			heading: m['Footer.groupAccount'](),
 			links: [
-				{ href: UNPROTECTED_PAGE_ENDPOINTS.LOGIN, label: m['Footer.linkSignIn'](), visibility: 'guest' }
+				{
+					href: UNPROTECTED_PAGE_ENDPOINTS.LOGIN,
+					label: m['Footer.linkSignIn'](),
+					visibility: 'guest'
+				}
 			]
 		}
 	];

@@ -4,6 +4,7 @@ import { authMutation } from '@/convex/auth/middleware/authMiddleware';
 
 // HELPERS
 import { analytics } from '@/convex/analytics';
+import { reservationStatusCounterKey } from '@/convex/helpers/counterKeys';
 
 // UTILS
 import { createAnalyticsResourceScope, createAnalyticsScopeId } from '@piton-/analytics-convex';
@@ -29,6 +30,8 @@ export const confirmReservation = authMutation('confirmReservation')({
 		}
 
 		await ctx.db.patch(args.reservationId, { status: 'confirmed' });
+		await analytics.counters.bump(ctx, reservationStatusCounterKey('pending'), -1);
+		await analytics.counters.bump(ctx, reservationStatusCounterKey('confirmed'), 1);
 
 		const [hospitality, accommodation] = await Promise.all([
 			ctx.db.get(reservation.hospitalityId),

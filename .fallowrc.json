@@ -32,7 +32,6 @@
 		}
 	],
 	"ignoreExportsUsedInFile": true,
-	"ignoreDependencies": ["sharp"],
 	"ignoreUnresolvedImports": ["./dataModel.js"],
 	"duplicates": {
 		"minOccurrences": 3,

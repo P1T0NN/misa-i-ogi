@@ -2,7 +2,7 @@
 	// LIBRARIES
 	import { m } from '@/shared/lib/paraglide/messages';
 	import { api } from '@/convex/_generated/api';
-	import { useQuery } from 'convex-svelte';
+	import { useQuery } from '@mmailaender/convex-svelte';
 
 	// COMPONENTS
 	import SvelteHead from '@/shared/components/ui/svelte-head/svelte-head.svelte';

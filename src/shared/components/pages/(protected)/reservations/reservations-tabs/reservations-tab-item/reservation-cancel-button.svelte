@@ -2,7 +2,7 @@
 	// LIBRARIES
 	import { m } from '@/shared/lib/paraglide/messages';
 	import { api } from '@/convex/_generated/api';
-	import { useConvexClient } from 'convex-svelte';
+	import { useConvexClient } from '@mmailaender/convex-svelte';
 
 	// COMPONENTS
 	import ActionButton from '@/shared/components/ui/action-button/action-button.svelte';

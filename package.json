@@ -1,5 +1,5 @@
 {
-	"name": "svelte-authentication-template",
+	"name": "misa-i-ogi-frontend",
 	"private": true,
 	"version": "0.0.1",
 	"type": "module",
@@ -13,6 +13,7 @@
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"generate:guest-auth-key": "bun scripts/generate-guest-convex-auth-key.ts",
+		"optimize-images": "bun scripts/optimize-images.mjs",
 		"format": "prettier --write .",
 		"lint": "prettier --check . && eslint .",
 		"audit:fallow": "fallow audit --gate new-only"
@@ -63,7 +64,7 @@
 		"@mmailaender/convex-svelte": "^0.18.0",
 		"@oslojs/crypto": "^1.0.1",
 		"@oslojs/encoding": "^1.1.0",
-		"@piton-/analytics-convex": "^1.0.1",
+		"@piton-/analytics-convex": "^1.1.1",
 		"@types/d3-scale": "^4.0.9",
 		"@vercel/speed-insights": "^2.0.0",
 		"better-auth": "1.5.3",
@@ -72,13 +73,11 @@
 		"chrono-node": "^2.9.0",
 		"convex": "^1.36.1",
 		"convex-helpers": "^0.1.115",
-		"convex-svelte": "^0.0.12",
 		"d3-scale": "^4.0.2",
 		"d3-shape": "^3.2.0",
 		"layerchart": "2.0.0-next.48",
 		"qrcode": "^1.5.4",
 		"resend": "^6.12.2",
-		"sharp": "^0.34.5",
 		"valibot": "^1.2.0"
 	}
 }

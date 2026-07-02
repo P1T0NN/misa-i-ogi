@@ -24,7 +24,7 @@
 
 	<div class="relative mx-auto w-full max-w-xl lg:mx-0">
 		<Card
-			class="overflow-hidden rounded-2xl border border-border-2 bg-card py-0 shadow-dashboard-card"
+			class="shadow-dashboard-card overflow-hidden rounded-2xl border border-border-2 bg-card py-0"
 		>
 			<CardHeader
 				class="flex flex-row items-start justify-between gap-3 border-b border-border-2 px-4 py-4 sm:px-5"

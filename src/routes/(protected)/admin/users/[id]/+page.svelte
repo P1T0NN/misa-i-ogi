@@ -2,7 +2,7 @@
 	// LIBRARIES
 	import { m } from '@/shared/lib/paraglide/messages';
 	import { api } from '@/convex/_generated/api';
-	import { useQuery } from 'convex-svelte';
+	import { useQuery } from '@mmailaender/convex-svelte';
 	import { page } from '$app/state';
 	import { appGoto } from '@/shared/utils/app-navigation';
 	import { authClient } from '@/features/auth/lib/auth-client';

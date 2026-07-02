@@ -36,6 +36,12 @@
 	"CreatedByOmnilabs": {
 		"label": "Created by"
 	},
+	"ToggleColorTheme": {
+		"toggleTheme": "Toggle theme",
+		"light": "Light",
+		"dark": "Dark",
+		"system": "System"
+	},
 	"PlacesAutocomplete": {
 		"placeholder": "Start typing an address...",
 		"regionPlaceholder": "Search for a city or country...",
@@ -456,6 +462,13 @@
 		"TryAgain": {
 			"label": "Try again"
 		}
+	},
+	"ErrorPage": {
+		"notFoundTitle": "Page not found",
+		"notFoundDescription": "The page you're looking for doesn't exist or has been moved.",
+		"errorTitle": "Something went wrong",
+		"errorDescription": "An unexpected error occurred. Please try again.",
+		"backHome": "Back to home"
 	},
 	"DataTable": {
 		"DataTableEmpty": {

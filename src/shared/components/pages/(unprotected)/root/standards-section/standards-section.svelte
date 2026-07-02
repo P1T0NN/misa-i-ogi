@@ -27,7 +27,7 @@
 	>
 		Curated means both sides look good.
 	</h2>
-	
+
 	<p class="mt-3 max-w-[52ch] text-lg leading-relaxed text-silver">
 		If a partnership does not improve the guest experience and send the right kind of demand to the
 		hospitality partner, it does not belong on the page.

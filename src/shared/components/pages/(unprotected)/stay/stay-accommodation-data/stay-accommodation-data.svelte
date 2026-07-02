@@ -41,7 +41,9 @@
 		api.tables.partnerships.queries.fetchAccommodationPartnerships.fetchAccommodationPartnerships,
 		() => (partnersUnlocked ? {} : 'skip')
 	);
-	const partnerships = $derived(partnershipsQuery.data as AccommodationPartnershipSafe[] | undefined);
+	const partnerships = $derived(
+		partnershipsQuery.data as AccommodationPartnershipSafe[] | undefined
+	);
 	const partnershipsLoading = $derived(
 		partnersUnlocked && partnerships === undefined && !partnershipsQuery.error
 	);
@@ -109,7 +111,9 @@
 				</div>
 
 				<div class="flex shrink-0 flex-col gap-2 sm:items-end">
-					<div class="flex items-center gap-3 rounded-lg border border-border bg-background px-4 py-3">
+					<div
+						class="flex items-center gap-3 rounded-lg border border-border bg-background px-4 py-3"
+					>
 						<code class="font-mono text-xl tracking-eyebrow text-foreground">{sharingCode}</code>
 						<CopyButton
 							value={sharingCode}
@@ -126,14 +130,13 @@
 
 		<!-- Details + partners (left) · map sidebar (right, sticky). -->
 		<div
-			class={cn(
-				'mt-8 grid gap-8 lg:mt-10 lg:items-start lg:gap-12',
-				hasCoords && 'lg:grid-cols-2'
-			)}
+			class={cn('mt-8 grid gap-8 lg:mt-10 lg:items-start lg:gap-12', hasCoords && 'lg:grid-cols-2')}
 		>
 			<div class="flex min-w-0 flex-col gap-10">
 				{#if accommodation.description}
-					<p class="mb-0 max-w-prose text-sm leading-relaxed whitespace-pre-wrap text-foreground/90">
+					<p
+						class="mb-0 max-w-prose text-sm leading-relaxed whitespace-pre-wrap text-foreground/90"
+					>
 						{accommodation.description}
 					</p>
 				{/if}

@@ -31,7 +31,8 @@
 		}),
 		createComparedAnalyticsMetric({
 			id: 'guest-activations',
-			label: m['AnalyticsAccommodationDetailPage.UserAnalyticsAccommodationMetrics.guestActivations'](),
+			label:
+				m['AnalyticsAccommodationDetailPage.UserAnalyticsAccommodationMetrics.guestActivations'](),
 			metric: metrics.guestActivations
 		}),
 		createComparedAnalyticsMetric({

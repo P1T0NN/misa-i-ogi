@@ -155,7 +155,12 @@
 	});
 </script>
 
-{#snippet addressField({ value, setValue, error, inputId }: MutationFormFieldSnippetProps<AccommodationMyAddFormInputs>)}
+{#snippet addressField({
+	value,
+	setValue,
+	error,
+	inputId
+}: MutationFormFieldSnippetProps<AccommodationMyAddFormInputs>)}
 	<GooglePlacesAutocomplete
 		id={inputId}
 		value={value as string}

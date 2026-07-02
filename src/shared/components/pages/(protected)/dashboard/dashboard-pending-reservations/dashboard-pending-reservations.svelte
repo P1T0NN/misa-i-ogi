@@ -2,7 +2,7 @@
 	// LIBRARIES
 	import { m } from '@/shared/lib/paraglide/messages';
 	import { api } from '@/convex/_generated/api';
-	import { useQuery } from 'convex-svelte';
+	import { useQuery } from '@mmailaender/convex-svelte';
 
 	// CONFIG
 	import { PROTECTED_PAGE_ENDPOINTS } from '@/shared/constants.js';
@@ -51,8 +51,12 @@
 			<CardHeader>
 				<div class="flex items-start justify-between gap-3">
 					<div>
-						<CardTitle class="text-base">{m['DashboardPage.DashboardPendingReservations.cardTitle']()}</CardTitle>
-						<CardDescription>{m['DashboardPage.DashboardPendingReservations.cardDescription']()}</CardDescription>
+						<CardTitle class="text-base"
+							>{m['DashboardPage.DashboardPendingReservations.cardTitle']()}</CardTitle
+						>
+						<CardDescription
+							>{m['DashboardPage.DashboardPendingReservations.cardDescription']()}</CardDescription
+						>
 					</div>
 					<CalendarCheckIcon class="size-5 text-muted-foreground" />
 				</div>

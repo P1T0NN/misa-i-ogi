@@ -1,8 +1,11 @@
 /**
  * Generates messages/sr.json from en.json using phrase-level Serbian (Latin) translations.
+ * Existing sr.json translations always win — this script only fills keys that are
+ * new in en.json, so it never clobbers hand-curated translations.
  * Run: bun scripts/generate-sr-messages.ts
  */
 import en from '../messages/en.json';
+import existingSr from '../messages/sr.json';
 import { writeFileSync } from 'node:fs';
 
 /** Exact English → Serbian (Latin) phrase map. Unmapped strings stay in English. */
@@ -111,24 +114,33 @@ function translateValue(value: string): string {
 	return PHRASES[value] ?? value;
 }
 
-function translateTree<T>(node: T): T {
+function translateTree<T>(node: T, existing: unknown): T {
 	if (typeof node === 'string') {
+		if (typeof existing === 'string' && existing.length > 0) {
+			return existing as T;
+		}
 		return translateValue(node) as T;
 	}
 	if (node && typeof node === 'object') {
 		if (Array.isArray(node)) {
-			return node.map((item) => translateTree(item)) as T;
+			return node.map((item, i) =>
+				translateTree(item, Array.isArray(existing) ? existing[i] : undefined)
+			) as T;
 		}
+		const prev =
+			existing && typeof existing === 'object' && !Array.isArray(existing)
+				? (existing as Record<string, unknown>)
+				: undefined;
 		const out: Record<string, unknown> = {};
 		for (const [key, value] of Object.entries(node as Record<string, unknown>)) {
-			out[key] = translateTree(value);
+			out[key] = translateTree(value, prev?.[key]);
 		}
 		return out as T;
 	}
 	return node;
 }
 
-const sr = translateTree(en);
+const sr = translateTree(en, existingSr);
 
 writeFileSync('messages/sr.json', `${JSON.stringify(sr, null, '\t')}\n`, 'utf8');
 console.log('Wrote messages/sr.json');

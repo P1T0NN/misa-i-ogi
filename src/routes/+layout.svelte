@@ -1,6 +1,5 @@
 <script lang="ts">
 	import './layout.css';
-	import favicon from '@/shared/lib/assets/favicon.svg';
 
 	// SVELTEKIT IMPORTS
 	import { page } from '$app/state';
@@ -20,7 +19,7 @@
 	import { authClass, type CurrentUser } from '@/features/auth/classes/authClass.svelte';
 
 	// CONFIG
-	import { UNPROTECTED_PAGE_ENDPOINTS } from '@/shared/constants.js';
+	import { COMPANY_DATA, UNPROTECTED_PAGE_ENDPOINTS } from '@/shared/constants.js';
 
 	// COMPONENTS
 	import { Toaster } from '@/shared/components/ui/sonner';
@@ -111,8 +110,8 @@
 </script>
 
 <svelte:head>
-	<link rel="icon" href={favicon} />
-	{#if dev}
+	<link rel="icon" href={COMPANY_DATA.FAVICON} type="image/x-icon" sizes="any" />
+	{#if !dev}
 		<script
 			defer
 			src="https://umami-sable-iota.vercel.app/script.js"

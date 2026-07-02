@@ -11,5 +11,9 @@ bun.lockb
 # Machine-generated code (convex codegen rewrites these with platform line endings)
 **/_generated/
 
+# Paraglide compiler output — gitignored via its own nested .gitignore, which
+# prettier doesn't read (it only reads the root .gitignore).
+src/shared/lib/paraglide/
+
 # Local-only editor/agent state
 .claude/settings.local.json

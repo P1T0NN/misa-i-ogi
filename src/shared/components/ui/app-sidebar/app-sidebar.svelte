@@ -62,7 +62,11 @@
 		<Sidebar.Menu>
 			<Sidebar.MenuItem>
 				{#if hasLogo}
-					<Logo class="size-5!" />
+					<Logo
+						withText
+						size="sm"
+						class="w-full max-w-full px-2 [&_span]:text-sidebar-foreground"
+					/>
 				{:else}
 					<span class="truncate px-2 text-base font-semibold text-sidebar-foreground">
 						{COMPANY_DATA.NAME}

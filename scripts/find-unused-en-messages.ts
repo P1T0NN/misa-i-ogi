@@ -53,4 +53,6 @@ walk('scripts');
 const unused = [...allKeys].filter((k) => !used.has(k)).sort();
 const falsePositives = [...used].filter((k) => !allKeys.has(k)).sort();
 
-console.log(JSON.stringify({ total: allKeys.size, used: used.size, unused, falsePositives }, null, 2));
+console.log(
+	JSON.stringify({ total: allKeys.size, used: used.size, unused, falsePositives }, null, 2)
+);

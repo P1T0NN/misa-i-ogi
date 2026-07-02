@@ -57,7 +57,7 @@
 >
 	<div class="mx-auto w-full max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-14">
 		<div class="flex flex-col gap-10 lg:flex-row lg:items-start lg:justify-between lg:gap-8">
-			<div class="min-w-0 max-w-md">
+			<div class="max-w-md min-w-0">
 				{#if hasLogo}
 					<Logo size="md" href={homeHref} />
 				{:else}

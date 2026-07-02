@@ -20,12 +20,10 @@ export const sendContactFormEmail = safeCommand(sendContactFormEmailSchema, asyn
 	const { error } = await resend.emails.send({
 		from: `Website Contact Form <noreply@${COMPANY_DATA.DOMAIN}>`,
 		to: [COMPANY_DATA.EMAIL],
+		replyTo: data.email,
 		subject: 'Website contact form',
-		html: `
-			<p>Name: ${data.name}</p>
-			<p>Email: ${data.email}</p>
-			<p>Message: ${data.message}</p>
-		`
+		// Plain text — user input must never be interpolated into HTML unescaped.
+		text: `Name: ${data.name}\nEmail: ${data.email}\n\n${data.message}`
 	});
 
 	if (error) {

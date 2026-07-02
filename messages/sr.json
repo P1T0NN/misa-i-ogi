@@ -1,5 +1,12 @@
 {
 	"$schema": "https://inlang.com/schema/inlang-message-format",
+	"ErrorPage": {
+		"notFoundTitle": "Stranica nije pronađena",
+		"notFoundDescription": "Stranica koju tražite ne postoji ili je premeštena.",
+		"errorTitle": "Došlo je do greške",
+		"errorDescription": "Došlo je do neočekivane greške. Pokušajte ponovo.",
+		"backHome": "Nazad na početnu"
+	},
 	"Header": {
 		"login": "Prijava",
 		"linkBenefits": "Pogodnosti",

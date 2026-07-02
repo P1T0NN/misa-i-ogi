@@ -13,6 +13,7 @@ import { getAccommodationByScanTokenSafe } from '@/convex/tables/accommodations/
 import { getActivePartnershipsByAccommodation } from '@/convex/tables/partnerships/helpers/getActivePartnershipsByAccommodation';
 import { getHospitalitiesByIds } from '@/convex/tables/hospitalities/helpers/getHospitalitiesByIds';
 import { analytics } from '@/convex/analytics';
+import { COUNTER_KEYS } from '@/convex/helpers/counterKeys';
 
 // UTILS
 import {
@@ -65,10 +66,15 @@ export const createGuest = mutation({
 
 		const existingGuests = await getGuestSessionsByAccommodationId(ctx, accommodation._id);
 
+		let expiredRemoved = 0;
 		for (const guest of existingGuests) {
 			if (guest.expiresAt < now) {
 				await ctx.db.delete(guest._id);
+				expiredRemoved++;
 			}
+		}
+		if (expiredRemoved > 0) {
+			await analytics.counters.bump(ctx, COUNTER_KEYS.GUESTS_TOTAL, -expiredRemoved);
 		}
 
 		const activeGuest = existingGuests.find((guest) => guest.expiresAt >= now);
@@ -113,6 +119,7 @@ export const createGuest = mutation({
 			createdAt: now,
 			lastSeenAt: now
 		});
+		await analytics.counters.bump(ctx, COUNTER_KEYS.GUESTS_TOTAL, 1);
 
 		// Activation also counts for partner venue owners — their analytics pages read
 		// `guestActivations` at the `hospitalityOwner` scope (funnel: scan → activation → view).

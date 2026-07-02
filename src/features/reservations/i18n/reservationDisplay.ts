@@ -1,7 +1,7 @@
 // LIBRARIES
 import { m } from '@/shared/lib/paraglide/messages';
 
-// TYPES 
+// TYPES
 import type { ReservationStatus } from '@/convex/tables/reservations/types/reservationsTypes';
 
 /**

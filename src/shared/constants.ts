@@ -2,19 +2,20 @@
 import { resolve } from '$app/paths';
 
 export const COMPANY_DATA = {
-	NAME: 'Company Name',
-	EMAIL: 'company@gmail.com',
-	DOMAIN: 'company.com',
+	NAME: 'Kurosava',
+	EMAIL: 'kurosava@gmail.com',
+	DOMAIN: 'kurosava.com',
 	LOCATION: 'Belgrade, Serbia',
-	LOGO: '/logo/logo.webp',
+	LOGO: '/logo/opt/logo-no-text-orange-transparent-595w.webp',
+	FAVICON: '/kurosava.ico',
 	DESCRIPTION:
-		'We build dependable software and services so your team can focus on what matters most.'
+		'Kurosava is a platform for connecting accommodations with hospitality owners for enabling the guests to enjoy their stay even more with additional benefits.'
 } as const;
 
 export const ADMIN_PAGE_ENDPOINTS = {
 	DASHBOARD: resolve('/admin/dashboard'),
 	ANALYTICS: resolve('/admin/analytics'),
-	ACCOMMODATIONS: '/admin/accommodations',
+	ACCOMMODATIONS: resolve('/admin/accommodations'),
 	ACCOMMODATION_ADD: resolve('/admin/accommodations/add-accommodation'),
 	HOSPITALITIES: resolve('/admin/hospitalities'),
 	HOSPITALITY_ADD: resolve('/admin/hospitalities/add-hospitality'),

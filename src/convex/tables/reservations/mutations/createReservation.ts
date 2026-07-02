@@ -11,6 +11,7 @@ import { getGuestActiveHospitalityReservation } from '@/convex/tables/reservatio
 import { sendReservationEmailToHospitalityOwner } from '@/convex/tables/reservations/emails/sendReservationEmailToHospitalityOwner';
 import { sendReservationEmailToGuest } from '@/convex/tables/reservations/emails/sendReservationEmailToGuest';
 import { analytics } from '@/convex/analytics';
+import { reservationStatusCounterKey } from '@/convex/helpers/counterKeys';
 
 // SCHEMAS
 import { mutationResultValidator, type MutationResult } from '@/convex/schemas/mutationResult';
@@ -129,6 +130,7 @@ export const createReservation = mutation({
 			requestedTime: input.requestedTime,
 			status: 'pending'
 		});
+		await analytics.counters.bump(ctx, reservationStatusCounterKey('pending'), 1);
 
 		const accommodation = await ctx.db.get(guest.accommodationId);
 		if (accommodation) {

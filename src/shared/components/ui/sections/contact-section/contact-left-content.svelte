@@ -19,8 +19,8 @@
 	</h2>
 
 	<p class="mt-6 max-w-sm text-base leading-relaxed text-silver">
-		Large operators, boutique accommodations, restaurants, bars, spas, tours, and local experiences can all
-		enter through the same conversation.
+		Large operators, boutique accommodations, restaurants, bars, spas, tours, and local experiences
+		can all enter through the same conversation.
 	</p>
 
 	<div class="my-10 h-px bg-linear-to-r from-ivory/20 to-transparent"></div>

@@ -27,7 +27,8 @@
 			color: 'var(--chart-1)'
 		},
 		guestActivations: {
-			label: m['AnalyticsAccommodationDetailPage.UserAnalyticsAccommodationChart.guestActivations'](),
+			label:
+				m['AnalyticsAccommodationDetailPage.UserAnalyticsAccommodationChart.guestActivations'](),
 			color: 'var(--success)'
 		},
 		reservations: {

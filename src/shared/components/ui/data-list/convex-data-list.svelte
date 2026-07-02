@@ -1,6 +1,6 @@
 <script lang="ts" generics="T extends Record<string, unknown>">
 	// LIBRARIES
-	import { useQuery } from 'convex-svelte';
+	import { useQuery } from '@mmailaender/convex-svelte';
 
 	// CONFIG
 	import { PAGINATION_DATA } from '@/shared/config.js';
