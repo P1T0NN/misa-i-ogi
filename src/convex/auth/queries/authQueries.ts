@@ -26,7 +26,7 @@ export const getCurrentUser = query({
 		// - `.take(1)` on `by_owner` is cheap (existence check, not a full portfolio load).
 		// - Real platform users almost always own accommodations and/or hospitalities, so
 		//   the extra work piggybacks on a query we were already paying for anyway.
-		const [accommodation, hospitality] = await Promise.all([
+		const [accommodation, hospitality, trial] = await Promise.all([
 			ctx.db
 				.query('accommodations')
 				.withIndex('by_owner', (q) => q.eq('ownerId', user._id))
@@ -34,7 +34,14 @@ export const getCurrentUser = query({
 			ctx.db
 				.query('hospitalities')
 				.withIndex('by_owner', (q) => q.eq('ownerId', user._id))
-				.take(1)
+				.take(1),
+			// Account-level pro-trial state — indexed point read, piggybacked here
+			// for the same reason as the flags above (header badge + feature gates
+			// read it without another subscription).
+			ctx.db
+				.query('proTrials')
+				.withIndex('by_user', (q) => q.eq('userId', user._id))
+				.unique()
 		]);
 
 		const hasAccommodations: boolean = accommodation.length > 0;
@@ -43,7 +50,10 @@ export const getCurrentUser = query({
 		return {
 			...user,
 			hasAccommodations,
-			hasHospitalities
+			hasHospitalities,
+			plan: (user as { plan?: string | null }).plan ?? 'free',
+			/** `null` = trial never started; otherwise its end timestamp (may be past). */
+			proTrialEndsAt: trial?.endsAt ?? null
 		};
 	}
 });

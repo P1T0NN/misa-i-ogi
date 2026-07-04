@@ -1,5 +1,10 @@
+// LIBRARIES
+import { ConvexError } from 'convex/values';
+
 // HELPERS
 import { createDeleteMutation } from '@/convex/helpers/createDeleteMutation';
+import { hasActiveHospitalityPartnership } from '@/convex/tables/partnerships/helpers/hasActivePartnership';
+import { hospitalityHasOpenReservations } from '@/convex/tables/reservations/helpers/hospitalityHasOpenReservations';
 
 // R2
 import { r2 } from '@/convex/storage/r2/r2';
@@ -7,6 +12,7 @@ import { r2 } from '@/convex/storage/r2/r2';
 // TYPES
 import type { MutationCtx } from '@/convex/_generated/server';
 import type { Doc } from '@/convex/_generated/dataModel';
+import type { ConvexErrorPayload } from '@/convex/types/convexTypes';
 
 /**
  * Admin-only bulk delete for hospitalities. See `deleteAccommodations` for the
@@ -32,5 +38,20 @@ const cleanupCoverImages = async (ctx: MutationCtx, docs: Doc<'hospitalities'>[]
 export const deleteHospitalities = createDeleteMutation('deleteHospitalities', {
 	table: 'hospitalities',
 	runStorageDelete: cleanupCoverImages,
-	phase2Strategy: 'optimized'
+	phase2Strategy: 'optimized',
+	authorize: async (ctx, doc) => {
+		if (await hasActiveHospitalityPartnership(ctx, doc._id)) {
+			throw new ConvexError({
+				code: 'HOSPITALITY_HAS_ACTIVE_PARTNERSHIP',
+				message: { key: 'GenericMessages.HOSPITALITY_CANNOT_DELETE_ACTIVE_PARTNERSHIP' }
+			} satisfies ConvexErrorPayload);
+		}
+		if (await hospitalityHasOpenReservations(ctx, doc._id)) {
+			throw new ConvexError({
+				code: 'HOSPITALITY_HAS_OPEN_RESERVATIONS',
+				message: { key: 'GenericMessages.HOSPITALITY_CANNOT_DELETE_OPEN_RESERVATIONS' }
+			} satisfies ConvexErrorPayload);
+		}
+		return true;
+	}
 });

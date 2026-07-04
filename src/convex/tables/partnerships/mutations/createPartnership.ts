@@ -11,11 +11,10 @@ import { mutationResultValidator } from '@/convex/schemas/mutationResult';
 
 // UTILS
 import { createAnalyticsScopeId } from '@piton-/analytics-convex';
+import { parsePartnershipBenefit } from '@/convex/tables/partnerships/utils/parsePartnershipBenefit';
 
 // TYPES
 import type { MutationResult } from '@/convex/schemas/mutationResult';
-
-const PARTNERSHIP_BENEFIT_MAX_LENGTH = 15;
 
 export const createPartnership = adminMutation('createPartnership')({
 	args: {
@@ -26,7 +25,7 @@ export const createPartnership = adminMutation('createPartnership')({
 	returns: mutationResultValidator,
 	handler: async (ctx, args): Promise<MutationResult> => {
 		const hospitalityIds = [...new Set(args.hospitalityIds)];
-		const benefit = args.benefit.trim();
+		const benefit = parsePartnershipBenefit(args.benefit);
 
 		if (hospitalityIds.length === 0) {
 			return { success: false, message: { key: 'GenericMessages.NO_ITEMS_PROVIDED' } };
@@ -37,7 +36,7 @@ export const createPartnership = adminMutation('createPartnership')({
 			return { success: false, message: { key: 'GenericMessages.ACCOMMODATION_NOT_FOUND' } };
 		}
 
-		if (benefit.length === 0 || benefit.length > PARTNERSHIP_BENEFIT_MAX_LENGTH) {
+		if (!benefit) {
 			return {
 				success: false,
 				message: { key: 'GenericMessages.PARTNERSHIP_BENEFIT_INVALID' }

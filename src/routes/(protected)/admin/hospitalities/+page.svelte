@@ -15,6 +15,7 @@
 	import Link from '@/shared/components/ui/link/link.svelte';
 	import { Badge } from '@/shared/components/ui/badge/index.js';
 	import { Button } from '@/shared/components/ui/button/index.js';
+	import HospitalityVisibilityButton from '@/shared/components/pages/(protected)/admin/hospitalities/hospitality-visibility-button.svelte';
 
 	// TYPES
 	import type {
@@ -82,6 +83,12 @@
 			hideBelow: 'md'
 		},
 		{
+			id: 'visibility',
+			header: m['AdminHospitalitiesPage.columnVisibility'](),
+			accessor: (r) => r.visibility ?? 'public',
+			hideBelow: 'md'
+		},
+		{
 			id: 'created',
 			header: m['AdminHospitalitiesPage.columnCreated'](),
 			accessor: (r) => new Date(r._creationTime).toLocaleString(),
@@ -119,7 +126,7 @@
 		optimizationStrategy="cursor"
 		getRowId={(r) => r._id}
 		{columns}
-		customCells={{ name: nameCell, status: statusCell }}
+		customCells={{ name: nameCell, status: statusCell, visibility: visibilityCell }}
 		bind:sortColumn
 		bind:sortDirection
 		selectable
@@ -134,6 +141,10 @@
 	>
 		{row.name}
 	</Link>
+{/snippet}
+
+{#snippet visibilityCell({ row }: DataTableCellSnippetProps<Doc<'hospitalities'>>)}
+	<HospitalityVisibilityButton hospitality={row} />
 {/snippet}
 
 {#snippet statusCell({ row }: DataTableCellSnippetProps<Doc<'hospitalities'>>)}

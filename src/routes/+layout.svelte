@@ -14,6 +14,7 @@
 	import { api } from '@/convex/_generated/api';
 	import { useAuth } from '@mmailaender/convex-better-auth-svelte/svelte';
 	import { injectSpeedInsights } from '@vercel/speed-insights/sveltekit';
+	import { NuqsAdapter } from 'nuqs-svelte/adapters/svelte-kit';
 
 	// CLASSES
 	import { authClass, type CurrentUser } from '@/features/auth/classes/authClass.svelte';
@@ -125,7 +126,9 @@
 		<NormalHeader changeBgOnScroll={true} />
 	{/if}
 	<div class="min-h-0 flex-1">
-		{@render children()}
+		<NuqsAdapter>
+			{@render children()}
+		</NuqsAdapter>
 	</div>
 	{#if showSiteChrome}
 		<Footer />

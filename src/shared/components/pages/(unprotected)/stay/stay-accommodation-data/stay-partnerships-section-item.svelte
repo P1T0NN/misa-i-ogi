@@ -16,7 +16,7 @@
 	import { labelHospitalityType } from '@/features/hospitalities/data/hospitalitiesData';
 
 	// TYPES
-	import type { AccommodationPartnershipSafe } from '@/convex/tables/partnerships/types/partnershipsTypes';
+	import type { typesPartnershipAccommodationSafe } from '@/features/partnerships/types/partnershipsTypes';
 
 	// LUCIDE ICONS
 	import ArrowRightIcon from '@lucide/svelte/icons/arrow-right';
@@ -29,7 +29,7 @@
 		originLng,
 		onHover
 	}: {
-		partnership: AccommodationPartnershipSafe;
+		partnership: typesPartnershipAccommodationSafe;
 		/** Accommodation coordinates, to show how far this partner is. */
 		originLat?: number | null;
 		originLng?: number | null;

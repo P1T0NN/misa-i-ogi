@@ -3,6 +3,7 @@ import { v } from 'convex/values';
 
 // HELPERS
 import { getOwnedAccommodation } from '@/convex/tables/accommodations/helpers/getOwnedAccommodation';
+import { AUDIT_ACTIONS } from '@/convex/tables/auditLog/auditLogConfigs';
 
 // UTILS
 import { authMutation } from '@/convex/auth/middleware/authMiddleware';
@@ -79,6 +80,12 @@ export const updateAccommodation = authMutation('updateAccommodation')({
 			isActive: args.isActive,
 			coverImageKey,
 			coverImageUrl
+		});
+
+		ctx.audit(AUDIT_ACTIONS.ACCOMMODATION_UPDATE, {
+			resource: { table: 'accommodations', id: args.accommodationId },
+			before: { name: doc.name, type: doc.type, isActive: doc.isActive },
+			after: { name: args.name.trim(), type: args.type, isActive: args.isActive }
 		});
 
 		return {

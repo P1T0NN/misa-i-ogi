@@ -21,6 +21,7 @@ export const AUDIT_ACTIONS = {
 	USER_UNBAN: 'user.unban',
 	USER_SESSION_REVOKE: 'user.session.revoke',
 	USER_SESSIONS_REVOKE_ALL: 'user.sessions.revoke_all',
+	USER_PLAN_UPDATE: 'user.plan.update',
 
 	// Generic admin
 	ADMIN_ACTION: 'admin.action',
@@ -31,7 +32,27 @@ export const AUDIT_ACTIONS = {
 
 	// Partnerships
 	PARTNERSHIP_CREATE: 'partnership.create',
-	PARTNERSHIP_DELETE: 'partnership.delete'
+	PARTNERSHIP_DELETE: 'partnership.delete',
+	PARTNERSHIP_REQUEST_CREATE: 'partnership.request.create',
+	PARTNERSHIP_REQUEST_DECLINE: 'partnership.request.decline',
+
+	// Accommodations
+	ACCOMMODATION_CREATE: 'accommodation.create',
+	ACCOMMODATION_UPDATE: 'accommodation.update',
+
+	// Hospitalities
+	HOSPITALITY_CREATE: 'hospitality.create',
+	HOSPITALITY_UPDATE: 'hospitality.update',
+	HOSPITALITY_VISIBILITY_UPDATE: 'hospitality.visibility.update',
+
+	// Reservations (owner-side state transitions; guest-side create is analytics-only)
+	RESERVATION_CONFIRM: 'reservation.confirm',
+	RESERVATION_CANCEL: 'reservation.cancel',
+	RESERVATION_NO_SHOW: 'reservation.no_show',
+
+	// Pro trial
+	TRIAL_START: 'trial.start',
+	TRIAL_EXPIRE: 'trial.expire'
 } as const;
 
 /**

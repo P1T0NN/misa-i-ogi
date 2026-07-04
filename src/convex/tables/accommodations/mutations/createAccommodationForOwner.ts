@@ -1,6 +1,8 @@
 // HELPERS
 import { allocateScanToken } from '@/convex/tables/accommodations/helpers/allocateScanToken';
 import { analytics } from '@/convex/analytics';
+import { logAudit } from '@/convex/tables/auditLog/helpers/logAudit';
+import { AUDIT_ACTIONS } from '@/convex/tables/auditLog/auditLogConfigs';
 
 // UTILS
 import { createAnalyticsScopeId } from '@piton-/analytics-convex';
@@ -30,7 +32,7 @@ export type CreateAccommodationForOwnerInput = {
 export async function createAccommodationForOwner(
 	ctx: MutationCtx,
 	input: CreateAccommodationForOwnerInput,
-	options: { uploadOwnerId?: string } = {}
+	options: { uploadOwnerId?: string; actorId?: string } = {}
 ): Promise<MutationResult> {
 	const scanToken = await allocateScanToken(ctx);
 	if (!scanToken) {
@@ -76,6 +78,15 @@ export async function createAccommodationForOwner(
 	};
 
 	const accommodationId = await ctx.db.insert('accommodations', accommodation);
+
+	// Actor is the admin for admin-create, the owner for self-service. `ownerId`
+	// (who the venue belongs to) rides in metadata so both are on the record.
+	logAudit(ctx, AUDIT_ACTIONS.ACCOMMODATION_CREATE, {
+		userId: options.actorId,
+		resource: { table: 'accommodations', id: accommodationId },
+		after: { name: accommodation.name, type: accommodation.type, isActive: accommodation.isActive },
+		metadata: { ownerId }
+	});
 
 	await analytics.track(ctx, 'accommodation.registered', {
 		subject: { type: 'accommodation', id: accommodationId },

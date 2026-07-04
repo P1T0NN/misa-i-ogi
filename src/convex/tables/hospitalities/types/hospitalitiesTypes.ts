@@ -7,10 +7,10 @@ export type HospitalityType = Doc<'hospitalities'>['type'];
 /** Reservation handling workflow available to a hospitality. */
 export type ReservationMode = Doc<'hospitalities'>['reservationMode'];
 
-/** Public-safe `hospitalities` doc — strips owner, storage key, lifecycle, and system metadata. */
+/** Public-safe `hospitalities` doc — strips owner, storage keys, lifecycle, and system metadata. */
 export type HospitalityDetailsSafe = Omit<
 	Doc<'hospitalities'>,
-	'ownerId' | 'coverImageKey' | 'reservationMode' | 'isActive' | '_creationTime'
+	'ownerId' | 'coverImageKey' | 'menuFileKey' | 'reservationMode' | 'isActive' | '_creationTime'
 >;
 
 export type HospitalityGuestReservation = Pick<

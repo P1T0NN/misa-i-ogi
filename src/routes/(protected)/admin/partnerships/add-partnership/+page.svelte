@@ -8,6 +8,7 @@
 
 	// CONFIG
 	import { ADMIN_PAGE_ENDPOINTS } from '@/shared/constants.js';
+	import { PARTNERSHIP_BENEFIT_MAX_LENGTH } from '@/shared/config.js';
 
 	// COMPONENTS
 	import SvelteHead from '@/shared/components/ui/svelte-head/svelte-head.svelte';
@@ -24,53 +25,19 @@
 		type PartnershipAddFormInputs
 	} from '@/features/partnerships/schemas/partnershipsSchemas';
 
+	// FORMS
+	import { createPartnershipFormSections } from '@/features/partnerships/forms/createPartnershipForm';
+
 	// TYPES
 	import type {
 		MutationFormCustomFields,
-		MutationFormFieldSnippetProps,
-		MutationFormSection
+		MutationFormFieldSnippetProps
 	} from '@/shared/components/ui/mutation-form/types.js';
 
 	// LUCIDE ICONS
 	import ArrowLeftIcon from '@lucide/svelte/icons/arrow-left';
 
-	const BENEFIT_MAX_LENGTH = 15;
-
-	const sections: MutationFormSection[] = [
-		{
-			id: 'partners',
-			title: m['AdminPartnershipAddPage.sectionPartnersTitle'](),
-			description: m['AdminPartnershipAddPage.sectionPartnersDescription'](),
-			fields: [
-				{
-					id: 'accommodationId',
-					kind: 'input',
-					label: m['AdminPartnershipAddPage.fieldAccommodation'](),
-					colSpan: 1
-				},
-				{
-					id: 'hospitalityIds',
-					kind: 'input',
-					label: m['AdminPartnershipAddPage.fieldHospitality'](),
-					colSpan: 1
-				}
-			]
-		},
-		{
-			id: 'offer',
-			title: m['AdminPartnershipAddPage.sectionOfferTitle'](),
-			description: m['AdminPartnershipAddPage.sectionOfferDescription'](),
-			fields: [
-				{
-					id: 'benefit',
-					kind: 'input',
-					label: m['AdminPartnershipAddPage.fieldBenefit'](),
-					placeholder: m['AdminPartnershipAddPage.fieldBenefitPlaceholder'](),
-					required: true
-				}
-			]
-		}
-	];
+	const sections = createPartnershipFormSections();
 
 	let values = $state<PartnershipAddFormInputs>({
 		accommodationId: '',
@@ -165,7 +132,7 @@
 		id={inputId}
 		name="benefit"
 		value={benefitValue}
-		maxlength={BENEFIT_MAX_LENGTH}
+		maxlength={PARTNERSHIP_BENEFIT_MAX_LENGTH}
 		placeholder={m['AdminPartnershipAddPage.fieldBenefitPlaceholder']()}
 		required
 		aria-invalid={error ? 'true' : undefined}
@@ -174,6 +141,6 @@
 	/>
 	<FieldDescription id={`${inputId}-hint`} class="flex items-center justify-between gap-3">
 		<span>{m['AdminPartnershipAddPage.fieldBenefitDescription']()}</span>
-		<span class="shrink-0 tabular-nums">{benefitValue.length}/{BENEFIT_MAX_LENGTH}</span>
+		<span class="shrink-0 tabular-nums">{benefitValue.length}/{PARTNERSHIP_BENEFIT_MAX_LENGTH}</span>
 	</FieldDescription>
 {/snippet}

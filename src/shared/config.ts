@@ -18,6 +18,9 @@ export const GUEST_STAY = {
 	DURATION_SECONDS: 7 * 24 * 60 * 60
 } as const;
 
+/** Guest-facing partnership offer label max length (server + client). */
+export const PARTNERSHIP_BENEFIT_MAX_LENGTH = 15;
+
 /**
  * Routes instrumented by `initBotId` on the client and verified by
  * `checkBotId` on the server via `safeCommand`.

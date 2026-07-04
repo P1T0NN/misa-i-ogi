@@ -40,7 +40,6 @@
 					kind: 'input',
 					label: m['AdminUserAddPage.fieldName'](),
 					placeholder: m['AdminUserAddPage.fieldNamePlaceholder'](),
-					autocomplete: 'name',
 					autofocus: true,
 					colSpan: 1
 				},
@@ -50,7 +49,6 @@
 					type: 'email',
 					label: m['AdminUserAddPage.fieldEmail'](),
 					placeholder: m['AdminUserAddPage.fieldEmailPlaceholder'](),
-					autocomplete: 'email',
 					colSpan: 1
 				}
 			]

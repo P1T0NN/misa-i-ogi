@@ -5,7 +5,7 @@ export const faqsData: FaqItem[] = [
 	{
 		question: 'Is it really free for accommodations?',
 		answer:
-			'Yes. Registering and using the core platform is free, forever. Your guests get perks from partner hospitalities, you get full analytics, and your first custom partnership is included — no card, no monthly bill.'
+			'Yes. Registering and using the core platform is free, forever. Your guests get perks from partner hospitalities, you get full analytics, and custom partnerships of your own come with a 1-month free trial — no card required to start.'
 	},
 	{
 		question: 'What does it cost a hospitality?',
@@ -30,7 +30,7 @@ export const faqsData: FaqItem[] = [
 	{
 		question: 'What exactly is Pro?',
 		answer:
-			'Everything is free except creating more than one custom partnership of your own. If you want unlimited custom partnerships, a simple seasonal Pro plan covers it — entirely optional.'
+			'Everything is free except custom partnerships of your own: those are free for your first month, then a simple seasonal Pro plan keeps them running — entirely optional, and everything else stays free either way.'
 	},
 	{
 		question: 'Where are you available?',

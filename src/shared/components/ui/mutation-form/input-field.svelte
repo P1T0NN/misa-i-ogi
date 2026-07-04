@@ -17,12 +17,14 @@
 	} = $props();
 </script>
 
+<!-- Chrome ignores autocomplete="off" on address/phone-like fields; "new-password"
+     is the workaround google-places-autocomplete already relies on. -->
 <Input
 	id={inputId}
 	name={field.id}
 	type={field.type ?? 'text'}
 	placeholder={field.placeholder}
-	autocomplete={field.autocomplete}
+	autocomplete={field.autocomplete ?? 'new-password'}
 	disabled={field.disabled}
 	required={field.required}
 	value={value as string | number | undefined}

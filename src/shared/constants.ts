@@ -36,7 +36,10 @@ export const PROTECTED_PAGE_ENDPOINTS = {
 	MY_ACCOMMODATIONS: resolve('/my-accommodations'),
 	MY_ACCOMMODATION_ADD: resolve('/add-accommodation'),
 	MY_HOSPITALITIES: resolve('/my-hospitalities'),
+	MY_HOSPITALITY_ADD: resolve('/add-hospitality'),
 	RESERVATIONS: resolve('/reservations'),
+	PARTNERSHIPS: resolve('/partnerships'),
+	CREATE_CUSTOM_PARTNERSHIP: resolve('/create-custom-partnership'),
 	// Templates filled at the call site via .replace(':id', …) — not concrete routes, so not resolve()d.
 	EDIT_ACCOMMODATION: '/edit-accommodation/:id',
 	EDIT_HOSPITALITY: '/edit-hospitality/:id'

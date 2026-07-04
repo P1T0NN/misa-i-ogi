@@ -111,6 +111,24 @@ export const analytics = defineAnalytics(components.analytics, {
 				partnershipDelta: property.number({ required: true })
 			}
 		}),
+		partnershipRequestCreated: event('partnership.request.created', {
+			label: 'Partnership request created',
+			properties: {
+				accommodationId: property.string({ required: true }),
+				accommodationName: property.string(),
+				hospitalityId: property.string({ required: true }),
+				hospitalityName: property.string()
+			}
+		}),
+		partnershipRequestDeclined: event('partnership.request.declined', {
+			label: 'Partnership request declined',
+			properties: {
+				accommodationId: property.string({ required: true }),
+				accommodationName: property.string(),
+				hospitalityId: property.string({ required: true }),
+				hospitalityName: property.string()
+			}
+		}),
 		partnershipDeactivated: event('partnership.deactivated', {
 			label: 'Partnership deactivated',
 			properties: {

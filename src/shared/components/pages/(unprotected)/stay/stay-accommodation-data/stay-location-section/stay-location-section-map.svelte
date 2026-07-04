@@ -15,7 +15,7 @@
 		GoogleMapHandle,
 		GoogleMapMarkerContext
 	} from '@/shared/components/ui/google-map/types.js';
-	import type { AccommodationPartnershipSafe } from '@/convex/tables/partnerships/types/partnershipsTypes';
+	import type { typesPartnershipAccommodationSafe } from '@/features/partnerships/types/partnershipsTypes';
 
 	// LUCIDE ICONS
 	import HouseIcon from '@lucide/svelte/icons/house';
@@ -32,7 +32,7 @@
 		longitude: number;
 		accommodationId: string;
 		accommodationName: string;
-		partnerships: AccommodationPartnershipSafe[];
+		partnerships: typesPartnershipAccommodationSafe[];
 		/** Hospitality id the guest is hovering on a card — the map pans/highlights its pin. */
 		focusedId?: string | null;
 	} = $props();

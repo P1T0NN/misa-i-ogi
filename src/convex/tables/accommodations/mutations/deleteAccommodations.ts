@@ -3,14 +3,11 @@ import { ConvexError } from 'convex/values';
 
 // HELPERS
 import { createDeleteMutation } from '@/convex/helpers/createDeleteMutation';
+import { cleanupAccommodationCoverImages } from '@/convex/tables/accommodations/helpers/cleanupAccommodationCoverImages';
 import { accommodationHasActiveGuest } from '@/convex/tables/guests/helpers/accommodationHasActiveGuest';
-
-// R2
-import { r2 } from '@/convex/storage/r2/r2';
+import { hasActiveAccommodationPartnership } from '@/convex/tables/partnerships/helpers/hasActivePartnership';
 
 // TYPES
-import type { MutationCtx } from '@/convex/_generated/server';
-import type { Doc } from '@/convex/_generated/dataModel';
 import type { ConvexErrorPayload } from '@/convex/types/convexTypes';
 
 /**
@@ -33,27 +30,9 @@ import type { ConvexErrorPayload } from '@/convex/types/convexTypes';
  * delete. The reverse (R2 gone while a db row points at it) is impossible by
  * construction: the network call is deferred behind commit.
  */
-const cleanupCoverImages = async (ctx: MutationCtx, docs: Doc<'accommodations'>[]) => {
-	const keys = [...new Set(docs.map((d) => d.coverImageKey).filter((k): k is string => !!k))];
-	// Keys are independent — parallel sweep collapses N×3 serial round-trips into
-	// one. Atomicity is unchanged: same transaction, same commit boundary.
-	await Promise.all(
-		keys.map(async (key) => {
-			const [row] = await Promise.all([
-				ctx.db
-					.query('uploadedFilesR2')
-					.withIndex('by_key', (q) => q.eq('key', key))
-					.unique(),
-				r2.deleteObject(ctx, key)
-			]);
-			if (row) await ctx.db.delete(row._id);
-		})
-	);
-};
-
 export const deleteAccommodations = createDeleteMutation('deleteAccommodations', {
 	table: 'accommodations',
-	runStorageDelete: cleanupCoverImages,
+	runStorageDelete: cleanupAccommodationCoverImages,
 	// Safe here: no `onDelete` hook means Phase 2 has no cross-row writes that
 	// could race. Audit inserts go to a separate table and are independent.
 	phase2Strategy: 'optimized',
@@ -62,6 +41,12 @@ export const deleteAccommodations = createDeleteMutation('deleteAccommodations',
 			throw new ConvexError({
 				code: 'ACCOMMODATION_HAS_ACTIVE_GUEST',
 				message: { key: 'GenericMessages.ACCOMMODATION_CANNOT_DELETE_ACTIVE_GUEST' }
+			} satisfies ConvexErrorPayload);
+		}
+		if (await hasActiveAccommodationPartnership(ctx, doc._id)) {
+			throw new ConvexError({
+				code: 'ACCOMMODATION_HAS_ACTIVE_PARTNERSHIP',
+				message: { key: 'GenericMessages.ACCOMMODATION_CANNOT_DELETE_ACTIVE_PARTNERSHIP' }
 			} satisfies ConvexErrorPayload);
 		}
 		return true;

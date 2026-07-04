@@ -9,7 +9,7 @@
 	import StayPartnershipsError from '@/shared/components/pages/(unprotected)/stay/error/stay-partnerships-error.svelte';
 
 	// TYPES
-	import type { AccommodationPartnershipSafe } from '@/convex/tables/partnerships/types/partnershipsTypes';
+	import type { typesPartnershipAccommodationSafe } from '@/features/partnerships/types/partnershipsTypes';
 
 	let {
 		city,
@@ -23,7 +23,7 @@
 	}: {
 		city: string;
 		enabled?: boolean;
-		partnerships: AccommodationPartnershipSafe[] | undefined;
+		partnerships: typesPartnershipAccommodationSafe[] | undefined;
 		isLoading?: boolean;
 		hasError?: boolean;
 		/** Accommodation coordinates, forwarded so each card can show its distance. */

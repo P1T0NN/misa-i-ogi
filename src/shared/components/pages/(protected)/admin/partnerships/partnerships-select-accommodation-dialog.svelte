@@ -6,7 +6,7 @@
 	import { cn } from '@/shared/utils/utils.js';
 
 	// COMPONENTS
-	import * as Dialog from '@/shared/components/ui/dialog/index.js';
+	import Dialog from '@/shared/components/ui/dialog/dialog.svelte';
 	import { buttonVariants } from '@/shared/components/ui/button/index.js';
 	import PartnershipsSelectAccommodationDialogLoading from './loading/partnerships-select-accommodation-dialog-loading.svelte';
 	import PartnershipsSelectAccommodationDialogEmpty from './empty/partnerships-select-accommodation-dialog-empty.svelte';
@@ -62,71 +62,78 @@
 	}
 </script>
 
-<Dialog.Root bind:open>
-	<div class="flex w-full flex-col gap-2">
-		{#if hasSelection && display}
-			<div
-				class="flex w-full flex-col gap-0.5 rounded-lg border border-primary/25 bg-primary/5 px-3 py-2.5"
-				aria-live="polite"
-			>
-				{#if display.name}
-					<span class="leading-snug font-medium text-primary">{display.name}</span>
-				{/if}
-				<span class="font-mono text-xs leading-snug text-muted-foreground">{display.id}</span>
-			</div>
-			<button
-				type="button"
-				class={cn(buttonVariants({ variant: 'outline' }), 'w-full')}
-				onclick={() => {
-					open = true;
-				}}
-			>
-				{m['AdminPartnershipAddPage.modifyAccommodation']()}
-			</button>
+<div class="flex w-full flex-col gap-2">
+	{#if hasSelection && display}
+		<div
+			class="flex w-full flex-col gap-0.5 rounded-lg border border-primary/25 bg-primary/5 px-3 py-2.5"
+			aria-live="polite"
+		>
+			{#if display.name}
+				<span class="leading-snug font-medium text-primary">{display.name}</span>
+			{/if}
+			<span class="font-mono text-xs leading-snug text-muted-foreground">{display.id}</span>
+		</div>
+		<button
+			type="button"
+			class={cn(buttonVariants({ variant: 'outline' }), 'w-full')}
+			onclick={() => {
+				open = true;
+			}}
+		>
+			{m['AdminPartnershipAddPage.modifyAccommodation']()}
+		</button>
+	{:else}
+		<button
+			type="button"
+			class={cn(buttonVariants({ variant: 'outline' }), 'w-full')}
+			onclick={() => {
+				open = true;
+			}}
+		>
+			{m['AdminPartnershipAddPage.selectAccommodation']()}
+		</button>
+	{/if}
+</div>
+
+<Dialog
+	bind:open
+	hideHeader
+	class="flex max-h-[min(42rem,85vh)] flex-col gap-0 overflow-hidden p-0 sm:max-w-md"
+	contentClass="flex min-h-0 flex-1 flex-col gap-0 overflow-hidden p-0"
+>
+	<div class="shrink-0 border-b border-border px-4 py-4 pr-12">
+		<h2 id="{inputId}-dialog-title" class="font-serif text-2xl leading-tight text-foreground">
+			{m['AdminPartnershipAddPage.selectAccommodationDialogTitle']()}
+		</h2>
+	</div>
+
+	<div
+		class="min-h-0 flex-1 overflow-y-auto px-2 py-2"
+		role="listbox"
+		aria-labelledby="{inputId}-dialog-title"
+	>
+		{#if isLoading}
+			<PartnershipsSelectAccommodationDialogLoading />
+		{:else if rows.length === 0}
+			<PartnershipsSelectAccommodationDialogEmpty />
 		{:else}
-			<Dialog.Trigger type="button" class={cn(buttonVariants({ variant: 'outline' }), 'w-full')}>
-				{m['AdminPartnershipAddPage.selectAccommodation']()}
-			</Dialog.Trigger>
+			<ul class="flex flex-col gap-0.5">
+				{#each rows as row (row._id)}
+					<PartnershipsSelectAccommodationDialogItem
+						accommodation={row}
+						selected={value === row._id}
+						onSelect={() => selectAccommodation(row)}
+					/>
+				{/each}
+			</ul>
 		{/if}
 	</div>
 
-	<Dialog.Content
-		class="flex h-[min(42rem,85vh)] w-[min(calc(100vw-2rem),32rem)] flex-col gap-0 overflow-hidden p-0 sm:h-168 sm:w-lg"
-	>
-		<Dialog.Header class="shrink-0 border-b border-border px-4 py-4 pr-12">
-			<Dialog.Title id="{inputId}-dialog-title">
-				{m['AdminPartnershipAddPage.selectAccommodationDialogTitle']()}
-			</Dialog.Title>
-		</Dialog.Header>
-
-		<div
-			class="min-h-0 flex-1 overflow-y-auto px-2 py-2"
-			role="listbox"
-			aria-labelledby="{inputId}-dialog-title"
+	{#if isTruncated && rows.length > 0}
+		<p
+			class="shrink-0 border-t border-border px-4 py-2 text-xs leading-relaxed text-muted-foreground"
 		>
-			{#if isLoading}
-				<PartnershipsSelectAccommodationDialogLoading />
-			{:else if rows.length === 0}
-				<PartnershipsSelectAccommodationDialogEmpty />
-			{:else}
-				<ul class="flex flex-col gap-0.5">
-					{#each rows as row (row._id)}
-						<PartnershipsSelectAccommodationDialogItem
-							accommodation={row}
-							selected={value === row._id}
-							onSelect={() => selectAccommodation(row)}
-						/>
-					{/each}
-				</ul>
-			{/if}
-		</div>
-
-		{#if isTruncated && rows.length > 0}
-			<p
-				class="shrink-0 border-t border-border px-4 py-2 text-xs leading-relaxed text-muted-foreground"
-			>
-				{m['AdminPartnershipAddPage.selectAccommodationTruncated']({ count: rows.length })}
-			</p>
-		{/if}
-	</Dialog.Content>
-</Dialog.Root>
+			{m['AdminPartnershipAddPage.selectAccommodationTruncated']({ count: rows.length })}
+		</p>
+	{/if}
+</Dialog>

@@ -18,7 +18,21 @@ const AUDIT_ACTION_LABELS = {
 	[AUDIT_ACTIONS.FILE_UPLOAD]: () => m['AuditActions.fileUpload'](),
 	[AUDIT_ACTIONS.FILE_DELETE]: () => m['AuditActions.fileDelete'](),
 	[AUDIT_ACTIONS.PARTNERSHIP_CREATE]: () => m['AuditActions.partnershipCreate'](),
-	[AUDIT_ACTIONS.PARTNERSHIP_DELETE]: () => m['AuditActions.partnershipDelete']()
+	[AUDIT_ACTIONS.PARTNERSHIP_DELETE]: () => m['AuditActions.partnershipDelete'](),
+	[AUDIT_ACTIONS.PARTNERSHIP_REQUEST_CREATE]: () => m['AuditActions.partnershipRequestCreate'](),
+	[AUDIT_ACTIONS.PARTNERSHIP_REQUEST_DECLINE]: () => m['AuditActions.partnershipRequestDecline'](),
+	[AUDIT_ACTIONS.USER_PLAN_UPDATE]: () => m['AuditActions.userPlanUpdate'](),
+	[AUDIT_ACTIONS.ACCOMMODATION_CREATE]: () => m['AuditActions.accommodationCreate'](),
+	[AUDIT_ACTIONS.ACCOMMODATION_UPDATE]: () => m['AuditActions.accommodationUpdate'](),
+	[AUDIT_ACTIONS.HOSPITALITY_CREATE]: () => m['AuditActions.hospitalityCreate'](),
+	[AUDIT_ACTIONS.HOSPITALITY_UPDATE]: () => m['AuditActions.hospitalityUpdate'](),
+	[AUDIT_ACTIONS.HOSPITALITY_VISIBILITY_UPDATE]: () =>
+		m['AuditActions.hospitalityVisibilityUpdate'](),
+	[AUDIT_ACTIONS.RESERVATION_CONFIRM]: () => m['AuditActions.reservationConfirm'](),
+	[AUDIT_ACTIONS.RESERVATION_CANCEL]: () => m['AuditActions.reservationCancel'](),
+	[AUDIT_ACTIONS.RESERVATION_NO_SHOW]: () => m['AuditActions.reservationNoShow'](),
+	[AUDIT_ACTIONS.TRIAL_START]: () => m['AuditActions.trialStart'](),
+	[AUDIT_ACTIONS.TRIAL_EXPIRE]: () => m['AuditActions.trialExpire']()
 } satisfies Record<(typeof AUDIT_ACTIONS)[keyof typeof AUDIT_ACTIONS], () => string>;
 
 function humanizeAuditAction(action: string): string {

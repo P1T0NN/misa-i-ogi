@@ -257,7 +257,7 @@
 	</div>
 {/snippet}
 
-<form onsubmit={handleSubmit} class={cn('flex flex-col gap-6', className)}>
+<form onsubmit={handleSubmit} autocomplete="off" class={cn('flex flex-col gap-6', className)}>
 	{@render header?.()}
 
 	{#each resolvedSections as section, i (section.id ?? i)}

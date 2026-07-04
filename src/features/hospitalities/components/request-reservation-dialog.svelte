@@ -5,7 +5,7 @@
 	import { m } from '@/shared/lib/paraglide/messages';
 
 	// COMPONENTS
-	import * as Dialog from '@/shared/components/ui/dialog/index.js';
+	import Dialog from '@/shared/components/ui/dialog/dialog.svelte';
 	import { buttonVariants } from '@/shared/components/ui/button/index.js';
 	import { Input } from '@/shared/components/ui/input/index.js';
 	import ConvexMutationForm from '@/shared/components/ui/mutation-form/convex-mutation-form.svelte';
@@ -121,65 +121,59 @@
 		open = false;
 		resetForm();
 	}
+
+	$effect(() => {
+		if (!open) resetForm();
+	});
+
+	const dialogTitle = $derived(m['HospitalityPage.RequestReservationDialog.title']());
 </script>
 
-<Dialog.Root
-	bind:open
-	onOpenChange={(o) => {
-		if (!o) resetForm();
-	}}
->
-	<Dialog.Trigger type="button" class={cn(buttonVariants(), 'h-11 w-full')}>
-		{m['HospitalityPage.RequestReservationDialog.trigger']()}
-	</Dialog.Trigger>
+<button type="button" class={cn(buttonVariants(), 'h-11 w-full')} onclick={() => (open = true)}>
+	{m['HospitalityPage.RequestReservationDialog.trigger']()}
+</button>
 
-	<Dialog.Content class="sm:max-w-md">
-		<Dialog.Header>
-			<Dialog.Title class="font-serif text-xl">
-				{m['HospitalityPage.RequestReservationDialog.title']()}
-			</Dialog.Title>
-			<Dialog.Description>
-				{#if hospitalityName}
-					{m['HospitalityPage.RequestReservationDialog.descriptionWithName']({
-						hospitalityName
-					})}
-				{:else}
-					{m['HospitalityPage.RequestReservationDialog.description']()}
-				{/if}
-			</Dialog.Description>
-		</Dialog.Header>
+<Dialog bind:open title={dialogTitle} class="sm:max-w-md">
+	<p class="text-sm leading-relaxed text-muted-foreground">
+		{#if hospitalityName}
+			{m['HospitalityPage.RequestReservationDialog.descriptionWithName']({
+				hospitalityName
+			})}
+		{:else}
+			{m['HospitalityPage.RequestReservationDialog.description']()}
+		{/if}
+	</p>
 
-		<ConvexMutationForm
-			class="w-full"
-			{sections}
-			bind:values
-			schema={createReservationSchema}
-			runFunction={api.tables.reservations.mutations.createReservation.createReservation}
-			submitLabel={m['HospitalityPage.RequestReservationDialog.submitLabel']()}
-			resetOnSuccess={false}
-			{convexClient}
-			{prepareSubmit}
-			onSuccess={handleSuccess}
-			customFields={{ requestedTime: requestedTimeField, guestCount: guestCountField }}
-		>
-			{#snippet extraFields()}
-				<div
-					class="flex items-start gap-3 rounded-lg border border-destructive/40 bg-destructive/5 px-4 py-3"
-				>
-					<AlertTriangleIcon class="mt-0.5 size-5 shrink-0 text-destructive" aria-hidden="true" />
-					<div class="flex flex-col gap-1 text-sm">
-						<p class="font-semibold text-destructive">
-							{m['HospitalityPage.RequestReservationDialog.warningTitle']()}
-						</p>
-						<p class="text-foreground/90">
-							{m['HospitalityPage.RequestReservationDialog.warningBody']()}
-						</p>
-					</div>
+	<ConvexMutationForm
+		class="w-full"
+		{sections}
+		bind:values
+		schema={createReservationSchema}
+		runFunction={api.tables.reservations.mutations.createReservation.createReservation}
+		submitLabel={m['HospitalityPage.RequestReservationDialog.submitLabel']()}
+		resetOnSuccess={false}
+		{convexClient}
+		{prepareSubmit}
+		onSuccess={handleSuccess}
+		customFields={{ requestedTime: requestedTimeField, guestCount: guestCountField }}
+	>
+		{#snippet extraFields()}
+			<div
+				class="flex items-start gap-3 rounded-lg border border-destructive/40 bg-destructive/5 px-4 py-3"
+			>
+				<AlertTriangleIcon class="mt-0.5 size-5 shrink-0 text-destructive" aria-hidden="true" />
+				<div class="flex flex-col gap-1 text-sm">
+					<p class="font-semibold text-destructive">
+						{m['HospitalityPage.RequestReservationDialog.warningTitle']()}
+					</p>
+					<p class="text-foreground/90">
+						{m['HospitalityPage.RequestReservationDialog.warningBody']()}
+					</p>
 				</div>
-			{/snippet}
-		</ConvexMutationForm>
-	</Dialog.Content>
-</Dialog.Root>
+			</div>
+		{/snippet}
+	</ConvexMutationForm>
+</Dialog>
 
 {#snippet guestCountField({
 	value,

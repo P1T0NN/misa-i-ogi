@@ -29,6 +29,22 @@ export const createAuthOptions = (ctx: GenericCtx<DataModel>) => {
 					// Block clients from setting role via signUp/updateUser — only
 					// trusted server code can change it.
 					input: false
+				},
+				// Custom-partnership plan tier ('free' | 'pro'). Optional (not
+				// `required`) so pre-existing user rows validate without a
+				// migration — readers treat missing as 'free'. Admin-toggled via
+				// `setUserPlan`; same server-only reasoning as `role`.
+				plan: {
+					type: 'string',
+					required: false,
+					defaultValue: 'free',
+					input: false
+				},
+				// Inert in phase 1 — reserved for when real billing lands.
+				planExpiresAt: {
+					type: 'number',
+					required: false,
+					input: false
 				}
 			}
 		},

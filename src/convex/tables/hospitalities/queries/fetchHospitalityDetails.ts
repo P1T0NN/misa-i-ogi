@@ -79,7 +79,9 @@ export const fetchHospitalityDetails = query({
 				longitude: hospitality.longitude,
 				description: hospitality.description,
 				contactPhone: hospitality.contactPhone,
-				coverImageUrl: hospitality.coverImageUrl
+				coverImageUrl: hospitality.coverImageUrl,
+				menuFileUrl: hospitality.menuFileUrl,
+				menuLink: hospitality.menuLink
 			},
 			partnership: activePartnership
 				? {

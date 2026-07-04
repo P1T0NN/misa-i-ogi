@@ -55,10 +55,14 @@ export const adminCreateAccommodation = adminMutation('adminCreateAccommodation'
 			}
 		}
 
-		return createAccommodationForOwner(ctx, {
-			...rest,
-			coverImageKey: uploadedKey,
-			ownerId: resolvedOwnerId
-		});
+		return createAccommodationForOwner(
+			ctx,
+			{
+				...rest,
+				coverImageKey: uploadedKey,
+				ownerId: resolvedOwnerId
+			},
+			{ actorId: ctx.userId }
+		);
 	}
 });

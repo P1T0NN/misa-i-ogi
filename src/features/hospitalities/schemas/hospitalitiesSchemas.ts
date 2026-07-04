@@ -58,10 +58,22 @@ export const hospitalityAddFormSchema = v.object({
 			(input) => input instanceof File,
 			m['ValidationMessages.CreateHospitalitySchema.coverRequired']()
 		)
-	)
+	),
+	// Optional menu: a file (image or PDF) and/or an external link. No required check.
+	menuFileKey: v.optional(v.union([v.null(), v.file()])),
+	menuLink: v.optional(v.pipe(v.string(), v.trim()))
 });
 
 export type HospitalityAddFormInputs = v.InferInput<typeof hospitalityAddFormSchema>;
+
+/**
+ * Self-service Add Hospitality page: the admin form minus `ownerId`/`isActive`
+ * (both forced server-side). Just the venue — partnerships are created
+ * separately via the create-custom-partnership flow.
+ */
+export const addHospitalityFormSchema = v.omit(hospitalityAddFormSchema, ['ownerId', 'isActive']);
+
+export type AddHospitalityFormInputs = v.InferInput<typeof addHospitalityFormSchema>;
 
 export const hospitalityEditFormSchema = v.object({
 	hospitalityId: v.pipe(v.string(), v.minLength(1)),
@@ -104,7 +116,9 @@ export const hospitalityEditFormSchema = v.object({
 	longitude: hospitalityCoordinate,
 	reservationMode: v.literal('managed_request'),
 	isActive: v.boolean(),
-	coverImageKey: v.optional(v.union([v.null(), v.file()]))
+	coverImageKey: v.optional(v.union([v.null(), v.file()])),
+	menuFileKey: v.optional(v.union([v.null(), v.file()])),
+	menuLink: v.optional(v.pipe(v.string(), v.trim()))
 });
 
 export type HospitalityEditFormInputs = v.InferInput<typeof hospitalityEditFormSchema>;

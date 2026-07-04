@@ -9,6 +9,7 @@
 	import { Card, CardContent } from '@/shared/components/ui/card/index.js';
 	import UserDangerZoneItem from './user-danger-zone-item.svelte';
 	import ChangeRoleButton from './change-role-button.svelte';
+	import ChangePlanButton from './change-plan-button.svelte';
 	import UnbanUserButton from './unban-user-button.svelte';
 	import BanUserDialog from './ban-user-dialog.svelte';
 	import DeleteUserDialog from './delete-user-dialog.svelte';
@@ -40,6 +41,15 @@
 				: m['AdminUserPage.UserDangerZone.grantAdmin']()}
 		>
 			<ChangeRoleButton userId={user._id} userEmail={user.email} role={user.role} />
+		</UserDangerZoneItem>
+
+		<UserDangerZoneItem
+			title={m['AdminUserPage.UserDangerZone.plan']({ plan: capitalize(user.plan ?? 'free') })}
+			description={(user.plan ?? 'free') === 'pro'
+				? m['AdminUserPage.UserDangerZone.downgradePlan']()
+				: m['AdminUserPage.UserDangerZone.upgradePlan']()}
+		>
+			<ChangePlanButton userId={user._id} userEmail={user.email} plan={user.plan ?? 'free'} />
 		</UserDangerZoneItem>
 
 		<UserDangerZoneItem

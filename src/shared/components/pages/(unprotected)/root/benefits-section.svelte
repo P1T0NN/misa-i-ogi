@@ -32,8 +32,8 @@
 		},
 		{
 			title: 'Bring your own hospitality',
-			body: 'Know a local spot we do not partner with yet? Pair up with them directly, one to one. Your first custom partnership is free — our seasonal plan unlocks as many as you like (terms may vary by country).',
-			tag: '1 free, then Pro',
+			body: 'Know a local spot we do not partner with yet? Pair up with them directly, one to one. Custom partnerships are free for your first month — our seasonal plan keeps them running after that (terms may vary by country).',
+			tag: '1 month free, then Pro',
 			learnMoreHref: '#pricing'
 		}
 	];

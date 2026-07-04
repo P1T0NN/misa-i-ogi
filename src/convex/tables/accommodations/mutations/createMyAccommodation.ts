@@ -45,7 +45,8 @@ export const createMyAccommodation = authMutation('createMyAccommodation')({
 				isActive: true
 			},
 			{
-				uploadOwnerId: ctx.userId
+				uploadOwnerId: ctx.userId,
+				actorId: ctx.userId
 			}
 		);
 	}

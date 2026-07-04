@@ -76,8 +76,7 @@
 					id: 'address',
 					kind: 'input',
 					label: m['AdminHospitalityAddPage.fieldAddress'](),
-					placeholder: m['AdminHospitalityAddPage.fieldAddressPlaceholder'](),
-					autocomplete: 'street-address'
+					placeholder: m['AdminHospitalityAddPage.fieldAddressPlaceholder']()
 				},
 				{
 					id: 'addressNumber',
@@ -91,7 +90,6 @@
 					kind: 'input',
 					label: m['AdminHospitalityAddPage.fieldCity'](),
 					placeholder: m['AdminHospitalityAddPage.fieldCityPlaceholder'](),
-					autocomplete: 'address-level2',
 					colSpan: 1
 				},
 				{
@@ -99,7 +97,6 @@
 					kind: 'input',
 					label: m['AdminHospitalityAddPage.fieldCountry'](),
 					placeholder: m['AdminHospitalityAddPage.fieldCountryPlaceholder'](),
-					autocomplete: 'country-name',
 					colSpan: 1
 				},
 				{
@@ -133,8 +130,7 @@
 					kind: 'input',
 					type: 'tel',
 					label: m['AdminHospitalityAddPage.fieldContactPhone'](),
-					placeholder: m['AdminHospitalityAddPage.fieldContactPhonePlaceholder'](),
-					autocomplete: 'tel'
+					placeholder: m['AdminHospitalityAddPage.fieldContactPhonePlaceholder']()
 				}
 			]
 		},
@@ -162,7 +158,8 @@
 					kind: 'textarea',
 					label: m['AdminHospitalityAddPage.fieldDescription'](),
 					placeholder: m['AdminHospitalityAddPage.fieldDescriptionPlaceholder'](),
-					rows: 4
+					rows: 4,
+					required: true
 				},
 				{
 					id: 'reservationMode',

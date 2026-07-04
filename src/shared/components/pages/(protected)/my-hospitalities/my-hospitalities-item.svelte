@@ -8,6 +8,7 @@
 	// COMPONENTS
 	import { Badge } from '@/shared/components/ui/badge/index.js';
 	import { Button } from '@/shared/components/ui/button/index.js';
+	import CopyButton from '@/shared/components/ui/copy-button/copy-button.svelte';
 
 	// DATA
 	import { labelHospitalityType } from '@/features/hospitalities/data/hospitalitiesData';
@@ -95,6 +96,23 @@
 						{m['MyHospitalitiesPage.MyHospitalitiesItem.view']()}
 					</Button>
 				</span>
+
+				{#if hospitality.connectCode}
+					<span class="inline-flex items-center gap-1.5 whitespace-nowrap">
+						<span class="text-xs font-medium">
+							{m['MyHospitalitiesPage.MyHospitalitiesItem.connectCode']()}
+						</span>
+						<code
+							class="rounded bg-muted px-1.5 py-0.5 font-mono text-xs font-semibold tracking-widest"
+						>
+							{hospitality.connectCode}
+						</code>
+						<CopyButton
+							value={hospitality.connectCode}
+							label={m['MyHospitalitiesPage.MyHospitalitiesItem.copyConnectCodeAriaLabel']()}
+						/>
+					</span>
+				{/if}
 			</div>
 		</div>
 

@@ -113,14 +113,26 @@ export const convexRateLimitRegistry = {
 	// Domain accommodation writes
 	adminCreateAccommodation: limitPresets.interactiveWrite,
 	createMyAccommodation: limitPresets.interactiveWrite,
+	deleteMyAccommodation: limitPresets.interactiveWrite,
 	updateAccommodation: limitPresets.interactiveWrite,
 	createHospitality: limitPresets.interactiveWrite,
 	updateHospitality: limitPresets.interactiveWrite,
 	createPartnership: limitPresets.interactiveWrite,
 
+	// Custom partnerships (self-service)
+	createCustomPartnership: limitPresets.interactiveWrite,
+	createUserHospitality: limitPresets.interactiveWrite,
+	startProTrial: limitPresets.interactiveWrite,
+	acceptPartnershipRequest: limitPresets.interactiveWrite,
+	declinePartnershipRequest: limitPresets.interactiveWrite,
+	updatePartnershipBenefit: limitPresets.interactiveWrite,
+	revokePartnership: limitPresets.interactiveWrite,
+	setHospitalityVisibility: limitPresets.interactiveWrite,
+
 	// Admin user management
 	createUser: limitPresets.interactiveWrite,
 	setUserRole: limitPresets.interactiveWrite,
+	setUserPlan: limitPresets.interactiveWrite,
 	banUser: limitPresets.interactiveWrite,
 	unbanUser: limitPresets.interactiveWrite,
 	revokeSession: limitPresets.interactiveWrite,

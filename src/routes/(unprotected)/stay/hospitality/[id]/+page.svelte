@@ -14,6 +14,7 @@
 	import HospitalityError from '@/shared/components/pages/(unprotected)/hospitality/error/hospitality-error.svelte';
 	import HospitalityLoading from '@/shared/components/pages/(unprotected)/hospitality/loading/hospitality-loading.svelte';
 	import LocationMap from '@/shared/components/ui/location-map/location-map.svelte';
+	import { Button } from '@/shared/components/ui/button/index.js';
 
 	// DATA
 	import { labelHospitalityType } from '@/features/hospitalities/data/hospitalitiesData';
@@ -24,6 +25,8 @@
 
 	// ICONS
 	import MapPinIcon from '@lucide/svelte/icons/map-pin';
+	import UtensilsIcon from '@lucide/svelte/icons/utensils';
+	import ExternalLinkIcon from '@lucide/svelte/icons/external-link';
 
 	const rawHospitalityId = $derived(page.params.id);
 
@@ -120,6 +123,46 @@
 						{h.description}
 					</p>
 				</section>
+
+				{#if h.menuFileUrl || h.menuLink}
+					<section class="scroll-mt-28" aria-labelledby="menu-heading">
+						<h2
+							id="menu-heading"
+							class="font-serif text-2xl font-medium tracking-tight sm:text-3xl"
+						>
+							{m['HospitalityPage.menuTitle']()}
+						</h2>
+
+						<p class="mt-1 text-sm text-muted-foreground">
+							{m['HospitalityPage.menuSideNote']()}
+						</p>
+
+						<div class="mt-6 flex flex-wrap gap-3">
+							{#if h.menuFileUrl}
+								<Button
+									href={h.menuFileUrl}
+									target="_blank"
+									rel="noopener noreferrer"
+									variant="outline"
+								>
+									<UtensilsIcon data-icon="inline-start" />
+									{m['HospitalityPage.viewMenu']()}
+								</Button>
+							{/if}
+							{#if h.menuLink}
+								<Button
+									href={h.menuLink}
+									target="_blank"
+									rel="noopener noreferrer"
+									variant="outline"
+								>
+									<ExternalLinkIcon data-icon="inline-start" />
+									{m['HospitalityPage.viewMenuOnline']()}
+								</Button>
+							{/if}
+						</div>
+					</section>
+				{/if}
 
 				<section class="scroll-mt-28" aria-labelledby="location-heading">
 					<h2

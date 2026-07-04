@@ -39,7 +39,17 @@
 		"dashboard": "Kontrolna tabla",
 		"myAccommodations": "Moji smeštaji",
 		"myHospitalities": "Moji ugostiteljski objekti",
+		"partnerships": "Partnerstva",
 		"reservations": "Rezervacije",
+		"overviewGroupLabel": "Pregled",
+		"accommodationGroupLabel": "Smeštaj",
+		"hospitalityGroupLabel": "Ugostiteljstvo",
+		"analytics": "Analitika",
+		"analyticsGroupLabel": "Analitika",
+		"analyticsOverview": "Pregled",
+		"analyticsAccommodations": "Smeštaji",
+		"analyticsHospitalities": "Ugostiteljski objekti",
+		"analyticsReservations": "Rezervacije",
 		"goToAdminPage": "Idi na admin stranicu",
 		"backToHome": "Nazad na početnu"
 	},
@@ -547,6 +557,68 @@
 		"discountValue": "{percent}% popusta",
 		"addPartnership": "Dodaj partnerstvo"
 	},
+	"PartnershipsPage": {
+		"SEO": {
+			"title": "Partnerstva",
+			"description": "Vaše partnerske veze i zahtevi. Svaki aktivan red je benefit koji gosti otključavaju nakon skeniranja QR koda u sobi."
+		},
+		"PartnershipsHeader": {
+			"title": "Partnerstva",
+			"description": "Veze između vaših smeštaja i partnerskih objekata, plus zahtevi koji čekaju na obe strane.",
+			"proBadge": "Pro — neograničeno",
+			"trialAvailableBadge": "Uključen besplatni probni period od mesec dana",
+			"trialActiveBadge": "Besplatni probni period — ističe {date}",
+			"trialEndedBadge": "Probni period je istekao",
+			"createCustomPartnership": "Napravi posebno partnerstvo"
+		},
+		"PartnershipsTabs": {
+			"active": "Aktivna",
+			"sent": "Poslati",
+			"received": "Primljeni"
+		},
+		"PartnershipsActiveTab": {
+			"caption": "Aktivna partnerstva",
+			"columnVenue": "Objekat",
+			"columnAccommodation": "Smeštaj",
+			"columnBenefit": "Benefit",
+			"columnOwner": "Vlasništvo",
+			"columnCreated": "Kreirano",
+			"benefitNone": "—",
+			"ownerYours": "Vaše",
+			"ownerPartner": "Partner"
+		},
+		"PartnershipsSentTab": {
+			"unknownVenue": "Obrisan objekat",
+			"sentOn": "Poslato {date}"
+		},
+		"PartnershipRequestItem": {
+			"unknownProperty": "Obrisan smeštaj",
+			"requestedOn": "Zatraženo {date}",
+			"accept": "Prihvati",
+			"decline": "Odbij",
+			"acceptTitle": "Prihvatiti ovaj zahtev za partnerstvo?",
+			"acceptDescription": "Gosti smeštaja koji je poslao zahtev videće vaš objekat sa pogodnošću koju postavite ispod.",
+			"declineTitle": "Odbiti ovaj zahtev za partnerstvo?",
+			"declineDescription": "Pošiljalac će videti da je zahtev odbijen.",
+			"benefitLabel": "Pogodnost za goste",
+			"benefitPlaceholder": "15% popusta",
+			"benefitHint": "Ponuda koju će gosti videti. Primer: 15% popusta"
+		},
+		"PartnershipStatusBadge": {
+			"pending": "Na čekanju",
+			"accepted": "Prihvaćen",
+			"declined": "Odbijen"
+		},
+		"PartnershipsTabEmpty": {
+			"active": "Još nema partnerstava. Napravite jedno i pružite gostima dodatne pogodnosti.",
+			"activeCta": "Napravi posebno partnerstvo",
+			"sent": "Još niste poslali nijedan zahtev za partnerstvo.",
+			"received": "Nema zahteva na čekanju za vaše objekte."
+		},
+		"PartnershipsTabsLoading": {
+			"ariaLabel": "Učitavanje partnerstava"
+		}
+	},
 	"AdminPartnershipAddPage": {
 		"title": "Dodaj partnerstvo",
 		"description": "Povežite boravak sa partnerskim ugostiteljskim objektom. Gosti tog smeštaja vide ponudu nakon skeniranja QR koda.",
@@ -594,7 +666,16 @@
 		"statusActive": "Aktivan",
 		"statusInactive": "Neaktivan",
 		"contactNone": "—",
-		"addHospitality": "Dodaj objekat"
+		"addHospitality": "Dodaj objekat",
+		"columnVisibility": "Vidljivost",
+		"VisibilityButton": {
+			"public": "Javno",
+			"private": "Privatno",
+			"makePublicTitle": "Objaviti {name}?",
+			"makePrivateTitle": "Sakriti {name}?",
+			"makePublicDescription": "Drugi korisnici će moći da pronađu ovaj objekat u svom toku povezivanja posebnih partnerstava i pošalju zahtev vlasniku.",
+			"makePrivateDescription": "Ovaj objekat se više neće prikazivati drugim korisnicima u toku povezivanja. Postojeća partnerstva ostaju netaknuta."
+		}
 	},
 	"AdminHospitalityAddPage": {
 		"title": "Dodaj objekat",
@@ -813,6 +894,9 @@
 			"role": "Role: {role}",
 			"removeAdmin": "Remove admin privileges from this account.",
 			"grantAdmin": "Grant admin privileges to this account.",
+			"plan": "Plan: {plan}",
+			"upgradePlan": "Prebacite ovaj nalog na Pro plan (neograničena posebna partnerstva).",
+			"downgradePlan": "Vratite ovaj nalog na besplatni plan (posebna partnerstva samo tokom probnog perioda od mesec dana).",
 			"banned": "Banovan",
 			"active": "Aktivan",
 			"liftBan": "Lift the ban so the user can sign in again.",
@@ -842,6 +926,14 @@
 			"promoteTitle": "Promote {email} to admin?",
 			"demoteDescription": "Are you sure you want to do this? The user will immediately lose admin privileges.",
 			"promoteDescription": "Are you sure you want to do this? The user will gain full admin privileges, including the ability to ban and delete other accounts."
+		},
+		"ChangePlanButton": {
+			"upgrade": "Prebaci na Pro",
+			"downgrade": "Vrati na besplatni",
+			"upgradeTitle": "Prebaciti {email} na Pro?",
+			"downgradeTitle": "Vratiti {email} na besplatni plan?",
+			"upgradeDescription": "Korisnik odmah dobija neograničena posebna partnerstva.",
+			"downgradeDescription": "Korisnik se vraća na besplatni plan — nova posebna partnerstva tada zahtevaju aktivan probni period od mesec dana. Postojeća partnerstva se ne uklanjaju."
 		},
 		"DeleteUserDialog": {
 			"delete": "Delete…",
@@ -917,9 +1009,10 @@
 			"phoneRequired": "Phone number is required.",
 			"coverRequired": "Add a cover image."
 		},
-		"CreatePartnershipSchema": {
+		"CreateCustomPartnershipSchema": {
 			"accommodationRequired": "Pick an accommodation.",
 			"hospitalityRequired": "Pick at least one hospitality venue.",
+			"connectCodeInvalid": "Unesite ispravan kod za povezivanje od 5 karaktera.",
 			"discountRange": "Discount must be between 1 and 100, or leave blank."
 		},
 		"JoinGuestStaySchema": {
@@ -947,7 +1040,107 @@
 			"description": "Označiti potvrđenu rezervaciju gosta {guestName} kao no-show? Ovo će je premestiti u no-show tab."
 		}
 	},
+	"CreateCustomPartnershipPage": {
+		"SEO": {
+			"title": "Poveži partnerstvo",
+			"description": "Povežite jedan od svojih smeštaja sa ugostiteljskim objektom."
+		},
+		"CreateCustomPartnershipHeader": {
+			"title": "Napravi posebno partnerstvo",
+			"description": "Izaberite svoj smeštaj, pa unesite kod za povezivanje objekta sa kojim želite da ga povežete.",
+			"back": "Nazad na partnerstva"
+		},
+		"CreateCustomPartnershipForm": {
+			"sectionTitle": "Partneri",
+			"sectionDescription": "Izaberite smeštaj, pa unesite kod za povezivanje objekta. Vaši objekti se povezuju odmah; objektima drugih vlasnika prvo stiže zahtev.",
+			"fieldAccommodation": "Smeštaj",
+			"fieldConnectCode": "Kod za povezivanje",
+			"pickAccommodationFirst": "Prvo izaberite smeštaj.",
+			"connectCodePlaceholder": "npr. K7B2Q",
+			"connectCodeHint": "Zatražite kod za povezivanje od vlasnika objekta."
+		},
+		"CreateCustomPartnershipFormActions": {
+			"submit": "Poveži",
+			"trialHint": "Vaš besplatni probni period od mesec dana počinje kada vaše prvo posebno partnerstvo postane aktivno.",
+			"hint": "Ako objekat pripada drugom vlasniku, mora da prihvati pre nego što postane aktivan."
+		},
+		"SelectMyAccommodationDialog": {
+			"selectAccommodation": "Izaberi smeštaj",
+			"modifyAccommodation": "Promeni smeštaj",
+			"dialogTitle": "Izaberite smeštaj",
+			"noAccommodations": "Još nemate nijedan smeštaj. Prvo dodajte smeštaj."
+		},
+		"CustomPartnershipTrialNotice": {
+			"title": "Vaš besplatni probni period je istekao",
+			"description": "Posebna partnerstva su pauzirana za ovaj nalog. Pro plan još nije dostupan — proverite uskoro."
+		}
+	},
+	"StartProTrialDialog": {
+		"title": "Pokrenuti besplatni Pro probni period?",
+		"description": "Aktiviranjem probnog perioda otključavate kreiranje objekata i sve ostale Pro funkcije. Važi od {startDate} do {endDate}.",
+		"question": "Da li ste sigurni da želite da pokrenete probni period?",
+		"confirm": "Da, pokreni probni period",
+		"cancel": "Otkaži"
+	},
+	"AddHospitalityPage": {
+		"SEO": {
+			"title": "Dodaj objekat",
+			"description": "Dodajte objekat koji sami vodite. Povežite ga kasnije sa smeštajima pomoću koda za povezivanje."
+		},
+		"navLabel": "Dodaj objekat",
+		"AddHospitalityHeader": {
+			"title": "Dodaj objekat",
+			"description": "Dodajte objekat koji sami vodite. Ostaje privatan dok ga administrator ne objavi; koristite njegov kod za povezivanje da napravite partnerstva.",
+			"back": "Nazad na moje objekte"
+		},
+		"VisibilityNotice": {
+			"title": "Nije prikazan nikome samostalno",
+			"description": "Ovaj objekat se nikada ne prikazuje samostalno nigde na platformi. Gosti ga vide isključivo preko smeštaja sa kojima ostvarite partnerstvo."
+		},
+		"AddHospitalityAccessNotice": {
+			"title": "Isprobajte kreiranje objekata besplatno mesec dana",
+			"description": "Vaš nalog još nema pristup kreiranju objekata. Pokrenite besplatni probni period od mesec dana i odmah otključajte ovu i sve ostale Pro funkcije. Kada probni period istekne, biće vam potreban plaćeni plan za nastavak.",
+			"startTrial": "Pokreni besplatni probni period",
+			"noCreditCard": "Bez kreditne kartice.",
+			"expiredTitle": "Vaš besplatni probni period je istekao",
+			"expiredDescription": "Kreiranje novih objekata je pauzirano za ovaj nalog. Pro plan još nije dostupan — proverite ponovo uskoro. Vaši postojeći objekti i partnerstva ostaju netaknuti."
+		},
+		"AddHospitalityForm": {
+			"sectionBasicsTitle": "Osnovno",
+			"sectionBasicsDescription": "Ono što gosti vide na listi benefita.",
+			"fieldName": "Naziv",
+			"fieldNamePlaceholder": "La Tapería",
+			"fieldType": "Tip",
+			"fieldTypePlaceholder": "Izaberite tip",
+			"sectionLocationTitle": "Lokacija",
+			"sectionLocationDescription": "Prikazuje se na javnoj stranici objekta.",
+			"fieldAddress": "Adresa",
+			"fieldAddressPlaceholder": "Plaza del Sol 3",
+			"fieldAddressNumber": "Broj adrese",
+			"fieldAddressNumberPlaceholder": "3",
+			"fieldCity": "Grad",
+			"fieldCityPlaceholder": "Madrid",
+			"fieldCountry": "Država",
+			"fieldCountryPlaceholder": "Španija",
+			"fieldLatitude": "Geografska širina",
+			"fieldLongitude": "Geografska dužina",
+			"fieldCoordinatesPlaceholder": "Automatski se popunjava kada unesete adresu",
+			"sectionContactTitle": "Kontakt",
+			"sectionContactDescription": "Broj telefona putem kog gosti mogu kontaktirati objekat.",
+			"fieldContactPhone": "Telefon",
+			"fieldContactPhonePlaceholder": "+381 60 000 0000",
+			"sectionCoverTitle": "Naslovna slika",
+			"sectionCoverDescription": "Prikazuje se na javnoj stranici benefita. Preporučeni PNG ili JPG; širok format.",
+			"fieldCoverImage": "Naslovna slika",
+			"sectionDetailsTitle": "Detalji",
+			"sectionDetailsDescription": "Kratak opis na stranici benefita.",
+			"fieldDescription": "Opis",
+			"fieldDescriptionPlaceholder": "Kratak opis na stranici benefita (opciono).",
+			"submit": "Napravi objekat"
+		}
+	},
 	"GenericMessages": {
+		"DIALOG_CLOSE": "Zatvori",
 		"PASSWORD_TOO_SHORT": "Password must be at least {min} characters.",
 		"PASSWORD_TOO_LONG": "Password is too long.",
 		"PASSWORD_TOO_COMMON": "That password is too common. Please choose a stronger one.",
@@ -971,7 +1164,7 @@
 		"ACCOMMODATION_CREATED": "Smeštaj je kreiran.",
 		"ACCOMMODATION_UPDATED": "Smeštaj je sačuvan.",
 		"ACCOMMODATION_SCAN_TOKEN_FAILED": "Could not generate a scan token. Please try again.",
-		"HOSPITALITY_CREATED": "Hospitality created.",
+		"HOSPITALITY_CREATED": "Objekat je kreiran.",
 		"HOSPITALITY_UPDATED": "Objekat je sačuvan.",
 		"ACCOMMODATION_NOT_FOUND": "Accommodation not found.",
 		"ACCOMMODATION_CANNOT_DELETE_ACTIVE_GUEST": "Ovaj smeštaj se ne može obrisati. U njemu je aktivan gost koji koristi aplikaciju — sačekajte da mu boravak istekne pa pokušajte ponovo.",
@@ -986,9 +1179,21 @@
 		"RESERVATION_MARKED_NO_SHOW": "Rezervacija je označena kao no-show.",
 		"RESERVATION_NOT_FOUND": "Rezervacija nije pronađena.",
 		"RESERVATION_ALREADY_PROCESSED": "Ova rezervacija je već obrađena.",
-		"PARTNERSHIP_CREATED": "Partnership created.",
+		"PARTNERSHIP_CREATED": "Partnerstvo je kreirano.",
 		"PARTNERSHIPS_CREATED": "Created {count} partnerships.",
-		"PARTNERSHIP_PAIR_EXISTS": "This accommodation is already linked to that venue.",
+		"PARTNERSHIP_PAIR_EXISTS": "Ovaj smeštaj je već povezan sa tim objektom.",
+		"PARTNERSHIP_REQUEST_SENT": "Zahtev za partnerstvo je poslat. Vlasnik objekta treba da ga prihvati.",
+		"PARTNERSHIP_REQUEST_ACCEPTED": "Zahtev za partnerstvo je prihvaćen.",
+		"PARTNERSHIP_REQUEST_DECLINED": "Zahtev za partnerstvo je odbijen.",
+		"PARTNERSHIP_REQUEST_NOT_FOUND": "Zahtev za partnerstvo nije pronađen.",
+		"PARTNERSHIP_REQUEST_ALREADY_PROCESSED": "Ovaj zahtev za partnerstvo je već obrađen.",
+		"PARTNERSHIP_REQUEST_ALREADY_PENDING": "Zahtev za ovaj par već čeka odluku.",
+		"CUSTOM_PARTNERSHIP_TRIAL_EXPIRED": "Besplatni probni period za posebna partnerstva vlasnika ovog smeštaja je istekao. Pro plan još nije dostupan.",
+		"PRO_TRIAL_STARTED": "Besplatni probni period je pokrenut — imate pun pristup narednih mesec dana.",
+		"PRO_TRIAL_REQUIRED": "Još nemate pristup ovoj funkciji. Prvo pokrenite besplatni probni period.",
+		"PRO_TRIAL_EXPIRED": "Vaš besplatni probni period je istekao. Pro plan još nije dostupan.",
+		"HOSPITALITY_VISIBILITY_UPDATED": "Vidljivost objekta je ažurirana.",
+		"USER_PLAN_UPDATED": "Plan korisnika je ažuriran.",
 		"PARTNERSHIP_DISCOUNT_INVALID": "Discount must be between 1 and 100.",
 		"USER_DELETED": "Korisnik je obrisan.",
 		"USER_CREATED": "Korisnik je kreiran.",

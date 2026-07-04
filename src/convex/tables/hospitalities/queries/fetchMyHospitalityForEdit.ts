@@ -29,7 +29,9 @@ const hospitalityForEditValidator = v.object({
 	contactPhone: v.string(),
 	reservationMode: v.literal('managed_request'),
 	isActive: v.boolean(),
-	coverImageUrl: v.optional(v.string())
+	coverImageUrl: v.optional(v.string()),
+	menuFileUrl: v.optional(v.string()),
+	menuLink: v.optional(v.string())
 });
 
 /** Owner-scoped hospitality row for the edit form. */
@@ -63,7 +65,9 @@ export const fetchMyHospitalityForEdit = query({
 			contactPhone: doc.contactPhone,
 			reservationMode: doc.reservationMode,
 			isActive: doc.isActive,
-			coverImageUrl: doc.coverImageUrl
+			coverImageUrl: doc.coverImageUrl,
+			menuFileUrl: doc.menuFileUrl,
+			menuLink: doc.menuLink
 		};
 	}
 });

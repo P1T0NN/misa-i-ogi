@@ -9,6 +9,7 @@
 	import { Badge } from '@/shared/components/ui/badge/index.js';
 	import { Button } from '@/shared/components/ui/button/index.js';
 	import AccommodationQrDialog from '@/features/accommodations/components/accommodation-qr-dialog/accommodation-qr-dialog.svelte';
+	import DeleteAccommodationDialog from '@/features/accommodations/components/delete-accommodation-dialog.svelte';
 
 	// DATA
 	import { labelAccommodationType } from '@/features/accommodations/data/accommodationsData';
@@ -88,11 +89,16 @@
 			</div>
 		</div>
 
-		<div class="flex gap-2 md:justify-end">
+		<div class="flex flex-wrap gap-2 md:justify-end">
 			<Button href={editHref(accommodation)} variant="outline" size="sm">
 				<PencilIcon data-icon="inline-start" />
 				{m['MyAccommodationsPage.MyAccommodationsItem.edit']()}
 			</Button>
+
+			<DeleteAccommodationDialog
+				accommodationId={accommodation._id}
+				accommodationName={accommodation.name}
+			/>
 
 			<Button
 				type="button"

@@ -5,6 +5,7 @@ import { authMutation } from '@/convex/auth/middleware/authMiddleware';
 // HELPERS
 import { analytics } from '@/convex/analytics';
 import { reservationStatusCounterKey } from '@/convex/helpers/counterKeys';
+import { AUDIT_ACTIONS } from '@/convex/tables/auditLog/auditLogConfigs';
 
 // UTILS
 import { createAnalyticsResourceScope, createAnalyticsScopeId } from '@piton-/analytics-convex';
@@ -32,6 +33,13 @@ export const cancelReservation = authMutation('cancelReservation')({
 		await ctx.db.patch(args.reservationId, { status: 'cancelled' });
 		await analytics.counters.bump(ctx, reservationStatusCounterKey('pending'), -1);
 		await analytics.counters.bump(ctx, reservationStatusCounterKey('cancelled'), 1);
+
+		ctx.audit(AUDIT_ACTIONS.RESERVATION_CANCEL, {
+			resource: { table: 'reservations', id: args.reservationId },
+			before: { status: 'pending' },
+			after: { status: 'cancelled' },
+			metadata: { guestName: reservation.guestName, hospitalityId: reservation.hospitalityId }
+		});
 
 		const [hospitality, accommodation] = await Promise.all([
 			ctx.db.get(reservation.hospitalityId),

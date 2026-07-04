@@ -22,7 +22,7 @@
 	name={field.id}
 	placeholder={field.placeholder}
 	rows={field.rows}
-	autocomplete={field.autocomplete}
+	autocomplete={field.autocomplete ?? 'new-password'}
 	disabled={field.disabled}
 	required={field.required}
 	value={value as string | undefined}

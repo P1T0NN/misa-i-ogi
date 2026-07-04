@@ -21,6 +21,8 @@ export const tables = {
 		createdAt: v.number(),
 		updatedAt: v.number(),
 		role: v.string(),
+		plan: v.optional(v.union(v.null(), v.string())),
+		planExpiresAt: v.optional(v.union(v.null(), v.number())),
 		banned: v.optional(v.union(v.null(), v.boolean())),
 		banReason: v.optional(v.union(v.null(), v.string())),
 		banExpires: v.optional(v.union(v.null(), v.number())),

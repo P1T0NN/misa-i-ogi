@@ -3,10 +3,13 @@
 	import { m } from '@/shared/lib/paraglide/messages';
 
 	// CONFIG
-	import { COMPANY_DATA } from '@/shared/constants';
+	import { PROTECTED_PAGE_ENDPOINTS } from '@/shared/constants';
+
+	// COMPONENTS
+	import { Button } from '@/shared/components/ui/button/index.js';
 
 	// LUCIDE ICONS
-	import ArrowRightIcon from '@lucide/svelte/icons/arrow-right';
+	import PlusIcon from '@lucide/svelte/icons/plus';
 	import StoreIcon from '@lucide/svelte/icons/store';
 </script>
 
@@ -22,13 +25,12 @@
 			{m['MyHospitalitiesPage.MyHospitalitiesEmpty.title']()}
 		</h2>
 		<p class="mt-1 max-w-md text-sm text-muted-foreground">
-			{m['MyHospitalitiesPage.MyHospitalitiesEmpty.description']({
-				companyName: COMPANY_DATA.NAME
-			})}
+			{m['MyHospitalitiesPage.MyHospitalitiesEmpty.description']()}
 		</p>
-		<p class="mt-2 flex items-center gap-1.5 text-xs font-medium text-muted-foreground">
-			<span>{m['MyHospitalitiesPage.MyHospitalitiesEmpty.hint']()}</span>
-			<ArrowRightIcon class="size-3.5" aria-hidden="true" />
-		</p>
+
+		<Button href={PROTECTED_PAGE_ENDPOINTS.MY_HOSPITALITY_ADD} class="mt-2">
+			<PlusIcon data-icon="inline-start" />
+			{m['MyHospitalitiesPage.MyHospitalitiesEmpty.cta']()}
+		</Button>
 	</div>
 </div>

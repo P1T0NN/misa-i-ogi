@@ -39,6 +39,8 @@ export type ComponentApi<Name extends string | undefined = string | undefined> =
                   emailVerified: boolean;
                   image?: null | string;
                   name: string;
+                  plan?: null | string;
+                  planExpiresAt?: null | number;
                   role: string;
                   updatedAt: number;
                   userId?: null | string;
@@ -117,6 +119,8 @@ export type ComponentApi<Name extends string | undefined = string | undefined> =
                     | "createdAt"
                     | "updatedAt"
                     | "role"
+                    | "plan"
+                    | "planExpiresAt"
                     | "banned"
                     | "banReason"
                     | "banExpires"
@@ -315,6 +319,8 @@ export type ComponentApi<Name extends string | undefined = string | undefined> =
                     | "createdAt"
                     | "updatedAt"
                     | "role"
+                    | "plan"
+                    | "planExpiresAt"
                     | "banned"
                     | "banReason"
                     | "banExpires"
@@ -585,6 +591,8 @@ export type ComponentApi<Name extends string | undefined = string | undefined> =
                   emailVerified?: boolean;
                   image?: null | string;
                   name?: string;
+                  plan?: null | string;
+                  planExpiresAt?: null | number;
                   role?: string;
                   updatedAt?: number;
                   userId?: null | string;
@@ -599,6 +607,8 @@ export type ComponentApi<Name extends string | undefined = string | undefined> =
                     | "createdAt"
                     | "updatedAt"
                     | "role"
+                    | "plan"
+                    | "planExpiresAt"
                     | "banned"
                     | "banReason"
                     | "banExpires"
@@ -833,6 +843,8 @@ export type ComponentApi<Name extends string | undefined = string | undefined> =
                   emailVerified?: boolean;
                   image?: null | string;
                   name?: string;
+                  plan?: null | string;
+                  planExpiresAt?: null | number;
                   role?: string;
                   updatedAt?: number;
                   userId?: null | string;
@@ -847,6 +859,8 @@ export type ComponentApi<Name extends string | undefined = string | undefined> =
                     | "createdAt"
                     | "updatedAt"
                     | "role"
+                    | "plan"
+                    | "planExpiresAt"
                     | "banned"
                     | "banReason"
                     | "banExpires"

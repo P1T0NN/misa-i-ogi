@@ -118,6 +118,40 @@ export const setUserRole = adminMutation('setUserRole')({
 });
 
 /**
+ * Set a user's custom-partnership plan tier (`free` ↔ `pro`). Hand-toggled by
+ * admins until real billing lands — the only write path for `plan`. Mirrors
+ * {@link setUserRole}; audited as `user.plan.update` with before/after.
+ */
+export const setUserPlan = adminMutation('setUserPlan')({
+	args: {
+		userId: v.string(),
+		plan: v.union(v.literal('free'), v.literal('pro'))
+	},
+	returns: mutationResultValidator,
+	handler: async (ctx, args): Promise<MutationResult> => {
+		const before = await authComponent.getAnyUserById(ctx, args.userId);
+		if (!before) {
+			return { success: false, message: { key: 'GenericMessages.USER_NOT_FOUND' } };
+		}
+
+		const { auth, headers } = await authComponent.getAuth(createAuth, ctx);
+
+		await auth.api.adminUpdateUser({
+			body: { userId: args.userId, data: { plan: args.plan } },
+			headers
+		});
+
+		ctx.audit(AUDIT_ACTIONS.USER_PLAN_UPDATE, {
+			resource: { table: 'user', id: args.userId },
+			before: { plan: (before as { plan?: string }).plan ?? 'free' },
+			after: { plan: args.plan }
+		});
+
+		return { success: true, message: { key: 'GenericMessages.USER_PLAN_UPDATED' } };
+	}
+});
+
+/**
  * Ban a user. `banReason` is shown to the user on next sign-in attempt.
  * `banExpiresIn` is seconds-from-now; omit for permanent ban.
  *

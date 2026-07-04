@@ -81,8 +81,7 @@
 					id: 'address',
 					kind: 'input',
 					label: m['EditHospitalityPage.fieldAddress'](),
-					placeholder: m['EditHospitalityPage.fieldAddressPlaceholder'](),
-					autocomplete: 'street-address'
+					placeholder: m['EditHospitalityPage.fieldAddressPlaceholder']()
 				},
 				{
 					id: 'addressNumber',
@@ -96,7 +95,6 @@
 					kind: 'input',
 					label: m['EditHospitalityPage.fieldCity'](),
 					placeholder: m['EditHospitalityPage.fieldCityPlaceholder'](),
-					autocomplete: 'address-level2',
 					colSpan: 1
 				},
 				{
@@ -104,7 +102,6 @@
 					kind: 'input',
 					label: m['EditHospitalityPage.fieldCountry'](),
 					placeholder: m['EditHospitalityPage.fieldCountryPlaceholder'](),
-					autocomplete: 'country-name',
 					colSpan: 1
 				},
 				{
@@ -138,8 +135,7 @@
 					kind: 'input',
 					type: 'tel',
 					label: m['EditHospitalityPage.fieldContactPhone'](),
-					placeholder: m['EditHospitalityPage.fieldContactPhonePlaceholder'](),
-					autocomplete: 'tel'
+					placeholder: m['EditHospitalityPage.fieldContactPhonePlaceholder']()
 				}
 			]
 		},
@@ -158,6 +154,28 @@
 			]
 		},
 		{
+			id: 'menu',
+			title: m['EditHospitalityPage.sectionMenuTitle'](),
+			description: m['EditHospitalityPage.sectionMenuDescription'](),
+			columns: 1,
+			fields: [
+				{
+					id: 'menuFileKey',
+					kind: 'upload-single',
+					label: m['EditHospitalityPage.fieldMenuFile'](),
+					description: m['EditHospitalityPage.fieldMenuFileHint'](),
+					accept: 'image/*,application/pdf'
+				},
+				{
+					id: 'menuLink',
+					kind: 'input',
+					type: 'url',
+					label: m['EditHospitalityPage.fieldMenuLink'](),
+					placeholder: m['EditHospitalityPage.fieldMenuLinkPlaceholder']()
+				}
+			]
+		},
+		{
 			id: 'details',
 			title: m['EditHospitalityPage.sectionDetailsTitle'](),
 			description: m['EditHospitalityPage.sectionDetailsDescription'](),
@@ -167,7 +185,8 @@
 					kind: 'textarea',
 					label: m['EditHospitalityPage.fieldDescription'](),
 					placeholder: m['EditHospitalityPage.fieldDescriptionPlaceholder'](),
-					rows: 4
+					rows: 4,
+					required: true
 				},
 				{
 					id: 'reservationMode',
@@ -199,7 +218,9 @@
 		contactPhone: '',
 		reservationMode: 'managed_request',
 		isActive: true,
-		coverImageKey: null
+		coverImageKey: null,
+		menuFileKey: null,
+		menuLink: ''
 	});
 
 	let hydratedForId = $state<string | null>(null);
@@ -227,7 +248,9 @@
 			contactPhone: row.contactPhone,
 			reservationMode: row.reservationMode,
 			isActive: row.isActive,
-			coverImageKey: null
+			coverImageKey: null,
+			menuFileKey: null,
+			menuLink: row.menuLink ?? ''
 		};
 		hydratedForId = row._id;
 	});
@@ -244,6 +267,7 @@
 	customFields={{
 		address: addressField,
 		coverImageKey: coverField,
+		menuFileKey: menuFileField,
 		reservationMode: reservationModeField
 	}}
 	onSuccess={() => appGoto(PROTECTED_PAGE_ENDPOINTS.MY_HOSPITALITIES)}
@@ -289,6 +313,32 @@
 		existingPreviewAlt={m['EditHospitalityPage.currentCoverAlt']({ name: hospitality.name })}
 		bind:file={() => (value as File | null) ?? null, (next) => setValue(next)}
 	/>
+{/snippet}
+
+{#snippet menuFileField({
+	value,
+	setValue,
+	inputId,
+	field
+}: MutationFormFieldSnippetProps<HospitalityEditFormInputs>)}
+	<UploadFileSingle
+		id={inputId}
+		accept={field.accept}
+		bind:file={() => (value as File | null) ?? null, (next) => setValue(next)}
+	/>
+	{#if hospitality.menuFileUrl}
+		<p class="mt-2 text-sm text-muted-foreground">
+			{m['EditHospitalityPage.currentMenu']()}
+			<a
+				href={hospitality.menuFileUrl}
+				target="_blank"
+				rel="noopener noreferrer"
+				class="text-primary underline underline-offset-2"
+			>
+				{m['EditHospitalityPage.currentMenuView']()}
+			</a>
+		</p>
+	{/if}
 {/snippet}
 
 {#snippet reservationModeField({

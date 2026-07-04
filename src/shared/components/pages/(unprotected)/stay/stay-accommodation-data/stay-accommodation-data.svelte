@@ -17,7 +17,7 @@
 
 	// TYPES
 	import type { AccommodationStayDetailsSafe } from '@/convex/tables/accommodations/types/accommodationsTypes';
-	import type { AccommodationPartnershipSafe } from '@/convex/tables/partnerships/types/partnershipsTypes';
+	import type { typesPartnershipAccommodationSafe } from '@/features/partnerships/types/partnershipsTypes';
 
 	// LUCIDE ICONS
 	import MapPinIcon from '@lucide/svelte/icons/map-pin';
@@ -42,7 +42,7 @@
 		() => (partnersUnlocked ? {} : 'skip')
 	);
 	const partnerships = $derived(
-		partnershipsQuery.data as AccommodationPartnershipSafe[] | undefined
+		partnershipsQuery.data as typesPartnershipAccommodationSafe[] | undefined
 	);
 	const partnershipsLoading = $derived(
 		partnersUnlocked && partnerships === undefined && !partnershipsQuery.error

@@ -21,3 +21,12 @@ export const RESERVATION_STATUSES: ReservationStatus[] = [
 export function reservationStatusCounterKey(status: ReservationStatus): string {
 	return `reservations.${status}`;
 }
+
+/**
+ * Active custom partnerships per accommodation owner — the free-tier quota
+ * counter. Bumped only when a row lands in `partnerships` (instant connect,
+ * create-my-hospitality, request accept), never on request send.
+ */
+export function customPartnershipsCounterKey(userId: string): string {
+	return `customPartnerships.count:${userId}`;
+}

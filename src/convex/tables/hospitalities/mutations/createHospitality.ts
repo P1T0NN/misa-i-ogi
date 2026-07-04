@@ -7,6 +7,8 @@ import { resolveStoredFileUrlAndSyncRow } from '@/convex/storage/r2/resolveStore
 
 // HELPERS
 import { analytics } from '@/convex/analytics';
+import { generateUniqueConnectCode } from '@/convex/tables/hospitalities/helpers/generateUniqueConnectCode';
+import { AUDIT_ACTIONS } from '@/convex/tables/auditLog/auditLogConfigs';
 
 // SCHEMAS
 import { mutationResultValidator, type MutationResult } from '@/convex/schemas/mutationResult';
@@ -75,11 +77,14 @@ export const createHospitality = adminMutation('createHospitality')({
 
 		const coverImageUrl = await resolveStoredFileUrlAndSyncRow(ctx, uploaded);
 
+		const connectCode = await generateUniqueConnectCode(ctx);
+
 		const hospitality: typeof rest & {
 			coverImageKey: string;
 			coverImageUrl: string;
 			ownerId: string;
 			reservationMode: 'managed_request';
+			connectCode: string;
 		} = {
 			...rest,
 			address,
@@ -87,10 +92,17 @@ export const createHospitality = adminMutation('createHospitality')({
 			coverImageKey: uploaded.key,
 			coverImageUrl,
 			ownerId: resolvedOwnerId,
-			reservationMode: args.reservationMode
+			reservationMode: args.reservationMode,
+			connectCode
 		};
 
 		const hospitalityId = await ctx.db.insert('hospitalities', hospitality);
+
+		ctx.audit(AUDIT_ACTIONS.HOSPITALITY_CREATE, {
+			resource: { table: 'hospitalities', id: hospitalityId },
+			after: { name: hospitality.name, type: hospitality.type, createType: 'platform' },
+			metadata: { ownerId: resolvedOwnerId }
+		});
 
 		await analytics.track(ctx, 'hospitality.claimed', {
 			subject: { type: 'hospitality', id: hospitalityId },

@@ -70,15 +70,13 @@
 					id: 'address',
 					kind: 'input',
 					label: m['AdminAccommodationAddPage.fieldAddress'](),
-					placeholder: m['AdminAccommodationAddPage.fieldAddressPlaceholder'](),
-					autocomplete: 'street-address'
+					placeholder: m['AdminAccommodationAddPage.fieldAddressPlaceholder']()
 				},
 				{
 					id: 'city',
 					kind: 'input',
 					label: m['AdminAccommodationAddPage.fieldCity'](),
 					placeholder: m['AdminAccommodationAddPage.fieldCityPlaceholder'](),
-					autocomplete: 'address-level2',
 					colSpan: 1
 				},
 				{
@@ -86,7 +84,6 @@
 					kind: 'input',
 					label: m['AdminAccommodationAddPage.fieldCountry'](),
 					placeholder: m['AdminAccommodationAddPage.fieldCountryPlaceholder'](),
-					autocomplete: 'country-name',
 					colSpan: 1
 				}
 			]

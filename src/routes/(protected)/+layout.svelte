@@ -33,6 +33,7 @@
 	import HospitalIcon from '@lucide/svelte/icons/hospital';
 	import CalendarCheckIcon from '@lucide/svelte/icons/calendar-check';
 	import ShieldCheckIcon from '@lucide/svelte/icons/shield-check';
+	import Link2Icon from '@lucide/svelte/icons/link-2';
 	import HomeIcon from '@lucide/svelte/icons/home';
 	import CirclePlusIcon from '@lucide/svelte/icons/circle-plus';
 
@@ -45,6 +46,11 @@
 	const isAdmin = $derived(authClass.currentUser?.role === 'admin');
 
 	const navItems = $derived.by((): AppSidebarNavItems => {
+		const hospitalityGroup = m['ProtectedSidebar.hospitalityGroupLabel']();
+		const accommodationGroup = m['ProtectedSidebar.accommodationGroupLabel']();
+		const overviewGroup = m['ProtectedSidebar.overviewGroupLabel']();
+		const analyticsGroup = m['ProtectedSidebar.analyticsGroupLabel']();
+
 		const navSecondary = [
 			...(isAdmin
 				? [
@@ -67,32 +73,49 @@
 				{
 					name: m['ProtectedSidebar.dashboard'](),
 					url: PROTECTED_PAGE_ENDPOINTS.DASHBOARD,
-					icon: LayoutDashboardIcon
+					icon: LayoutDashboardIcon,
+					groupLabel: overviewGroup
 				},
 				{
-					name: m['ProtectedSidebar.myAccommodations'](),
-					url: PROTECTED_PAGE_ENDPOINTS.MY_ACCOMMODATIONS,
-					icon: BuildingIcon
-				},
-				{
-					name: m['AddAccommodationPage.navLabel'](),
-					url: PROTECTED_PAGE_ENDPOINTS.MY_ACCOMMODATION_ADD,
-					icon: CirclePlusIcon
+					name: m['ProtectedSidebar.partnerships'](),
+					url: PROTECTED_PAGE_ENDPOINTS.PARTNERSHIPS,
+					icon: Link2Icon,
+					groupLabel: overviewGroup
 				},
 				{
 					name: m['ProtectedSidebar.myHospitalities'](),
 					url: PROTECTED_PAGE_ENDPOINTS.MY_HOSPITALITIES,
-					icon: HospitalIcon
+					icon: HospitalIcon,
+					groupLabel: hospitalityGroup
+				},
+				{
+					name: m['AddHospitalityPage.navLabel'](),
+					url: PROTECTED_PAGE_ENDPOINTS.MY_HOSPITALITY_ADD,
+					icon: CirclePlusIcon,
+					groupLabel: hospitalityGroup
 				},
 				{
 					name: m['ProtectedSidebar.reservations'](),
 					url: PROTECTED_PAGE_ENDPOINTS.RESERVATIONS,
-					icon: CalendarCheckIcon
+					icon: CalendarCheckIcon,
+					groupLabel: hospitalityGroup
+				},
+				{
+					name: m['ProtectedSidebar.myAccommodations'](),
+					url: PROTECTED_PAGE_ENDPOINTS.MY_ACCOMMODATIONS,
+					icon: BuildingIcon,
+					groupLabel: accommodationGroup
+				},
+				{
+					name: m['AddAccommodationPage.navLabel'](),
+					url: PROTECTED_PAGE_ENDPOINTS.MY_ACCOMMODATION_ADD,
+					icon: CirclePlusIcon,
+					groupLabel: accommodationGroup
 				},
 				{
 					name: m['ProtectedSidebar.analytics'](),
 					icon: ChartBarIcon,
-					groupLabel: m['ProtectedSidebar.analyticsGroupLabel'](),
+					groupLabel: analyticsGroup,
 					items: [
 						{
 							name: m['ProtectedSidebar.analyticsOverview'](),

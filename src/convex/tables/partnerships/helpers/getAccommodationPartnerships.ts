@@ -3,7 +3,7 @@ import { getAccommodationByIdSafe } from '@/convex/tables/accommodations/helpers
 import { getHospitalitySafe } from '@/convex/tables/hospitalities/helpers/getHospitality';
 
 // TYPES
-import type { AccommodationPartnershipSafe } from '@/convex/tables/partnerships/types/partnershipsTypes';
+import type { typesPartnershipAccommodationSafe } from '@/features/partnerships/types/partnershipsTypes';
 import type { Doc, Id } from '@/convex/_generated/dataModel';
 import type { MutationCtx, QueryCtx } from '@/convex/_generated/server';
 
@@ -47,7 +47,7 @@ export async function hasActiveAccommodationHospitalityPartnership(
 export async function getAccommodationPartnershipsByAccommodationIdSafe(
 	ctx: QueryCtx,
 	accommodationId: Id<'accommodations'>
-): Promise<AccommodationPartnershipSafe[]> {
+): Promise<typesPartnershipAccommodationSafe[]> {
 	const accommodation = await getAccommodationByIdSafe(ctx, accommodationId);
 	if (!accommodation) return [];
 
@@ -59,7 +59,7 @@ export async function getAccommodationPartnershipsByAccommodationIdSafe(
 	const enriched = await Promise.all(
 		partnerships
 			.filter((partnership) => partnership.isActive)
-			.map(async (partnership): Promise<AccommodationPartnershipSafe | null> => {
+			.map(async (partnership): Promise<typesPartnershipAccommodationSafe | null> => {
 				const hospitality = await getHospitalitySafe(ctx, partnership.hospitalityId);
 				if (!hospitality) return null;
 
@@ -81,6 +81,6 @@ export async function getAccommodationPartnershipsByAccommodationIdSafe(
 	);
 
 	return enriched
-		.filter((row): row is AccommodationPartnershipSafe => row !== null)
+		.filter((row): row is typesPartnershipAccommodationSafe => row !== null)
 		.sort((a, b) => a.hospitality.name.localeCompare(b.hospitality.name));
 }

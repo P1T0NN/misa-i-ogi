@@ -3,6 +3,9 @@ import { v } from 'convex/values';
 
 // HELPERS
 import { getOwnedHospitality } from '@/convex/tables/hospitalities/helpers/getOwnedHospitality';
+import { getUserPlan } from '@/convex/tables/proTrials/helpers/proTrial';
+import { resolveMenuFile, normalizeMenuLink } from '@/convex/tables/hospitalities/helpers/resolveMenuFile';
+import { AUDIT_ACTIONS } from '@/convex/tables/auditLog/auditLogConfigs';
 
 // UTILS
 import { authMutation } from '@/convex/auth/middleware/authMiddleware';
@@ -36,7 +39,9 @@ export const updateHospitality = authMutation('updateHospitality')({
 		contactPhone: v.string(),
 		reservationMode: v.literal('managed_request'),
 		isActive: v.boolean(),
-		coverImageKey: v.optional(v.string())
+		coverImageKey: v.optional(v.string()),
+		menuFileKey: v.optional(v.string()),
+		menuLink: v.optional(v.string())
 	},
 	returns: mutationResultValidator,
 	handler: async (ctx, args): Promise<MutationResult> => {
@@ -46,6 +51,20 @@ export const updateHospitality = authMutation('updateHospitality')({
 				success: false,
 				message: { key: 'GenericMessages.HOSPITALITY_NOT_FOUND' }
 			};
+		}
+
+		// Cron-deactivated venue (expired pro trial): only a Pro upgrade may switch
+		// it back on — otherwise the expiry would be a checkbox away from undone.
+		let deactivationReason = doc.deactivationReason;
+		if (doc.deactivationReason === 'trial_expired' && args.isActive) {
+			const plan = await getUserPlan(ctx, ctx.userId);
+			if (plan !== 'pro') {
+				return {
+					success: false,
+					message: { key: 'GenericMessages.PRO_TRIAL_EXPIRED' }
+				};
+			}
+			deactivationReason = undefined;
 		}
 
 		let coverImageKey = doc.coverImageKey;
@@ -68,6 +87,21 @@ export const updateHospitality = authMutation('updateHospitality')({
 			coverImageKey = uploaded.key;
 		}
 
+		// A new upload replaces the menu file; otherwise keep whatever's there.
+		let menuFileKey = doc.menuFileKey;
+		let menuFileUrl = doc.menuFileUrl;
+		if (args.menuFileKey) {
+			const menu = await resolveMenuFile(ctx, args.menuFileKey);
+			if (!menu.ok) return menu.error;
+			menuFileKey = menu.menuFileKey;
+			menuFileUrl = menu.menuFileUrl;
+		}
+
+		// Link field is always sent by the edit form (empty clears it); a caller that
+		// omits it entirely keeps the existing link.
+		const menuLink =
+			args.menuLink !== undefined ? normalizeMenuLink(args.menuLink) : doc.menuLink;
+
 		const addressNumber = args.addressNumber?.trim();
 		await ctx.db.patch(args.hospitalityId, {
 			name: args.name.trim(),
@@ -83,8 +117,18 @@ export const updateHospitality = authMutation('updateHospitality')({
 			contactPhone: args.contactPhone.trim(),
 			reservationMode: args.reservationMode,
 			isActive: args.isActive,
+			deactivationReason,
 			coverImageKey,
-			coverImageUrl
+			coverImageUrl,
+			menuFileKey,
+			menuFileUrl,
+			menuLink
+		});
+
+		ctx.audit(AUDIT_ACTIONS.HOSPITALITY_UPDATE, {
+			resource: { table: 'hospitalities', id: args.hospitalityId },
+			before: { name: doc.name, type: doc.type, isActive: doc.isActive },
+			after: { name: args.name.trim(), type: args.type, isActive: args.isActive }
 		});
 
 		return {

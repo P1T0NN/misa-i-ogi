@@ -12,7 +12,7 @@
 	const accommodationFree: string[] = [
 		'Guest perks from platform partners, from day one',
 		'Full analytics — every scan, activation, and reservation',
-		'Your first custom partnership, included'
+		'Custom partnerships — your first month free'
 	];
 </script>
 
@@ -44,12 +44,12 @@
 
 	<div class="mt-7 border-t border-border-2 pt-5">
 		<div class="flex items-center gap-2">
-			<p class="mb-0 text-sm font-medium text-foreground">Want more custom partnerships?</p>
+			<p class="mb-0 text-sm font-medium text-foreground">Custom partnerships after the trial?</p>
 			<Badge variant="secondary">Optional</Badge>
 		</div>
 		<p class="mt-1.5 mb-0 text-sm leading-relaxed text-muted-foreground">
-			Everything above stays free. If you ever want to add unlimited custom partnerships of your
-			own, a simple seasonal Pro plan covers it — only if and when you need it.
+			Everything above stays free. Custom partnerships of your own come with a 1-month free trial —
+			after that, a simple seasonal Pro plan keeps them running, only if you want to continue.
 		</p>
 	</div>
 

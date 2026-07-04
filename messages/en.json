@@ -85,7 +85,11 @@
 		"dashboard": "Dashboard",
 		"myAccommodations": "My Accommodations",
 		"myHospitalities": "My Hospitalities",
+		"partnerships": "Partnerships",
 		"reservations": "Reservations",
+		"overviewGroupLabel": "Overview",
+		"accommodationGroupLabel": "Accommodation",
+		"hospitalityGroupLabel": "Hospitality",
 		"analytics": "Analytics",
 		"analyticsGroupLabel": "Analytics",
 		"analyticsOverview": "Overview",
@@ -126,6 +130,19 @@
 		"fileDelete": "File deleted",
 		"partnershipCreate": "Partnership created",
 		"partnershipDelete": "Partnership deleted",
+		"partnershipRequestCreate": "Partnership request created",
+		"partnershipRequestDecline": "Partnership request declined",
+		"userPlanUpdate": "User plan updated",
+		"accommodationCreate": "Accommodation created",
+		"accommodationUpdate": "Accommodation updated",
+		"hospitalityCreate": "Hospitality created",
+		"hospitalityUpdate": "Hospitality updated",
+		"hospitalityVisibilityUpdate": "Hospitality visibility updated",
+		"reservationConfirm": "Reservation confirmed",
+		"reservationCancel": "Reservation cancelled",
+		"reservationNoShow": "Reservation marked no-show",
+		"trialStart": "Free trial started",
+		"trialExpire": "Free trial expired",
 		"unknown": "{action}"
 	},
 	"UsersComponents": {
@@ -317,6 +334,10 @@
 		"getDirections": "Get directions",
 		"aboutTitle": "About this hospitality",
 		"aboutSideNote": "Details from the hospitality listing.",
+		"menuTitle": "Menu",
+		"menuSideNote": "Browse what this venue offers.",
+		"viewMenu": "View menu",
+		"viewMenuOnline": "View menu online",
 		"hospitalityDetailsTitle": "Hospitality details",
 		"dlType": "Type",
 		"benefitEyebrow": "Your accommodation benefit",
@@ -918,16 +939,18 @@
 			"reservations": "Reservations",
 			"view": "View",
 			"edit": "Edit",
-			"openPublicPageAriaLabel": "Open public page"
+			"openPublicPageAriaLabel": "Open public page",
+			"connectCode": "Connect code",
+			"copyConnectCodeAriaLabel": "Copy connect code"
 		},
 		"MyHospitalitiesError": {
 			"title": "Something went wrong",
 			"description": "Could not load your hospitalities."
 		},
 		"MyHospitalitiesEmpty": {
-			"title": "No hospitalities assigned yet",
-			"description": "When the {companyName} team assigns a hospitality to your account, it will appear here.",
-			"hint": "Assigned hospitalities become editable from this page"
+			"title": "No hospitalities yet",
+			"description": "Add a venue you run yourself, or wait for one to be assigned to your account — either way it will appear here.",
+			"cta": "Add hospitality"
 		}
 	},
 	"ReservationsPage": {
@@ -1124,6 +1147,72 @@
 		"legacyDiscountValue": "{percent}% off",
 		"addPartnership": "Add partnership"
 	},
+	"PartnershipsPage": {
+		"SEO": {
+			"title": "Partnerships",
+			"description": "Your partnership links and requests. Each active row is a perk guests unlock after scanning the in-room QR."
+		},
+		"PartnershipsHeader": {
+			"title": "Partnerships",
+			"description": "Links between your accommodations and partner venues, plus the requests waiting on either side.",
+			"proBadge": "Pro — unlimited",
+			"trialAvailableBadge": "1-month free trial included",
+			"trialActiveBadge": "Free trial — ends {date}",
+			"trialEndedBadge": "Free trial ended",
+			"createCustomPartnership": "Create custom partnership"
+		},
+		"PartnershipsTabs": {
+			"active": "Active",
+			"sent": "Sent",
+			"received": "Received"
+		},
+		"PartnershipsActiveTab": {
+			"caption": "Active partnerships",
+			"columnVenue": "Venue",
+			"columnAccommodation": "Accommodation",
+			"columnBenefit": "Benefit",
+			"columnOwner": "Ownership",
+			"columnCreated": "Created",
+			"benefitNone": "—",
+			"setBenefit": "Set benefit",
+			"setBenefitTitle": "Set the guest benefit?",
+			"setBenefitDescription": "Guests of the linked accommodation will see this offer at your venue.",
+			"columnActions": "Actions",
+			"ownerYours": "Yours",
+			"ownerPartner": "Partner"
+		},
+		"PartnershipsSentTab": {
+			"unknownVenue": "Deleted venue",
+			"sentOn": "Sent {date}"
+		},
+		"PartnershipRequestItem": {
+			"unknownProperty": "Deleted property",
+			"requestedOn": "Requested {date}",
+			"accept": "Accept",
+			"decline": "Decline",
+			"acceptTitle": "Accept this partnership request?",
+			"acceptDescription": "Guests of the requesting accommodation will see your venue with the benefit you set below.",
+			"declineTitle": "Decline this partnership request?",
+			"declineDescription": "The requester will see the request was declined. They can't send a new one unless you change your mind later.",
+			"benefitLabel": "Guest benefit",
+			"benefitPlaceholder": "15% off",
+			"benefitHint": "The offer guests will see. Example: 15% off"
+		},
+		"PartnershipStatusBadge": {
+			"pending": "Pending",
+			"accepted": "Accepted",
+			"declined": "Declined"
+		},
+		"PartnershipsTabEmpty": {
+			"active": "No partnerships yet. Create one to give your guests extra perks.",
+			"activeCta": "Create custom partnership",
+			"sent": "You haven't sent any partnership requests yet.",
+			"received": "No pending requests for your venues."
+		},
+		"PartnershipsTabsLoading": {
+			"ariaLabel": "Loading partnerships"
+		}
+	},
 	"AdminPartnershipAddPage": {
 		"SEO": {
 			"title": "Add partnership",
@@ -1179,7 +1268,16 @@
 		"statusActive": "Active",
 		"statusInactive": "Inactive",
 		"contactNone": "—",
-		"addHospitality": "Add hospitality"
+		"addHospitality": "Add hospitality",
+		"columnVisibility": "Visibility",
+		"VisibilityButton": {
+			"public": "Public",
+			"private": "Private",
+			"makePublicTitle": "Publish {name}?",
+			"makePrivateTitle": "Unpublish {name}?",
+			"makePublicDescription": "Other users will be able to find this hospitality in their custom-partnership connect flow and send partnership requests to its owner.",
+			"makePrivateDescription": "This hospitality will no longer appear in other users' custom-partnership connect flow. Existing partnerships are not affected."
+		}
 	},
 	"AdminHospitalityAddPage": {
 		"SEO": {
@@ -1219,7 +1317,7 @@
 		"fieldContactPhonePlaceholder": "+34 600 000 000",
 		"fieldReservationMode": "Reservation mode",
 		"fieldDescription": "Description",
-		"fieldDescriptionPlaceholder": "Short description shown on the benefits page (optional).",
+		"fieldDescriptionPlaceholder": "Short description shown on the benefits page.",
 		"fieldIsActive": "Active",
 		"fieldIsActiveDescription": "Inactive hospitalities stay in the database but won't appear in benefit lists.",
 		"fieldCoverImage": "Cover image",
@@ -1250,6 +1348,14 @@
 		"sectionCoverTitle": "Cover image",
 		"sectionCoverDescription": "Leave empty to keep the current image. PNG or JPG recommended.",
 		"currentCoverAlt": "Current cover for {name}",
+		"sectionMenuTitle": "Menu",
+		"sectionMenuDescription": "Optional. Leave the file empty to keep the current menu.",
+		"fieldMenuFile": "Menu file",
+		"fieldMenuFileHint": "Upload an image or a PDF of your menu.",
+		"fieldMenuLink": "Menu link",
+		"fieldMenuLinkPlaceholder": "https://your-menu-online.com",
+		"currentMenu": "Current menu:",
+		"currentMenuView": "View",
 		"sectionDetailsTitle": "Details",
 		"sectionDetailsDescription": "Description, reservations, and visibility.",
 		"fieldName": "Name",
@@ -1426,6 +1532,9 @@
 			"role": "Role: {role}",
 			"removeAdmin": "Remove admin privileges from this account.",
 			"grantAdmin": "Grant admin privileges to this account.",
+			"plan": "Plan: {plan}",
+			"upgradePlan": "Upgrade this account to the Pro plan (unlimited custom partnerships).",
+			"downgradePlan": "Downgrade this account to the free plan (custom partnerships only during the 1-month trial).",
 			"banned": "Banned",
 			"active": "Active",
 			"liftBan": "Lift the ban so the user can sign in again.",
@@ -1455,6 +1564,14 @@
 			"promoteTitle": "Promote {email} to admin?",
 			"demoteDescription": "Are you sure you want to do this? The user will immediately lose admin privileges.",
 			"promoteDescription": "Are you sure you want to do this? The user will gain full admin privileges, including the ability to ban and delete other accounts."
+		},
+		"ChangePlanButton": {
+			"upgrade": "Upgrade to Pro",
+			"downgrade": "Downgrade to free",
+			"upgradeTitle": "Upgrade {email} to Pro?",
+			"downgradeTitle": "Downgrade {email} to free?",
+			"upgradeDescription": "The user gets unlimited custom partnerships immediately.",
+			"downgradeDescription": "The user goes back to the free plan — new custom partnerships then require an active 1-month trial. Existing partnerships are not removed."
 		},
 		"DeleteUserDialog": {
 			"delete": "Delete…",
@@ -1562,9 +1679,10 @@
 			"phoneRequired": "Phone number is required.",
 			"coverRequired": "Add a cover image."
 		},
-		"CreatePartnershipSchema": {
+		"CreateCustomPartnershipSchema": {
 			"accommodationRequired": "Pick an accommodation.",
 			"hospitalityRequired": "Pick at least one hospitality.",
+			"connectCodeInvalid": "Enter a valid 5-character connect code.",
 			"benefitRequired": "Benefit is required.",
 			"benefitMaxLength": "Benefit must be 15 characters or fewer."
 		},
@@ -1581,7 +1699,138 @@
 			"emailInvalid": "Enter a valid email address."
 		}
 	},
+	"CreateCustomPartnershipPage": {
+		"SEO": {
+			"title": "Connect a partnership",
+			"description": "Link one of your accommodations with a hospitality venue."
+		},
+		"CreateCustomPartnershipHeader": {
+			"title": "Create a custom partnership",
+			"description": "Pick one of your accommodations, then enter the connect code of the venue you want to link with.",
+			"back": "Back to Partnerships"
+		},
+		"CreateCustomPartnershipForm": {
+			"sectionTitle": "Partners",
+			"sectionDescription": "Pick your accommodation, then enter the venue's connect code. Your own venues connect instantly; other owners' venues receive a request first.",
+			"fieldAccommodation": "Accommodation",
+			"fieldConnectCode": "Connect code",
+			"pickAccommodationFirst": "Pick an accommodation first.",
+			"connectCodePlaceholder": "e.g. K7B2Q",
+			"connectCodeHint": "Ask the venue owner for their connect code.",
+			"ownVenueBadge": "Yours",
+			"ownVenueBenefitHint": "Guests of this accommodation will see this offer at your venue.",
+			"partnerVenueBenefitHint": "The venue owner will set the guest offer when they accept your request."
+		},
+		"CreateCustomPartnershipFormActions": {
+			"submitConnect": "Connect",
+			"submitRequest": "Send partnership request",
+			"trialHint": "Your 1-month free trial starts when your first custom partnership goes live.",
+			"hint": "If the venue belongs to another owner, they'll need to accept before it goes live.",
+			"hintOwnVenue": "This connects instantly — guests will see the benefit you set above."
+		},
+		"CustomPartnershipTrialNotice": {
+			"title": "Your free trial has ended",
+			"description": "Custom partnerships are paused for this account. Pro plan upgrades aren't available yet — check back soon."
+		}
+	},
+	"RevokePartnershipDialog": {
+		"revoke": "Revoke",
+		"title": "Revoke this partnership?",
+		"description": "This removes the link between {accommodationName} and {hospitalityName}. Guests will no longer see the benefit at this venue.",
+		"success": "Partnership revoked."
+	},
+	"DeleteAccommodationDialog": {
+		"delete": "Delete",
+		"title": "Delete this accommodation?",
+		"description": "This permanently removes {accommodationName} from your account. Guests will no longer be able to scan its QR code. Active guest sessions or partnerships must be cleared first."
+	},
+	"SelectMyAccommodationDialog": {
+		"selectAccommodation": "Select accommodation",
+		"modifyAccommodation": "Change accommodation",
+		"dialogTitle": "Select an accommodation",
+		"Error": {
+			"title": "Could not load accommodations",
+			"description": "Please try again in a moment.",
+			"retry": "Try again"
+		},
+		"Empty": {
+			"title": "No accommodations yet",
+			"description": "Add an accommodation to your account before creating a partnership.",
+			"cta": "Add accommodation"
+		}
+	},
+	"StartProTrialDialog": {
+		"title": "Start your free Pro trial?",
+		"description": "Enabling the trial unlocks hospitality creation and every other Pro feature. It will be valid from {startDate} until {endDate}.",
+		"question": "Are you sure you want to start the trial?",
+		"confirm": "Yes, start trial",
+		"cancel": "Cancel"
+	},
+	"AddHospitalityPage": {
+		"SEO": {
+			"title": "Add hospitality",
+			"description": "Add a venue you run yourself. Link it to your accommodations afterwards with its connect code."
+		},
+		"navLabel": "Add hospitality",
+		"AddHospitalityHeader": {
+			"title": "Add hospitality",
+			"description": "Add a venue you run yourself. It stays private until an admin publishes it; use its connect code to create partnerships.",
+			"back": "Back to my hospitalities"
+		},
+		"VisibilityNotice": {
+			"title": "Not shown to anyone on its own",
+			"description": "This hospitality is never displayed by itself anywhere on the platform. Guests only see it through the accommodations you partner with."
+		},
+		"AddHospitalityAccessNotice": {
+			"title": "Try hospitality creation free for 1 month",
+			"description": "Your account doesn't have access to create hospitalities yet. Start your free 1-month trial to unlock this and every other Pro feature instantly. When the trial ends, you'll need a paid plan to keep going.",
+			"startTrial": "Start free trial",
+			"noCreditCard": "No credit card required.",
+			"expiredTitle": "Your free trial has ended",
+			"expiredDescription": "Creating new hospitalities is paused for this account. Pro plan upgrades aren't available yet — check back soon. Your existing hospitalities and partnerships are unaffected."
+		},
+		"AddHospitalityForm": {
+			"sectionBasicsTitle": "Basics",
+			"sectionBasicsDescription": "What guests will see in the benefits list.",
+			"fieldName": "Name",
+			"fieldNamePlaceholder": "La Tapería",
+			"fieldType": "Type",
+			"fieldTypePlaceholder": "Pick a type",
+			"sectionLocationTitle": "Location",
+			"sectionLocationDescription": "Shown on your public hospitality page.",
+			"fieldAddress": "Address",
+			"fieldAddressPlaceholder": "Plaza del Sol 3",
+			"fieldAddressNumber": "Address number",
+			"fieldAddressNumberPlaceholder": "3",
+			"fieldCity": "City",
+			"fieldCityPlaceholder": "Madrid",
+			"fieldCountry": "Country",
+			"fieldCountryPlaceholder": "Spain",
+			"fieldLatitude": "Latitude",
+			"fieldLongitude": "Longitude",
+			"fieldCoordinatesPlaceholder": "These will automatically populate once you wrote the address",
+			"sectionContactTitle": "Contact",
+			"sectionContactDescription": "Phone number guests can use to contact this hospitality.",
+			"fieldContactPhone": "Phone",
+			"fieldContactPhonePlaceholder": "+34 600 000 000",
+			"sectionCoverTitle": "Cover image",
+			"sectionCoverDescription": "Shown on the public benefits page. PNG or JPG recommended; aim for a wide aspect ratio.",
+			"fieldCoverImage": "Cover image",
+			"sectionMenuTitle": "Menu",
+			"sectionMenuDescription": "Optional. Upload a menu file and/or link to an online menu.",
+			"fieldMenuFile": "Menu file",
+			"fieldMenuFileHint": "Upload an image or a PDF of your menu.",
+			"fieldMenuLink": "Menu link",
+			"fieldMenuLinkPlaceholder": "https://your-menu-online.com",
+			"sectionDetailsTitle": "Details",
+			"sectionDetailsDescription": "Short description shown on the benefits page.",
+			"fieldDescription": "Description",
+			"fieldDescriptionPlaceholder": "Short description shown on the benefits page.",
+			"submit": "Create hospitality"
+		}
+	},
 	"GenericMessages": {
+		"DIALOG_CLOSE": "Close",
 		"PASSWORD_TOO_SHORT": "Password must be at least {min} characters.",
 		"NO_ITEMS_PROVIDED": "No items provided.",
 		"NO_MATCHING_ITEMS": "No matching items found.",
@@ -1606,11 +1855,14 @@
 		"HOSPITALITY_UPDATED": "Hospitality updated successfully!",
 		"ACCOMMODATION_NOT_FOUND": "Accommodation not found.",
 		"ACCOMMODATION_CANNOT_DELETE_ACTIVE_GUEST": "This accommodation cannot be deleted. There is an active guest in it using the app, please wait for it to expire and then try again!",
+		"ACCOMMODATION_CANNOT_DELETE_ACTIVE_PARTNERSHIP": "This accommodation cannot be deleted while it is linked to a hospitality partnership. Revoke the partnership first, then try again.",
 		"GUEST_CREATED": "Guest accommodation unlocked.",
 		"GUEST_ALREADY_ACTIVE": "This accommodation is already unlocked.",
 		"GUEST_SHARING_CODE_INVALID": "That sharing code is invalid or has expired.",
 		"GUEST_SHARED_ACCESS_GRANTED": "Accommodation access shared.",
 		"HOSPITALITY_NOT_FOUND": "Hospitality not found.",
+		"HOSPITALITY_CANNOT_DELETE_ACTIVE_PARTNERSHIP": "This hospitality cannot be deleted while it is linked to an accommodation partnership. Revoke the partnership first, then try again.",
+		"HOSPITALITY_CANNOT_DELETE_OPEN_RESERVATIONS": "This hospitality cannot be deleted while it has pending or confirmed reservations. Resolve them first, then try again.",
 		"RESERVATION_CREATED": "Reservation request sent.",
 		"RESERVATION_CONFIRMED": "Reservation confirmed.",
 		"RESERVATION_CANCELLED": "Reservation cancelled.",
@@ -1621,6 +1873,20 @@
 		"PARTNERSHIPS_CREATED": "Created {count} partnerships.",
 		"PARTNERSHIP_PAIR_EXISTS": "This accommodation is already linked to that hospitality.",
 		"PARTNERSHIP_BENEFIT_INVALID": "Benefit must be 1 to 15 characters.",
+		"PARTNERSHIP_BENEFIT_UPDATED": "Partnership benefit updated.",
+		"PARTNERSHIP_REVOKED": "Partnership revoked.",
+		"PARTNERSHIP_REQUEST_SENT": "Partnership request sent. The hospitality owner needs to accept it.",
+		"PARTNERSHIP_REQUEST_ACCEPTED": "Partnership request accepted.",
+		"PARTNERSHIP_REQUEST_DECLINED": "Partnership request declined.",
+		"PARTNERSHIP_REQUEST_NOT_FOUND": "Partnership request not found.",
+		"PARTNERSHIP_REQUEST_ALREADY_PROCESSED": "This partnership request has already been processed.",
+		"PARTNERSHIP_REQUEST_ALREADY_PENDING": "A request for this pair is already waiting for a decision.",
+		"CUSTOM_PARTNERSHIP_TRIAL_EXPIRED": "The free custom-partnership trial for this accommodation's owner has ended. Pro plan upgrades aren't available yet.",
+		"PRO_TRIAL_STARTED": "Free trial started — you have full access for the next month.",
+		"PRO_TRIAL_REQUIRED": "You don't have access to this feature yet. Start the free trial first.",
+		"PRO_TRIAL_EXPIRED": "Your free trial has ended. Pro plan upgrades aren't available yet.",
+		"HOSPITALITY_VISIBILITY_UPDATED": "Hospitality visibility updated.",
+		"USER_PLAN_UPDATED": "User plan updated.",
 		"USER_DELETED": "User deleted.",
 		"USER_CREATED": "User created.",
 		"USER_BANNED": "User banned.",
