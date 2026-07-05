@@ -48,13 +48,13 @@
 	size="sm"
 	{isPending}
 	title={isPublic
-		? m['AdminHospitalitiesPage.VisibilityButton.makePrivateTitle']({ name: hospitality.name })
-		: m['AdminHospitalitiesPage.VisibilityButton.makePublicTitle']({ name: hospitality.name })}
+		? m['AdminHospitalitiesPage.HospitalityVisibilityButton.makePrivateTitle']({ name: hospitality.name })
+		: m['AdminHospitalitiesPage.HospitalityVisibilityButton.makePublicTitle']({ name: hospitality.name })}
 	description={isPublic
-		? m['AdminHospitalitiesPage.VisibilityButton.makePrivateDescription']()
-		: m['AdminHospitalitiesPage.VisibilityButton.makePublicDescription']()}
+		? m['AdminHospitalitiesPage.HospitalityVisibilityButton.makePrivateDescription']()
+		: m['AdminHospitalitiesPage.HospitalityVisibilityButton.makePublicDescription']()}
 >
 	{isPublic
-		? m['AdminHospitalitiesPage.VisibilityButton.public']()
-		: m['AdminHospitalitiesPage.VisibilityButton.private']()}
+		? m['AdminHospitalitiesPage.HospitalityVisibilityButton.public']()
+		: m['AdminHospitalitiesPage.HospitalityVisibilityButton.private']()}
 </ActionButton>

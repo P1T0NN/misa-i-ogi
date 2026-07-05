@@ -3,7 +3,7 @@
 	import { m } from '@/shared/lib/paraglide/messages';
 
 	// CONFIG
-	import { ADMIN_PAGE_ENDPOINTS } from '@/shared/constants.js';
+	import { ADMIN_PAGE_ENDPOINTS } from '@/shared/page-endpoints.js';
 
 	// COMPONENTS
 	import { Card, CardContent } from '@/shared/components/ui/card/index.js';

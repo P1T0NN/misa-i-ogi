@@ -4,7 +4,10 @@
 	import { m } from '@/shared/lib/paraglide/messages';
 
 	// CONFIG
-	import { ADMIN_PAGE_ENDPOINTS, UNPROTECTED_PAGE_ENDPOINTS } from '@/shared/constants.js';
+	import {
+	ADMIN_PAGE_ENDPOINTS,
+	UNPROTECTED_PAGE_ENDPOINTS,
+} from '@/shared/page-endpoints.js';
 
 	// COMPONENTS
 	import SvelteHead from '@/shared/components/ui/svelte-head/svelte-head.svelte';

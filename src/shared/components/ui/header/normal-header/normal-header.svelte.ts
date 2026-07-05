@@ -2,7 +2,7 @@
 import { m } from '@/shared/lib/paraglide/messages';
 
 // CONFIG
-import { UNPROTECTED_PAGE_ENDPOINTS } from '@/shared/constants.js';
+import { UNPROTECTED_PAGE_ENDPOINTS } from '@/shared/page-endpoints.js';
 
 // UTILS
 import { isNavItemActive } from '@/shared/utils/isNavItemActive.js';

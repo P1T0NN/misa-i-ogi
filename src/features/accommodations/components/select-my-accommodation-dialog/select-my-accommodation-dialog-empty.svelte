@@ -3,7 +3,7 @@
 	import { m } from '@/shared/lib/paraglide/messages';
 
 	// CONFIG
-	import { PROTECTED_PAGE_ENDPOINTS } from '@/shared/constants';
+	import { PROTECTED_PAGE_ENDPOINTS } from '@/shared/page-endpoints';
 
 	// COMPONENTS
 	import { Button } from '@/shared/components/ui/button/index.js';
@@ -23,15 +23,15 @@
 
 	<div class="flex max-w-xs flex-col gap-1">
 		<p class="text-sm font-medium text-foreground">
-			{m['SelectMyAccommodationDialog.Empty.title']()}
+			{m['SelectMyAccommodationDialogEmpty.title']()}
 		</p>
 		<p class="text-sm text-muted-foreground">
-			{m['SelectMyAccommodationDialog.Empty.description']()}
+			{m['SelectMyAccommodationDialogEmpty.description']()}
 		</p>
 	</div>
 
 	<Button href={PROTECTED_PAGE_ENDPOINTS.MY_ACCOMMODATION_ADD} size="sm" class="mt-1">
 		<PlusIcon data-icon="inline-start" />
-		{m['SelectMyAccommodationDialog.Empty.cta']()}
+		{m['SelectMyAccommodationDialogEmpty.cta']()}
 	</Button>
 </div>

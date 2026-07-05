@@ -3,12 +3,16 @@
 	import { m } from '@/shared/lib/paraglide/messages';
 
 	// CONFIG
-	import { PROTECTED_PAGE_ENDPOINTS, UNPROTECTED_PAGE_ENDPOINTS } from '@/shared/constants.js';
+	import {
+	PROTECTED_PAGE_ENDPOINTS,
+	UNPROTECTED_PAGE_ENDPOINTS,
+} from '@/shared/page-endpoints.js';
 
 	// COMPONENTS
 	import { Badge } from '@/shared/components/ui/badge/index.js';
 	import { Button } from '@/shared/components/ui/button/index.js';
 	import CopyButton from '@/shared/components/ui/copy-button/copy-button.svelte';
+	import DeleteHospitalityDialog from '@/features/hospitalities/components/delete-hospitality-dialog.svelte';
 
 	// DATA
 	import { labelHospitalityType } from '@/features/hospitalities/data/hospitalitiesData';
@@ -116,11 +120,13 @@
 			</div>
 		</div>
 
-		<div class="flex gap-2 md:justify-end">
+		<div class="flex flex-wrap gap-2 md:justify-end">
 			<Button href={editHref(hospitality)} variant="outline" size="sm">
 				<PencilIcon data-icon="inline-start" />
 				{m['MyHospitalitiesPage.MyHospitalitiesItem.edit']()}
 			</Button>
+
+			<DeleteHospitalityDialog hospitalityId={hospitality._id} hospitalityName={hospitality.name} />
 
 			<Button
 				href={publicHref(hospitality)}

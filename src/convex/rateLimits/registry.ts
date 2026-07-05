@@ -116,6 +116,7 @@ export const convexRateLimitRegistry = {
 	deleteMyAccommodation: limitPresets.interactiveWrite,
 	updateAccommodation: limitPresets.interactiveWrite,
 	createHospitality: limitPresets.interactiveWrite,
+	deleteMyHospitality: limitPresets.interactiveWrite,
 	updateHospitality: limitPresets.interactiveWrite,
 	createPartnership: limitPresets.interactiveWrite,
 

@@ -1,5 +1,5 @@
 // CONFIG
-import { CONVEX_PROJECT_SETTINGS } from '@/convex/projectSettings';
+import { COMPANY_DATA } from '@/shared/constants.js';
 
 export function escapeHtml(value: string): string {
 	return value
@@ -31,5 +31,5 @@ export function renderDetailsTable(
 }
 
 export function senderAddress(): string {
-	return `${CONVEX_PROJECT_SETTINGS.NAME} <${CONVEX_PROJECT_SETTINGS.RESEND_EMAIL}>`;
+	return `${COMPANY_DATA.NAME} <${COMPANY_DATA.RESEND_EMAIL}>`;
 }

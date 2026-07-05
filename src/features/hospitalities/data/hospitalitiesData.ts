@@ -45,5 +45,5 @@ export function hospitalityTypeSelectOptions(): Array<{ value: HospitalityType; 
 
 /** Available reservation workflows. Additional options can be restored when implemented. */
 export function reservationModeSelectOptions(): Array<{ value: ReservationMode; label: string }> {
-	return [{ value: 'managed_request', label: m['HospitalityData.managedReservationsTitle']() }];
+	return [{ value: 'managed_request', label: m['ManagedReservationsAlert.title']() }];
 }

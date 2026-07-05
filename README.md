@@ -8,7 +8,7 @@ Production-leaning starter combining:
 - **Paraglide** for i18n (`messages/en.json`, `messages/de.json`)
 - **Resend** for transactional email (OTP, contact form)
 - App-level rate limiting via `@convex-dev/rate-limiter`
-- Audit log scaffolding (off by default — see `src/convex/features.ts`)
+- Audit log scaffolding (off by default — see `FEATURES.AUDIT_LOGS` in `src/shared/config.ts`)
 
 ## Prerequisites
 
@@ -88,9 +88,8 @@ Production-leaning starter combining:
 
 ## Customizing
 
-- **Branding** — edit `src/convex/projectSettings.ts` (company name, contact email, sender domain).
+- **Branding & feature flags** — edit `src/shared/constants.ts` (`COMPANY_DATA`) and `src/shared/config.ts` (`FEATURES`).
 - **Roles** — `role` is an `additionalField` on the BA `user` table (`src/convex/auth.ts`). Default `'user'`. Promote to `'admin'` via Convex dashboard or a server-only mutation. `requireAdmin` (`src/convex/auth/helpers/requireAdmin.ts`) gates admin endpoints.
-- **Feature flags** — `src/convex/features.ts` (e.g. enable audit logging).
 
 ## Regenerating the Better Auth schema
 

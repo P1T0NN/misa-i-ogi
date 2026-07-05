@@ -32,15 +32,15 @@
 	<div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
 		<div>
 			<h2 class="text-base font-semibold">
-				{m['EditAccommodationPage.sectionGuestAccessTitle']()}
+				{m['EditAccommodationPage.EditAccommodationGuestAccess.sectionGuestAccessTitle']()}
 			</h2>
 			<p class="text-sm text-muted-foreground">
-				{m['EditAccommodationPage.sectionGuestAccessDescription']()}
+				{m['EditAccommodationPage.EditAccommodationGuestAccess.sectionGuestAccessDescription']()}
 			</p>
 		</div>
 		<Button type="button" variant="outline" onclick={() => (qrDialogOpen = true)}>
 			<QrCodeIcon data-icon="inline-start" />
-			{m['EditAccommodationPage.showQr']()}
+			{m['EditAccommodationPage.EditAccommodationGuestAccess.showQr']()}
 		</Button>
 	</div>
 </div>

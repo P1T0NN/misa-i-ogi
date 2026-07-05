@@ -51,19 +51,17 @@
 {:else if hasError}
 	<ErrorComponent
 		variant="card"
-		title={m['AnalyticsAccommodationsPage.UserAnalyticsAccommodationsError.title']()}
-		headerDescription={m[
-			'AnalyticsAccommodationsPage.UserAnalyticsAccommodationsError.headerDescription'
-		]()}
-		body={m['AnalyticsAccommodationsPage.UserAnalyticsAccommodationsError.body']()}
+		title={m['AnalyticsAccommodationDetailPage.errorTitle']()}
+		headerDescription={m['AnalyticsAccommodationDetailPage.errorHeaderDescription']()}
+		body={m['AnalyticsAccommodationDetailPage.errorBody']()}
 		showRetry={false}
 	/>
 {:else if data}
 	<section class="flex w-full flex-col gap-6 py-4 md:py-6 lg:gap-8">
 		<AnalyticsHeader
-			eyebrow={m['AnalyticsAccommodationDetailPage.AnalyticsHeader.eyebrow']()}
+			eyebrow={m['AnalyticsAccommodationDetailPage.eyebrow']()}
 			title={data.accommodation.name}
-			description={m['AnalyticsAccommodationDetailPage.AnalyticsHeader.description']()}
+			description={m['AnalyticsAccommodationDetailPage.description']()}
 			badge={labelAccommodationType(data.accommodation.type)}
 		/>
 

@@ -4,7 +4,8 @@
 	import { page } from '$app/state';
 
 	// CONFIG
-	import { COMPANY_DATA, UNPROTECTED_PAGE_ENDPOINTS } from '@/shared/constants.js';
+	import { COMPANY_DATA } from '@/shared/constants.js';
+	import { UNPROTECTED_PAGE_ENDPOINTS } from '@/shared/page-endpoints.js';
 
 	// CLASSES
 	import { authClass } from '@/features/auth/classes/authClass.svelte';

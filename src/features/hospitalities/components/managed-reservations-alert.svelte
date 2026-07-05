@@ -6,6 +6,6 @@
 
 <Alert>
 	<InfoIcon aria-hidden="true" />
-	<AlertTitle>{m['HospitalityData.managedReservationsTitle']()}</AlertTitle>
-	<AlertDescription>{m['HospitalityData.managedReservationsDescription']()}</AlertDescription>
+	<AlertTitle>{m['ManagedReservationsAlert.title']()}</AlertTitle>
+	<AlertDescription>{m['ManagedReservationsAlert.description']()}</AlertDescription>
 </Alert>

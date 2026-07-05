@@ -40,9 +40,9 @@
 
 <section class="flex w-full flex-col gap-6 py-4 md:py-6 lg:gap-8">
 	<AnalyticsHeader
-		eyebrow={m['AnalyticsHospitalitiesPage.AnalyticsHeader.eyebrow']()}
-		title={m['AnalyticsHospitalitiesPage.AnalyticsHeader.title']()}
-		description={m['AnalyticsHospitalitiesPage.AnalyticsHeader.description']()}
+		eyebrow={m['AnalyticsHospitalitiesPage.eyebrow']()}
+		title={m['AnalyticsHospitalitiesPage.title']()}
+		description={m['AnalyticsHospitalitiesPage.description']()}
 	/>
 
 	{#if isLoading}
@@ -52,11 +52,11 @@
 	{:else if hasError}
 		<ErrorComponent
 			variant="card"
-			title={m['AnalyticsHospitalitiesPage.UserAnalyticsHospitalitiesError.title']()}
+			title={m['AnalyticsHospitalitiesPage.errorTitle']()}
 			headerDescription={m[
-				'AnalyticsHospitalitiesPage.UserAnalyticsHospitalitiesError.headerDescription'
+				'AnalyticsHospitalitiesPage.errorHeaderDescription'
 			]()}
-			body={m['AnalyticsHospitalitiesPage.UserAnalyticsHospitalitiesError.body']()}
+			body={m['AnalyticsHospitalitiesPage.errorBody']()}
 			showRetry={false}
 		/>
 	{:else if pageData}

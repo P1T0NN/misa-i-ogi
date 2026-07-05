@@ -49,8 +49,8 @@
 				{
 					id: 'guestName',
 					kind: 'input',
-					label: m['HospitalityPage.RequestReservationDialog.fieldGuestName'](),
-					placeholder: m['HospitalityPage.RequestReservationDialog.fieldGuestNamePlaceholder'](),
+					label: m['RequestReservationDialog.fieldGuestName'](),
+					placeholder: m['RequestReservationDialog.fieldGuestNamePlaceholder'](),
 					autocomplete: 'name',
 					required: true,
 					autofocus: true
@@ -59,36 +59,40 @@
 					id: 'guestCount',
 					kind: 'input',
 					type: 'number',
-					label: m['HospitalityPage.RequestReservationDialog.fieldGuestCount'](),
-					placeholder: m['HospitalityPage.RequestReservationDialog.fieldGuestCountPlaceholder'](),
+					label: m['RequestReservationDialog.fieldGuestCount'](),
+					placeholder: m['RequestReservationDialog.fieldGuestCountPlaceholder'](),
 					required: true,
-					description: m['HospitalityPage.RequestReservationDialog.fieldGuestCountDescription']()
+					description: m['RequestReservationDialog.fieldGuestCountDescription']()
 				},
 				{
 					id: 'requestedTime',
 					kind: 'input',
-					label: m['HospitalityPage.RequestReservationDialog.fieldRequestedTime']()
+					label: m['RequestReservationDialog.fieldRequestedTime']()
 				},
 				{
 					id: 'phone',
 					kind: 'input',
 					type: 'tel',
-					label: m['HospitalityPage.RequestReservationDialog.fieldPhone'](),
-					placeholder: m['HospitalityPage.RequestReservationDialog.fieldPhonePlaceholder'](),
-					description: m['HospitalityPage.RequestReservationDialog.fieldPhoneDescription']()
+					label: m['RequestReservationDialog.fieldPhone'](),
+					placeholder: m['RequestReservationDialog.fieldPhonePlaceholder'](),
+					description: m['RequestReservationDialog.fieldPhoneDescription']()
 				},
 				{
 					id: 'email',
 					kind: 'input',
 					type: 'email',
-					label: m['HospitalityPage.RequestReservationDialog.fieldEmail'](),
-					placeholder: m['HospitalityPage.RequestReservationDialog.fieldEmailPlaceholder']()
+					label: m['RequestReservationDialog.fieldEmail'](),
+					placeholder: m['RequestReservationDialog.fieldEmailPlaceholder']()
 				}
 			]
 		}
 	]);
 
 	const convexClient = getConvexClient();
+
+	// Quick-pick shortcuts for the most-requested reservation slots (lunch +
+	// dinner peaks). Tapping fills the time; guests can still type any value.
+	const QUICK_TIMES = ['13:00', '19:00', '20:00', '21:00'] as const;
 
 	let values = $state<CreateReservationInput>({
 		guestName: '',
@@ -126,21 +130,21 @@
 		if (!open) resetForm();
 	});
 
-	const dialogTitle = $derived(m['HospitalityPage.RequestReservationDialog.title']());
+	const dialogTitle = $derived(m['RequestReservationDialog.title']());
 </script>
 
 <button type="button" class={cn(buttonVariants(), 'h-11 w-full')} onclick={() => (open = true)}>
-	{m['HospitalityPage.RequestReservationDialog.trigger']()}
+	{m['RequestReservationDialog.trigger']()}
 </button>
 
 <Dialog bind:open title={dialogTitle} class="sm:max-w-md">
 	<p class="text-sm leading-relaxed text-muted-foreground">
 		{#if hospitalityName}
-			{m['HospitalityPage.RequestReservationDialog.descriptionWithName']({
+			{m['RequestReservationDialog.descriptionWithName']({
 				hospitalityName
 			})}
 		{:else}
-			{m['HospitalityPage.RequestReservationDialog.description']()}
+			{m['RequestReservationDialog.description']()}
 		{/if}
 	</p>
 
@@ -150,7 +154,7 @@
 		bind:values
 		schema={createReservationSchema}
 		runFunction={api.tables.reservations.mutations.createReservation.createReservation}
-		submitLabel={m['HospitalityPage.RequestReservationDialog.submitLabel']()}
+		submitLabel={m['RequestReservationDialog.submitLabel']()}
 		resetOnSuccess={false}
 		{convexClient}
 		{prepareSubmit}
@@ -164,10 +168,10 @@
 				<AlertTriangleIcon class="mt-0.5 size-5 shrink-0 text-destructive" aria-hidden="true" />
 				<div class="flex flex-col gap-1 text-sm">
 					<p class="font-semibold text-destructive">
-						{m['HospitalityPage.RequestReservationDialog.warningTitle']()}
+						{m['RequestReservationDialog.warningTitle']()}
 					</p>
 					<p class="text-foreground/90">
-						{m['HospitalityPage.RequestReservationDialog.warningBody']()}
+						{m['RequestReservationDialog.warningBody']()}
 					</p>
 				</div>
 			</div>
@@ -189,7 +193,7 @@
 		max={50}
 		step={1}
 		inputmode="numeric"
-		placeholder={m['HospitalityPage.RequestReservationDialog.fieldGuestCountPlaceholder']()}
+		placeholder={m['RequestReservationDialog.fieldGuestCountPlaceholder']()}
 		required
 		value={value === undefined || value === null ? '' : String(value)}
 		oninput={(event) => setValue(event.currentTarget.value)}
@@ -201,5 +205,26 @@
 	value,
 	setValue
 }: MutationFormFieldSnippetProps<CreateReservationInput>)}
-	<CustomTimeInput value={String(value ?? '')} label="" class="w-full" onchange={setValue} />
+	{@const current = String(value ?? '')}
+	<div class="flex flex-col gap-2">
+		<div class="flex flex-wrap gap-2" role="group" aria-label={m['RequestReservationDialog.quickTimesLabel']()}>
+			{#each QUICK_TIMES as time (time)}
+				{@const active = current === time}
+				<button
+					type="button"
+					aria-pressed={active}
+					onclick={() => setValue(time)}
+					class={cn(
+						'rounded-lg border px-3 py-1.5 font-mono text-sm transition-colors',
+						active
+							? 'border-primary bg-primary text-primary-foreground'
+							: 'border-input bg-card text-foreground hover:border-primary'
+					)}
+				>
+					{time}
+				</button>
+			{/each}
+		</div>
+		<CustomTimeInput value={current} label="" class="w-full" onchange={setValue} />
+	</div>
 {/snippet}

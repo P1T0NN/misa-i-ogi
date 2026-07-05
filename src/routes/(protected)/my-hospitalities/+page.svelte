@@ -66,8 +66,8 @@
 	{:else if summaryQuery.error}
 		<ErrorComponent
 			variant="plain"
-			title={m['MyHospitalitiesPage.MyHospitalitiesError.title']()}
-			description={m['MyHospitalitiesPage.MyHospitalitiesError.description']()}
+			title={m['MyHospitalitiesPage.errorTitle']()}
+			description={m['MyHospitalitiesPage.errorDescription']()}
 		/>
 	{:else}
 		<ConvexDataList
@@ -89,8 +89,8 @@
 			{#snippet error()}
 				<ErrorComponent
 					variant="plain"
-					title={m['MyHospitalitiesPage.MyHospitalitiesError.title']()}
-					description={m['MyHospitalitiesPage.MyHospitalitiesError.description']()}
+					title={m['MyHospitalitiesPage.errorTitle']()}
+					description={m['MyHospitalitiesPage.errorDescription']()}
 				/>
 			{/snippet}
 

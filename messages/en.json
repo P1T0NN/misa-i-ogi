@@ -14,12 +14,22 @@
 		"logout": "Logout",
 		"logoutSuccess": "Logged out successfully."
 	},
+	"NavUserPlan": {
+		"pro": "Pro",
+		"proActive": "Active",
+		"proDescription": "All features unlocked",
+		"freeTrial": "Free trial",
+		"trialShort": "Trial",
+		"trialDaysLeft": "{days} days left",
+		"trialLastDay": "Last day",
+		"trialEnded": "Trial ended",
+		"upgrade": "Upgrade to Pro"
+	},
 	"LoginPage": {
 		"SEO": {
 			"title": "Login",
 			"description": "Sign in to your account."
-		},
-		"continueWithGoogle": "Continue with Google"
+		}
 	},
 	"SignUpPage": {
 		"SEO": {
@@ -44,7 +54,6 @@
 	},
 	"PlacesAutocomplete": {
 		"placeholder": "Start typing an address...",
-		"regionPlaceholder": "Search for a city or country...",
 		"error": "Could not load the selected place.",
 		"noMatches": "No matches found."
 	},
@@ -60,7 +69,6 @@
 	"Header": {
 		"navAriaLabel": "Main",
 		"mobileNavAriaLabel": "Mobile main",
-		"linkHome": "Home",
 		"linkBenefits": "Benefits",
 		"linkHowItWorks": "How it works",
 		"linkFeatures": "Features",
@@ -228,8 +236,6 @@
 		"typeOther": "Other"
 	},
 	"HospitalityData": {
-		"managedReservationsTitle": "Managed reservations",
-		"managedReservationsDescription": "Guests request a reservation time through the app. You can review and accept or decline each request, so every request is recorded in your dashboard.",
 		"typeRestaurant": "Restaurant",
 		"typeCafe": "Café",
 		"typeBar": "Bar",
@@ -328,57 +334,34 @@
 		"SEO": {
 			"description": "View hospitality details and request a reservation."
 		},
-		"addressLineMeta": "{address} · {city} · {country}",
-		"factArea": "Location",
-		"locationTitle": "Where to find it",
-		"getDirections": "Get directions",
-		"aboutTitle": "About this hospitality",
-		"aboutSideNote": "Details from the hospitality listing.",
-		"menuTitle": "Menu",
-		"menuSideNote": "Browse what this venue offers.",
-		"viewMenu": "View menu",
-		"viewMenuOnline": "View menu online",
-		"hospitalityDetailsTitle": "Hospitality details",
-		"dlType": "Type",
-		"benefitEyebrow": "Your accommodation benefit",
-		"benefitLegacyDiscountTitle": "{percent}% off",
-		"benefitGenericTitle": "Partner benefit active",
-		"benefitBody": "Show this accommodation page at {hospitalityName}; staff can honor the listed benefit.",
-		"benefitSourceNote": "This benefit comes from the accommodation you scanned from.",
-		"RequestReservationDialog": {
-			"trigger": "Request Reservation",
-			"title": "Request Reservation",
-			"descriptionWithName": "Fill in your details and {hospitalityName} will contact you to confirm.",
-			"description": "Fill in your details and the hospitality will contact you to confirm.",
-			"fieldGuestName": "Guest name",
-			"fieldGuestNamePlaceholder": "Your full name",
-			"fieldGuestCount": "Number of guests",
-			"fieldGuestCountPlaceholder": "2",
-			"fieldGuestCountDescription": "Include everyone in your party.",
-			"fieldRequestedTime": "Preferred time",
-			"fieldPhone": "Phone number",
-			"fieldPhonePlaceholder": "+381 6X XXX XXXX",
-			"fieldPhoneDescription": "If your number is not Serbian, please write the full number with your country prefix (+...) and make sure it is a WhatsApp number — the hospitality owner will reach you there directly.",
-			"fieldEmail": "Email (optional)",
-			"fieldEmailPlaceholder": "you@example.com",
-			"submitLabel": "Send Request",
-			"warningTitle": "Important — please read carefully",
-			"warningBody": "The hospitality owner WILL contact you to confirm your reservation. If you do not answer back in time, your reservation WILL BE CANCELLED."
+		"HospitalityHeader": {
+			"addressLineMeta": "{address} · {city} · {country}"
 		},
-		"GuestReservationCard": {
-			"statusConfirmed": "Reservation Confirmed",
-			"statusPending": "Reservation Pending",
-			"confirmedTitle": "You're confirmed",
-			"confirmedDescriptionWithName": "{hospitalityName} accepted your reservation. Keep these details handy for your visit.",
-			"confirmedDescription": "The hospitality accepted your reservation. Keep these details handy for your visit.",
-			"pendingTitle": "Request sent",
-			"pendingDescriptionWithName": "{hospitalityName} has your details and can contact you to confirm.",
-			"pendingDescription": "The hospitality has your details and can contact you to confirm.",
-			"dlPreferredTime": "Preferred time",
-			"dlGuestName": "Guest name",
-			"dlGuestCount": "Number of guests",
-			"dlPhone": "Phone",
-			"dlEmail": "Email"
+		"HospitalityMenu": {
+			"title": "Menu",
+			"sideNote": "Browse what this venue offers.",
+			"viewMenu": "View menu",
+			"viewMenuOnline": "View menu online"
+		},
+		"HospitalityPartnership": {
+			"eyebrow": "Your accommodation benefit",
+			"legacyDiscountTitle": "{percent}% off",
+			"genericTitle": "Partner benefit active",
+			"body": "Show this accommodation page at {hospitalityName}; staff can honor the listed benefit.",
+			"sourceNote": "This benefit comes from the accommodation you scanned from."
+		},
+		"HospitalityAbout": {
+			"title": "About this hospitality",
+			"sideNote": "Details from the hospitality listing."
+		},
+		"HospitalityLocation": {
+			"title": "Where to find it",
+			"addressLineMeta": "{address} · {city} · {country}"
+		},
+		"HospitalityDetails": {
+			"title": "Hospitality details",
+			"typeLabel": "Type",
+			"areaLabel": "Location"
 		},
 		"HospitalityError": {
 			"title": "Couldn’t load this page",
@@ -517,59 +500,9 @@
 		"cancel": "Cancel",
 		"proceed": "Proceed"
 	},
-	"AnalyticsComponents": {
-		"AnalyticsTopAccommodationsTable": {
-			"topTitle": "Top accommodations",
-			"topDescription": "Accommodations creating the strongest guest and reservation activity.",
-			"performanceTitle": "Accommodation performance",
-			"performanceDescription": "Use this to find strong accommodations and quiet QR placements.",
-			"detailPerformanceTitle": "Accommodation performance",
-			"detailPerformanceDescription": "Accommodations that send guests to this hospitality.",
-			"adminTitle": "Top accommodations",
-			"adminDescription": "Accommodations generating the strongest guest access and reservation demand.",
-			"entity": "Accommodation",
-			"type": "Type",
-			"city": "City",
-			"views": "Views",
-			"scans": "Scans",
-			"guestActivations": "Guest activations",
-			"reservations": "Reservations",
-			"confirmed": "Confirmed",
-			"conversion": "Conversion",
-			"open": "Open",
-			"details": "Details",
-			"detailsAriaLabel": "Open analytics details for {name}"
-		},
-		"AnalyticsTopHospitalitiesTable": {
-			"topTitle": "Top hospitalities",
-			"topDescription": "Hospitalities guests are discovering and turning into reservations.",
-			"performanceTitle": "Hospitality performance",
-			"performanceDescription": "Use this to find strong hospitalities and quiet guest discovery paths.",
-			"detailPerformanceTitle": "Partner performance",
-			"detailPerformanceDescription": "Hospitalities guests opened from this accommodation.",
-			"adminTitle": "Top hospitalities",
-			"adminDescription": "Hospitalities converting discovery into reservation requests.",
-			"entity": "Hospitality",
-			"type": "Type",
-			"city": "City",
-			"views": "Views",
-			"guestViews": "Guest views",
-			"reservations": "Reservations",
-			"confirmed": "Confirmed",
-			"conversion": "Conversion",
-			"open": "Open",
-			"details": "Details",
-			"detailsAriaLabel": "Open analytics details for {name}"
-		}
-	},
 	"AnalyticsAccommodationsPage": {
 		"SEO": {
 			"title": "Accommodations analytics",
-			"description": "Compare your accommodations by QR scan volume, guest activations, and reservation requests generated."
-		},
-		"AnalyticsHeader": {
-			"eyebrow": "Accommodation analytics",
-			"title": "Guest access by accommodation",
 			"description": "Compare your accommodations by QR scan volume, guest activations, and reservation requests generated."
 		},
 		"UserAnalyticsAccommodationsMetrics": {
@@ -592,19 +525,16 @@
 			"description": "Which accommodations create the most hospitality demand.",
 			"body": "Reservation activity will appear here after guests submit requests from your accommodations."
 		},
-		"UserAnalyticsAccommodationsError": {
-			"title": "Could not load accommodation analytics",
-			"headerDescription": "Please try again or check back later.",
-			"body": "The accommodations report could not be loaded right now."
-		}
+		"eyebrow": "Accommodation analytics",
+		"title": "Guest access by accommodation",
+		"description": "Compare your accommodations by QR scan volume, guest activations, and reservation requests generated.",
+		"errorTitle": "Could not load accommodation analytics",
+		"errorHeaderDescription": "Please try again or check back later.",
+		"errorBody": "The accommodations report could not be loaded right now."
 	},
 	"AnalyticsAccommodationDetailPage": {
 		"SEO": {
 			"title": "Accommodation analytics",
-			"description": "Guest access, partner demand, and reservation flow for this accommodation."
-		},
-		"AnalyticsHeader": {
-			"eyebrow": "Accommodation analytics",
 			"description": "Guest access, partner demand, and reservation flow for this accommodation."
 		},
 		"UserAnalyticsAccommodationMetrics": {
@@ -619,16 +549,16 @@
 			"reservations": "Reservations",
 			"title": "Activity trend",
 			"description": "Recent scans, guest activations, and reservation requests for this place."
-		}
+		},
+		"eyebrow": "Accommodation analytics",
+		"description": "Guest access, partner demand, and reservation flow for this accommodation.",
+		"errorTitle": "Could not load accommodation analytics",
+		"errorHeaderDescription": "Please try again or check back later.",
+		"errorBody": "The accommodations report could not be loaded right now."
 	},
 	"AnalyticsHospitalitiesPage": {
 		"SEO": {
 			"title": "Hospitalities analytics",
-			"description": "Track which restaurants, cafes, tours, and wellness partners guests actually open and request."
-		},
-		"AnalyticsHeader": {
-			"eyebrow": "Hospitality analytics",
-			"title": "Hospitality demand from connected guests",
 			"description": "Track which restaurants, cafes, tours, and wellness partners guests actually open and request."
 		},
 		"UserAnalyticsHospitalitiesMetrics": {
@@ -651,43 +581,38 @@
 			"description": "Which hospitalities convert guest discovery into demand.",
 			"body": "Reservation activity will appear here after guests submit requests to your hospitalities."
 		},
-		"UserAnalyticsHospitalitiesError": {
-			"title": "Could not load hospitalities data",
-			"headerDescription": "Please try again or check back later.",
-			"body": "The hospitalities report could not be loaded right now."
-		}
+		"eyebrow": "Hospitality analytics",
+		"title": "Hospitality demand from connected guests",
+		"description": "Track which restaurants, cafes, tours, and wellness partners guests actually open and request.",
+		"errorTitle": "Could not load hospitalities data",
+		"errorHeaderDescription": "Please try again or check back later.",
+		"errorBody": "The hospitalities report could not be loaded right now."
 	},
 	"AnalyticsHospitalityDetailPage": {
 		"SEO": {
 			"title": "Hospitality analytics",
 			"description": "Guest demand, reservation flow, and source accommodations for this hospitality."
 		},
-		"AnalyticsHeader": {
-			"eyebrow": "Hospitality analytics",
-			"description": "Guest demand, reservation flow, and source accommodations for this hospitality."
-		},
 		"UserAnalyticsHospitalityMetrics": {
 			"trackedVenues": "Tracked hospitalities",
 			"guestViews": "Guest views",
-			"guestActivations": "Guest activations",
 			"reservations": "Reservations"
 		},
 		"UserAnalyticsHospitalityChart": {
 			"guestViews": "Guest views",
-			"guestActivations": "Guest activations",
 			"reservations": "Reservations",
 			"title": "Activity trend",
 			"description": "Recent guest views, activations, and reservation requests for this place."
-		}
+		},
+		"eyebrow": "Hospitality analytics",
+		"description": "Guest demand, reservation flow, and source accommodations for this hospitality.",
+		"errorTitle": "Could not load hospitalities data",
+		"errorHeaderDescription": "Please try again or check back later.",
+		"errorBody": "The hospitalities report could not be loaded right now."
 	},
 	"AnalyticsOverviewPage": {
 		"SEO": {
 			"title": "Analytics overview",
-			"description": "A practical snapshot of guest activity, reservation demand, and places that need attention."
-		},
-		"AnalyticsHeader": {
-			"eyebrow": "Analytics overview",
-			"title": "Owner analytics",
 			"description": "A practical snapshot of guest activity, reservation demand, and places that need attention."
 		},
 		"UserAnalyticsOverviewQrScans": {
@@ -709,20 +634,16 @@
 			"title": "You do not own any accommodations or hospitalities",
 			"description": "Analytics will appear here once accommodations or hospitalities are assigned to your account by the {companyName} team."
 		},
-		"UserAnalyticsOverviewError": {
-			"title": "Could not load analytics overview",
-			"headerDescription": "Please try again or check back later.",
-			"body": "The overview report could not be loaded right now."
-		}
+		"eyebrow": "Analytics overview",
+		"title": "Owner analytics",
+		"description": "A practical snapshot of guest activity, reservation demand, and places that need attention.",
+		"errorTitle": "Could not load analytics overview",
+		"errorHeaderDescription": "Please try again or check back later.",
+		"errorBody": "The overview report could not be loaded right now."
 	},
 	"AnalyticsReservationsPage": {
 		"SEO": {
 			"title": "Reservation analytics",
-			"description": "Understand request volume, confirmation health, and cancellation patterns."
-		},
-		"AnalyticsHeader": {
-			"eyebrow": "Reservation analytics",
-			"title": "Reservation flow",
 			"description": "Understand request volume, confirmation health, and cancellation patterns."
 		},
 		"UserAnalyticsReservationsMetrics": {
@@ -755,11 +676,12 @@
 			"description": "Daily reservation outcomes across connected places.",
 			"body": "Reservation status data will appear here after guests submit requests."
 		},
-		"UserAnalyticsReservationsError": {
-			"title": "Could not load reservation analytics",
-			"headerDescription": "Please try again or check back later.",
-			"body": "The reservations report could not be loaded right now."
-		}
+		"eyebrow": "Reservation analytics",
+		"title": "Reservation flow",
+		"description": "Understand request volume, confirmation health, and cancellation patterns.",
+		"errorTitle": "Could not load reservation analytics",
+		"errorHeaderDescription": "Please try again or check back later.",
+		"errorBody": "The reservations report could not be loaded right now."
 	},
 	"DashboardPage": {
 		"SEO": {
@@ -783,10 +705,6 @@
 			"description": "Please try again or check back later.",
 			"viewAll": "View all reservations"
 		},
-		"DashboardStatsError": {
-			"title": "Could not load dashboard stats",
-			"description": "Your accommodation and hospitality counts could not be loaded right now. Please try again."
-		},
 		"DashboardHeader": {
 			"partnerDashboard": "Partner dashboard",
 			"title": "Dashboard",
@@ -796,7 +714,9 @@
 			"accommodations": "Accommodations",
 			"hospitalities": "Hospitalities",
 			"partnerships": "Partnerships",
-			"pendingReservations": "Pending Reservations"
+			"pendingReservations": "Pending Reservations",
+			"errorTitle": "Could not load dashboard stats",
+			"errorDescription": "Your accommodation and hospitality counts could not be loaded right now. Please try again."
 		},
 		"DashboardPendingReservations": {
 			"cardTitle": "Pending reservations",
@@ -840,15 +760,13 @@
 			"cardTitle": "Recent reservations",
 			"cardDescription": "Newest guest requests across all hospitality owners."
 		},
-		"AdminDashboardError": {
-			"title": "Could not load admin dashboard",
-			"description": "The platform snapshot could not be loaded right now. Please try again."
-		},
 		"AdminDashboardRecentReservationsEmpty": {
 			"ariaLabel": "No recent reservation requests",
 			"title": "No reservation requests yet",
 			"description": "When guests start requesting tables through connected accommodations, the newest requests will appear here for quick platform oversight."
-		}
+		},
+		"errorTitle": "Could not load admin dashboard",
+		"errorDescription": "The platform snapshot could not be loaded right now. Please try again."
 	},
 	"MyAccommodationsPage": {
 		"SEO": {
@@ -871,15 +789,13 @@
 			"edit": "Edit",
 			"showQrAriaLabel": "Show guest QR code"
 		},
-		"MyAccommodationsError": {
-			"title": "Something went wrong",
-			"description": "Could not load your accommodations."
-		},
 		"MyAccommodationsEmpty": {
 			"title": "No accommodations assigned yet",
 			"description": "When the {companyName} team assigns an accommodation to your account, it will appear here.",
 			"hint": "Assigned accommodations become editable from this page"
-		}
+		},
+		"errorTitle": "Something went wrong",
+		"errorDescription": "Could not load your accommodations."
 	},
 	"AddAccommodationPage": {
 		"SEO": {
@@ -943,15 +859,13 @@
 			"connectCode": "Connect code",
 			"copyConnectCodeAriaLabel": "Copy connect code"
 		},
-		"MyHospitalitiesError": {
-			"title": "Something went wrong",
-			"description": "Could not load your hospitalities."
-		},
 		"MyHospitalitiesEmpty": {
 			"title": "No hospitalities yet",
 			"description": "Add a venue you run yourself, or wait for one to be assigned to your account — either way it will appear here.",
 			"cta": "Add hospitality"
-		}
+		},
+		"errorTitle": "Something went wrong",
+		"errorDescription": "Could not load your hospitalities."
 	},
 	"ReservationsPage": {
 		"SEO": {
@@ -996,10 +910,6 @@
 			"ariaLabel": "Contact {guestName} via WhatsApp",
 			"message": "Hello {guestName}, your reservation at {hospitalityName} is confirmed."
 		},
-		"ReservationsTabsError": {
-			"title": "Could not load reservations",
-			"description": "Please try again or check back later."
-		},
 		"ReservationsEmpty": {
 			"title": "You do not own any hospitalities",
 			"description": "Reservation requests will appear here once hospitalities are assigned to your account by the {companyName} team."
@@ -1023,57 +933,63 @@
 			"title": "No past reservations",
 			"description": "Completed reservations will be archived here.",
 			"filteredDescription": "No results match your filters."
-		}
+		},
+		"errorTitle": "Could not load reservations",
+		"errorDescription": "Please try again or check back later."
 	},
 	"EditAccommodationPage": {
 		"SEO": {
 			"title": "Edit accommodation",
 			"description": "Update how this accommodation appears to guests. The in-room QR code stays the same."
 		},
-		"title": "Edit accommodation",
-		"description": "Update how this accommodation appears to guests. The in-room QR code stays the same.",
-		"back": "Back to my accommodations",
 		"EditAccommodationEmpty": {
 			"title": "Accommodation not found",
 			"description": "This accommodation may have been removed or is not assigned to your account."
 		},
-		"EditAccommodationError": {
-			"title": "Could not load accommodation",
-			"description": "Please try again in a moment."
+		"EditAccommodationHeader": {
+			"title": "Edit accommodation",
+			"description": "Update how this accommodation appears to guests. The in-room QR code stays the same.",
+			"back": "Back to my accommodations"
 		},
-		"sectionGuestAccessTitle": "Guest access",
-		"sectionGuestAccessDescription": "The QR code is tied to this unit. Print it from here if you need a new copy.",
-		"showQr": "Show QR code",
-		"sectionBasicsTitle": "Basics",
-		"sectionBasicsDescription": "What guests and staff will see at a glance.",
-		"sectionLocationTitle": "Location",
-		"sectionLocationDescription": "Shown on the guest benefits page.",
-		"sectionCoverTitle": "Cover image",
-		"sectionCoverDescription": "Leave empty to keep the current image. PNG or JPG recommended.",
-		"currentCoverAlt": "Current cover for {name}",
-		"sectionDetailsTitle": "Details",
-		"sectionDetailsDescription": "Optional notes and visibility.",
-		"fieldName": "Name",
-		"fieldNamePlaceholder": "Sunset Loft #12",
-		"fieldType": "Type",
-		"fieldTypePlaceholder": "Pick a type",
-		"fieldAddress": "Address",
-		"fieldAddressPlaceholder": "Calle Mayor 14, 2nd floor",
-		"fieldAddressNumber": "Address number",
-		"fieldAddressNumberPlaceholder": "11",
-		"fieldCity": "City",
-		"fieldCityPlaceholder": "Madrid",
-		"fieldCountry": "Country",
-		"fieldCountryPlaceholder": "Spain",
-		"fieldLatitude": "Latitude",
-		"fieldLongitude": "Longitude",
-		"fieldCoordinatesPlaceholder": "These will automatically populate once you wrote the address",
-		"fieldDescription": "Description",
-		"fieldDescriptionPlaceholder": "Short description shown on the benefits page (optional).",
-		"fieldIsActive": "Active",
-		"fieldIsActiveDescription": "Inactive accommodations stay in the database but their QR page won't render benefits.",
-		"fieldCoverImage": "Replace cover image",
-		"submit": "Save changes"
+		"EditAccommodationForm": {
+			"sectionBasicsTitle": "Basics",
+			"sectionBasicsDescription": "What guests and staff will see at a glance.",
+			"sectionLocationTitle": "Location",
+			"sectionLocationDescription": "Shown on the guest benefits page.",
+			"sectionCoverTitle": "Cover image",
+			"sectionCoverDescription": "Leave empty to keep the current image. PNG or JPG recommended.",
+			"currentCoverAlt": "Current cover for {name}",
+			"sectionDetailsTitle": "Details",
+			"sectionDetailsDescription": "Optional notes and visibility.",
+			"fieldName": "Name",
+			"fieldNamePlaceholder": "Sunset Loft #12",
+			"fieldType": "Type",
+			"fieldTypePlaceholder": "Pick a type",
+			"fieldAddress": "Address",
+			"fieldAddressPlaceholder": "Calle Mayor 14, 2nd floor",
+			"fieldAddressNumber": "Address number",
+			"fieldAddressNumberPlaceholder": "11",
+			"fieldCity": "City",
+			"fieldCityPlaceholder": "Madrid",
+			"fieldCountry": "Country",
+			"fieldCountryPlaceholder": "Spain",
+			"fieldLatitude": "Latitude",
+			"fieldLongitude": "Longitude",
+			"fieldCoordinatesPlaceholder": "These will automatically populate once you wrote the address",
+			"fieldDescription": "Description",
+			"fieldDescriptionPlaceholder": "Short description shown on the benefits page (optional).",
+			"fieldIsActive": "Active",
+			"fieldIsActiveDescription": "Inactive accommodations stay in the database but their QR page won't render benefits.",
+			"fieldCoverImage": "Replace cover image",
+			"submit": "Save changes"
+		},
+		"EditAccommodationGuestAccess": {
+			"sectionGuestAccessTitle": "Guest access",
+			"sectionGuestAccessDescription": "The QR code is tied to this unit. Print it from here if you need a new copy.",
+			"showQr": "Show QR code"
+		},
+		"errorTitle": "Could not load accommodation",
+		"errorDescription": "Please try again in a moment."
 	},
 	"AdminAccommodationsPage": {
 		"SEO": {
@@ -1225,30 +1141,34 @@
 		"sectionPartnersTitle": "Partners",
 		"sectionPartnersDescription": "Paste Convex document IDs from the accommodations and hospitalities admin lists.",
 		"fieldAccommodation": "Accommodation",
-		"selectAccommodation": "Select Accommodation",
-		"selectAccommodationDialogTitle": "Select accommodation",
-		"selectAccommodationLoading": "Loading accommodations…",
 		"PartnershipsSelectAccommodationDialogEmpty": {
 			"description": "No accommodations yet."
 		},
-		"selectAccommodationTruncated": "Showing the first {count} — add more from the accommodations admin list.",
-		"modifyAccommodation": "Modify",
 		"fieldHospitality": "Hospitalities",
-		"selectHospitality": "Select hospitalities",
-		"selectHospitalityDialogTitle": "Select hospitalities",
-		"selectHospitalityDone": "Done",
-		"selectHospitalitySelectedCount": "{count} selected",
-		"selectHospitalityLoading": "Loading hospitalities…",
 		"PartnershipsSelectHospitalityDialogEmpty": {
 			"description": "No hospitalities yet."
 		},
-		"selectHospitalityTruncated": "Showing the first {count} — add more from the hospitalities admin list.",
-		"modifyHospitality": "Modify",
 		"sectionOfferTitle": "Offer",
 		"sectionOfferDescription": "A short guest-facing benefit that staff can honor in person.",
 		"fieldBenefit": "Benefit",
 		"fieldBenefitPlaceholder": "15% off",
-		"fieldBenefitDescription": "Example: 15% off"
+		"fieldBenefitDescription": "Example: 15% off",
+		"PartnershipsSelectAccommodationDialog": {
+			"selectAccommodation": "Select Accommodation",
+			"modifyAccommodation": "Modify",
+			"selectAccommodationDialogTitle": "Select accommodation",
+			"selectAccommodationLoading": "Loading accommodations…",
+			"selectAccommodationTruncated": "Showing the first {count} — add more from the accommodations admin list."
+		},
+		"PartnershipsSelectHospitalityDialog": {
+			"selectHospitality": "Select hospitalities",
+			"modifyHospitality": "Modify",
+			"selectHospitalityDialogTitle": "Select hospitalities",
+			"selectHospitalityDone": "Done",
+			"selectHospitalitySelectedCount": "{count} selected",
+			"selectHospitalityLoading": "Loading hospitalities…",
+			"selectHospitalityTruncated": "Showing the first {count} — add more from the hospitalities admin list."
+		}
 	},
 	"AdminHospitalitiesPage": {
 		"SEO": {
@@ -1270,7 +1190,7 @@
 		"contactNone": "—",
 		"addHospitality": "Add hospitality",
 		"columnVisibility": "Visibility",
-		"VisibilityButton": {
+		"HospitalityVisibilityButton": {
 			"public": "Public",
 			"private": "Private",
 			"makePublicTitle": "Publish {name}?",
@@ -1321,6 +1241,12 @@
 		"fieldIsActive": "Active",
 		"fieldIsActiveDescription": "Inactive hospitalities stay in the database but won't appear in benefit lists.",
 		"fieldCoverImage": "Cover image",
+		"sectionMenuTitle": "Menu",
+		"sectionMenuDescription": "Optional. Upload a menu file and/or link to an online menu.",
+		"fieldMenuFile": "Menu file",
+		"fieldMenuFileHint": "Upload an image or a PDF of your menu.",
+		"fieldMenuLink": "Menu link",
+		"fieldMenuLinkPlaceholder": "https://your-menu-online.com",
 		"submit": "Create hospitality"
 	},
 	"EditHospitalityPage": {
@@ -1328,60 +1254,62 @@
 			"title": "Edit hospitality",
 			"description": "Update how your hospitality appears to guests on partner benefit pages."
 		},
-		"title": "Edit hospitality",
-		"description": "Update how your hospitality appears to guests on partner benefit pages.",
-		"back": "Back to my hospitalities",
 		"EditHospitalityEmpty": {
 			"title": "Hospitality not found",
 			"description": "This hospitality may have been removed or is not assigned to your account."
 		},
-		"EditHospitalityError": {
-			"title": "Could not load hospitality",
-			"description": "Please try again in a moment."
+		"EditHospitalityHeader": {
+			"title": "Edit hospitality",
+			"description": "Update how your hospitality appears to guests on partner benefit pages.",
+			"back": "Back to my hospitalities"
 		},
-		"sectionBasicsTitle": "Basics",
-		"sectionBasicsDescription": "What guests will see in the benefits list.",
-		"sectionLocationTitle": "Location",
-		"sectionLocationDescription": "Shown on your public hospitality page.",
-		"sectionContactTitle": "Contact",
-		"sectionContactDescription": "Phone number guests can use to contact this hospitality.",
-		"sectionCoverTitle": "Cover image",
-		"sectionCoverDescription": "Leave empty to keep the current image. PNG or JPG recommended.",
-		"currentCoverAlt": "Current cover for {name}",
-		"sectionMenuTitle": "Menu",
-		"sectionMenuDescription": "Optional. Leave the file empty to keep the current menu.",
-		"fieldMenuFile": "Menu file",
-		"fieldMenuFileHint": "Upload an image or a PDF of your menu.",
-		"fieldMenuLink": "Menu link",
-		"fieldMenuLinkPlaceholder": "https://your-menu-online.com",
-		"currentMenu": "Current menu:",
-		"currentMenuView": "View",
-		"sectionDetailsTitle": "Details",
-		"sectionDetailsDescription": "Description, reservations, and visibility.",
-		"fieldName": "Name",
-		"fieldNamePlaceholder": "La Tapería",
-		"fieldType": "Type",
-		"fieldTypePlaceholder": "Pick a type",
-		"fieldAddress": "Address",
-		"fieldAddressPlaceholder": "Plaza del Sol 3",
-		"fieldAddressNumber": "Address number",
-		"fieldAddressNumberPlaceholder": "3",
-		"fieldCity": "City",
-		"fieldCityPlaceholder": "Madrid",
-		"fieldCountry": "Country",
-		"fieldCountryPlaceholder": "Spain",
-		"fieldLatitude": "Latitude",
-		"fieldLongitude": "Longitude",
-		"fieldCoordinatesPlaceholder": "These will automatically populate once you wrote the address",
-		"fieldContactPhone": "Phone",
-		"fieldContactPhonePlaceholder": "+34 600 000 000",
-		"fieldReservationMode": "Reservation mode",
-		"fieldDescription": "Description",
-		"fieldDescriptionPlaceholder": "Short description shown on the benefits page.",
-		"fieldIsActive": "Active",
-		"fieldIsActiveDescription": "Inactive hospitalities stay in the database but won't appear in benefit lists.",
-		"fieldCoverImage": "Replace cover image",
-		"submit": "Save changes"
+		"EditHospitalityForm": {
+			"sectionBasicsTitle": "Basics",
+			"sectionBasicsDescription": "What guests will see in the benefits list.",
+			"sectionLocationTitle": "Location",
+			"sectionLocationDescription": "Shown on your public hospitality page.",
+			"sectionContactTitle": "Contact",
+			"sectionContactDescription": "Phone number guests can use to contact this hospitality.",
+			"sectionCoverTitle": "Cover image",
+			"sectionCoverDescription": "Leave empty to keep the current image. PNG or JPG recommended.",
+			"currentCoverAlt": "Current cover for {name}",
+			"sectionMenuTitle": "Menu",
+			"sectionMenuDescription": "Optional. Leave the file empty to keep the current menu.",
+			"fieldMenuFile": "Menu file",
+			"fieldMenuFileHint": "Upload an image or a PDF of your menu.",
+			"fieldMenuLink": "Menu link",
+			"fieldMenuLinkPlaceholder": "https://your-menu-online.com",
+			"currentMenu": "Current menu:",
+			"currentMenuView": "View",
+			"sectionDetailsTitle": "Details",
+			"sectionDetailsDescription": "Description, reservations, and visibility.",
+			"fieldName": "Name",
+			"fieldNamePlaceholder": "La Tapería",
+			"fieldType": "Type",
+			"fieldTypePlaceholder": "Pick a type",
+			"fieldAddress": "Address",
+			"fieldAddressPlaceholder": "Plaza del Sol 3",
+			"fieldAddressNumber": "Address number",
+			"fieldAddressNumberPlaceholder": "3",
+			"fieldCity": "City",
+			"fieldCityPlaceholder": "Madrid",
+			"fieldCountry": "Country",
+			"fieldCountryPlaceholder": "Spain",
+			"fieldLatitude": "Latitude",
+			"fieldLongitude": "Longitude",
+			"fieldCoordinatesPlaceholder": "These will automatically populate once you wrote the address",
+			"fieldContactPhone": "Phone",
+			"fieldContactPhonePlaceholder": "+34 600 000 000",
+			"fieldReservationMode": "Reservation mode",
+			"fieldDescription": "Description",
+			"fieldDescriptionPlaceholder": "Short description shown on the benefits page.",
+			"fieldIsActive": "Active",
+			"fieldIsActiveDescription": "Inactive hospitalities stay in the database but won't appear in benefit lists.",
+			"fieldCoverImage": "Replace cover image",
+			"submit": "Save changes"
+		},
+		"errorTitle": "Could not load hospitality",
+		"errorDescription": "Please try again in a moment."
 	},
 	"SearchInput": {
 		"placeholder": "Search...",
@@ -1585,11 +1513,9 @@
 			"description": "The user you're looking for doesn't exist or may have been deleted.",
 			"backToUsers": "Back to users"
 		},
-		"UserPageError": {
-			"title": "Failed to load user",
-			"description": "Something went wrong while fetching this user. Please try again.",
-			"retry": "Retry"
-		}
+		"errorTitle": "Failed to load user",
+		"errorDescription": "Something went wrong while fetching this user. Please try again.",
+		"errorRetryLabel": "Retry"
 	},
 	"AdminAnalyticsPage": {
 		"SEO": {
@@ -1617,12 +1543,10 @@
 			"newReservations": "Requests",
 			"confirmedReservations": "Confirmed"
 		},
-		"AdminAnalyticsError": {
-			"title": "Could not load platform analytics",
-			"headerDescription": "The analytics snapshot could not be loaded right now. Your other admin tools are still available.",
-			"body": "Something went wrong while loading analytics",
-			"bodyDescription": "This is usually temporary. Retry to refresh metrics, trends, and top entity rankings."
-		}
+		"errorTitle": "Could not load platform analytics",
+		"errorHeaderDescription": "The analytics snapshot could not be loaded right now. Your other admin tools are still available.",
+		"errorBody": "Something went wrong while loading analytics",
+		"errorBodyDescription": "This is usually temporary. Retry to refresh metrics, trends, and top entity rankings."
 	},
 	"ValidationMessages": {
 		"LoginForm": {
@@ -1719,7 +1643,10 @@
 			"connectCodeHint": "Ask the venue owner for their connect code.",
 			"ownVenueBadge": "Yours",
 			"ownVenueBenefitHint": "Guests of this accommodation will see this offer at your venue.",
-			"partnerVenueBenefitHint": "The venue owner will set the guest offer when they accept your request."
+			"partnerVenueBenefitHint": "The venue owner will set the guest offer when they accept your request.",
+			"benefitLabel": "Guest benefit",
+			"benefitPlaceholder": "15% off",
+			"benefitHint": "The offer guests will see. Example: 15% off"
 		},
 		"CreateCustomPartnershipFormActions": {
 			"submitConnect": "Connect",
@@ -1736,28 +1663,22 @@
 	"RevokePartnershipDialog": {
 		"revoke": "Revoke",
 		"title": "Revoke this partnership?",
-		"description": "This removes the link between {accommodationName} and {hospitalityName}. Guests will no longer see the benefit at this venue.",
-		"success": "Partnership revoked."
+		"description": "This removes the link between {accommodationName} and {hospitalityName}. Guests will no longer see the benefit at this venue."
 	},
 	"DeleteAccommodationDialog": {
 		"delete": "Delete",
 		"title": "Delete this accommodation?",
 		"description": "This permanently removes {accommodationName} from your account. Guests will no longer be able to scan its QR code. Active guest sessions or partnerships must be cleared first."
 	},
+	"DeleteHospitalityDialog": {
+		"delete": "Delete",
+		"title": "Delete this hospitality?",
+		"description": "This permanently removes {hospitalityName} from your account. Guests will no longer be able to view it or send reservation requests. Open reservations or partnerships must be cleared first."
+	},
 	"SelectMyAccommodationDialog": {
 		"selectAccommodation": "Select accommodation",
 		"modifyAccommodation": "Change accommodation",
-		"dialogTitle": "Select an accommodation",
-		"Error": {
-			"title": "Could not load accommodations",
-			"description": "Please try again in a moment.",
-			"retry": "Try again"
-		},
-		"Empty": {
-			"title": "No accommodations yet",
-			"description": "Add an accommodation to your account before creating a partnership.",
-			"cta": "Add accommodation"
-		}
+		"dialogTitle": "Select an accommodation"
 	},
 	"StartProTrialDialog": {
 		"title": "Start your free Pro trial?",
@@ -1776,10 +1697,6 @@
 			"title": "Add hospitality",
 			"description": "Add a venue you run yourself. It stays private until an admin publishes it; use its connect code to create partnerships.",
 			"back": "Back to my hospitalities"
-		},
-		"VisibilityNotice": {
-			"title": "Not shown to anyone on its own",
-			"description": "This hospitality is never displayed by itself anywhere on the platform. Guests only see it through the accommodations you partner with."
 		},
 		"AddHospitalityAccessNotice": {
 			"title": "Try hospitality creation free for 1 month",
@@ -1827,6 +1744,10 @@
 			"fieldDescription": "Description",
 			"fieldDescriptionPlaceholder": "Short description shown on the benefits page.",
 			"submit": "Create hospitality"
+		},
+		"AddHospitalityVisibilityNotice": {
+			"title": "Not shown to anyone on its own",
+			"description": "This hospitality is never displayed by itself anywhere on the platform. Guests only see it through the accommodations you partner with."
 		}
 	},
 	"GenericMessages": {
@@ -1897,5 +1818,100 @@
 		"TOO_MANY_REQUESTS": "Too many requests. Please try again later.",
 		"TOO_MANY_REQUESTS_SECONDS": "Too many requests. Try again in {seconds}s.",
 		"TOO_MANY_REQUESTS_MINUTES": "Too many requests. Try again in {minutes} min."
+	},
+	"RequestReservationDialog": {
+		"trigger": "Request Reservation",
+		"title": "Request Reservation",
+		"descriptionWithName": "Fill in your details and {hospitalityName} will contact you to confirm.",
+		"description": "Fill in your details and the hospitality will contact you to confirm.",
+		"fieldGuestName": "Guest name",
+		"fieldGuestNamePlaceholder": "Your full name",
+		"fieldGuestCount": "Number of guests",
+		"fieldGuestCountPlaceholder": "2",
+		"fieldGuestCountDescription": "Include everyone in your party.",
+		"fieldRequestedTime": "Preferred time",
+		"quickTimesLabel": "Popular times",
+		"fieldPhone": "Phone number",
+		"fieldPhonePlaceholder": "+381 6X XXX XXXX",
+		"fieldPhoneDescription": "If your number is not Serbian, please write the full number with your country prefix (+...) and make sure it is a WhatsApp number — the hospitality owner will reach you there directly.",
+		"fieldEmail": "Email (optional)",
+		"fieldEmailPlaceholder": "you@example.com",
+		"submitLabel": "Send Request",
+		"warningTitle": "Important — please read carefully",
+		"warningBody": "The hospitality owner WILL contact you to confirm your reservation. If you do not answer back in time, your reservation WILL BE CANCELLED."
+	},
+	"GuestReservationCard": {
+		"statusConfirmed": "Reservation Confirmed",
+		"statusPending": "Reservation Pending",
+		"confirmedTitle": "You're confirmed",
+		"confirmedDescriptionWithName": "{hospitalityName} accepted your reservation. Keep these details handy for your visit.",
+		"confirmedDescription": "The hospitality accepted your reservation. Keep these details handy for your visit.",
+		"pendingTitle": "Request sent",
+		"pendingDescriptionWithName": "{hospitalityName} has your details and can contact you to confirm.",
+		"pendingDescription": "The hospitality has your details and can contact you to confirm.",
+		"dlPreferredTime": "Preferred time",
+		"dlGuestName": "Guest name",
+		"dlGuestCount": "Number of guests",
+		"dlPhone": "Phone",
+		"dlEmail": "Email"
+	},
+	"GoogleLoginButton": {
+		"continueWithGoogle": "Continue with Google"
+	},
+	"ManagedReservationsAlert": {
+		"title": "Managed reservations",
+		"description": "Guests request a reservation time through the app. You can review and accept or decline each request, so every request is recorded in your dashboard."
+	},
+	"SelectMyAccommodationDialogError": {
+		"title": "Could not load accommodations",
+		"description": "Please try again in a moment."
+	},
+	"SelectMyAccommodationDialogEmpty": {
+		"title": "No accommodations yet",
+		"description": "Add an accommodation to your account before creating a partnership.",
+		"cta": "Add accommodation"
+	},
+	"AnalyticsTopAccommodationsTable": {
+		"topTitle": "Top accommodations",
+		"topDescription": "Accommodations creating the strongest guest and reservation activity.",
+		"performanceTitle": "Accommodation performance",
+		"performanceDescription": "Use this to find strong accommodations and quiet QR placements.",
+		"detailPerformanceTitle": "Accommodation performance",
+		"detailPerformanceDescription": "Accommodations that send guests to this hospitality.",
+		"adminTitle": "Top accommodations",
+		"adminDescription": "Accommodations generating the strongest guest access and reservation demand.",
+		"entity": "Accommodation",
+		"type": "Type",
+		"city": "City",
+		"views": "Views",
+		"scans": "Scans",
+		"guestActivations": "Guest activations",
+		"reservations": "Reservations",
+		"confirmed": "Confirmed",
+		"conversion": "Conversion",
+		"open": "Open",
+		"details": "Details",
+		"detailsAriaLabel": "Open analytics details for {name}"
+	},
+	"AnalyticsTopHospitalitiesTable": {
+		"topTitle": "Top hospitalities",
+		"topDescription": "Hospitalities guests are discovering and turning into reservations.",
+		"performanceTitle": "Hospitality performance",
+		"performanceDescription": "Use this to find strong hospitalities and quiet guest discovery paths.",
+		"detailPerformanceTitle": "Partner performance",
+		"detailPerformanceDescription": "Hospitalities guests opened from this accommodation.",
+		"adminTitle": "Top hospitalities",
+		"adminDescription": "Hospitalities converting discovery into reservation requests.",
+		"entity": "Hospitality",
+		"type": "Type",
+		"city": "City",
+		"views": "Views",
+		"guestViews": "Guest views",
+		"reservations": "Reservations",
+		"confirmed": "Confirmed",
+		"conversion": "Conversion",
+		"open": "Open",
+		"details": "Details",
+		"detailsAriaLabel": "Open analytics details for {name}"
 	}
 }

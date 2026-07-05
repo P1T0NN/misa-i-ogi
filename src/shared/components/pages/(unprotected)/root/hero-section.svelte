@@ -1,6 +1,6 @@
 <script lang="ts">
 	// CONFIG
-	import { UNPROTECTED_PAGE_ENDPOINTS } from '@/shared/constants';
+	import { UNPROTECTED_PAGE_ENDPOINTS } from '@/shared/page-endpoints';
 
 	// COMPONENTS
 	import { Button } from '@/shared/components/ui/button/index.js';

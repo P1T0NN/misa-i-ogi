@@ -13,7 +13,7 @@
 		ADMIN_PAGE_ENDPOINTS,
 		PROTECTED_PAGE_ENDPOINTS,
 		UNPROTECTED_PAGE_ENDPOINTS
-	} from '@/shared/constants.js';
+	} from '@/shared/page-endpoints.js';
 
 	// COMPONENTS
 	import * as Sidebar from '@/shared/components/ui/sidebar/index.js';
@@ -113,27 +113,29 @@
 					groupLabel: accommodationGroup
 				},
 				{
-					name: m['ProtectedSidebar.analytics'](),
+					name: m['ProtectedSidebar.analyticsOverview'](),
+					url: PROTECTED_PAGE_ENDPOINTS.ANALYTICS,
 					icon: ChartBarIcon,
 					groupLabel: analyticsGroup,
-					items: [
-						{
-							name: m['ProtectedSidebar.analyticsOverview'](),
-							url: PROTECTED_PAGE_ENDPOINTS.ANALYTICS
-						},
-						{
-							name: m['ProtectedSidebar.analyticsAccommodations'](),
-							url: PROTECTED_PAGE_ENDPOINTS.ANALYTICS_ACCOMMODATIONS
-						},
-						{
-							name: m['ProtectedSidebar.analyticsHospitalities'](),
-							url: PROTECTED_PAGE_ENDPOINTS.ANALYTICS_HOSPITALITIES
-						},
-						{
-							name: m['ProtectedSidebar.analyticsReservations'](),
-							url: PROTECTED_PAGE_ENDPOINTS.ANALYTICS_RESERVATIONS
-						}
-					]
+					exact: true
+				},
+				{
+					name: m['ProtectedSidebar.analyticsAccommodations'](),
+					url: PROTECTED_PAGE_ENDPOINTS.ANALYTICS_ACCOMMODATIONS,
+					icon: BuildingIcon,
+					groupLabel: analyticsGroup
+				},
+				{
+					name: m['ProtectedSidebar.analyticsHospitalities'](),
+					url: PROTECTED_PAGE_ENDPOINTS.ANALYTICS_HOSPITALITIES,
+					icon: HospitalIcon,
+					groupLabel: analyticsGroup
+				},
+				{
+					name: m['ProtectedSidebar.analyticsReservations'](),
+					url: PROTECTED_PAGE_ENDPOINTS.ANALYTICS_RESERVATIONS,
+					icon: CalendarCheckIcon,
+					groupLabel: analyticsGroup
 				}
 			],
 			navSecondary

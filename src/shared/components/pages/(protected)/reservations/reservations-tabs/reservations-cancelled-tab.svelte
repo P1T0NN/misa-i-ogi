@@ -42,8 +42,8 @@
 		{#snippet error()}
 			<ErrorComponent
 				variant="card"
-				title={m['ReservationsPage.ReservationsTabsError.title']()}
-				description={m['ReservationsPage.ReservationsTabsError.description']()}
+				title={m['ReservationsPage.errorTitle']()}
+				description={m['ReservationsPage.errorDescription']()}
 				showRetry={false}
 			/>
 		{/snippet}

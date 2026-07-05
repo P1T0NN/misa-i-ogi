@@ -3,7 +3,7 @@ import { m } from '@/shared/lib/paraglide/messages';
 import { authClient } from '@/features/auth/lib/auth-client';
 
 // CONFIG
-import { UNPROTECTED_PAGE_ENDPOINTS } from '@/shared/constants.js';
+import { UNPROTECTED_PAGE_ENDPOINTS } from '@/shared/page-endpoints.js';
 
 // COMPONENTS
 import { toast } from 'svelte-sonner';

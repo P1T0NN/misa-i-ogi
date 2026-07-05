@@ -11,7 +11,16 @@ import { withServerConvexToken } from '@mmailaender/convex-svelte/sveltekit/serv
 import { getSecurityHeaders, getHstsHeader } from '@/shared/utils/securityHeaders.js';
 
 // TYPES
-import type { Handle } from '@sveltejs/kit';
+import type { Handle, HandleServerError } from '@sveltejs/kit';
+
+// Log unexpected server errors so production 500s aren't silent. SvelteKit already
+// hides the real message from the client; we surface it in the server logs.
+export const handleError: HandleServerError = ({ error, event, status, message }) => {
+	if (status !== 404) {
+		console.error(`[500] ${event.request.method} ${event.url.pathname}`, error);
+	}
+	return { message };
+};
 
 // Security headers handle - adds security headers to all responses
 const securityHeadersHandle: Handle = async ({ event, resolve }) => {

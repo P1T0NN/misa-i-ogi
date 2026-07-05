@@ -86,8 +86,8 @@
 {:else if hasError}
 	<ErrorComponent
 		variant="plain"
-		title={m['DashboardPage.DashboardStatsError.title']()}
-		description={m['DashboardPage.DashboardStatsError.description']()}
+		title={m['DashboardPage.DashboardStats.errorTitle']()}
+		description={m['DashboardPage.DashboardStats.errorDescription']()}
 	/>
 {:else}
 	<div class="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">

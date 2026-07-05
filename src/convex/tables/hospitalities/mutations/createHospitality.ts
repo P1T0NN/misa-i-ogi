@@ -8,6 +8,7 @@ import { resolveStoredFileUrlAndSyncRow } from '@/convex/storage/r2/resolveStore
 // HELPERS
 import { analytics } from '@/convex/analytics';
 import { generateUniqueConnectCode } from '@/convex/tables/hospitalities/helpers/generateUniqueConnectCode';
+import { resolveMenuFile, normalizeMenuLink } from '@/convex/tables/hospitalities/helpers/resolveMenuFile';
 import { AUDIT_ACTIONS } from '@/convex/tables/auditLog/auditLogConfigs';
 
 // SCHEMAS
@@ -42,11 +43,13 @@ export const createHospitality = adminMutation('createHospitality')({
 		ownerId: v.optional(v.string()),
 		isActive: v.boolean(),
 		// Set by `processUploadFields` after upload; required so every venue has a cover.
-		coverImageKey: v.string()
+		coverImageKey: v.string(),
+		menuFileKey: v.optional(v.string()),
+		menuLink: v.optional(v.string())
 	},
 	returns: mutationResultValidator,
 	handler: async (ctx, args): Promise<MutationResult> => {
-		const { coverImageKey: uploadedKey, ownerId, ...rest } = args;
+		const { coverImageKey: uploadedKey, ownerId, menuFileKey, menuLink: rawMenuLink, ...rest } = args;
 		const addressNumber = rest.addressNumber?.trim();
 		// Full street line in `address` (what displays read) + the bare number for the edit form.
 		const address = [rest.address.trim(), addressNumber].filter(Boolean).join(' ');
@@ -77,11 +80,18 @@ export const createHospitality = adminMutation('createHospitality')({
 
 		const coverImageUrl = await resolveStoredFileUrlAndSyncRow(ctx, uploaded);
 
+		const menu = await resolveMenuFile(ctx, menuFileKey);
+		if (!menu.ok) return menu.error;
+		const menuLink = normalizeMenuLink(rawMenuLink);
+
 		const connectCode = await generateUniqueConnectCode(ctx);
 
 		const hospitality: typeof rest & {
 			coverImageKey: string;
 			coverImageUrl: string;
+			menuFileKey?: string;
+			menuFileUrl?: string;
+			menuLink?: string;
 			ownerId: string;
 			reservationMode: 'managed_request';
 			connectCode: string;
@@ -91,6 +101,9 @@ export const createHospitality = adminMutation('createHospitality')({
 			addressNumber: addressNumber || undefined,
 			coverImageKey: uploaded.key,
 			coverImageUrl,
+			menuFileKey: menu.menuFileKey,
+			menuFileUrl: menu.menuFileUrl,
+			menuLink,
 			ownerId: resolvedOwnerId,
 			reservationMode: args.reservationMode,
 			connectCode

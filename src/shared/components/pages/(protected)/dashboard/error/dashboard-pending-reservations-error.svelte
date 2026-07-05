@@ -14,7 +14,7 @@
 	import { ErrorComponent } from '@/shared/components/ui/error-component/index.js';
 
 	// CONFIG
-	import { PROTECTED_PAGE_ENDPOINTS } from '@/shared/constants.js';
+	import { PROTECTED_PAGE_ENDPOINTS } from '@/shared/page-endpoints.js';
 
 	// LUCIDE ICONS
 	import CalendarCheckIcon from '@lucide/svelte/icons/calendar-check';

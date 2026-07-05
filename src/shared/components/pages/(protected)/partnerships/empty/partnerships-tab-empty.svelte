@@ -3,7 +3,8 @@
 	import { m } from '@/shared/lib/paraglide/messages';
 
 	// CONFIG
-	import { PROTECTED_PAGE_ENDPOINTS } from '@/shared/constants.js';
+	import { PROTECTED_PAGE_ENDPOINTS } from '@/shared/page-endpoints.js';
+	import { CUSTOM_PARTNERSHIP_ENABLED } from '@/shared/config.js';
 
 	// COMPONENTS
 	import { Card, CardContent } from '@/shared/components/ui/card/index.js';
@@ -42,7 +43,7 @@
 			{/if}
 		</p>
 
-		{#if tab === 'active'}
+		{#if tab === 'active' && CUSTOM_PARTNERSHIP_ENABLED}
 			<Button
 				href={PROTECTED_PAGE_ENDPOINTS.CREATE_CUSTOM_PARTNERSHIP}
 				variant="outline"

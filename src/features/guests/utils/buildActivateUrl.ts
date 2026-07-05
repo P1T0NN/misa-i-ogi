@@ -1,5 +1,5 @@
 // CONFIG
-import { UNPROTECTED_PAGE_ENDPOINTS } from '@/shared/constants';
+import { UNPROTECTED_PAGE_ENDPOINTS } from '@/shared/page-endpoints';
 
 /** Absolute guest QR URL — encodes `/activate/:token` on the public app origin. */
 export function buildActivateUrl(scanToken: string, origin: string): string {

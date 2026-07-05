@@ -48,8 +48,8 @@
 		{#if hospitalityQuery.error}
 			<ErrorComponent
 				variant="minimal"
-				title={m['EditHospitalityPage.EditHospitalityError.title']()}
-				description={m['EditHospitalityPage.EditHospitalityError.description']()}
+				title={m['EditHospitalityPage.errorTitle']()}
+				description={m['EditHospitalityPage.errorDescription']()}
 				showRetry={false}
 			/>
 		{:else if hospitality === null}

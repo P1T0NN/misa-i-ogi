@@ -1,6 +1,6 @@
 <script lang="ts">
 	// CONFIG
-	import { UNPROTECTED_PAGE_ENDPOINTS } from '@/shared/constants';
+	import { UNPROTECTED_PAGE_ENDPOINTS } from '@/shared/page-endpoints';
 
 	// COMPONENTS
 	import { Badge } from '@/shared/components/ui/badge/index.js';

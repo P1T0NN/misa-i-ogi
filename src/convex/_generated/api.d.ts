@@ -18,6 +18,7 @@ import type * as analytics_utils_comparedMetricUtils from "../analytics/utils/co
 import type * as analytics_utils_getAnalyticsMetricValue from "../analytics/utils/getAnalyticsMetricValue.js";
 import type * as analytics_utils_sortAnalyticsItemsByMetric from "../analytics/utils/sortAnalyticsItemsByMetric.js";
 import type * as analytics_utils_sumAnalyticsMetricTotals from "../analytics/utils/sumAnalyticsMetricTotals.js";
+import type * as auth_assertTrustedServer from "../auth/assertTrustedServer.js";
 import type * as auth_auth from "../auth/auth.js";
 import type * as auth_authRoutes from "../auth/authRoutes.js";
 import type * as auth_convexCreateAuthRateLimitHook from "../auth/convexCreateAuthRateLimitHook.js";
@@ -67,7 +68,6 @@ import type * as pages_userDashboard_helpers_getUserDashboardStats from "../page
 import type * as pages_userDashboard_queries_fetchUserDashboardPendingReservations from "../pages/userDashboard/queries/fetchUserDashboardPendingReservations.js";
 import type * as pages_userDashboard_queries_fetchUserDashboardStats from "../pages/userDashboard/queries/fetchUserDashboardStats.js";
 import type * as pages_userDashboard_types_userDashboardTypes from "../pages/userDashboard/types/userDashboardTypes.js";
-import type * as projectSettings from "../projectSettings.js";
 import type * as rateLimits_convexCreateRateLimit from "../rateLimits/convexCreateRateLimit.js";
 import type * as rateLimits_convexCreateRateLimitInternal from "../rateLimits/convexCreateRateLimitInternal.js";
 import type * as rateLimits_enforceRateLimit from "../rateLimits/enforceRateLimit.js";
@@ -78,6 +78,7 @@ import type * as resend from "../resend.js";
 import type * as schemas_mutationResult from "../schemas/mutationResult.js";
 import type * as storage_crons_cleanupOrphanDataR2 from "../storage/crons/cleanupOrphanDataR2.js";
 import type * as storage_r2_buildR2PublicObjectUrl from "../storage/r2/buildR2PublicObjectUrl.js";
+import type * as storage_r2_deleteUploadedFilesByKeys from "../storage/r2/deleteUploadedFilesByKeys.js";
 import type * as storage_r2_r2 from "../storage/r2/r2.js";
 import type * as storage_r2_resolveStoredFileUrl from "../storage/r2/resolveStoredFileUrl.js";
 import type * as storage_r2_uploadedFilesR2 from "../storage/r2/uploadedFilesR2.js";
@@ -129,6 +130,7 @@ import type * as tables_guests_utils_guestIssuer from "../tables/guests/utils/gu
 import type * as tables_guests_utils_guestSessionToken from "../tables/guests/utils/guestSessionToken.js";
 import type * as tables_guests_utils_guestStayCookieCrypto from "../tables/guests/utils/guestStayCookieCrypto.js";
 import type * as tables_guests_utils_isGuestStayIdentity from "../tables/guests/utils/isGuestStayIdentity.js";
+import type * as tables_hospitalities_helpers_cleanupHospitalityFiles from "../tables/hospitalities/helpers/cleanupHospitalityFiles.js";
 import type * as tables_hospitalities_helpers_connectCode from "../tables/hospitalities/helpers/connectCode.js";
 import type * as tables_hospitalities_helpers_ensureHospitalityCreateAccess from "../tables/hospitalities/helpers/ensureHospitalityCreateAccess.js";
 import type * as tables_hospitalities_helpers_generateUniqueConnectCode from "../tables/hospitalities/helpers/generateUniqueConnectCode.js";
@@ -140,6 +142,7 @@ import type * as tables_hospitalities_helpers_resolveMenuFile from "../tables/ho
 import type * as tables_hospitalities_mutations_createHospitality from "../tables/hospitalities/mutations/createHospitality.js";
 import type * as tables_hospitalities_mutations_createUserHospitality from "../tables/hospitalities/mutations/createUserHospitality.js";
 import type * as tables_hospitalities_mutations_deleteHospitalities from "../tables/hospitalities/mutations/deleteHospitalities.js";
+import type * as tables_hospitalities_mutations_deleteMyHospitality from "../tables/hospitalities/mutations/deleteMyHospitality.js";
 import type * as tables_hospitalities_mutations_setHospitalityVisibility from "../tables/hospitalities/mutations/setHospitalityVisibility.js";
 import type * as tables_hospitalities_mutations_updateHospitality from "../tables/hospitalities/mutations/updateHospitality.js";
 import type * as tables_hospitalities_mutations_viewHospitality from "../tables/hospitalities/mutations/viewHospitality.js";
@@ -214,6 +217,7 @@ declare const fullApi: ApiFromModules<{
   "analytics/utils/getAnalyticsMetricValue": typeof analytics_utils_getAnalyticsMetricValue;
   "analytics/utils/sortAnalyticsItemsByMetric": typeof analytics_utils_sortAnalyticsItemsByMetric;
   "analytics/utils/sumAnalyticsMetricTotals": typeof analytics_utils_sumAnalyticsMetricTotals;
+  "auth/assertTrustedServer": typeof auth_assertTrustedServer;
   "auth/auth": typeof auth_auth;
   "auth/authRoutes": typeof auth_authRoutes;
   "auth/convexCreateAuthRateLimitHook": typeof auth_convexCreateAuthRateLimitHook;
@@ -263,7 +267,6 @@ declare const fullApi: ApiFromModules<{
   "pages/userDashboard/queries/fetchUserDashboardPendingReservations": typeof pages_userDashboard_queries_fetchUserDashboardPendingReservations;
   "pages/userDashboard/queries/fetchUserDashboardStats": typeof pages_userDashboard_queries_fetchUserDashboardStats;
   "pages/userDashboard/types/userDashboardTypes": typeof pages_userDashboard_types_userDashboardTypes;
-  projectSettings: typeof projectSettings;
   "rateLimits/convexCreateRateLimit": typeof rateLimits_convexCreateRateLimit;
   "rateLimits/convexCreateRateLimitInternal": typeof rateLimits_convexCreateRateLimitInternal;
   "rateLimits/enforceRateLimit": typeof rateLimits_enforceRateLimit;
@@ -274,6 +277,7 @@ declare const fullApi: ApiFromModules<{
   "schemas/mutationResult": typeof schemas_mutationResult;
   "storage/crons/cleanupOrphanDataR2": typeof storage_crons_cleanupOrphanDataR2;
   "storage/r2/buildR2PublicObjectUrl": typeof storage_r2_buildR2PublicObjectUrl;
+  "storage/r2/deleteUploadedFilesByKeys": typeof storage_r2_deleteUploadedFilesByKeys;
   "storage/r2/r2": typeof storage_r2_r2;
   "storage/r2/resolveStoredFileUrl": typeof storage_r2_resolveStoredFileUrl;
   "storage/r2/uploadedFilesR2": typeof storage_r2_uploadedFilesR2;
@@ -325,6 +329,7 @@ declare const fullApi: ApiFromModules<{
   "tables/guests/utils/guestSessionToken": typeof tables_guests_utils_guestSessionToken;
   "tables/guests/utils/guestStayCookieCrypto": typeof tables_guests_utils_guestStayCookieCrypto;
   "tables/guests/utils/isGuestStayIdentity": typeof tables_guests_utils_isGuestStayIdentity;
+  "tables/hospitalities/helpers/cleanupHospitalityFiles": typeof tables_hospitalities_helpers_cleanupHospitalityFiles;
   "tables/hospitalities/helpers/connectCode": typeof tables_hospitalities_helpers_connectCode;
   "tables/hospitalities/helpers/ensureHospitalityCreateAccess": typeof tables_hospitalities_helpers_ensureHospitalityCreateAccess;
   "tables/hospitalities/helpers/generateUniqueConnectCode": typeof tables_hospitalities_helpers_generateUniqueConnectCode;
@@ -336,6 +341,7 @@ declare const fullApi: ApiFromModules<{
   "tables/hospitalities/mutations/createHospitality": typeof tables_hospitalities_mutations_createHospitality;
   "tables/hospitalities/mutations/createUserHospitality": typeof tables_hospitalities_mutations_createUserHospitality;
   "tables/hospitalities/mutations/deleteHospitalities": typeof tables_hospitalities_mutations_deleteHospitalities;
+  "tables/hospitalities/mutations/deleteMyHospitality": typeof tables_hospitalities_mutations_deleteMyHospitality;
   "tables/hospitalities/mutations/setHospitalityVisibility": typeof tables_hospitalities_mutations_setHospitalityVisibility;
   "tables/hospitalities/mutations/updateHospitality": typeof tables_hospitalities_mutations_updateHospitality;
   "tables/hospitalities/mutations/viewHospitality": typeof tables_hospitalities_mutations_viewHospitality;

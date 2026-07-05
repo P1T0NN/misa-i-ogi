@@ -47,10 +47,10 @@
 		>
 			{#if isConfirmed}
 				<CheckCircle2Icon data-icon="inline-start" class="size-4" aria-hidden="true" />
-				{m['HospitalityPage.GuestReservationCard.statusConfirmed']()}
+				{m['GuestReservationCard.statusConfirmed']()}
 			{:else}
 				<ClockIcon data-icon="inline-start" class="size-4" aria-hidden="true" />
-				{m['HospitalityPage.GuestReservationCard.statusPending']()}
+				{m['GuestReservationCard.statusPending']()}
 			{/if}
 		</Button>
 
@@ -58,32 +58,32 @@
 			<div class="space-y-1">
 				{#if isConfirmed}
 					<p class="font-serif text-lg leading-tight font-medium tracking-tight">
-						{m['HospitalityPage.GuestReservationCard.confirmedTitle']()}
+						{m['GuestReservationCard.confirmedTitle']()}
 					</p>
 					{#if hospitalityName}
 						<p class="text-sm leading-relaxed text-muted-foreground">
-							{m['HospitalityPage.GuestReservationCard.confirmedDescriptionWithName']({
+							{m['GuestReservationCard.confirmedDescriptionWithName']({
 								hospitalityName
 							})}
 						</p>
 					{:else}
 						<p class="text-sm leading-relaxed text-muted-foreground">
-							{m['HospitalityPage.GuestReservationCard.confirmedDescription']()}
+							{m['GuestReservationCard.confirmedDescription']()}
 						</p>
 					{/if}
 				{:else}
 					<p class="font-serif text-lg leading-tight font-medium tracking-tight">
-						{m['HospitalityPage.GuestReservationCard.pendingTitle']()}
+						{m['GuestReservationCard.pendingTitle']()}
 					</p>
 					{#if hospitalityName}
 						<p class="text-sm leading-relaxed text-muted-foreground">
-							{m['HospitalityPage.GuestReservationCard.pendingDescriptionWithName']({
+							{m['GuestReservationCard.pendingDescriptionWithName']({
 								hospitalityName
 							})}
 						</p>
 					{:else}
 						<p class="text-sm leading-relaxed text-muted-foreground">
-							{m['HospitalityPage.GuestReservationCard.pendingDescription']()}
+							{m['GuestReservationCard.pendingDescription']()}
 						</p>
 					{/if}
 				{/if}
@@ -94,7 +94,7 @@
 					<ClockIcon class="mt-0.5 size-4 shrink-0 text-primary" aria-hidden="true" />
 					<div class="min-w-0">
 						<dt class="font-mono text-[10px] tracking-widest text-muted-foreground uppercase">
-							{m['HospitalityPage.GuestReservationCard.dlPreferredTime']()}
+							{m['GuestReservationCard.dlPreferredTime']()}
 						</dt>
 						<dd class="mt-0.5 font-medium text-foreground">{reservation.requestedTime}</dd>
 					</div>
@@ -104,7 +104,7 @@
 					<UserRoundIcon class="mt-0.5 size-4 shrink-0 text-primary" aria-hidden="true" />
 					<div class="min-w-0">
 						<dt class="font-mono text-[10px] tracking-widest text-muted-foreground uppercase">
-							{m['HospitalityPage.GuestReservationCard.dlGuestName']()}
+							{m['GuestReservationCard.dlGuestName']()}
 						</dt>
 						<dd class="mt-0.5 truncate font-medium text-foreground">{reservation.guestName}</dd>
 					</div>
@@ -114,7 +114,7 @@
 					<UsersIcon class="mt-0.5 size-4 shrink-0 text-primary" aria-hidden="true" />
 					<div class="min-w-0">
 						<dt class="font-mono text-[10px] tracking-widest text-muted-foreground uppercase">
-							{m['HospitalityPage.GuestReservationCard.dlGuestCount']()}
+							{m['GuestReservationCard.dlGuestCount']()}
 						</dt>
 						<dd class="mt-0.5 font-medium text-foreground">
 							{formatReservationGuestCount(reservation.guestCount)}
@@ -126,7 +126,7 @@
 					<PhoneIcon class="mt-0.5 size-4 shrink-0 text-primary" aria-hidden="true" />
 					<div class="min-w-0">
 						<dt class="font-mono text-[10px] tracking-widest text-muted-foreground uppercase">
-							{m['HospitalityPage.GuestReservationCard.dlPhone']()}
+							{m['GuestReservationCard.dlPhone']()}
 						</dt>
 						<dd class="mt-0.5 font-medium wrap-break-word text-foreground">{reservation.phone}</dd>
 					</div>
@@ -137,7 +137,7 @@
 						<MailIcon class="mt-0.5 size-4 shrink-0 text-primary" aria-hidden="true" />
 						<div class="min-w-0">
 							<dt class="font-mono text-[10px] tracking-widest text-muted-foreground uppercase">
-								{m['HospitalityPage.GuestReservationCard.dlEmail']()}
+								{m['GuestReservationCard.dlEmail']()}
 							</dt>
 							<dd class="mt-0.5 font-medium wrap-break-word text-foreground">
 								{reservation.email}

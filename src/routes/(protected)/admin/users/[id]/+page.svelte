@@ -11,7 +11,7 @@
 	import { authClass } from '@/features/auth/classes/authClass.svelte';
 
 	// CONFIG
-	import { UNPROTECTED_PAGE_ENDPOINTS } from '@/shared/constants.js';
+	import { UNPROTECTED_PAGE_ENDPOINTS } from '@/shared/page-endpoints.js';
 
 	// COMPONENTS
 	import SvelteHead from '@/shared/components/ui/svelte-head/svelte-head.svelte';
@@ -66,9 +66,9 @@
 	{#if userQuery.error}
 		<ErrorComponent
 			variant="alert"
-			title={m['AdminUserPage.UserPageError.title']()}
-			description={m['AdminUserPage.UserPageError.description']()}
-			retryLabel={m['AdminUserPage.UserPageError.retry']()}
+			title={m['AdminUserPage.errorTitle']()}
+			description={m['AdminUserPage.errorDescription']()}
+			retryLabel={m['AdminUserPage.errorRetryLabel']()}
 		/>
 	{:else if user === null}
 		<UserPageEmpty />

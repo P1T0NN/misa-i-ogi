@@ -3,7 +3,7 @@
 	import { m } from '@/shared/lib/paraglide/messages';
 
 	// CONFIG
-	import { PROTECTED_PAGE_ENDPOINTS } from '@/shared/constants.js';
+	import { PROTECTED_PAGE_ENDPOINTS } from '@/shared/page-endpoints.js';
 
 	// COMPONENTS
 	import { Button } from '@/shared/components/ui/button/index.js';
@@ -15,10 +15,10 @@
 <header class="flex w-full flex-col gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
 	<div class="flex min-w-0 flex-col gap-1 sm:flex-1">
 		<h1 class="text-2xl font-semibold tracking-tight">
-			{m['EditHospitalityPage.title']()}
+			{m['EditHospitalityPage.EditHospitalityHeader.title']()}
 		</h1>
 		<p class="text-sm leading-relaxed text-muted-foreground">
-			{m['EditHospitalityPage.description']()}
+			{m['EditHospitalityPage.EditHospitalityHeader.description']()}
 		</p>
 	</div>
 	<Button
@@ -27,6 +27,6 @@
 		class="w-full shrink-0 sm:w-auto sm:self-center"
 	>
 		<ArrowLeftIcon data-icon="inline-start" />
-		{m['EditHospitalityPage.back']()}
+		{m['EditHospitalityPage.EditHospitalityHeader.back']()}
 	</Button>
 </header>

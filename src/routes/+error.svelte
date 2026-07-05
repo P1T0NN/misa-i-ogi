@@ -6,7 +6,7 @@
 	import { m } from '@/shared/lib/paraglide/messages';
 
 	// CONFIG
-	import { UNPROTECTED_PAGE_ENDPOINTS } from '@/shared/constants';
+	import { UNPROTECTED_PAGE_ENDPOINTS } from '@/shared/page-endpoints';
 
 	// COMPONENTS
 	import { ErrorComponent } from '@/shared/components/ui/error-component/index.js';

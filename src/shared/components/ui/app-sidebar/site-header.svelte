@@ -6,7 +6,8 @@
 	import { m } from '@/shared/lib/paraglide/messages';
 
 	// CONFIG
-	import { COMPANY_DATA, PROTECTED_PAGE_ENDPOINTS } from '@/shared/constants.js';
+	import { COMPANY_DATA } from '@/shared/constants.js';
+	import { PROTECTED_PAGE_ENDPOINTS } from '@/shared/page-endpoints.js';
 
 	// CLASSES
 	import { breadcrumbLabel } from '@/shared/components/ui/breadcrumb/breadcrumbClass.svelte.js';
@@ -61,7 +62,7 @@
 					href: PROTECTED_PAGE_ENDPOINTS.MY_ACCOMMODATIONS
 				},
 				{
-					label: currentPageLabel ?? m['EditAccommodationPage.title']()
+					label: currentPageLabel ?? m['EditAccommodationPage.EditAccommodationHeader.title']()
 				}
 			];
 		}
@@ -73,7 +74,7 @@
 					href: PROTECTED_PAGE_ENDPOINTS.MY_HOSPITALITIES
 				},
 				{
-					label: currentPageLabel ?? m['EditHospitalityPage.title']()
+					label: currentPageLabel ?? m['EditHospitalityPage.EditHospitalityHeader.title']()
 				}
 			];
 		}

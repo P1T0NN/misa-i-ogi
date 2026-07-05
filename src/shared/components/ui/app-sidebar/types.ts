@@ -11,6 +11,8 @@ export type AppSidebarNavItem = {
 	url?: string;
 	icon: Component;
 	groupLabel?: string;
+	/** Match only on the exact path — for a link whose URL is a prefix of siblings (e.g. Analytics overview). */
+	exact?: boolean;
 	items?: AppSidebarNavChildItem[];
 };
 

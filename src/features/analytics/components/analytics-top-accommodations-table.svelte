@@ -56,25 +56,25 @@
 	const title = $derived(
 		titleOverride ??
 			(variant === 'performance'
-				? m['AnalyticsComponents.AnalyticsTopAccommodationsTable.performanceTitle']()
+				? m['AnalyticsTopAccommodationsTable.performanceTitle']()
 				: variant === 'admin'
-					? m['AnalyticsComponents.AnalyticsTopAccommodationsTable.adminTitle']()
+					? m['AnalyticsTopAccommodationsTable.adminTitle']()
 					: variant === 'detailPerformance' || variant === 'dummy'
-						? m['AnalyticsComponents.AnalyticsTopAccommodationsTable.detailPerformanceTitle']()
-						: m['AnalyticsComponents.AnalyticsTopAccommodationsTable.topTitle']())
+						? m['AnalyticsTopAccommodationsTable.detailPerformanceTitle']()
+						: m['AnalyticsTopAccommodationsTable.topTitle']())
 	);
 
 	const description = $derived(
 		descriptionOverride ??
 			(variant === 'performance'
-				? m['AnalyticsComponents.AnalyticsTopAccommodationsTable.performanceDescription']()
+				? m['AnalyticsTopAccommodationsTable.performanceDescription']()
 				: variant === 'admin'
-					? m['AnalyticsComponents.AnalyticsTopAccommodationsTable.adminDescription']()
+					? m['AnalyticsTopAccommodationsTable.adminDescription']()
 					: variant === 'detailPerformance' || variant === 'dummy'
 						? m[
-								'AnalyticsComponents.AnalyticsTopAccommodationsTable.detailPerformanceDescription'
+								'AnalyticsTopAccommodationsTable.detailPerformanceDescription'
 							]()
-						: m['AnalyticsComponents.AnalyticsTopAccommodationsTable.topDescription']())
+						: m['AnalyticsTopAccommodationsTable.topDescription']())
 	);
 
 	const showAction = $derived(
@@ -90,7 +90,7 @@
 		const columns: ColumnDef<TableRow>[] = [
 			{
 				id: 'entity',
-				header: m['AnalyticsComponents.AnalyticsTopAccommodationsTable.entity'](),
+				header: m['AnalyticsTopAccommodationsTable.entity'](),
 				accessor: (row) => row.name,
 				cellClass: 'font-medium',
 				wrap: true
@@ -100,7 +100,7 @@
 		if (tableVariant !== 'dummy') {
 			columns.push({
 				id: 'type',
-				header: m['AnalyticsComponents.AnalyticsTopAccommodationsTable.type'](),
+				header: m['AnalyticsTopAccommodationsTable.type'](),
 				accessor: (row) => formatAnalyticsType(row.type),
 				hideBelow: 'md'
 			});
@@ -109,7 +109,7 @@
 		if (tableVariant === 'admin') {
 			columns.push({
 				id: 'city',
-				header: m['AnalyticsComponents.AnalyticsTopAccommodationsTable.city'](),
+				header: m['AnalyticsTopAccommodationsTable.city'](),
 				accessor: (row) => row.city ?? '',
 				hideBelow: 'lg'
 			});
@@ -119,26 +119,26 @@
 			columns.push(
 				{
 					id: 'views',
-					header: m['AnalyticsComponents.AnalyticsTopAccommodationsTable.views'](),
+					header: m['AnalyticsTopAccommodationsTable.views'](),
 					accessor: (row) => formatAnalyticsCount((row as DetailPerformanceRow).views),
 					cellClass: 'tabular-nums'
 				},
 				{
 					id: 'reservations',
-					header: m['AnalyticsComponents.AnalyticsTopAccommodationsTable.reservations'](),
+					header: m['AnalyticsTopAccommodationsTable.reservations'](),
 					accessor: (row) => formatAnalyticsCount((row as DetailPerformanceRow).requests),
 					cellClass: 'tabular-nums'
 				},
 				{
 					id: 'confirmed',
-					header: m['AnalyticsComponents.AnalyticsTopAccommodationsTable.confirmed'](),
+					header: m['AnalyticsTopAccommodationsTable.confirmed'](),
 					accessor: (row) => formatAnalyticsCount((row as DetailPerformanceRow).confirmed),
 					hideBelow: 'md',
 					cellClass: 'tabular-nums'
 				},
 				{
 					id: 'conversionRate',
-					header: m['AnalyticsComponents.AnalyticsTopAccommodationsTable.conversion'](),
+					header: m['AnalyticsTopAccommodationsTable.conversion'](),
 					accessor: (row) => {
 						const performanceRow = row as DetailPerformanceRow;
 						return formatAnalyticsConversionRate(performanceRow.requests, performanceRow.confirmed);
@@ -153,33 +153,33 @@
 		columns.push(
 			{
 				id: 'scans',
-				header: m['AnalyticsComponents.AnalyticsTopAccommodationsTable.scans'](),
+				header: m['AnalyticsTopAccommodationsTable.scans'](),
 				accessor: (row) => formatAnalyticsCount((row as AccommodationTableRow).scans),
 				cellClass: 'tabular-nums'
 			},
 			{
 				id: 'guestActivations',
-				header: m['AnalyticsComponents.AnalyticsTopAccommodationsTable.guestActivations'](),
+				header: m['AnalyticsTopAccommodationsTable.guestActivations'](),
 				accessor: (row) => formatAnalyticsCount((row as AccommodationTableRow).guestActivations),
 				hideBelow: 'md',
 				cellClass: 'tabular-nums'
 			},
 			{
 				id: 'reservations',
-				header: m['AnalyticsComponents.AnalyticsTopAccommodationsTable.reservations'](),
+				header: m['AnalyticsTopAccommodationsTable.reservations'](),
 				accessor: (row) => (row as AccommodationTableRow).reservations,
 				cellClass: 'tabular-nums'
 			},
 			{
 				id: 'confirmed',
-				header: m['AnalyticsComponents.AnalyticsTopAccommodationsTable.confirmed'](),
+				header: m['AnalyticsTopAccommodationsTable.confirmed'](),
 				accessor: (row) => (row as AccommodationTableRow).confirmed,
 				hideBelow: 'md',
 				cellClass: 'tabular-nums'
 			},
 			{
 				id: 'conversionRate',
-				header: m['AnalyticsComponents.AnalyticsTopAccommodationsTable.conversion'](),
+				header: m['AnalyticsTopAccommodationsTable.conversion'](),
 				accessor: (row) => {
 					const accommodationRow = row as AccommodationTableRow;
 					return formatAnalyticsConversionRate(
@@ -194,7 +194,7 @@
 		if (tableVariant !== 'admin') {
 			columns.push({
 				id: 'action',
-				header: m['AnalyticsComponents.AnalyticsTopAccommodationsTable.open'](),
+				header: m['AnalyticsTopAccommodationsTable.open'](),
 				accessor: (row) => getDetailHref(row),
 				headerClass: 'text-right',
 				cellClass: 'text-right',
@@ -214,11 +214,11 @@
 		variant="ghost"
 		size="sm"
 		class="px-0 md:px-3"
-		aria-label={m['AnalyticsComponents.AnalyticsTopAccommodationsTable.detailsAriaLabel']({
+		aria-label={m['AnalyticsTopAccommodationsTable.detailsAriaLabel']({
 			name: row.name
 		})}
 	>
-		{m['AnalyticsComponents.AnalyticsTopAccommodationsTable.details']()}
+		{m['AnalyticsTopAccommodationsTable.details']()}
 		<ArrowRightIcon data-icon="inline-end" />
 	</Button>
 {/snippet}

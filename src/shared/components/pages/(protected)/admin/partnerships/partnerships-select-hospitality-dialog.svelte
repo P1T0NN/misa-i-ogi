@@ -85,7 +85,7 @@
 				open = true;
 			}}
 		>
-			{m['AdminPartnershipAddPage.modifyHospitality']()}
+			{m['AdminPartnershipAddPage.PartnershipsSelectHospitalityDialog.modifyHospitality']()}
 		</button>
 	{:else}
 		<button
@@ -95,7 +95,7 @@
 				open = true;
 			}}
 		>
-			{m['AdminPartnershipAddPage.selectHospitality']()}
+			{m['AdminPartnershipAddPage.PartnershipsSelectHospitalityDialog.selectHospitality']()}
 		</button>
 	{/if}
 </div>
@@ -108,7 +108,7 @@
 >
 	<div class="shrink-0 border-b border-border px-4 py-4 pr-12">
 		<h2 id="{inputId}-dialog-title" class="font-serif text-2xl leading-tight text-foreground">
-			{m['AdminPartnershipAddPage.selectHospitalityDialogTitle']()}
+			{m['AdminPartnershipAddPage.PartnershipsSelectHospitalityDialog.selectHospitalityDialogTitle']()}
 		</h2>
 	</div>
 
@@ -137,12 +137,12 @@
 
 	<div class="flex shrink-0 items-center justify-between gap-3 border-t border-border px-4 py-3">
 		<span class="text-sm text-muted-foreground">
-			{m['AdminPartnershipAddPage.selectHospitalitySelectedCount']({
+			{m['AdminPartnershipAddPage.PartnershipsSelectHospitalityDialog.selectHospitalitySelectedCount']({
 				count: selectedIds.length
 			})}
 		</span>
 		<Button type="button" size="sm" onclick={() => (open = false)}>
-			{m['AdminPartnershipAddPage.selectHospitalityDone']()}
+			{m['AdminPartnershipAddPage.PartnershipsSelectHospitalityDialog.selectHospitalityDone']()}
 		</Button>
 	</div>
 
@@ -150,7 +150,7 @@
 		<p
 			class="shrink-0 border-t border-border px-4 py-2 text-xs leading-relaxed text-muted-foreground"
 		>
-			{m['AdminPartnershipAddPage.selectHospitalityTruncated']({ count: rows.length })}
+			{m['AdminPartnershipAddPage.PartnershipsSelectHospitalityDialog.selectHospitalityTruncated']({ count: rows.length })}
 		</p>
 	{/if}
 </Dialog>

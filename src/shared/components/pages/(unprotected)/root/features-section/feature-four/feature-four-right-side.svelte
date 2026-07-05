@@ -30,15 +30,15 @@
 
 		<div>
 			<div class="flex flex-wrap items-center gap-2">
-				<p class="landing-eyebrow mb-0 text-primary">Bonus — your own custom partnerships</p>
+				<p class="landing-eyebrow mb-0 text-primary">Coming soon — your own custom partnerships</p>
 
-				<Badge variant="secondary">1 month free</Badge>
+				<Badge variant="secondary">In development</Badge>
 			</div>
 
 			<p class="mt-3 mb-0 max-w-136 text-base leading-relaxed text-muted-foreground">
-				Want more? On top of the included benefits, you can form your own partnerships directly with
-				other hospitalities, with the discounts or perks you arrange yourself — free for your first
-				month, then covered by a simple seasonal Pro plan.
+				On top of the included benefits, you will soon be able to form your own partnerships
+				directly with other hospitalities, with the discounts or perks you arrange yourself.
+				Pricing has not been finalized yet.
 			</p>
 		</div>
 	</div>

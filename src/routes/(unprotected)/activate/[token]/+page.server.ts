@@ -1,5 +1,6 @@
 // SVELTEKIT IMPORTS
 import { redirect } from '@sveltejs/kit';
+import { env } from '$env/dynamic/private';
 
 // LIBRARIES
 import { api } from '@/convex/_generated/api';
@@ -8,7 +9,7 @@ import { isRateLimitError } from '@convex-dev/rate-limiter';
 
 // CONFIG
 import { COOKIE_NAMES, GUEST_STAY } from '@/shared/config';
-import { UNPROTECTED_PAGE_ENDPOINTS } from '@/shared/constants';
+import { UNPROTECTED_PAGE_ENDPOINTS } from '@/shared/page-endpoints';
 
 // UTILS
 import { createCookie } from '@/shared/utils/cookieUtils';
@@ -32,7 +33,8 @@ export const actions: Actions = {
 		try {
 			const result = await client.mutation(api.tables.guests.mutations.createGuest.createGuest, {
 				scanToken: token,
-				ip: event.getClientAddress()
+				ip: event.getClientAddress(),
+				secret: env.SEARCH_INPUT_RATE_LIMIT_SECRET ?? ''
 			});
 
 			if (result.success && result.data?.signedCookie) {

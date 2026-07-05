@@ -4,7 +4,7 @@
 	import { onMount } from 'svelte';
 
 	// LIBRARIES
-	import { getConvexClient, useQuery } from '@mmailaender/convex-svelte';
+	import { useQuery } from '@mmailaender/convex-svelte';
 	import { useAuth as useBetterAuth } from '@mmailaender/convex-better-auth-svelte/svelte';
 	import { api } from '@/convex/_generated/api';
 
@@ -17,7 +17,12 @@
 
 	// ROUTE CONTEXT
 	import { setStayRouteContext } from './stayContext.svelte.js';
-	import type { StayGuestAuthStatus } from './stayContext.svelte.js';
+
+	// FEATURES
+	import { createGuestAuth } from '@/features/guests/classes/guestAuth.svelte.js';
+
+	// UTILS
+	import { loadingTimeout } from '@/utils/loadingTimeout.svelte.js';
 
 	// TYPES
 	import type { CurrentGuest } from '@/convex/tables/guests/types/guestsTypes';
@@ -26,95 +31,47 @@
 
 	const activationBlocked = $derived(page.url.searchParams.get('activation') === 'already_active');
 	const betterAuth = useBetterAuth();
-	let guestAuthStatus = $state<StayGuestAuthStatus>('loading');
-	let guestAuthEstablished = $state(false);
-	let sharingCode = $state('');
 
-	onMount(() => {
-		const convexClient = getConvexClient();
+	const guestAuth = createGuestAuth(({ forceRefreshToken }) =>
+		betterAuth.fetchAccessToken({ forceRefreshToken })
+	);
 
-		convexClient.setAuth(
-			async () => {
-				try {
-					const response = await fetch('/api/guest-auth/token', {
-						credentials: 'same-origin',
-						headers: { accept: 'application/json' }
-					});
-					const body = (await response.json().catch(() => null)) as {
-						token?: unknown;
-						sharingCode?: unknown;
-						status?: unknown;
-					} | null;
-
-					if (response.status === 401) {
-						guestAuthStatus = body?.status === 'expired' ? 'expired' : 'missing';
-						guestAuthEstablished = false;
-						return null;
-					}
-
-					if (
-						!response.ok ||
-						typeof body?.token !== 'string' ||
-						typeof body?.sharingCode !== 'string'
-					) {
-						guestAuthStatus = 'error';
-						guestAuthEstablished = false;
-						return null;
-					}
-
-					sharingCode = body.sharingCode;
-					guestAuthStatus = 'authenticated';
-					guestAuthEstablished = true;
-					return body.token;
-				} catch {
-					guestAuthStatus = guestAuthEstablished ? 'error' : 'missing';
-					return null;
-				}
-			},
-			(isAuthenticated) => {
-				if (isAuthenticated) {
-					guestAuthStatus = 'authenticated';
-					guestAuthEstablished = true;
-				}
-			}
-		);
-
-		return () => {
-			convexClient.setAuth(({ forceRefreshToken }) =>
-				betterAuth.fetchAccessToken({ forceRefreshToken })
-			);
-		};
-	});
+	onMount(() => guestAuth.attach());
 
 	const currentGuestQuery = useQuery(
 		api.tables.guests.queries.fetchCurrentGuest.fetchCurrentGuest,
-		() => (guestAuthStatus === 'authenticated' ? {} : 'skip'),
+		() => (guestAuth.status === 'authenticated' ? {} : 'skip'),
 		() => ({ keepPreviousData: true })
 	);
 
 	const currentGuest = $derived.by((): CurrentGuest | undefined => {
-		if (guestAuthStatus === 'expired') return { status: 'expired', guest: null };
-		if (guestAuthStatus === 'missing') return { status: 'missing', guest: null };
+		if (guestAuth.status === 'expired') return { status: 'expired', guest: null };
+		if (guestAuth.status === 'missing') return { status: 'missing', guest: null };
 		return currentGuestQuery.data as CurrentGuest | undefined;
 	});
 	const isReconcilingGuestAuth = $derived(
-		guestAuthStatus === 'authenticated' &&
+		guestAuth.status === 'authenticated' &&
 			(currentGuest === undefined || currentGuest.status === 'missing')
 	);
 	const isLoading = $derived(
-		guestAuthStatus === 'loading' || isReconcilingGuestAuth || currentGuest === undefined
+		guestAuth.status === 'loading' || isReconcilingGuestAuth || currentGuest === undefined
 	);
-	const loadError = $derived(guestAuthStatus === 'error' || Boolean(currentGuestQuery.error));
+	// Backstop: a query stuck waiting on auth looks identical to loading — cap
+	// the skeleton so it degrades to the error view (self-heals if data arrives).
+	const loadTimeout = loadingTimeout(() => isLoading);
+	const loadError = $derived(
+		guestAuth.status === 'error' || Boolean(currentGuestQuery.error) || loadTimeout.timedOut
+	);
 
 	setStayRouteContext({
 		get guestAuthStatus() {
-			return guestAuthStatus;
+			return guestAuth.status;
 		},
 		get currentGuest() {
 			return currentGuest;
 		},
 		get sharingCode() {
-			return sharingCode;
+			return guestAuth.sharingCode;
 		}
 	});
 </script>
@@ -126,7 +83,7 @@
 		<StayError />
 	{:else if isLoading}
 		<StayLoading />
-	{:else if currentGuest?.status === 'active' && sharingCode}
+	{:else if currentGuest?.status === 'active' && guestAuth.sharingCode}
 		{@render children()}
 	{:else if currentGuest?.status === 'expired'}
 		<StayExpiredAccess />

@@ -8,7 +8,7 @@
 	import { m } from '@/shared/lib/paraglide/messages';
 
 	// CONFIG
-	import { PROTECTED_PAGE_ENDPOINTS } from '@/shared/constants.js';
+	import { PROTECTED_PAGE_ENDPOINTS } from '@/shared/page-endpoints.js';
 	import { PARTNERSHIP_BENEFIT_MAX_LENGTH } from '@/shared/config.js';
 
 	// CLASSES
@@ -111,7 +111,7 @@
 				<label class="flex flex-col gap-1.5">
 					<div class="flex items-center justify-between gap-2">
 						<span class="text-sm font-medium">
-							{m['PartnershipsPage.PartnershipRequestItem.benefitLabel']()}
+							{m['CreateCustomPartnershipPage.CreateCustomPartnershipForm.benefitLabel']()}
 						</span>
 						
 						<span class="shrink-0 text-xs tabular-nums text-muted-foreground">
@@ -122,7 +122,7 @@
 					<Input
 						bind:value={values.benefit}
 						maxlength={PARTNERSHIP_BENEFIT_MAX_LENGTH}
-						placeholder={m['PartnershipsPage.PartnershipRequestItem.benefitPlaceholder']()}
+						placeholder={m['CreateCustomPartnershipPage.CreateCustomPartnershipForm.benefitPlaceholder']()}
 					/>
 					<FieldDescription>
 						{m['CreateCustomPartnershipPage.CreateCustomPartnershipForm.ownVenueBenefitHint']()}

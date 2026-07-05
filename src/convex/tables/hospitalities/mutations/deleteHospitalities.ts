@@ -3,15 +3,11 @@ import { ConvexError } from 'convex/values';
 
 // HELPERS
 import { createDeleteMutation } from '@/convex/helpers/createDeleteMutation';
+import { cleanupHospitalityFiles } from '@/convex/tables/hospitalities/helpers/cleanupHospitalityFiles';
 import { hasActiveHospitalityPartnership } from '@/convex/tables/partnerships/helpers/hasActivePartnership';
 import { hospitalityHasOpenReservations } from '@/convex/tables/reservations/helpers/hospitalityHasOpenReservations';
 
-// R2
-import { r2 } from '@/convex/storage/r2/r2';
-
 // TYPES
-import type { MutationCtx } from '@/convex/_generated/server';
-import type { Doc } from '@/convex/_generated/dataModel';
 import type { ConvexErrorPayload } from '@/convex/types/convexTypes';
 
 /**
@@ -19,25 +15,9 @@ import type { ConvexErrorPayload } from '@/convex/types/convexTypes';
  * full rationale behind the Phase-1 cover-image cleanup and the atomicity
  * invariant — same shape, different table.
  */
-const cleanupCoverImages = async (ctx: MutationCtx, docs: Doc<'hospitalities'>[]) => {
-	const keys = [...new Set(docs.map((d) => d.coverImageKey).filter((k): k is string => !!k))];
-	await Promise.all(
-		keys.map(async (key) => {
-			const [row] = await Promise.all([
-				ctx.db
-					.query('uploadedFilesR2')
-					.withIndex('by_key', (q) => q.eq('key', key))
-					.unique(),
-				r2.deleteObject(ctx, key)
-			]);
-			if (row) await ctx.db.delete(row._id);
-		})
-	);
-};
-
 export const deleteHospitalities = createDeleteMutation('deleteHospitalities', {
 	table: 'hospitalities',
-	runStorageDelete: cleanupCoverImages,
+	runStorageDelete: cleanupHospitalityFiles,
 	phase2Strategy: 'optimized',
 	authorize: async (ctx, doc) => {
 		if (await hasActiveHospitalityPartnership(ctx, doc._id)) {

@@ -1,5 +1,6 @@
 // SVELTEKIT IMPORTS
 import { getRequestEvent } from '$app/server';
+import { env } from '$env/dynamic/private';
 
 // LIBRARIES
 import { isRateLimitError } from '@convex-dev/rate-limiter';
@@ -38,7 +39,8 @@ export const joinGuestStay = safeCommand(
 				api.tables.guests.mutations.joinGuestBySharingCode.joinGuestBySharingCode,
 				{
 					sharingCode,
-					ip: resolveClientAddress(event, { fallback: 'unknown' }) ?? 'unknown'
+					ip: resolveClientAddress(event, { fallback: 'unknown' }) ?? 'unknown',
+					secret: env.SEARCH_INPUT_RATE_LIMIT_SECRET ?? ''
 				}
 			);
 

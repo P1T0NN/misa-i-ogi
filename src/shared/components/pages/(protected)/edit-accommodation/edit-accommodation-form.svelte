@@ -5,7 +5,7 @@
 	import { m } from '@/shared/lib/paraglide/messages';
 
 	// CONFIG
-	import { PROTECTED_PAGE_ENDPOINTS } from '@/shared/constants.js';
+	import { PROTECTED_PAGE_ENDPOINTS } from '@/shared/page-endpoints.js';
 
 	// COMPONENTS
 	import ConvexMutationForm from '@/shared/components/ui/mutation-form/convex-mutation-form.svelte';
@@ -47,22 +47,22 @@
 	const sections: MutationFormSection[] = [
 		{
 			id: 'basics',
-			title: m['EditAccommodationPage.sectionBasicsTitle'](),
-			description: m['EditAccommodationPage.sectionBasicsDescription'](),
+			title: m['EditAccommodationPage.EditAccommodationForm.sectionBasicsTitle'](),
+			description: m['EditAccommodationPage.EditAccommodationForm.sectionBasicsDescription'](),
 			fields: [
 				{
 					id: 'name',
 					kind: 'input',
-					label: m['EditAccommodationPage.fieldName'](),
-					placeholder: m['EditAccommodationPage.fieldNamePlaceholder'](),
+					label: m['EditAccommodationPage.EditAccommodationForm.fieldName'](),
+					placeholder: m['EditAccommodationPage.EditAccommodationForm.fieldNamePlaceholder'](),
 					autofocus: true,
 					colSpan: 1
 				},
 				{
 					id: 'type',
 					kind: 'select',
-					label: m['EditAccommodationPage.fieldType'](),
-					selectPlaceholder: m['EditAccommodationPage.fieldTypePlaceholder'](),
+					label: m['EditAccommodationPage.EditAccommodationForm.fieldType'](),
+					selectPlaceholder: m['EditAccommodationPage.EditAccommodationForm.fieldTypePlaceholder'](),
 					options: accommodationTypeSelectOptions(),
 					colSpan: 1
 				}
@@ -70,42 +70,42 @@
 		},
 		{
 			id: 'location',
-			title: m['EditAccommodationPage.sectionLocationTitle'](),
-			description: m['EditAccommodationPage.sectionLocationDescription'](),
+			title: m['EditAccommodationPage.EditAccommodationForm.sectionLocationTitle'](),
+			description: m['EditAccommodationPage.EditAccommodationForm.sectionLocationDescription'](),
 			fields: [
 				{
 					id: 'address',
 					kind: 'input',
-					label: m['EditAccommodationPage.fieldAddress'](),
-					placeholder: m['EditAccommodationPage.fieldAddressPlaceholder']()
+					label: m['EditAccommodationPage.EditAccommodationForm.fieldAddress'](),
+					placeholder: m['EditAccommodationPage.EditAccommodationForm.fieldAddressPlaceholder']()
 				},
 				{
 					id: 'addressNumber',
 					kind: 'input',
-					label: m['EditAccommodationPage.fieldAddressNumber'](),
-					placeholder: m['EditAccommodationPage.fieldAddressNumberPlaceholder'](),
+					label: m['EditAccommodationPage.EditAccommodationForm.fieldAddressNumber'](),
+					placeholder: m['EditAccommodationPage.EditAccommodationForm.fieldAddressNumberPlaceholder'](),
 					colSpan: 1
 				},
 				{
 					id: 'city',
 					kind: 'input',
-					label: m['EditAccommodationPage.fieldCity'](),
-					placeholder: m['EditAccommodationPage.fieldCityPlaceholder'](),
+					label: m['EditAccommodationPage.EditAccommodationForm.fieldCity'](),
+					placeholder: m['EditAccommodationPage.EditAccommodationForm.fieldCityPlaceholder'](),
 					colSpan: 1
 				},
 				{
 					id: 'country',
 					kind: 'input',
-					label: m['EditAccommodationPage.fieldCountry'](),
-					placeholder: m['EditAccommodationPage.fieldCountryPlaceholder'](),
+					label: m['EditAccommodationPage.EditAccommodationForm.fieldCountry'](),
+					placeholder: m['EditAccommodationPage.EditAccommodationForm.fieldCountryPlaceholder'](),
 					colSpan: 1
 				},
 				{
 					id: 'latitude',
 					kind: 'input',
 					type: 'number',
-					label: m['EditAccommodationPage.fieldLatitude'](),
-					placeholder: m['EditAccommodationPage.fieldCoordinatesPlaceholder'](),
+					label: m['EditAccommodationPage.EditAccommodationForm.fieldLatitude'](),
+					placeholder: m['EditAccommodationPage.EditAccommodationForm.fieldCoordinatesPlaceholder'](),
 					disabled: true,
 					colSpan: 1
 				},
@@ -113,8 +113,8 @@
 					id: 'longitude',
 					kind: 'input',
 					type: 'number',
-					label: m['EditAccommodationPage.fieldLongitude'](),
-					placeholder: m['EditAccommodationPage.fieldCoordinatesPlaceholder'](),
+					label: m['EditAccommodationPage.EditAccommodationForm.fieldLongitude'](),
+					placeholder: m['EditAccommodationPage.EditAccommodationForm.fieldCoordinatesPlaceholder'](),
 					disabled: true,
 					colSpan: 1
 				}
@@ -122,35 +122,35 @@
 		},
 		{
 			id: 'cover',
-			title: m['EditAccommodationPage.sectionCoverTitle'](),
-			description: m['EditAccommodationPage.sectionCoverDescription'](),
+			title: m['EditAccommodationPage.EditAccommodationForm.sectionCoverTitle'](),
+			description: m['EditAccommodationPage.EditAccommodationForm.sectionCoverDescription'](),
 			columns: 1,
 			fields: [
 				{
 					id: 'coverImageKey',
 					kind: 'upload-single',
-					label: m['EditAccommodationPage.fieldCoverImage'](),
+					label: m['EditAccommodationPage.EditAccommodationForm.fieldCoverImage'](),
 					accept: 'image/*'
 				}
 			]
 		},
 		{
 			id: 'details',
-			title: m['EditAccommodationPage.sectionDetailsTitle'](),
-			description: m['EditAccommodationPage.sectionDetailsDescription'](),
+			title: m['EditAccommodationPage.EditAccommodationForm.sectionDetailsTitle'](),
+			description: m['EditAccommodationPage.EditAccommodationForm.sectionDetailsDescription'](),
 			fields: [
 				{
 					id: 'description',
 					kind: 'textarea',
-					label: m['EditAccommodationPage.fieldDescription'](),
-					placeholder: m['EditAccommodationPage.fieldDescriptionPlaceholder'](),
+					label: m['EditAccommodationPage.EditAccommodationForm.fieldDescription'](),
+					placeholder: m['EditAccommodationPage.EditAccommodationForm.fieldDescriptionPlaceholder'](),
 					rows: 4
 				},
 				{
 					id: 'isActive',
 					kind: 'checkbox',
-					label: m['EditAccommodationPage.fieldIsActive'](),
-					description: m['EditAccommodationPage.fieldIsActiveDescription']()
+					label: m['EditAccommodationPage.EditAccommodationForm.fieldIsActive'](),
+					description: m['EditAccommodationPage.EditAccommodationForm.fieldIsActiveDescription']()
 				}
 			]
 		}
@@ -206,7 +206,7 @@
 	bind:values
 	schema={accommodationEditFormSchema}
 	runFunction={api.tables.accommodations.mutations.updateAccommodation.updateAccommodation}
-	submitLabel={m['EditAccommodationPage.submit']()}
+	submitLabel={m['EditAccommodationPage.EditAccommodationForm.submit']()}
 	resetOnSuccess={false}
 	customFields={{ address: addressField, coverImageKey: coverField }}
 	onSuccess={() => appGoto(PROTECTED_PAGE_ENDPOINTS.MY_ACCOMMODATIONS)}
@@ -250,7 +250,7 @@
 		id={inputId}
 		accept={field.accept}
 		existingPreviewUrl={accommodation.coverImageUrl}
-		existingPreviewAlt={m['EditAccommodationPage.currentCoverAlt']({ name: accommodation.name })}
+		existingPreviewAlt={m['EditAccommodationPage.EditAccommodationForm.currentCoverAlt']({ name: accommodation.name })}
 		bind:file={() => (value as File | null) ?? null, (next) => setValue(next)}
 	/>
 {/snippet}

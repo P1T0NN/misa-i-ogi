@@ -9,7 +9,7 @@
 	import { authClient } from '@/features/auth/lib/auth-client';
 
 	// CONFIG
-	import { PROTECTED_PAGE_ENDPOINTS } from '@/shared/constants';
+	import { PROTECTED_PAGE_ENDPOINTS } from '@/shared/page-endpoints';
 
 	// COMPONENTS
 	import { Button } from '@/shared/components/ui/button/index.js';

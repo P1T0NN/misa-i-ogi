@@ -19,10 +19,10 @@
 
 	<div class="flex max-w-xs flex-col gap-1">
 		<p class="text-sm font-medium text-foreground">
-			{m['SelectMyAccommodationDialog.Error.title']()}
+			{m['SelectMyAccommodationDialogError.title']()}
 		</p>
 		<p class="text-sm text-muted-foreground">
-			{m['SelectMyAccommodationDialog.Error.description']()}
+			{m['SelectMyAccommodationDialogError.description']()}
 		</p>
 	</div>
 

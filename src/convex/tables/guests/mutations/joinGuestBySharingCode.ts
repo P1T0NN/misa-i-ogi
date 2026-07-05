@@ -3,6 +3,7 @@ import { v } from 'convex/values';
 import { mutation } from '@/convex/_generated/server';
 import { enforceRateLimit } from '@/convex/rateLimits/enforceRateLimit';
 import { rateLimitKey } from '@/convex/rateLimits/keys';
+import { assertTrustedServer } from '@/convex/auth/assertTrustedServer';
 
 // HELPERS
 import { analytics } from '@/convex/analytics';
@@ -26,10 +27,12 @@ import type { JoinGuestBySharingCodeResult } from '@/convex/tables/guests/types/
 export const joinGuestBySharingCode = mutation({
 	args: {
 		sharingCode: v.string(),
-		ip: v.string()
+		ip: v.string(),
+		secret: v.string()
 	},
 	returns: mutationResultValidator,
 	handler: async (ctx, args): Promise<JoinGuestBySharingCodeResult> => {
+		assertTrustedServer(args.secret);
 		await enforceRateLimit(ctx, 'joinGuestBySharingCode', rateLimitKey.ip(args.ip));
 
 		if (!isValidGuestSharingCode(args.sharingCode)) {

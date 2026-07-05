@@ -8,5 +8,5 @@
 
 <div class="flex items-center justify-center gap-2 py-10 text-muted-foreground">
 	<Spinner class="size-4" />
-	<span class="text-sm">{m['AdminPartnershipAddPage.selectAccommodationLoading']()}</span>
+	<span class="text-sm">{m['AdminPartnershipAddPage.PartnershipsSelectAccommodationDialog.selectAccommodationLoading']()}</span>
 </div>

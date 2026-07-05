@@ -6,7 +6,8 @@
 	import { authClass } from '@/features/auth/classes/authClass.svelte';
 
 	// CONFIG
-	import { PROTECTED_PAGE_ENDPOINTS } from '@/shared/constants.js';
+	import { PROTECTED_PAGE_ENDPOINTS } from '@/shared/page-endpoints.js';
+	import { CUSTOM_PARTNERSHIP_ENABLED } from '@/shared/config.js';
 
 	// COMPONENTS
 	import { Badge } from '@/shared/components/ui/badge/index.js';
@@ -65,11 +66,13 @@
 		</div>
 	</div>
 
-	<Button
-		href={PROTECTED_PAGE_ENDPOINTS.CREATE_CUSTOM_PARTNERSHIP}
-		class="w-full shrink-0 sm:w-auto sm:self-center"
-	>
-		<PlusIcon data-icon="inline-start" />
-		{m['PartnershipsPage.PartnershipsHeader.createCustomPartnership']()}
-	</Button>
+	{#if CUSTOM_PARTNERSHIP_ENABLED}
+		<Button
+			href={PROTECTED_PAGE_ENDPOINTS.CREATE_CUSTOM_PARTNERSHIP}
+			class="w-full shrink-0 sm:w-auto sm:self-center"
+		>
+			<PlusIcon data-icon="inline-start" />
+			{m['PartnershipsPage.PartnershipsHeader.createCustomPartnership']()}
+		</Button>
+	{/if}
 </header>

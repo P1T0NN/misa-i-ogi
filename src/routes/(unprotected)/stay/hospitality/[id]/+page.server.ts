@@ -7,7 +7,7 @@ import { createConvexHttpClient } from '@mmailaender/convex-better-auth-svelte/s
 
 // CONFIG
 import { COOKIE_NAMES } from '@/shared/config';
-import { UNPROTECTED_PAGE_ENDPOINTS } from '@/shared/constants';
+import { UNPROTECTED_PAGE_ENDPOINTS } from '@/shared/page-endpoints';
 
 // TYPES
 import type { Id } from '@/convex/_generated/dataModel';

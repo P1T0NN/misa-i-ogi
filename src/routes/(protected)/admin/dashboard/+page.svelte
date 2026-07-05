@@ -37,8 +37,8 @@
 	{:else if hasError}
 		<ErrorComponent
 			variant="header"
-			title={m['AdminDashboardPage.AdminDashboardError.title']()}
-			description={m['AdminDashboardPage.AdminDashboardError.description']()}
+			title={m['AdminDashboardPage.errorTitle']()}
+			description={m['AdminDashboardPage.errorDescription']()}
 			showRetry={false}
 		/>
 	{:else if data}

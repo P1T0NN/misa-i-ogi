@@ -10,7 +10,7 @@ const schema = defineSchema({
 	// access via `authComponent.getAuthUser(ctx)`. Foreign-key columns below store the
 	// better-auth user id as a plain string.
 
-	// Audit logs — toggle population via FEATURES.AUDIT_LOGS in projectSettings.ts.
+	// Audit logs — toggle population via FEATURES.AUDIT_LOGS in shared/config.ts.
 	// The table itself is always declared so flipping the flag needs no migration.
 	auditLogs: auditLogTable,
 

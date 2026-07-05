@@ -7,7 +7,7 @@
 	import { m } from '@/shared/lib/paraglide/messages';
 
 	// CONFIG
-	import { ADMIN_PAGE_ENDPOINTS } from '@/shared/constants.js';
+	import { ADMIN_PAGE_ENDPOINTS } from '@/shared/page-endpoints.js';
 	import { PARTNERSHIP_BENEFIT_MAX_LENGTH } from '@/shared/config.js';
 
 	// COMPONENTS

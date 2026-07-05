@@ -1,20 +1,5 @@
 {
 	"$schema": "https://inlang.com/schema/inlang-message-format",
-	"ErrorPage": {
-		"notFoundTitle": "Stranica nije pronađena",
-		"notFoundDescription": "Stranica koju tražite ne postoji ili je premeštena.",
-		"errorTitle": "Došlo je do greške",
-		"errorDescription": "Došlo je do neočekivane greške. Pokušajte ponovo.",
-		"backHome": "Nazad na početnu"
-	},
-	"Header": {
-		"login": "Prijava",
-		"linkBenefits": "Pogodnosti",
-		"linkHowItWorks": "Kako funkcioniše",
-		"linkFeatures": "Mogućnosti",
-		"linkFaq": "Česta pitanja",
-		"registerFree": "Registrujte se besplatno"
-	},
 	"LanguageSelector": {
 		"english": "Engleski",
 		"serbian": "Srpski",
@@ -29,16 +14,85 @@
 		"logout": "Odjava",
 		"logoutSuccess": "Uspešno ste se odjavili."
 	},
+	"NavUserPlan": {
+		"pro": "Pro",
+		"proActive": "Aktivan",
+		"proDescription": "Sve funkcije su otključane",
+		"freeTrial": "Besplatna proba",
+		"trialShort": "Proba",
+		"trialDaysLeft": "Preostalo {days} dana",
+		"trialLastDay": "Poslednji dan",
+		"trialEnded": "Probni period je istekao",
+		"upgrade": "Pređite na Pro"
+	},
 	"LoginPage": {
-		"continueWithGoogle": "Nastavi sa Google nalogom"
+		"SEO": {
+			"title": "Prijava",
+			"description": "Prijavite se na svoj nalog."
+		}
+	},
+	"SignUpPage": {
+		"SEO": {
+			"title": "Kreirajte nalog",
+			"description": "Registrujte novi nalog."
+		}
+	},
+	"ForgotPasswordPage": {
+		"SEO": {
+			"title": "Resetujte lozinku",
+			"description": "Zatražite kod za resetovanje lozinke."
+		}
 	},
 	"CreatedByOmnilabs": {
 		"label": "Kreirao"
 	},
+	"ToggleColorTheme": {
+		"toggleTheme": "Promeni temu",
+		"light": "Svetla",
+		"dark": "Tamna",
+		"system": "Sistemska"
+	},
+	"PlacesAutocomplete": {
+		"placeholder": "Počnite da unosite adresu...",
+		"error": "Izabrana lokacija nije mogla da se učita.",
+		"noMatches": "Nema pronađenih rezultata."
+	},
+	"GoogleMap": {
+		"failedToLoad": "Mapa nije mogla da se učita."
+	},
+	"LocationMap": {
+		"mapLocation": "Izbor lokacije na mapi",
+		"description": "Pin i koordinate će se automatski prikazati kada izaberete adresu iznad.",
+		"error": "Mapa nije mogla da se učita.",
+		"embedTitle": "Mapa sa prikazanom lokacijom"
+	},
+	"Header": {
+		"navAriaLabel": "Glavna navigacija",
+		"mobileNavAriaLabel": "Glavna mobilna navigacija",
+		"linkBenefits": "Pogodnosti",
+		"linkHowItWorks": "Kako funkcioniše",
+		"linkFeatures": "Funkcionalnosti",
+		"linkFaq": "Česta pitanja",
+		"registerFree": "Registrujte se besplatno",
+		"openMenuAriaLabel": "Otvori meni",
+		"closeMenuAriaLabel": "Zatvori meni"
+	},
+	"Footer": {
+		"tagline": "Pogodnosti za goste koje svaki smeštaj čine lokalnim iskustvom. Besplatno za Smeštaje; Ugostiteljstva plaćaju samo za stvarne rezultate.",
+		"navLabel": "Podnožje",
+		"groupProduct": "Proizvod",
+		"linkOverview": "Pregled",
+		"linkDashboard": "Kontrolna tabla",
+		"groupLegal": "Pravne informacije",
+		"linkTerms": "Uslovi korišćenja",
+		"groupAccount": "Nalog",
+		"linkSignIn": "Prijava",
+		"copyright": "Sva prava zadržana."
+	},
 	"ProtectedSidebar": {
 		"dashboard": "Kontrolna tabla",
-		"myAccommodations": "Moji smeštaji",
-		"myHospitalities": "Moji ugostiteljski objekti",
+		"myAccommodations": "Moji Smeštaji",
+		"myHospitalities": "Moja Ugostiteljstva",
 		"partnerships": "Partnerstva",
 		"reservations": "Rezervacije",
 		"overviewGroupLabel": "Pregled",
@@ -48,87 +102,120 @@
 		"analyticsGroupLabel": "Analitika",
 		"analyticsOverview": "Pregled",
 		"analyticsAccommodations": "Smeštaji",
-		"analyticsHospitalities": "Ugostiteljski objekti",
+		"analyticsHospitalities": "Ugostiteljstva",
 		"analyticsReservations": "Rezervacije",
-		"goToAdminPage": "Idi na admin stranicu",
+		"goToAdminPage": "Idi na Admin stranicu",
 		"backToHome": "Nazad na početnu"
 	},
-	"AdminSidebar": {
-		"backToUserDashboard": "Nazad na korisničku kontrolnu tablu"
+	"ReservationDisplay": {
+		"statusPending": "Na čekanju",
+		"statusConfirmed": "Potvrđena",
+		"statusCancelled": "Otkazana",
+		"statusNoShow": "Nije se pojavio",
+		"guestCountOne": "1 gost",
+		"guestCountMany": "{count} gostiju",
+		"guestCountEmpty": "—"
 	},
-	"TestimonialsSection": {
-		"testimonial1": "Testimonial 1",
-		"testimonial2": "Testimonial 2",
-		"testimonial3": "Testimonial 3",
-		"testimonial4": "Testimonial 4",
-		"testimonial5": "Testimonial 5",
-		"testimonial6": "Testimonial 6",
-		"testimonial7": "Testimonial 7",
-		"testimonial8": "Testimonial 8",
-		"testimonial9": "Testimonial 9",
-		"testimonial10": "Testimonial 10",
-		"testimonial11": "Testimonial 11",
-		"testimonial12": "Testimonial 12",
-		"testimonial13": "Testimonial 13",
-		"UpDownAnimation": {
-			"view": "View",
-			"socialProof": "Social proof",
-			"seeWhyClientsKeepComingBack": "See Why Clients Keep Coming Back"
-		},
-		"LeftRightAnimation": {
-			"eyebrow": "Client Results",
-			"title": "Don't take our word for it."
-		},
-		"PremiumDesign": {
-			"eyebrow": "Real clients",
-			"title": "What clients say"
+	"AnalyticsMetricLabels": {
+		"neutral": "Neutralno",
+		"activity": "Aktivnost",
+		"good": "Dobro",
+		"excellent": "Odlično",
+		"bad": "Loše",
+		"clear": "Čisto"
+	},
+	"AuditActions": {
+		"userCreate": "Korisnik kreiran",
+		"userUpdate": "Korisnik ažuriran",
+		"userDelete": "Korisnik obrisan",
+		"userRoleUpdate": "Uloga korisnika ažurirana",
+		"userBan": "Korisnik blokiran",
+		"userUnban": "Blokada korisnika uklonjena",
+		"userSessionRevoke": "Sesija opozvana",
+		"userSessionsRevokeAll": "Sve sesije opozvane",
+		"adminAction": "Administratorska radnja",
+		"fileUpload": "Datoteka otpremljena",
+		"fileDelete": "Datoteka obrisana",
+		"partnershipCreate": "Partnerstvo kreirano",
+		"partnershipDelete": "Partnerstvo obrisano",
+		"partnershipRequestCreate": "Zahtev za partnerstvo kreiran",
+		"partnershipRequestDecline": "Zahtev za partnerstvo odbijen",
+		"userPlanUpdate": "Plan korisnika ažuriran",
+		"accommodationCreate": "Smeštaj kreiran",
+		"accommodationUpdate": "Smeštaj ažuriran",
+		"hospitalityCreate": "Ugostiteljstvo kreirano",
+		"hospitalityUpdate": "Ugostiteljstvo ažurirano",
+		"hospitalityVisibilityUpdate": "Vidljivost ugostiteljstva ažurirana",
+		"reservationConfirm": "Rezervacija potvrđena",
+		"reservationCancel": "Rezervacija otkazana",
+		"reservationNoShow": "Rezervacija označena kao neiskorišćena",
+		"trialStart": "Besplatni probni period započet",
+		"trialExpire": "Besplatni probni period istekao",
+		"unknown": "{action}"
+	},
+	"UsersComponents": {
+		"AdminOwnerField": {
+			"placeholder": "Pretražite korisnike po imenu",
+			"ariaLabel": "Pretraži vlasnika",
+			"emptyTitle": "Nema pronađenih korisnika",
+			"emptyDescription": "Pokušajte sa drugim imenom vlasnika.",
+			"clearOwnerAriaLabel": "Ukloni vlasnika"
 		}
+	},
+	"AdminSidebar": {
+		"dashboard": "Kontrolna tabla",
+		"analytics": "Analitika",
+		"users": "Korisnici",
+		"accommodations": "Smeštaji",
+		"hospitalities": "Ugostiteljstva",
+		"partnerships": "Partnerstva",
+		"backToUserDashboard": "Nazad na korisničku kontrolnu tablu"
 	},
 	"LoginForm": {
 		"LoginFormNoImage": {
 			"title": "Prijava",
-			"description": "Unesite email ispod da biste se prijavili",
-			"email": "Email",
-			"password": "Password",
+			"description": "Unesite svoju imejl adresu ispod kako biste se prijavili na nalog",
+			"email": "Imejl",
+			"password": "Lozinka",
 			"forgotPassword": "Zaboravili ste lozinku?",
 			"submit": "Prijava",
 			"dontHaveAccount": "Nemate nalog?",
-			"signUp": "Registracija",
-			"signInFailed": "Prijava nije uspela. Proverite podatke i pokušajte ponovo.",
-			"signedInToast": "Uspešno ste se prijavili."
+			"signUp": "Registrujte se",
+			"signInFailed": "Prijava nije uspela. Proverite svoje podatke i pokušajte ponovo.",
+			"signedInToast": "Uspešno ste prijavljeni."
 		},
 		"LoginFormWithImage": {
-			"title": "Prijavite se na nalog",
-			"description": "Unesite email ispod da biste se prijavili",
-			"email": "Email",
-			"password": "Password",
+			"title": "Prijavite se na svoj nalog",
+			"description": "Unesite svoju imejl adresu ispod kako biste se prijavili na nalog",
+			"email": "Imejl",
+			"password": "Lozinka",
 			"forgotPassword": "Zaboravili ste lozinku?",
 			"submit": "Prijava",
-			"orContinueWith": "Ili nastavite sa",
+			"orContinueWith": "Ili nastavite pomoću",
 			"dontHaveAccount": "Nemate nalog?",
-			"signUp": "Registracija",
-			"signInFailed": "Prijava nije uspela. Proverite podatke i pokušajte ponovo.",
-			"signedInToast": "Uspešno ste se prijavili."
+			"signUp": "Registrujte se",
+			"signInFailed": "Prijava nije uspela. Proverite svoje podatke i pokušajte ponovo.",
+			"signedInToast": "Uspešno ste prijavljeni."
 		}
 	},
 	"EmailVerificationForm": {
-		"title": "Proverite email",
-		"description": "We sent a verification code to {email}. Enter it below to continue.",
+		"title": "Proverite svoj imejl",
+		"description": "Poslali smo verifikacioni kod na {email}. Unesite ga ispod da biste nastavili.",
 		"code": "Verifikacioni kod",
-		"codeHint": "Enter the 8-digit code from your email.",
-		"resendPrompt": "Didn't receive the code?",
+		"codeHint": "Unesite osmocifreni kod iz imejla.",
+		"resendPrompt": "Niste primili kod?",
 		"resend": "Pošalji ponovo",
-		"resendIn": "Resend in {seconds}s",
+		"resendIn": "Ponovo pošalji za {seconds}s",
 		"continue": "Nastavi",
 		"cancel": "Otkaži",
-		"verificationFailed": "Invalid or expired code. Please try again."
+		"verificationFailed": "Kod nije važeći ili je istekao. Pokušajte ponovo."
 	},
 	"PasswordResetForm": {
 		"titleRequest": "Resetujte lozinku",
-		"descriptionRequest": "Enter the email for your account. We will send you a one-time code you can use to choose a new password.",
+		"descriptionRequest": "Unesite imejl adresu svog naloga. Poslaćemo vam jednokratni kod pomoću kog možete izabrati novu lozinku.",
 		"titleReset": "Izaberite novu lozinku",
-		"descriptionReset": "We sent a code to {email}. Enter it below along with your new password. The code is valid for 5 minutes.",
-		"email": "Email",
+		"descriptionReset": "Poslali smo kod na {email}. Unesite ga ispod zajedno sa novom lozinkom. Kod važi 5 minuta.",
+		"email": "Imejl",
 		"sendCode": "Pošalji kod",
 		"code": "Kod",
 		"newPassword": "Nova lozinka",
@@ -149,326 +236,773 @@
 		"typeOther": "Ostalo"
 	},
 	"HospitalityData": {
-		"managedReservationsTitle": "Upravljane rezervacije",
-		"managedReservationsDescription": "Gosti putem aplikacije šalju zahtev za termin rezervacije. Svaki zahtev možete pregledati, prihvatiti ili odbiti, a zahtev ostaje zabeležen u vašoj kontrolnoj tabli.",
 		"typeRestaurant": "Restoran",
 		"typeCafe": "Kafić",
 		"typeBar": "Bar",
 		"typeNightClub": "Noćni klub",
-		"typeHorseRide": "Vožnja konjem",
+		"typeHorseRide": "Jahanje",
 		"typeSpa": "Spa",
 		"typeTour": "Tura",
 		"typeOtherVenue": "Ostalo"
 	},
 	"ActivatePage": {
 		"SEO": {
-			"title": "Vaš boravak počinje ovde",
-			"description": "Otključajte pogodnosti koje je domaćin pripremio za ovaj boravak."
+			"title": "Vaš smeštaj počinje ovde",
+			"description": "Otključajte pogodnosti koje je vaš domaćin pripremio za ovaj smeštaj."
 		},
-		"title": "Vaš boravak počinje ovde",
-		"description": "Otključajte pogodnosti koje je domaćin pripremio za ovaj boravak.",
-		"start": "Započni boravak",
-		"activating": "Pokrećemo vaš boravak…"
+		"title": "Vaš smeštaj počinje ovde",
+		"description": "Otključajte pogodnosti koje je vaš domaćin pripremio za ovaj smeštaj.",
+		"start": "Započni moj smeštaj",
+		"activating": "Pokretanje smeštaja…"
 	},
 	"StayPage": {
+		"SEO": {
+			"title": "Vaš smeštaj",
+			"description": "Pregledajte detalje svog smeštaja i pogodnosti partnera."
+		},
 		"StayAccommodationData": {
-			"eyebrow": "Vaš boravak"
+			"eyebrow": "Vaš smeštaj"
 		},
 		"StaySharingCode": {
-			"eyebrow": "Podelite boravak",
-			"title": "Omogućite pristup osobama u smeštaju",
-			"body": "Osobe koje borave sa vama mogu skenirati QR kod u sobi, zatim uneti ovaj kod za deljenje.",
+			"eyebrow": "Podelite ovaj smeštaj",
+			"title": "Omogućite pristup svojim saputnicima",
+			"body": "Svako ko boravi sa vama može skenirati QR kod sobe, a zatim uneti ovaj kod za deljenje.",
 			"privacy": "Podelite ovaj kod samo sa osobama koje borave u vašem smeštaju.",
 			"copy": "Kopiraj kod za deljenje"
 		},
 		"StayJoinAccess": {
-			"eyebrow": "Vaš boravak"
+			"eyebrow": "Vaš smeštaj"
 		},
 		"StayJoinAccessForm": {
-			"title": "Pristupite otključanom boravku",
-			"activeTitle": "Neko je već otključao ovaj boravak",
-			"body": "Ako boravite zajedno, unesite kod za deljenje sa stranice partnera da pristupite istim partnerima na ovom uređaju.",
-			"directBody": "Boravite sa nekim ko je već otključao partnere? Zatražite kod za deljenje prikazan na njihovoj stranici boravka.",
+			"title": "Pridružite se otključanom smeštaju",
+			"activeTitle": "Neko je već otključao ovaj smeštaj",
+			"body": "Ako boravite zajedno, unesite kod za deljenje sa njihove stranice partnera kako biste otvorili iste pogodnosti na ovom uređaju.",
+			"directBody": "Već boravite sa nekim ko je otključao partnere? Zatražite kod za deljenje koji je prikazan na njihovoj stranici smeštaja.",
 			"label": "Kod za deljenje",
 			"placeholder": "ABCD",
-			"hint": "Kod se nalazi na vrhu stranice otključanog boravka.",
+			"hint": "Kod se nalazi na vrhu stranice otključanog smeštaja.",
 			"submit": "Otvori partnere",
-			"required": "Unesite kod za deljenje.",
-			"invalid": "Kod za deljenje nije ispravan ili je istekao.",
-			"rateLimited": "Previše pokušaja. Sačekajte trenutak i pokušajte ponovo.",
-			"unavailable": "Provera koda nije uspela. Proverite vezu i pokušajte ponovo.",
-			"scanInstead": "Možete i skenirati QR kod u sobi da biste započeli novi boravak."
+			"unavailable": "Nije moguće proveriti ovaj kod. Proverite internet vezu i pokušajte ponovo.",
+			"scanInstead": "Takođe možete skenirati QR kod u svojoj sobi da biste započeli novi smeštaj."
 		},
 		"StayLoading": {
-			"announce": "Učitavanje boravka…"
+			"announce": "Učitavanje vašeg smeštaja…"
 		},
 		"StayEmpty": {
-			"title": "Boravak nije pronađen",
-			"body": "Ovaj QR vodi ka boravku koji nije aktivan. Proverite kod ili pitajte domaćina.",
+			"title": "Smeštaj nije pronađen",
+			"body": "Ovaj QR kod vodi do smeštaja koji nije aktivan. Proverite kod ili se obratite domaćinu.",
 			"cta": "Nazad na početnu"
 		},
 		"StayPartnershipsEmpty": {
 			"title": "Još nema povezanih partnera",
-			"body": "Domaćin još nije povezao ovaj boravak sa partnerskim objektom. Pitajte ga — partnere može dodati za nekoliko sekundi."
+			"body": "Vaš domaćin još nije povezao ovaj smeštaj sa partnerskim ugostiteljstvom. Pitajte ga za više informacija — partneri se mogu dodati za svega nekoliko sekundi."
 		},
 		"StayError": {
-			"title": "Učitavanje partnera nije uspelo",
+			"title": "Nije bilo moguće učitati vaše partnere",
 			"body": "Proverite internet vezu i pokušajte ponovo.",
 			"cta": "Nazad na početnu"
 		},
 		"StayPartnershipsError": {
-			"title": "Učitavanje partnera nije uspelo",
+			"title": "Nije bilo moguće učitati vaše partnere",
 			"body": "Proverite internet vezu i pokušajte ponovo."
 		},
 		"StayPartnershipsLoading": {
 			"announce": "Učitavanje partnera…"
 		},
 		"StayExpiredAccess": {
-			"eyebrow": "Vaš boravak",
-			"title": "Sesija boravka je istekla",
-			"body": "Skenirajte QR kod u sobi da ponovo otključate partnere."
+			"eyebrow": "Vaš smeštaj",
+			"title": "Vaša sesija smeštaja je istekla",
+			"body": "Skenirajte QR kod u svojoj sobi da biste ponovo otključali svoje partnere."
+		},
+		"StayLocationSection": {
+			"title": "Partneri u blizini",
+			"yourStay": "Vaš smeštaj",
+			"closePanel": "Zatvori detalje partnera"
 		},
 		"StayPartnershipsSection": {
-			"partnerBenefitsEyebrow": "Uključeno u vaš boravak",
+			"partnerBenefitsEyebrow": "Uključeno u vaš smeštaj",
 			"partnersTitle": "Vaši partneri u gradu {city}",
-			"partnersLead": "Pokažite ovu stranicu osoblju partnerskog objekta. Nije potrebna aplikacija ni nalog."
+			"partnersLead": "Pokažite ovu stranicu osoblju bilo kog partnerskog ugostiteljstva. Nije potrebna aplikacija niti nalog."
 		},
 		"StayPartnershipsSectionItem": {
 			"off": "popusta",
-			"viewDetails": "Pogledaj detalje"
+			"viewDetails": "Pogledaj detalje",
+			"distanceAway": "Udaljeno {distance}"
 		}
 	},
 	"HospitalityPage": {
-		"navHome": "Početna",
-		"navHowItWorks": "How it works",
-		"navDemo": "Try the demo",
-		"navPartners": "For partners",
-		"navCta": "Try the demo",
-		"crumbVenues": "Ugostiteljski objekti",
-		"statusPartner": "{companyName} partner · perks accepted here",
-		"coverFallbackLabel": "Ugostiteljski objekat",
-		"coverFallbackAria": "Placeholder image for this hospitality",
-		"addressLineMeta": "{address} · {city} · {country}",
-		"heroLeadFallback": "A {companyName} partner hospitality — see your guest perk below.",
-		"contactCall": "Call",
-		"factType": "Tip",
-		"factAddress": "Adresa",
-		"factArea": "Location",
-		"ctaSeePerk": "View {companyName} perk",
-		"ctaFindStay": "Find a stay",
-		"aboutEyebrow": "About",
-		"aboutTitle": "O ovom objektu",
-		"locationTitle": "Gde se nalazi",
-		"getDirections": "Navigacija",
-		"aboutSideNote": "Detalji iz objave ugostiteljskog objekta.",
-		"perkEyebrow": "Sample perk",
-		"perkMedallionLabel": "Sample",
-		"perkMedallionSub": "off the full bill",
-		"perkMedallionSubNodiscount": "Partner offer",
-		"perkFootnote": "The exact offer depends on which {companyName} stay you scan from.",
-		"perkFallbackLine1": "Show your {companyName} stay on arrival.",
-		"perkFallbackLine2": "Staff confirm the stay with one tap.",
-		"perkFallbackLine3": "Discount follows what’s agreed for your stay.",
-		"redeemEyebrow": "Redeem",
-		"redeemTitle": "Three quick steps at the door.",
-		"redeem1Step": "At the stay",
-		"redeem1Title": "Scan the QR at the entrance.",
-		"redeemBody1": "Otvara listu pogodnosti za vaš boravak. {venueName} se prikazuje kada domaćin poveže ovaj ugostiteljski objekat.",
-		"redeem2Step": "U ugostiteljskom objektu",
-		"redeem2Title": "Pokažite ekran osoblju.",
-		"redeemBody2": "Domaćin potvrđuje boravak — bez štampanja i dodatne aplikacije.",
-		"redeem3Step": "Pri plaćanju",
-		"redeem3Title": "Ponuda se primenjuje na računu.",
-		"redeemBody3": "Platite kako ugostiteljski objekat prihvata; pogodnost prati ono što piše na vašoj {companyName} stranici.",
-		"practicalEyebrow": "Kontakt",
-		"practicalTitle": "Kontaktirajte ugostiteljski objekat",
-		"reserveEyebrow": "Reservations",
-		"reserveTitle": "How to reserve",
-		"reserveBulletPhone": "Call to ask about availability or to reserve.",
-		"reserveNoChannels": "Broj telefona još nije naveden.",
-		"hospitalityDetailsTitle": "Detalji ugostiteljskog objekta",
-		"dlType": "Tip",
-		"benefitEyebrow": "Benefit za vas boravak",
-		"benefitDiscountTitle": "{percent}% popusta",
-		"benefitGenericTitle": "Partnerski benefit je aktivan",
-		"benefitDiscountBody": "Pokazite ovu stranicu u objektu {hospitalityName} kako bi osoblje primenilo popust.",
-		"benefitGenericBody": "Pokazite ovu stranicu u objektu {hospitalityName}; osoblje moze da ispuni benefit dogovoren sa vasim smestajem.",
-		"benefitSourceNote": "Ovaj benefit dolazi iz smestaja iz kog ste skenirali QR kod.",
-		"dlAddress": "Adresa",
-		"dlPhone": "Phone",
-		"dlPartner": "Active partner",
-		"partnerYes": "Yes — accepts {companyName} perks",
-		"partnerNo": "Not accepting perks at the moment",
-		"staysEyebrow": "Featured at",
-		"staysTitle": "Boravci koji otključavaju ovaj ugostiteljski objekat",
-		"staysAll": "All stays",
-		"staysLead": "Guests of these {companyName} stays get a perk here. Scan the QR in your room to see your specific offer.",
-		"staysPerkActive": "Perk active",
-		"staysPerkCount": "{count} active perks",
-		"staysPerkCountOne": "1 active perk",
-		"staysCardCta": "View stay",
-		"staysFootnote": "{venueName} nudi ovo gostima povezanih {companyName} boravaka.",
-		"staysEmpty": "Kada domaćini povežu svoje smeštaje sa ovim ugostiteljskim objektom, pojaviće se ovde.",
-		"ctaStripEyebrow": "Guest view",
-		"ctaStripTitle": "The QR journey from start to finish.",
-		"ctaStripLead": "Explore {companyName} from home — scan at the door for the full perk list.",
-		"ctaStripPrimary": "{companyName} home",
-		"ctaStripSecondary": "Sign in",
-		"footerTagline": "Stay anywhere. Unlock the city.",
-		"footerGuests": "Guests",
-		"footerGuestsHow": "How {companyName} works",
-		"footerGuestsDemo": "Try the demo",
-		"footerPartners": "Partners",
-		"footerPartnersHosts": "For hosts",
-		"footerPartnersVenues": "Za ugostiteljske objekte",
-		"footerPartnersLogin": "Partner login",
-		"footerCompany": "Company",
-		"footerCompanyContact": "Kontakt",
-		"footerCopy": "© {brand} · {year}",
-		"footerDisclaimer": "Names and offers on this page come from your listings.",
+		"SEO": {
+			"description": "Pregledajte detalje ugostiteljstva i pošaljite zahtev za rezervaciju."
+		},
+		"HospitalityHeader": {
+			"addressLineMeta": "{address} · {city} · {country}"
+		},
+		"HospitalityMenu": {
+			"title": "Meni",
+			"sideNote": "Pogledajte šta ovaj objekat nudi.",
+			"viewMenu": "Pogledaj meni",
+			"viewMenuOnline": "Pogledaj meni online"
+		},
+		"HospitalityPartnership": {
+			"eyebrow": "Benefit za vaš smeštaj",
+			"legacyDiscountTitle": "{percent}% popusta",
+			"genericTitle": "Partnerski benefit je aktivan",
+			"body": "Pokažite ovu stranicu smeštaja u objektu {hospitalityName}; osoblje može da ispuni navedeni benefit.",
+			"sourceNote": "Ovaj benefit dolazi iz smeštaja sa kog ste skenirali QR kod."
+		},
+		"HospitalityAbout": {
+			"title": "O ovom ugostiteljstvu",
+			"sideNote": "Detalji iz objave ugostiteljskog objekta."
+		},
+		"HospitalityLocation": {
+			"title": "Gde se nalazi",
+			"addressLineMeta": "{address} · {city} · {country}"
+		},
+		"HospitalityDetails": {
+			"title": "Detalji ugostiteljstva",
+			"typeLabel": "Tip",
+			"areaLabel": "Lokacija"
+		},
 		"HospitalityError": {
-			"title": "Couldn’t load this page",
-			"body": "Check your connection and try again.",
+			"title": "Nije bilo moguće učitati stranicu",
+			"body": "Proverite internet vezu i pokušajte ponovo.",
 			"cta": "Nazad na početnu"
 		},
 		"HospitalityEmpty": {
-			"title": "Ugostiteljski objekat nije dostupan",
-			"body": "Ova stranica ugostiteljskog objekta ne postoji ili više nije aktivna.",
-			"notPartneredTitle": "Ovaj ugostiteljski objekat nije uključen u vaš boravak",
-			"notPartneredBody": "Ovaj smeštaj nije povezan sa ovim ugostiteljskim objektom. Otvorite ugostiteljski objekat sa liste partnera vašeg boravka.",
+			"title": "Ugostiteljstvo nije dostupno",
+			"body": "Ova stranica ugostiteljstva ne postoji ili više nije aktivna.",
+			"notPartneredTitle": "Ugostiteljstvo nije uključeno u ovaj smeštaj",
+			"notPartneredBody": "Ovaj smeštaj nije u partnerstvu sa ovim ugostiteljstvom. Otvorite ugostiteljstvo sa liste partnera vašeg smeštaja.",
 			"cta": "Nazad na početnu"
 		},
 		"HospitalityLoading": {
-			"announce": "Učitavanje ugostiteljskog objekta…"
-		},
-		"shareAria": "Podeli ovaj ugostiteljski objekat",
-		"shareLabel": "Share"
+			"announce": "Učitavanje ugostiteljstva…"
+		}
 	},
 	"SignUpForm": {
 		"SignUpFormNoImage": {
-			"title": "Create an account",
-			"description": "Enter your information below to create your account",
-			"fullName": "Full Name",
-			"email": "Email",
-			"emailHelp": "We'll use this to contact you. We will not share your email with anyone else.",
-			"password": "Password",
-			"passwordHelp": "Must be at least 8 characters long.",
-			"confirmPassword": "Confirm Password",
-			"confirmPasswordHelp": "Please confirm your password.",
-			"submit": "Create Account",
-			"alreadyHaveAccount": "Already have an account?",
-			"signIn": "Sign in",
-			"signUpFailed": "We couldn't create your account. Check your details and try again, or sign in if you already have one.",
-			"accountCreatedToast": "Account created successfully."
+			"title": "Kreirajte nalog",
+			"description": "Unesite svoje podatke ispod da biste kreirali nalog",
+			"fullName": "Puno ime",
+			"email": "Imejl",
+			"emailHelp": "Koristićemo ga za kontakt. Vaš imejl nećemo deliti sa drugima.",
+			"password": "Lozinka",
+			"passwordHelp": "Mora imati najmanje 8 karaktera.",
+			"confirmPassword": "Potvrdite lozinku",
+			"confirmPasswordHelp": "Potvrdite svoju lozinku.",
+			"submit": "Kreiraj nalog",
+			"alreadyHaveAccount": "Već imate nalog?",
+			"signIn": "Prijavite se",
+			"signUpFailed": "Nismo mogli da kreiramo vaš nalog. Proverite podatke i pokušajte ponovo, ili se prijavite ako već imate nalog.",
+			"accountCreatedToast": "Nalog je uspešno kreiran."
 		},
 		"SignUpFormWithImage": {
-			"title": "Create your account",
-			"description": "Fill in the form below to create your account",
-			"fullName": "Full Name",
-			"email": "Email",
-			"emailHelp": "We'll use this to contact you. We will not share your email with anyone else.",
-			"password": "Password",
-			"passwordHelp": "Must be at least 8 characters long.",
-			"confirmPassword": "Confirm Password",
-			"confirmPasswordHelp": "Please confirm your password.",
-			"submit": "Create Account",
-			"orContinueWith": "Ili nastavite sa",
-			"alreadyHaveAccount": "Already have an account?",
-			"signIn": "Sign in",
-			"signUpFailed": "We couldn't create your account. Check your details and try again, or sign in if you already have one.",
-			"accountCreatedToast": "Account created successfully."
+			"title": "Kreirajte svoj nalog",
+			"description": "Popunite formular ispod da biste kreirali nalog",
+			"fullName": "Puno ime",
+			"email": "Imejl",
+			"emailHelp": "Koristićemo ga za kontakt. Vaš imejl nećemo deliti sa drugima.",
+			"password": "Lozinka",
+			"passwordHelp": "Mora imati najmanje 8 karaktera.",
+			"confirmPassword": "Potvrdite lozinku",
+			"confirmPasswordHelp": "Potvrdite svoju lozinku.",
+			"submit": "Kreiraj nalog",
+			"orContinueWith": "Ili nastavite pomoću",
+			"alreadyHaveAccount": "Već imate nalog?",
+			"signIn": "Prijavite se",
+			"signUpFailed": "Nismo mogli da kreiramo vaš nalog. Proverite podatke i pokušajte ponovo, ili se prijavite ako već imate nalog.",
+			"accountCreatedToast": "Nalog je uspešno kreiran."
 		}
 	},
 	"DatePicker": {
-		"dateOfBirth": "Date of birth",
-		"selectDate": "Select date",
-		"date": "Date",
-		"time": "Time",
-		"scheduleDate": "Schedule date",
-		"scheduleDatePlaceholder": "Tomorrow or next week"
-	},
-	"LocalizedCalendar": {
-		"title": "Book an appointment",
-		"description": "Select the dates for your appointment"
+		"dateOfBirth": "Datum rođenja",
+		"selectDate": "Izaberite datum",
+		"date": "Datum",
+		"time": "Vreme",
+		"scheduleDate": "Zakazani datum",
+		"scheduleDatePlaceholder": "Sutra ili sledeće nedelje"
 	},
 	"UploadFile": {
 		"UploadFileMultiple": {
-			"dropzoneDescription": "Use the drop zone to add files — it stays put while previews show in a grid below. Remove any file with the",
-			"instruction": "control on the top-right of each preview card",
-			"placeholder": "Uploaded files. Drop more files here to add.",
-			"unknown": "Unknown",
-			"remove": "Remove {name}"
+			"placeholder": "Otpremljene datoteke. Prevucite još datoteka ovde da biste dodali.",
+			"unknown": "Nepoznato",
+			"remove": "Ukloni {name}"
 		},
 		"UploadFileSingle": {
-			"dropzoneDescription": "Choose or drop a file, preview it, then save. Use",
-			"remove": "Remove",
-			"or": "or",
+			"remove": "Ukloni",
 			"replace": "Zameni",
 			"existingCover": "Trenutna naslovna slika",
-			"existingCoverHint": "Izaberite novu datoteku da je zamenite pri čuvanju.",
-			"ifYouChangeYourMind": "on the file card if you change your mind.",
-			"placeholder": "File preview. Drop a file here to replace.",
-			"unknownType": "Unknown type"
+			"existingCoverHint": "Izaberite novu datoteku ispod da biste je zamenili pri čuvanju.",
+			"placeholder": "Pregled datoteke. Prevucite datoteku ovde da biste je zamenili.",
+			"unknownType": "Nepoznat tip"
 		},
 		"UploadFileEmpty": {
-			"choose": "Choose",
-			"orDrag": "or drag",
-			"here": "here",
-			"files": "files",
-			"file": "file",
-			"them": "them",
-			"it": "it",
-			"accepted": "Accepted"
+			"choose": "Izaberite",
+			"orDrag": "ili prevucite",
+			"here": "ovde",
+			"files": "datoteke",
+			"file": "datoteku",
+			"them": "ih",
+			"it": "je",
+			"accepted": "Prihvaćeno"
 		}
 	},
 	"PaginatedData": {
-		"paginationText": "Page {page} of {totalPages}",
-		"paginationTextCursor": "Page {page}"
+		"paginationText": "Strana {page} od {totalPages}",
+		"paginationTextCursor": "Strana {page}"
 	},
 	"AccommodationQrDialog": {
-		"title": "QR for {name}",
-		"description": "Print this code in the unit. Guests scan it to unlock perks for this stay.",
-		"imageAlt": "QR code for {name}",
-		"generating": "Generating QR…",
-		"activateUrl": "Activate URL",
-		"copyUrl": "Copy activate URL",
-		"download": "Download PNG",
+		"title": "QR kod za {name}",
+		"description": "Odštampajte ovaj kod u jedinici. Gosti ga skeniraju da bi otključali pogodnosti za ovaj smeštaj.",
+		"imageAlt": "QR kod za {name}",
+		"generating": "Generisanje QR koda…",
+		"activateUrl": "URL za aktivaciju",
+		"copyUrl": "Kopiraj URL za aktivaciju",
+		"download": "Preuzmi PNG",
 		"close": "Zatvori",
-		"localhostWarning": "PUBLIC_SITE_URL points to localhost. Printed codes will not work for real guests until you set your production domain."
+		"localhostWarning": "PUBLIC_SITE_URL ukazuje na localhost. Odštampani kodovi neće raditi za stvarne goste dok ne podesite produkcioni domen."
+	},
+	"ErrorComponent": {
+		"TryAgain": {
+			"label": "Pokušajte ponovo"
+		}
+	},
+	"ErrorPage": {
+		"notFoundTitle": "Stranica nije pronađena",
+		"notFoundDescription": "Stranica koju tražite ne postoji ili je premeštena.",
+		"errorTitle": "Došlo je do greške",
+		"errorDescription": "Došlo je do neočekivane greške. Pokušajte ponovo.",
+		"backHome": "Nazad na početnu"
 	},
 	"DataTable": {
-		"itemsSelected": "{count} selected",
-		"clearSelection": "Clear",
-		"selectAllOnPage": "Select all on page",
-		"selectAllRowsOnThisPage": "Select all rows on this page",
-		"selectRow": "Select row",
-		"deselectRow": "Deselect row",
-		"ariaDataTable": "Data table",
-		"ariaDataRows": "Data rows",
-		"emptyTitle": "No results",
-		"emptyDescription": "Nothing to show yet. Try adjusting filters or add new data.",
+		"DataTableEmpty": {
+			"title": "Nema rezultata",
+			"description": "Još nema podataka za prikaz. Podesite filtere ili dodajte nove podatke."
+		},
+		"itemsSelected": "Izabrano: {count}",
+		"clearSelection": "Obriši izbor",
+		"selectAllOnPage": "Izaberi sve na strani",
+		"selectAllRowsOnThisPage": "Izaberi sve redove na ovoj strani",
+		"selectRow": "Izaberi red",
+		"deselectRow": "Poništi izbor reda",
+		"ariaDataTable": "Tabela podataka",
+		"ariaDataRows": "Redovi podataka",
 		"delete": "Obriši",
-		"searchPlaceholder": "Search…",
-		"sortAscending": "Sort ascending",
-		"sortDescending": "Sort descending",
-		"clearSort": "Clear sort",
-		"sortBy": "Sort by",
-		"sortDefault": "Default order"
+		"searchPlaceholder": "Pretraži…",
+		"sortAscending": "Sortiraj rastuće",
+		"sortDescending": "Sortiraj opadajuće",
+		"sortBy": "Sortiraj po",
+		"sortDefault": "Podrazumevani redosled"
 	},
 	"AlertDialogButton": {
-		"title": "Action cannot be reversed",
-		"description": "Are you sure you want to do this? This action cannot be undone.",
+		"title": "Radnja se ne može poništiti",
+		"description": "Da li ste sigurni da želite ovo da uradite? Ova radnja se ne može opozvati.",
 		"cancel": "Otkaži",
 		"proceed": "Nastavi"
 	},
+	"AnalyticsAccommodationsPage": {
+		"SEO": {
+			"title": "Analitika smeštaja",
+			"description": "Uporedite svoje smeštaje po broju QR skeniranja, aktivacijama gostiju i generisanim zahtevima za rezervaciju."
+		},
+		"UserAnalyticsAccommodationsMetrics": {
+			"accommodations": "Smeštaji",
+			"qrScans": "QR skeniranja",
+			"guestActivations": "Aktivacije gostiju",
+			"reservations": "Rezervacije"
+		},
+		"UserAnalyticsAccommodationsChart": {
+			"reservations": "Rezervacije",
+			"title": "Smeštaji po zahtevima za rezervaciju",
+			"description": "Koji smeštaji stvaraju najveću potražnju za ugostiteljstvom."
+		},
+		"UserAnalyticsAccommodationsEmpty": {
+			"title": "Nemate dodeljen nijedan smeštaj",
+			"description": "Analitika smeštaja biće prikazana ovde kada tim {companyName} dodeli smeštaje vašem nalogu."
+		},
+		"UserAnalyticsAccommodationsChartEmpty": {
+			"title": "Smeštaji po zahtevima za rezervaciju",
+			"description": "Koji smeštaji stvaraju najveću potražnju za ugostiteljstvom.",
+			"body": "Aktivnost rezervacija biće prikazana ovde nakon što gosti pošalju zahteve sa vaših smeštaja."
+		},
+		"eyebrow": "Analitika smeštaja",
+		"title": "Pristup gostiju po smeštaju",
+		"description": "Uporedite svoje smeštaje po broju QR skeniranja, aktivacijama gostiju i generisanim zahtevima za rezervaciju.",
+		"errorTitle": "Nije moguće učitati analitiku smeštaja",
+		"errorHeaderDescription": "Pokušajte ponovo ili proverite kasnije.",
+		"errorBody": "Izveštaj o smeštajima trenutno nije moguće učitati."
+	},
+	"AnalyticsAccommodationDetailPage": {
+		"SEO": {
+			"title": "Analitika smeštaja",
+			"description": "Pristup gostiju, potražnja partnera i tok rezervacija za ovaj smeštaj."
+		},
+		"UserAnalyticsAccommodationMetrics": {
+			"trackedStays": "Praćeni smeštaji",
+			"qrScans": "QR skeniranja",
+			"guestActivations": "Aktivacije gostiju",
+			"reservations": "Rezervacije"
+		},
+		"UserAnalyticsAccommodationChart": {
+			"qrScans": "QR skeniranja",
+			"guestActivations": "Aktivacije gostiju",
+			"reservations": "Rezervacije",
+			"title": "Trend aktivnosti",
+			"description": "Nedavna skeniranja, aktivacije gostiju i zahtevi za rezervaciju za ovo mesto."
+		},
+		"eyebrow": "Analitika smeštaja",
+		"description": "Pristup gostiju, potražnja partnera i tok rezervacija za ovaj smeštaj.",
+		"errorTitle": "Nije moguće učitati analitiku smeštaja",
+		"errorHeaderDescription": "Pokušajte ponovo ili proverite kasnije.",
+		"errorBody": "Izveštaj o smeštajima trenutno nije moguće učitati."
+	},
+	"AnalyticsHospitalitiesPage": {
+		"SEO": {
+			"title": "Analitika ugostiteljstva",
+			"description": "Pratite koja restorana, kafići, ture i wellness partneri gosti zaista otvaraju i traže."
+		},
+		"UserAnalyticsHospitalitiesMetrics": {
+			"hospitalities": "Ugostiteljstva",
+			"guestViews": "Pregledi gostiju",
+			"guestActivations": "Aktivacije gostiju",
+			"reservations": "Rezervacije"
+		},
+		"UserAnalyticsHospitalitiesChart": {
+			"reservations": "Rezervacije",
+			"title": "Ugostiteljstva po zahtevima za rezervaciju",
+			"description": "Koja ugostiteljstva pretvaraju otkrivanje gostiju u potražnju."
+		},
+		"UserAnalyticsHospitalitiesEmpty": {
+			"title": "Nemate dodeljeno nijedno ugostiteljstvo",
+			"description": "Analitika ugostiteljstva biće prikazana ovde kada tim {companyName} dodeli ugostiteljstva vašem nalogu."
+		},
+		"UserAnalyticsHospitalitiesChartEmpty": {
+			"title": "Ugostiteljstva po zahtevima za rezervaciju",
+			"description": "Koja ugostiteljstva pretvaraju otkrivanje gostiju u potražnju.",
+			"body": "Aktivnost rezervacija biće prikazana ovde nakon što gosti pošalju zahteve vašim ugostiteljstvima."
+		},
+		"eyebrow": "Analitika ugostiteljstva",
+		"title": "Potražnja za ugostiteljstvom od povezanih gostiju",
+		"description": "Pratite koja restorana, kafići, ture i wellness partneri gosti zaista otvaraju i traže.",
+		"errorTitle": "Nije moguće učitati podatke o ugostiteljstvima",
+		"errorHeaderDescription": "Pokušajte ponovo ili proverite kasnije.",
+		"errorBody": "Izveštaj o ugostiteljstvima trenutno nije moguće učitati."
+	},
+	"AnalyticsHospitalityDetailPage": {
+		"SEO": {
+			"title": "Analitika ugostiteljstva",
+			"description": "Potražnja gostiju, tok rezervacija i izvori smeštaja za ovo ugostiteljstvo."
+		},
+		"UserAnalyticsHospitalityMetrics": {
+			"trackedVenues": "Praćena ugostiteljstva",
+			"guestViews": "Pregledi gostiju",
+			"reservations": "Rezervacije"
+		},
+		"UserAnalyticsHospitalityChart": {
+			"guestViews": "Pregledi gostiju",
+			"reservations": "Rezervacije",
+			"title": "Trend aktivnosti",
+			"description": "Nedavni pregledi gostiju, aktivacije i zahtevi za rezervaciju za ovo mesto."
+		},
+		"eyebrow": "Analitika ugostiteljstva",
+		"description": "Potražnja gostiju, tok rezervacija i izvori smeštaja za ovo ugostiteljstvo.",
+		"errorTitle": "Nije moguće učitati podatke o ugostiteljstvima",
+		"errorHeaderDescription": "Pokušajte ponovo ili proverite kasnije.",
+		"errorBody": "Izveštaj o ugostiteljstvima trenutno nije moguće učitati."
+	},
+	"AnalyticsOverviewPage": {
+		"SEO": {
+			"title": "Pregled analitike",
+			"description": "Praktičan pregled aktivnosti gostiju, potražnje za rezervacijama i mesta koja zahtevaju pažnju."
+		},
+		"UserAnalyticsOverviewQrScans": {
+			"qrScans": "QR skeniranja",
+			"title": "QR skeniranja",
+			"description": "Skeniranja prijave gostiju sa povezanih smeštaja tokom vremena."
+		},
+		"UserAnalyticsOverviewGuestActivations": {
+			"guestActivations": "Aktivacije gostiju",
+			"title": "Aktivacije gostiju",
+			"description": "Aktivirane sesije gostiju tokom vremena."
+		},
+		"UserAnalyticsOverviewReservations": {
+			"reservations": "Rezervacije",
+			"title": "Rezervacije",
+			"description": "Zahtevi za rezervaciju kreirani u povezanim ugostiteljstvima."
+		},
+		"UserAnalyticsOverviewEmpty": {
+			"title": "Nemate dodeljen nijedan smeštaj ili ugostiteljstvo",
+			"description": "Analitika biće prikazana ovde kada tim {companyName} dodeli smeštaje ili ugostiteljstva vašem nalogu."
+		},
+		"eyebrow": "Pregled analitike",
+		"title": "Analitika vlasnika",
+		"description": "Praktičan pregled aktivnosti gostiju, potražnje za rezervacijama i mesta koja zahtevaju pažnju.",
+		"errorTitle": "Nije moguće učitati pregled analitike",
+		"errorHeaderDescription": "Pokušajte ponovo ili proverite kasnije.",
+		"errorBody": "Izveštaj pregleda trenutno nije moguće učitati."
+	},
+	"AnalyticsReservationsPage": {
+		"SEO": {
+			"title": "Analitika rezervacija",
+			"description": "Razumite obim zahteva, zdravlje potvrda i obrasce otkazivanja."
+		},
+		"UserAnalyticsReservationsMetrics": {
+			"created": "Kreirano",
+			"confirmed": "Potvrđeno",
+			"cancelled": "Otkazano"
+		},
+		"UserAnalyticsReservationsStatusChart": {
+			"created": "Kreirano",
+			"confirmed": "Potvrđeno",
+			"cancelled": "Otkazano",
+			"title": "Trend rezervacija",
+			"description": "Dnevni ishodi rezervacija u povezanim mestima."
+		},
+		"UserAnalyticsReservationsTable": {
+			"title": "Izvori rezervacija",
+			"description": "Odakle dolaze zahtevi i kako se konvertuju.",
+			"source": "Izvor",
+			"created": "Kreirano",
+			"confirmed": "Potvrđeno",
+			"cancelled": "Otkazano",
+			"conversion": "Konverzija"
+		},
+		"UserAnalyticsReservationsEmpty": {
+			"title": "Nemate dodeljeno nijedno ugostiteljstvo",
+			"description": "Analitika rezervacija biće prikazana ovde kada tim {companyName} dodeli ugostiteljstva vašem nalogu."
+		},
+		"UserAnalyticsReservationsStatusChartEmpty": {
+			"title": "Trend rezervacija",
+			"description": "Dnevni ishodi rezervacija u povezanim mestima.",
+			"body": "Podaci o statusu rezervacija biće prikazani ovde nakon što gosti pošalju zahteve."
+		},
+		"eyebrow": "Analitika rezervacija",
+		"title": "Tok rezervacija",
+		"description": "Razumite obim zahteva, zdravlje potvrda i obrasce otkazivanja.",
+		"errorTitle": "Nije moguće učitati analitiku rezervacija",
+		"errorHeaderDescription": "Pokušajte ponovo ili proverite kasnije.",
+		"errorBody": "Izveštaj o rezervacijama trenutno nije moguće učitati."
+	},
+	"DashboardPage": {
+		"SEO": {
+			"title": "Kontrolna tabla",
+			"description": "Brz pregled aktivnosti gostiju, zahteva za rezervaciju i povezanih mesta."
+		},
+		"DashboardEmpty": {
+			"title": "Nemate dodeljen nijedan smeštaj ili ugostiteljstvo",
+			"description": "Vaša kontrolna tabla biće popunjena kada tim {companyName} dodeli smeštaje ili ugostiteljstva vašem nalogu."
+		},
+		"DashboardPendingReservationsEmpty": {
+			"cardTitle": "Rezervacije na čekanju",
+			"cardDescription": "Zahtevi koji čekaju vaš odgovor.",
+			"title": "Sve je ažurirano",
+			"description": "Nema zahteva za rezervaciju na čekanju za pregled."
+		},
+		"DashboardPendingReservationsError": {
+			"cardTitle": "Rezervacije na čekanju",
+			"cardDescription": "Zahtevi koji čekaju vaš odgovor.",
+			"title": "Nije moguće učitati rezervacije",
+			"description": "Pokušajte ponovo ili proverite kasnije.",
+			"viewAll": "Pogledajte sve rezervacije"
+		},
+		"DashboardHeader": {
+			"partnerDashboard": "Partnerska kontrolna tabla",
+			"title": "Kontrolna tabla",
+			"description": "Brz pregled aktivnosti gostiju, zahteva za rezervaciju i povezanih mesta. {companyName} i dalje upravlja podešavanjem i izmenama oglasa."
+		},
+		"DashboardStats": {
+			"accommodations": "Smeštaji",
+			"hospitalities": "Ugostiteljstva",
+			"partnerships": "Partnerstva",
+			"pendingReservations": "Rezervacije na čekanju",
+			"errorTitle": "Nije moguće učitati statistiku kontrolne table",
+			"errorDescription": "Broj smeštaja i ugostiteljstava trenutno nije moguće učitati. Pokušajte ponovo."
+		},
+		"DashboardPendingReservations": {
+			"cardTitle": "Rezervacije na čekanju",
+			"cardDescription": "Zahtevi koji čekaju vaš odgovor.",
+			"viewReservations": "Pogledajte rezervacije"
+		}
+	},
+	"AdminDashboardPage": {
+		"SEO": {
+			"title": "Administratorska kontrolna tabla",
+			"description": "Operativni pregled cele platforme: zdravlje podešavanja, obim rezervacija i nedavna aktivnost."
+		},
+		"AdminDashboardHeader": {
+			"eyebrow": "Vlasnik platforme",
+			"title": "Administratorska kontrolna tabla",
+			"description": "Operativni pregled cele platforme: zdravlje podešavanja, obim rezervacija i nedavna aktivnost."
+		},
+		"AdminDashboardMetrics": {
+			"cardTitle": "Ukupni brojevi platforme",
+			"cardDescription": "Registrovani korisnici, smeštaji, ugostiteljstva i aktivnost gostiju na celoj platformi.",
+			"users": "Korisnici",
+			"accommodations": "Smeštaji",
+			"hospitalities": "Ugostiteljstva",
+			"partnerships": "Aktivne veze",
+			"guests": "Sesije gostiju"
+		},
+		"AdminDashboardReservationMetrics": {
+			"cardTitle": "Obim rezervacija",
+			"cardDescription": "Trenutni ishodi rezervacija na celoj platformi."
+		},
+		"AdminDashboardSetupHealth": {
+			"cardTitle": "Zdravlje podešavanja",
+			"cardDescription": "Operativni nedostaci koji mogu sprečiti goste da otkriju ugostiteljstva.",
+			"inactiveAccommodations": "Neaktivni smeštaji",
+			"inactiveHospitalities": "Neaktivna ugostiteljstva",
+			"unlinkedAccommodations": "Smeštaji bez veza",
+			"unlinkedHospitalities": "Ugostiteljstva bez veza",
+			"pendingReservations": "Rezervacije na čekanju"
+		},
+		"AdminDashboardRecentReservations": {
+			"cardTitle": "Nedavne rezervacije",
+			"cardDescription": "Najnoviji zahtevi gostiju svih vlasnika ugostiteljstava."
+		},
+		"AdminDashboardRecentReservationsEmpty": {
+			"ariaLabel": "Nema nedavnih zahteva za rezervacije",
+			"title": "Još nema zahteva za rezervacije",
+			"description": "Kada gosti počnu da traže termine putem povezanih smeštaja, najnoviji zahtevi će se prikazivati ovde radi brzog pregleda platforme."
+		},
+		"errorTitle": "Nije moguće učitati administratorsku kontrolnu tablu",
+		"errorDescription": "Pregled platforme trenutno nije mogao da se učita. Pokušajte ponovo."
+	},
+	"MyAccommodationsPage": {
+		"SEO": {
+			"title": "Moji smeštaji",
+			"description": "Pregledajte smeštaje dodeljene vašem nalogu. Izmenite detalje i proverite da li je QR stranica za goste aktivna."
+		},
+		"assignedStaysTitle": "Dodeljeni smeštaji",
+		"assignedStaysDescription": "Sažet pregled tipa smeštaja, statusa i lokacije za svaki dodeljeni smeštaj.",
+		"MyAccommodationsHeader": {
+			"totalBadge": "{count} ukupno",
+			"title": "Moji smeštaji",
+			"description": "Pregledajte smeštaje dodeljene vašem nalogu. Izmenite detalje i proverite da li je QR stranica za goste aktivna.",
+			"activeStays": "Aktivni smeštaji",
+			"partnerships": "Partnerstva"
+		},
+		"MyAccommodationsItem": {
+			"status": "Status",
+			"active": "Aktivan",
+			"inactive": "Neaktivan",
+			"edit": "Izmeni",
+			"showQrAriaLabel": "Prikaži QR kod za goste"
+		},
+		"MyAccommodationsEmpty": {
+			"title": "Još nema dodeljenih smeštaja",
+			"description": "Kada tim {companyName} dodeli smeštaj vašem nalogu, pojaviće se ovde.",
+			"hint": "Dodeljeni smeštaji postaju dostupni za izmenu sa ove stranice"
+		},
+		"errorTitle": "Došlo je do greške",
+		"errorDescription": "Nije bilo moguće učitati vaše smeštaje."
+	},
+	"AddAccommodationPage": {
+		"SEO": {
+			"title": "Dodaj smeštaj",
+			"description": "Kreirajte smeštaj u vlasništvu vašeg naloga. QR token za goste se generiše automatski."
+		},
+		"navLabel": "Dodaj smeštaj",
+		"title": "Dodaj smeštaj",
+		"description": "Kreirajte smeštaj za svoj nalog. QR token za goste se generiše automatski.",
+		"back": "Nazad na moje smeštaje",
+		"sectionBasicsTitle": "Osnovno",
+		"sectionBasicsDescription": "Ono što gosti i osoblje vide na prvi pogled.",
+		"sectionLocationTitle": "Lokacija",
+		"sectionLocationDescription": "Prikazano na stranici za skeniranje gostiju i koristi se za filtriranje.",
+		"sectionCoverTitle": "Naslovna slika",
+		"sectionCoverDescription": "Prikazana na stranici za skeniranje gostiju. Preporučeni format PNG ili JPG; poželjan je širok format slike.",
+		"sectionDetailsTitle": "Detalji",
+		"sectionDetailsDescription": "Opcionalne napomene prikazane na stranici pogodnosti za goste.",
+		"fieldName": "Naziv",
+		"fieldNamePlaceholder": "Sunset Loft #12",
+		"fieldType": "Tip",
+		"fieldTypePlaceholder": "Izaberite tip",
+		"fieldAddress": "Adresa",
+		"fieldAddressPlaceholder": "Calle Mayor 14, 2. sprat",
+		"fieldAddressNumber": "Broj adrese",
+		"fieldAddressNumberPlaceholder": "11",
+		"fieldCity": "Grad",
+		"fieldCityPlaceholder": "Madrid",
+		"fieldCountry": "Država",
+		"fieldCountryPlaceholder": "Španija",
+		"fieldLatitude": "Geografska širina",
+		"fieldLongitude": "Geografska dužina",
+		"fieldCoordinatesPlaceholder": "Koordinate će se automatski popuniti kada unesete adresu",
+		"fieldDescription": "Opis",
+		"fieldDescriptionPlaceholder": "Kratak opis prikazan na stranici pogodnosti (opciono).",
+		"fieldCoverImage": "Naslovna slika",
+		"submit": "Kreiraj smeštaj"
+	},
+	"MyHospitalitiesPage": {
+		"SEO": {
+			"title": "Moja ugostiteljstva",
+			"description": "Upravljajte detaljima ugostiteljstva, dostupnošću za goste i vezama sa smeštajima za ugostiteljstva dodeljena vašem nalogu."
+		},
+		"assignedVenuesTitle": "Dodeljena ugostiteljstva",
+		"assignedVenuesDescription": "Sažet pregled tipa ugostiteljstva, statusa i dostupnosti za goste.",
+		"MyHospitalitiesHeader": {
+			"totalBadge": "{count} ukupno",
+			"title": "Moja ugostiteljstva",
+			"description": "Upravljajte detaljima ugostiteljstva, dostupnošću za goste i vezama sa smeštajima za ugostiteljstva dodeljena vašem nalogu.",
+			"activeVenues": "Aktivna ugostiteljstva",
+			"partnerships": "Partnerstva"
+		},
+		"MyHospitalitiesItem": {
+			"status": "Status",
+			"active": "Aktivan",
+			"inactive": "Neaktivan",
+			"reservations": "Rezervacije",
+			"view": "Prikaži",
+			"edit": "Izmeni",
+			"openPublicPageAriaLabel": "Otvori javnu stranicu",
+			"connectCode": "Kod za povezivanje",
+			"copyConnectCodeAriaLabel": "Kopiraj kod za povezivanje"
+		},
+		"MyHospitalitiesEmpty": {
+			"title": "Još nema ugostiteljstava",
+			"description": "Dodajte objekat koji sami vodite ili sačekajte da vam bude dodeljen na nalog — u oba slučaja pojaviće se ovde.",
+			"cta": "Dodaj ugostiteljstvo"
+		},
+		"errorTitle": "Došlo je do greške",
+		"errorDescription": "Nije bilo moguće učitati vaša ugostiteljstva."
+	},
+	"ReservationsPage": {
+		"SEO": {
+			"title": "Rezervacije",
+			"description": "Upravljajte dolazećim zahtevima gostiju u svim vašim ugostiteljstvima — prihvatite, odbijte i pratite svaku rezervaciju."
+		},
+		"ReservationsHeader": {
+			"title": "Rezervacije",
+			"description": "Upravljajte dolazećim zahtevima gostiju u svim vašim ugostiteljstvima — prihvatite, odbijte i pratite svaku rezervaciju.",
+			"pendingBadge": "{count} na čekanju"
+		},
+		"ReservationsTabs": {
+			"tabPending": "Na čekanju",
+			"tabConfirmed": "Potvrđene",
+			"tabCancelled": "Otkazane",
+			"tabNoShow": "Nepojava",
+			"searchPlaceholder": "Pretražite gosta, ugostiteljstvo, telefon…",
+			"allVenues": "Sva ugostiteljstva",
+			"clearFiltersAriaLabel": "Obriši filtere"
+		},
+		"ReservationsTabItem": {
+			"guestFallback": "Gost",
+			"reservationId": "ID rezervacije"
+		},
+		"ReservationCancelButton": {
+			"label": "Odbij",
+			"title": "Odbij zahtev",
+			"description": "Odbiti zahtev za rezervaciju od {guestName}? Biće premešten u otkazane rezervacije."
+		},
+		"ReservationConfirmButton": {
+			"label": "Potvrdi",
+			"title": "Potvrdi rezervaciju",
+			"description": "Potvrditi zahtev za rezervaciju od {guestName}? Biće premešten u potvrđene rezervacije."
+		},
+		"ReservationNoShowButton": {
+			"label": "Označi kao nepojavu",
+			"title": "Označi kao nepojavu",
+			"description": "Označiti potvrđenu rezervaciju od {guestName} kao nepojavu? Biće premeštena u karticu Nepojava."
+		},
+		"ContactViaWhatsappButton": {
+			"label": "Kontakt putem WhatsApp-a",
+			"ariaLabel": "Kontaktirajte {guestName} putem WhatsApp-a",
+			"message": "Zdravo {guestName}, vaša rezervacija u {hospitalityName} je potvrđena."
+		},
+		"ReservationsEmpty": {
+			"title": "Ne posedujete nijedno ugostiteljstvo",
+			"description": "Zahtevi za rezervacije pojaviće se ovde kada tim {companyName} dodeli ugostiteljstva vašem nalogu."
+		},
+		"ReservationsPendingTabEmpty": {
+			"title": "Nema rezervacija na čekanju",
+			"description": "Novi zahtevi gostiju pojaviće se ovde.",
+			"filteredDescription": "Nema rezultata koji odgovaraju vašim filterima."
+		},
+		"ReservationsConfirmedTabEmpty": {
+			"title": "Nema potvrđenih rezervacija",
+			"description": "Potvrđene rezervacije pojaviće se ovde.",
+			"filteredDescription": "Nema rezultata koji odgovaraju vašim filterima."
+		},
+		"ReservationsCancelledTabEmpty": {
+			"title": "Nema otkazanih rezervacija",
+			"description": "Otkazane rezervacije pojaviće se ovde.",
+			"filteredDescription": "Nema rezultata koji odgovaraju vašim filterima."
+		},
+		"ReservationsPastTabEmpty": {
+			"title": "Nema prošlih rezervacija",
+			"description": "Završene rezervacije biće arhivirane ovde.",
+			"filteredDescription": "Nema rezultata koji odgovaraju vašim filterima."
+		},
+		"errorTitle": "Nije bilo moguće učitati rezervacije",
+		"errorDescription": "Pokušajte ponovo ili proverite kasnije."
+	},
+	"EditAccommodationPage": {
+		"SEO": {
+			"title": "Uredi smeštaj",
+			"description": "Ažurirajte kako se ovaj smeštaj prikazuje gostima. QR kod u sobi ostaje isti."
+		},
+		"EditAccommodationEmpty": {
+			"title": "Smeštaj nije pronađen",
+			"description": "Ovaj smeštaj je možda uklonjen ili nije dodeljen vašem nalogu."
+		},
+		"EditAccommodationHeader": {
+			"title": "Uredi smeštaj",
+			"description": "Ažurirajte kako se ovaj smeštaj prikazuje gostima. QR kod u sobi ostaje isti.",
+			"back": "Nazad na moje smeštaje"
+		},
+		"EditAccommodationForm": {
+			"sectionBasicsTitle": "Osnove",
+			"sectionBasicsDescription": "Ono što gosti i osoblje vide na prvi pogled.",
+			"sectionLocationTitle": "Lokacija",
+			"sectionLocationDescription": "Prikazuje se na stranici pogodnosti za goste.",
+			"sectionCoverTitle": "Naslovna slika",
+			"sectionCoverDescription": "Ostavite prazno da zadržite trenutnu sliku. Preporučuje se PNG ili JPG.",
+			"currentCoverAlt": "Trenutna naslovna slika za {name}",
+			"sectionDetailsTitle": "Detalji",
+			"sectionDetailsDescription": "Opcionalne napomene i vidljivost.",
+			"fieldName": "Naziv",
+			"fieldNamePlaceholder": "Sunset Loft #12",
+			"fieldType": "Tip",
+			"fieldTypePlaceholder": "Izaberite tip",
+			"fieldAddress": "Adresa",
+			"fieldAddressPlaceholder": "Calle Mayor 14, 2nd floor",
+			"fieldAddressNumber": "Broj adrese",
+			"fieldAddressNumberPlaceholder": "11",
+			"fieldCity": "Grad",
+			"fieldCityPlaceholder": "Madrid",
+			"fieldCountry": "Država",
+			"fieldCountryPlaceholder": "Spain",
+			"fieldLatitude": "Geografska širina",
+			"fieldLongitude": "Geografska dužina",
+			"fieldCoordinatesPlaceholder": "Ove vrednosti će se automatski popuniti kada unesete adresu",
+			"fieldDescription": "Opis",
+			"fieldDescriptionPlaceholder": "Kratak opis prikazan na stranici pogodnosti (opciono).",
+			"fieldIsActive": "Aktivan",
+			"fieldIsActiveDescription": "Neaktivni smeštaji ostaju u bazi podataka, ali njihova QR stranica neće prikazivati pogodnosti.",
+			"fieldCoverImage": "Zameni naslovnu sliku",
+			"submit": "Sačuvaj izmene"
+		},
+		"EditAccommodationGuestAccess": {
+			"sectionGuestAccessTitle": "Pristup gostima",
+			"sectionGuestAccessDescription": "QR kod je vezan za ovu jedinicu. Odštampajte ga ovde ako vam treba nova kopija.",
+			"showQr": "Prikaži QR kod"
+		},
+		"errorTitle": "Nije bilo moguće učitati smeštaj",
+		"errorDescription": "Pokušajte ponovo za trenutak."
+	},
 	"AdminAccommodationsPage": {
+		"SEO": {
+			"title": "Smeštaji",
+			"description": "Mesta gde gosti borave — apartmani, hoteli, vile i još mnogo toga. Svaki red dobija automatski generisan token za skeniranje za odštampane QR kodove."
+		},
 		"title": "Smeštaji",
-		"description": "Places guests stay — apartments, hotels, villas, and more. Each row gets an auto-generated scan token for printed QRs.",
+		"description": "Mesta gde gosti borave — apartmani, hoteli, vile i još mnogo toga. Svaki red dobija automatski generisan token za skeniranje za odštampane QR kodove.",
 		"caption": "Smeštaji",
 		"columnName": "Naziv",
 		"columnType": "Tip",
-		"columnCity": "City / country",
-		"columnScanToken": "Scan token",
+		"columnCity": "Grad / država",
+		"columnScanToken": "Token za skeniranje",
 		"columnAddress": "Adresa",
 		"columnStatus": "Status",
 		"columnCreated": "Kreirano",
@@ -476,105 +1010,77 @@
 		"statusInactive": "Neaktivan",
 		"addAccommodation": "Dodaj smeštaj",
 		"columnQr": "QR",
-		"openQr": "Show QR code for {name}"
+		"openQr": "Prikaži QR kod za {name}"
 	},
 	"AdminAccommodationAddPage": {
+		"SEO": {
+			"title": "Dodaj smeštaj",
+			"description": "Kreirajte novi objekat. Tajni token za skeniranje za QR kod na zidu generiše se automatski."
+		},
 		"title": "Dodaj smeštaj",
-		"description": "Create a new property. A secret scan token for the wall QR is generated automatically.",
-		"back": "Back to list",
-		"sectionBasicsTitle": "Basics",
-		"sectionBasicsDescription": "What guests and staff will see at a glance.",
-		"sectionLocationTitle": "Location",
-		"sectionLocationDescription": "Used on the guest scan landing page and admin filtering.",
-		"sectionCoverTitle": "Cover image",
-		"sectionCoverDescription": "Shown on the guest scan landing page. PNG or JPG recommended; aim for a wide aspect ratio.",
-		"sectionDetailsTitle": "Details",
-		"sectionDetailsDescription": "Optional notes and visibility.",
-		"fieldName": "Naziv",
-		"fieldNamePlaceholder": "Sunset Loft #12",
-		"fieldType": "Tip",
-		"fieldTypePlaceholder": "Pick a type",
-		"fieldAddress": "Adresa",
-		"fieldAddressPlaceholder": "Calle Mayor 14, 2nd floor",
-		"fieldCity": "City",
-		"fieldCityPlaceholder": "Madrid",
-		"fieldCountry": "Country",
-		"fieldCountryPlaceholder": "Spain",
-		"fieldDescription": "Opis",
-		"fieldDescriptionPlaceholder": "Short description shown on the benefits page (optional).",
-		"fieldIsActive": "Aktivan",
-		"fieldIsActiveDescription": "Inactive accommodations stay in the database but their QR page won't render benefits.",
-		"fieldCoverImage": "Cover image",
-		"submit": "Create accommodation"
-	},
-	"EditAccommodationPage": {
-		"title": "Izmeni smeštaj",
-		"description": "Ažurirajte kako se ovaj smeštaj prikazuje gostima. QR kod u sobi ostaje isti.",
-		"back": "Nazad na moje smeštaje",
-		"notFoundTitle": "Smeštaj nije pronađen",
-		"notFoundDescription": "Smeštaj je možda uklonjen ili nije dodeljen vašem nalogu.",
-		"loadErrorTitle": "Učitavanje smeštaja nije uspelo",
-		"loadErrorDescription": "Pokušajte ponovo za trenutak.",
-		"sectionGuestAccessTitle": "Pristup gostima",
-		"sectionGuestAccessDescription": "QR kod je vezan za ovaj smeštaj. Odavde možete ponovo da ga odštampate.",
-		"showQr": "Prikaži QR kod",
-		"sectionBasicsTitle": "Osnovno",
+		"description": "Kreirajte novi objekat. Tajni token za skeniranje za QR kod na zidu generiše se automatski.",
+		"back": "Nazad na listu",
+		"sectionBasicsTitle": "Osnove",
 		"sectionBasicsDescription": "Ono što gosti i osoblje vide na prvi pogled.",
 		"sectionLocationTitle": "Lokacija",
-		"sectionLocationDescription": "Prikazuje se na stranici benefita za goste.",
+		"sectionLocationDescription": "Koristi se na odredišnoj stranici skeniranja za goste i u admin filtriranju.",
 		"sectionCoverTitle": "Naslovna slika",
-		"sectionCoverDescription": "Ostavite prazno da zadržite trenutnu sliku. Preporučeni PNG ili JPG.",
-		"currentCoverAlt": "Trenutna naslovna slika za {name}",
+		"sectionCoverDescription": "Prikazuje se na odredišnoj stranici skeniranja za goste. Preporučuje se PNG ili JPG; ciljajte širok format slike.",
 		"sectionDetailsTitle": "Detalji",
-		"sectionDetailsDescription": "Opcioni opis i vidljivost.",
+		"sectionDetailsDescription": "Opcionalne napomene i vidljivost.",
 		"fieldName": "Naziv",
 		"fieldNamePlaceholder": "Sunset Loft #12",
 		"fieldType": "Tip",
 		"fieldTypePlaceholder": "Izaberite tip",
+		"fieldOwner": "Vlasnik",
 		"fieldAddress": "Adresa",
-		"fieldAddressPlaceholder": "Calle Mayor 14, 2nd sprat",
+		"fieldAddressPlaceholder": "Calle Mayor 14, 2nd floor",
 		"fieldCity": "Grad",
 		"fieldCityPlaceholder": "Madrid",
 		"fieldCountry": "Država",
-		"fieldCountryPlaceholder": "Španija",
+		"fieldCountryPlaceholder": "Spain",
 		"fieldDescription": "Opis",
-		"fieldDescriptionPlaceholder": "Kratak opis na stranici benefita (opciono).",
+		"fieldDescriptionPlaceholder": "Kratak opis prikazan na stranici pogodnosti (opciono).",
 		"fieldIsActive": "Aktivan",
-		"fieldIsActiveDescription": "Neaktivni smeštaji ostaju u bazi, ali QR stranica ne prikazuje benefite.",
-		"fieldCoverImage": "Zameni naslovnu sliku",
-		"submit": "Sačuvaj izmene"
+		"fieldIsActiveDescription": "Neaktivni smeštaji ostaju u bazi podataka, ali njihova QR stranica neće prikazivati pogodnosti.",
+		"fieldCoverImage": "Naslovna slika",
+		"submit": "Kreiraj smeštaj"
 	},
 	"AdminPartnershipsPage": {
+		"SEO": {
+			"title": "Partnerstva",
+			"description": "Veze između smeštaja i partnerskih ugostiteljstava. Svaki red predstavlja jednu pogodnost koju gosti otključavaju nakon skeniranja QR koda u sobi."
+		},
 		"title": "Partnerstva",
-		"description": "Veze između smeštaja i partnerskih ugostiteljskih objekata. Svaki red je jedan benefit koji gosti otključavaju nakon skeniranja QR koda u sobi.",
+		"description": "Veze između smeštaja i partnerskih ugostiteljstava. Svaki red predstavlja jednu pogodnost koju gosti otključavaju nakon skeniranja QR koda u sobi.",
 		"caption": "Partnerstva",
 		"columnAccommodation": "ID smeštaja",
 		"columnAccommodationScanToken": "Token za skeniranje smeštaja",
-		"columnHospitality": "ID ugostiteljskog objekta",
-		"columnDiscount": "Popust",
+		"columnHospitality": "ID ugostiteljstva",
+		"columnBenefit": "Benefit",
 		"columnCreated": "Kreirano",
-		"discountNone": "Bez popusta",
-		"discountValue": "{percent}% popusta",
+		"benefitNone": "Bez benefita",
+		"legacyDiscountValue": "{percent}% popusta",
 		"addPartnership": "Dodaj partnerstvo"
 	},
 	"PartnershipsPage": {
 		"SEO": {
 			"title": "Partnerstva",
-			"description": "Vaše partnerske veze i zahtevi. Svaki aktivan red je benefit koji gosti otključavaju nakon skeniranja QR koda u sobi."
+			"description": "Vaše veze partnerstva i zahtevi. Svaki aktivan red predstavlja pogodnost koju gosti otključavaju nakon skeniranja QR koda u sobi."
 		},
 		"PartnershipsHeader": {
 			"title": "Partnerstva",
-			"description": "Veze između vaših smeštaja i partnerskih objekata, plus zahtevi koji čekaju na obe strane.",
+			"description": "Veze između vaših smeštaja i partnerskih objekata, plus zahtevi koji čekaju sa bilo koje strane.",
 			"proBadge": "Pro — neograničeno",
-			"trialAvailableBadge": "Uključen besplatni probni period od mesec dana",
+			"trialAvailableBadge": "Uključen besplatni probni period od 1 meseca",
 			"trialActiveBadge": "Besplatni probni period — ističe {date}",
-			"trialEndedBadge": "Probni period je istekao",
-			"createCustomPartnership": "Napravi posebno partnerstvo"
+			"trialEndedBadge": "Besplatni probni period je istekao",
+			"createCustomPartnership": "Kreiraj prilagođeno partnerstvo"
 		},
 		"PartnershipsTabs": {
 			"active": "Aktivna",
-			"sent": "Poslati",
-			"received": "Primljeni"
+			"sent": "Poslato",
+			"received": "Primljeno"
 		},
 		"PartnershipsActiveTab": {
 			"caption": "Aktivna partnerstva",
@@ -584,6 +1090,10 @@
 			"columnOwner": "Vlasništvo",
 			"columnCreated": "Kreirano",
 			"benefitNone": "—",
+			"setBenefit": "Postavi benefit",
+			"setBenefitTitle": "Postaviti benefit za goste?",
+			"setBenefitDescription": "Gosti povezanog smeštaja videće ovu ponudu u vašem objektu.",
+			"columnActions": "Radnje",
 			"ownerYours": "Vaše",
 			"ownerPartner": "Partner"
 		},
@@ -597,21 +1107,21 @@
 			"accept": "Prihvati",
 			"decline": "Odbij",
 			"acceptTitle": "Prihvatiti ovaj zahtev za partnerstvo?",
-			"acceptDescription": "Gosti smeštaja koji je poslao zahtev videće vaš objekat sa pogodnošću koju postavite ispod.",
+			"acceptDescription": "Gosti smeštaja koji je poslao zahtev videće vaš objekat sa benefitom koji postavite ispod.",
 			"declineTitle": "Odbiti ovaj zahtev za partnerstvo?",
-			"declineDescription": "Pošiljalac će videti da je zahtev odbijen.",
-			"benefitLabel": "Pogodnost za goste",
+			"declineDescription": "Podnosilac zahteva videće da je zahtev odbijen. Ne mogu poslati novi osim ako se kasnije predomislite.",
+			"benefitLabel": "Benefit za goste",
 			"benefitPlaceholder": "15% popusta",
 			"benefitHint": "Ponuda koju će gosti videti. Primer: 15% popusta"
 		},
 		"PartnershipStatusBadge": {
 			"pending": "Na čekanju",
-			"accepted": "Prihvaćen",
-			"declined": "Odbijen"
+			"accepted": "Prihvaćeno",
+			"declined": "Odbijeno"
 		},
 		"PartnershipsTabEmpty": {
-			"active": "Još nema partnerstava. Napravite jedno i pružite gostima dodatne pogodnosti.",
-			"activeCta": "Napravi posebno partnerstvo",
+			"active": "Još nema partnerstava. Kreirajte jedno da biste svojim gostima pružili dodatne pogodnosti.",
+			"activeCta": "Kreiraj prilagođeno partnerstvo",
 			"sent": "Još niste poslali nijedan zahtev za partnerstvo.",
 			"received": "Nema zahteva na čekanju za vaše objekte."
 		},
@@ -620,75 +1130,91 @@
 		}
 	},
 	"AdminPartnershipAddPage": {
+		"SEO": {
+			"title": "Dodaj partnerstvo",
+			"description": "Povežite smeštaj sa partnerskim ugostiteljstvom. Gosti tog smeštaja vide ponudu nakon skeniranja QR koda."
+		},
 		"title": "Dodaj partnerstvo",
-		"description": "Povežite boravak sa partnerskim ugostiteljskim objektom. Gosti tog smeštaja vide ponudu nakon skeniranja QR koda.",
+		"description": "Povežite smeštaj sa partnerskim ugostiteljstvom. Gosti tog smeštaja vide ponudu nakon skeniranja QR koda.",
 		"back": "Nazad na listu",
 		"submit": "Kreiraj partnerstva",
 		"sectionPartnersTitle": "Partneri",
-		"sectionPartnersDescription": "Izaberite smeštaj i ugostiteljske objekte koje želite da povežete.",
+		"sectionPartnersDescription": "Nalepite Convex ID dokumenta sa admin listi smeštaja i ugostiteljstava.",
 		"fieldAccommodation": "Smeštaj",
-		"selectAccommodation": "Izaberi smeštaj",
-		"selectAccommodationDialogTitle": "Izaberi smeštaj",
-		"selectAccommodationLoading": "Učitavanje smeštaja…",
 		"PartnershipsSelectAccommodationDialogEmpty": {
 			"description": "Još nema smeštaja."
 		},
-		"selectAccommodationTruncated": "Prikazano prvih {count} — dodajte još sa admin liste smeštaja.",
-		"modifyAccommodation": "Izmeni",
-		"fieldHospitality": "Ugostiteljski objekti",
-		"selectHospitality": "Izaberi ugostiteljske objekte",
-		"selectHospitalityDialogTitle": "Izaberi ugostiteljske objekte",
-		"selectHospitalityDone": "Gotovo",
-		"selectHospitalitySelectedCount": "{count} izabrano",
-		"selectHospitalityLoading": "Učitavanje ugostiteljskih objekata…",
+		"fieldHospitality": "Ugostiteljstva",
 		"PartnershipsSelectHospitalityDialogEmpty": {
-			"description": "Još nema ugostiteljskih objekata."
+			"description": "Još nema ugostiteljstava."
 		},
-		"selectHospitalityTruncated": "Prikazano prvih {count} — dodajte još sa admin liste ugostiteljskih objekata.",
-		"modifyHospitality": "Izmeni",
 		"sectionOfferTitle": "Ponuda",
-		"sectionOfferDescription": "Opcioni procenat popusta; ostavite prazno za benefite bez procenta.",
-		"fieldDiscount": "Popust % (opciono)",
-		"fieldDiscountPlaceholder": "npr. 10",
-		"fieldDiscountDescription": "Prikazuje se na listi benefita za goste kada je postavljeno."
+		"sectionOfferDescription": "Kratak benefit za goste koji osoblje može da ispuni lično.",
+		"fieldBenefit": "Benefit",
+		"fieldBenefitPlaceholder": "15% popusta",
+		"fieldBenefitDescription": "Primer: 15% popusta",
+		"PartnershipsSelectAccommodationDialog": {
+			"selectAccommodation": "Izaberite smeštaj",
+			"modifyAccommodation": "Izmeni",
+			"selectAccommodationDialogTitle": "Izaberite smeštaj",
+			"selectAccommodationLoading": "Učitavanje smeštaja…",
+			"selectAccommodationTruncated": "Prikazuje se prvih {count} — dodajte više sa admin liste smeštaja."
+		},
+		"PartnershipsSelectHospitalityDialog": {
+			"selectHospitality": "Izaberite ugostiteljstva",
+			"modifyHospitality": "Izmeni",
+			"selectHospitalityDialogTitle": "Izaberite ugostiteljstva",
+			"selectHospitalityDone": "Gotovo",
+			"selectHospitalitySelectedCount": "Izabrano: {count}",
+			"selectHospitalityLoading": "Učitavanje ugostiteljstava…",
+			"selectHospitalityTruncated": "Prikazuje se prvih {count} — dodajte više sa admin liste ugostiteljstava."
+		}
 	},
 	"AdminHospitalitiesPage": {
-		"title": "Ugostiteljski objekti",
-		"description": "Partnerski ugostiteljski objekti — restorani, iskustva i usluge povezani sa smeštajima kroz partnerstva.",
-		"caption": "Ugostiteljski objekti",
+		"SEO": {
+			"title": "Ugostiteljstva",
+			"description": "Partnerska ugostiteljstva — restorani, iskustva i usluge povezani sa smeštajima putem partnerstava."
+		},
+		"title": "Ugostiteljstva",
+		"description": "Partnerska ugostiteljstva — restorani, iskustva i usluge povezani sa smeštajima putem partnerstava.",
+		"caption": "Ugostiteljstva",
 		"columnName": "Naziv",
 		"columnType": "Tip",
-		"columnCity": "City / country",
+		"columnCity": "Grad / država",
 		"columnContact": "Kontakt",
 		"columnAddress": "Adresa",
 		"columnStatus": "Status",
 		"columnCreated": "Kreirano",
-		"statusActive": "Aktivan",
-		"statusInactive": "Neaktivan",
+		"statusActive": "Aktivno",
+		"statusInactive": "Neaktivno",
 		"contactNone": "—",
-		"addHospitality": "Dodaj objekat",
+		"addHospitality": "Dodaj ugostiteljstvo",
 		"columnVisibility": "Vidljivost",
-		"VisibilityButton": {
+		"HospitalityVisibilityButton": {
 			"public": "Javno",
 			"private": "Privatno",
 			"makePublicTitle": "Objaviti {name}?",
-			"makePrivateTitle": "Sakriti {name}?",
-			"makePublicDescription": "Drugi korisnici će moći da pronađu ovaj objekat u svom toku povezivanja posebnih partnerstava i pošalju zahtev vlasniku.",
-			"makePrivateDescription": "Ovaj objekat se više neće prikazivati drugim korisnicima u toku povezivanja. Postojeća partnerstva ostaju netaknuta."
+			"makePrivateTitle": "Povući {name} iz objave?",
+			"makePublicDescription": "Drugi korisnici će moći da pronađu ovo ugostiteljstvo u toku povezivanja prilagođenog partnerstva i da pošalju zahtev za partnerstvo njegovom vlasniku.",
+			"makePrivateDescription": "Ovo ugostiteljstvo više neće biti vidljivo drugim korisnicima u toku povezivanja prilagođenog partnerstva. Postojeća partnerstva nisu pogođena."
 		}
 	},
 	"AdminHospitalityAddPage": {
-		"title": "Dodaj objekat",
-		"description": "Registrujte novi partnerski ugostiteljski objekat. Svako polje možete kasnije izmeniti.",
+		"SEO": {
+			"title": "Dodaj ugostiteljstvo",
+			"description": "Registrujte novo partnersko ugostiteljstvo. Sva polja možete kasnije izmeniti."
+		},
+		"title": "Dodaj ugostiteljstvo",
+		"description": "Registrujte novo partnersko ugostiteljstvo. Sva polja možete kasnije izmeniti.",
 		"back": "Nazad na listu",
 		"sectionBasicsTitle": "Osnovno",
-		"sectionBasicsDescription": "Ono što gosti vide na listi benefita.",
+		"sectionBasicsDescription": "Ono što gosti vide na listi pogodnosti.",
 		"sectionLocationTitle": "Lokacija",
-		"sectionLocationDescription": "Koristi se na javnoj stranici benefita i za admin filtriranje.",
+		"sectionLocationDescription": "Koristi se na javnoj stranici pogodnosti i za filtriranje u adminu.",
 		"sectionContactTitle": "Kontakt",
-		"sectionContactDescription": "Broj telefona putem kog gosti mogu kontaktirati objekat.",
+		"sectionContactDescription": "Broj telefona koji gosti mogu koristiti za kontakt sa ovim ugostiteljstvom.",
 		"sectionCoverTitle": "Naslovna slika",
-		"sectionCoverDescription": "Prikazuje se na javnoj stranici benefita. Preporučeni PNG ili JPG; širok format.",
+		"sectionCoverDescription": "Prikazuje se na javnoj stranici pogodnosti. Preporučeni su PNG ili JPG; poželjan je širok format.",
 		"sectionDetailsTitle": "Detalji",
 		"sectionDetailsDescription": "Opis, rezervacije i vidljivost.",
 		"fieldName": "Naziv",
@@ -698,425 +1224,72 @@
 		"fieldOwner": "Vlasnik",
 		"fieldAddress": "Adresa",
 		"fieldAddressPlaceholder": "Plaza del Sol 3",
+		"fieldAddressNumber": "Broj",
+		"fieldAddressNumberPlaceholder": "3",
 		"fieldCity": "Grad",
 		"fieldCityPlaceholder": "Madrid",
 		"fieldCountry": "Država",
 		"fieldCountryPlaceholder": "Španija",
+		"fieldLatitude": "Geografska širina",
+		"fieldLongitude": "Geografska dužina",
+		"fieldCoordinatesPlaceholder": "Automatski će se popuniti nakon što unesete adresu",
 		"fieldContactPhone": "Telefon",
 		"fieldContactPhonePlaceholder": "+34 600 000 000",
-		"fieldReservationMode": "Način rezervacije",
+		"fieldReservationMode": "Režim rezervacija",
 		"fieldDescription": "Opis",
-		"fieldDescriptionPlaceholder": "Kratak opis na stranici benefita (opciono).",
-		"fieldIsActive": "Aktivan",
-		"fieldIsActiveDescription": "Neaktivni ugostiteljski objekti ostaju u bazi, ali se ne prikazuju na listama benefita.",
+		"fieldDescriptionPlaceholder": "Kratak opis prikazan na stranici pogodnosti.",
+		"fieldIsActive": "Aktivno",
+		"fieldIsActiveDescription": "Neaktivna ugostiteljstva ostaju u bazi, ali se ne prikazuju na listama pogodnosti.",
 		"fieldCoverImage": "Naslovna slika",
-		"submit": "Kreiraj objekat"
+		"sectionMenuTitle": "Meni",
+		"sectionMenuDescription": "Opciono. Otpremite datoteku menija i/ili unesite link ka online meniju.",
+		"fieldMenuFile": "Datoteka menija",
+		"fieldMenuFileHint": "Otpremite sliku ili PDF menija.",
+		"fieldMenuLink": "Link menija",
+		"fieldMenuLinkPlaceholder": "https://your-menu-online.com",
+		"submit": "Kreiraj ugostiteljstvo"
 	},
 	"EditHospitalityPage": {
-		"title": "Izmeni ugostiteljski objekat",
-		"description": "Ažurirajte kako se vaš objekat prikazuje gostima na stranicama partner benefita.",
-		"back": "Nazad na moje objekte",
-		"notFoundTitle": "Objekat nije pronađen",
-		"notFoundDescription": "Objekat je možda uklonjen ili nije dodeljen vašem nalogu.",
-		"loadErrorTitle": "Učitavanje objekta nije uspelo",
-		"loadErrorDescription": "Pokušajte ponovo za trenutak.",
-		"sectionBasicsTitle": "Osnovno",
-		"sectionBasicsDescription": "Ono što gosti vide na listi benefita.",
-		"sectionLocationTitle": "Lokacija",
-		"sectionLocationDescription": "Prikazuje se na javnoj stranici objekta.",
-		"sectionContactTitle": "Kontakt",
-		"sectionContactDescription": "Broj telefona putem kog gosti mogu kontaktirati objekat.",
-		"sectionCoverTitle": "Naslovna slika",
-		"sectionCoverDescription": "Ostavite prazno da zadržite trenutnu sliku. Preporučeni PNG ili JPG.",
-		"currentCoverAlt": "Trenutna naslovna slika za {name}",
-		"sectionDetailsTitle": "Detalji",
-		"sectionDetailsDescription": "Opis, rezervacije i vidljivost.",
-		"fieldName": "Naziv",
-		"fieldNamePlaceholder": "La Tapería",
-		"fieldType": "Tip",
-		"fieldTypePlaceholder": "Izaberite tip",
-		"fieldAddress": "Adresa",
-		"fieldAddressPlaceholder": "Plaza del Sol 3",
-		"fieldCity": "Grad",
-		"fieldCityPlaceholder": "Madrid",
-		"fieldCountry": "Država",
-		"fieldCountryPlaceholder": "Španija",
-		"fieldContactPhone": "Telefon",
-		"fieldContactPhonePlaceholder": "+381 60 000 0000",
-		"fieldReservationMode": "Način rezervacije",
-		"fieldDescription": "Opis",
-		"fieldDescriptionPlaceholder": "Kratak opis na stranici benefita.",
-		"fieldIsActive": "Aktivan",
-		"fieldIsActiveDescription": "Neaktivni objekti ostaju u bazi, ali se ne prikazuju na listama benefita.",
-		"fieldCoverImage": "Zameni naslovnu sliku",
-		"submit": "Sačuvaj izmene"
-	},
-	"SearchInput": {
-		"placeholder": "Pretraga...",
-		"ariaLabel": "Pretraga",
-		"resultsLabel": "Rezultati pretrage",
-		"loading": "Searching...",
-		"searchFailed": "Search failed. Please try again.",
-		"tooManyRequests": "Too many search requests. Please try again shortly.",
-		"unknownSource": "Unknown search source.",
-		"rateLimitKeyUnavailable": "Search rate limit key could not be resolved.",
-		"rateLimitNotConfigured": "Search rate limit is not configured.",
-		"clientAddressRequired": "Client address is required for public search.",
-		"SearchEmpty": {
-			"title": "Nema rezultata",
-			"description": "Pokušajte sa drugim pojmom."
-		},
-		"SearchPage": {
-			"title": "Search input",
-			"description": "Search public test rows through the remote source.",
-			"placeholder": "Search test rows...",
-			"selected": "Selected:"
-		}
-	},
-	"AdminUsersPage": {
-		"title": "Korisnici",
-		"description": "Search, filter, and manage user accounts.",
-		"caption": "Korisnici",
-		"searchPlaceholder": "Search by {field}…",
-		"columnUser": "User",
-		"columnEmail": "Email",
-		"columnRole": "Uloga",
-		"columnVerified": "Verifikovan",
-		"columnStatus": "Status",
-		"columnCreated": "Kreirano",
-		"verifiedYes": "Yes",
-		"verifiedNo": "No",
-		"statusBanned": "Banovan",
-		"statusActive": "Aktivan",
-		"addUser": "Dodaj korisnika",
-		"UsersFilters": {
-			"searchLabel": "Search: {field}",
-			"searchEmail": "Email",
-			"searchName": "Naziv",
-			"roleLabel": "Role: {role}",
-			"anyRole": "Any role",
-			"roleUser": "User",
-			"roleAdmin": "Admin",
-			"anyStatus": "Any status",
-			"statusBanned": "Banovan",
-			"statusActive": "Aktivan",
-			"anyVerification": "Any verification",
-			"verified": "Verifikovan",
-			"unverified": "Unverified",
-			"clear": "Clear"
-		}
-	},
-	"AdminUserAddPage": {
-		"title": "Dodaj korisnika",
-		"description": "Kreirajte nalog koji kasnije moze da bude vlasnik smestaja ili ugostiteljskog objekta.",
-		"back": "Nazad na korisnike",
-		"submit": "Kreiraj korisnika",
-		"sectionAccountTitle": "Nalog",
-		"sectionAccountDescription": "Koristite pravo ime osobe i email kojim ce se prijavljivati.",
-		"fieldName": "Puno ime",
-		"fieldNamePlaceholder": "Mila Petrovic",
-		"fieldEmail": "Email",
-		"fieldEmailPlaceholder": "mila@example.com",
-		"sectionCredentialsTitle": "Pristupni podaci",
-		"sectionCredentialsDescription": "Postavite privremenu lozinku. Korisnik je moze promeniti nakon prijave.",
-		"fieldPassword": "Privremena lozinka",
-		"fieldPasswordDescription": "Koristite najmanje 8 karaktera i podelite je privatnim kanalom.",
-		"fieldConfirmPassword": "Potvrdi lozinku",
-		"sectionAccessTitle": "Pristup",
-		"sectionAccessDescription": "Zadrzite osnovnu ulogu osim ako ovaj nalog treba da upravlja admin delom.",
-		"fieldRole": "Uloga",
-		"fieldRolePlaceholder": "Izaberite ulogu",
-		"roleUser": "Korisnik",
-		"roleAdmin": "Admin",
-		"fieldEmailVerified": "Email verifikovan",
-		"fieldEmailVerifiedDescription": "Ukljucite samo ako ste vec potvrdili ovu adresu. U suprotnom korisnik mora da je verifikuje pre prijave."
-	},
-	"AdminUserPage": {
-		"UserTabs": {
-			"overview": "Overview",
-			"sessions": "Sessions",
-			"accounts": "Accounts",
-			"activity": "Activity",
-			"danger": "Danger zone"
-		},
-		"UserOverview": {
-			"verified": "Verifikovan",
-			"unverified": "Unverified",
-			"role": "Uloga",
-			"status": "Status",
-			"banReason": "Ban reason",
-			"created": "Kreirano",
-			"updated": "Updated",
-			"userId": "User ID",
-			"copyUserId": "Copy user ID",
-			"bannedUntil": "Banned until {date}",
-			"bannedPermanent": "Banned (permanent)",
-			"active": "Aktivan"
-		},
-		"UserSessions": {
-			"title": "Active sessions",
-			"description": "Devices currently signed in. Revoking signs the device out immediately.",
-			"revokeAll": "Revoke all",
-			"failedLoad": "Failed to load sessions.",
-			"noSessions": "No active sessions.",
-			"unknownDevice": "Unknown device",
-			"ip": "IP",
-			"created": "Kreirano",
-			"expires": "Expires",
-			"revoke": "Revoke"
-		},
-		"UserAccounts": {
-			"title": "Linked accounts",
-			"description": "Sign-in providers connected to this user.",
-			"failedLoad": "Failed to load accounts.",
-			"noAccounts": "No linked accounts.",
-			"passwordSet": "Password set",
-			"noPassword": "No password",
-			"id": "ID",
-			"created": "Kreirano",
-			"scope": "Scope"
-		},
-		"UserActivity": {
-			"title": "Activity",
-			"description": "Audit log entries scoped to this user. Newest first.",
-			"caption": "Activity",
-			"colAction": "Action",
-			"colStatus": "Status",
-			"colResource": "Resource",
-			"colIp": "IP",
-			"colWhen": "When",
-			"statusFailed": "Failed",
-			"statusSuccess": "Success"
-		},
-		"UserDangerZone": {
-			"title": "Danger zone",
-			"description": "Account-level actions. Changes here are audited and may be irreversible.",
-			"role": "Role: {role}",
-			"removeAdmin": "Remove admin privileges from this account.",
-			"grantAdmin": "Grant admin privileges to this account.",
-			"plan": "Plan: {plan}",
-			"upgradePlan": "Prebacite ovaj nalog na Pro plan (neograničena posebna partnerstva).",
-			"downgradePlan": "Vratite ovaj nalog na besplatni plan (posebna partnerstva samo tokom probnog perioda od mesec dana).",
-			"banned": "Banovan",
-			"active": "Aktivan",
-			"liftBan": "Lift the ban so the user can sign in again.",
-			"signOutPrevent": "Sign the user out and prevent further sign-ins.",
-			"deleteRowTitle": "Delete account",
-			"deleteRowDescription": "Permanently remove this user, their sessions, and linked provider accounts. This cannot be undone."
-		},
-		"BanUserDialog": {
-			"ban": "Ban",
-			"title": "Ban {email}",
-			"description": "The user is signed out and cannot sign in again until unbanned. The optional reason is shown on next sign-in attempt.",
-			"reason": "Reason (optional)",
-			"reasonPlaceholder": "Violation of terms…",
-			"expires": "Expires",
-			"permanent": "Permanent",
-			"oneDay": "1 day",
-			"sevenDays": "7 days",
-			"thirtyDays": "30 days"
-		},
-		"UnbanUserButton": {
-			"unban": "Unban"
-		},
-		"ChangeRoleButton": {
-			"demote": "Demote to user",
-			"promote": "Promote to admin",
-			"demoteTitle": "Demote {email} to user?",
-			"promoteTitle": "Promote {email} to admin?",
-			"demoteDescription": "Are you sure you want to do this? The user will immediately lose admin privileges.",
-			"promoteDescription": "Are you sure you want to do this? The user will gain full admin privileges, including the ability to ban and delete other accounts."
-		},
-		"ChangePlanButton": {
-			"upgrade": "Prebaci na Pro",
-			"downgrade": "Vrati na besplatni",
-			"upgradeTitle": "Prebaciti {email} na Pro?",
-			"downgradeTitle": "Vratiti {email} na besplatni plan?",
-			"upgradeDescription": "Korisnik odmah dobija neograničena posebna partnerstva.",
-			"downgradeDescription": "Korisnik se vraća na besplatni plan — nova posebna partnerstva tada zahtevaju aktivan probni period od mesec dana. Postojeća partnerstva se ne uklanjaju."
-		},
-		"DeleteUserDialog": {
-			"delete": "Delete…",
-			"title": "Delete {email}?",
-			"description": "This is permanent and cascades to sessions and accounts. Type the email below to confirm.",
-			"adminTitle": "Cannot delete {email}",
-			"adminDescription": "Admins must be demoted to \"user\" before they can be deleted."
-		},
-		"UserPageEmpty": {
-			"title": "User not found",
-			"description": "The user you're looking for doesn't exist or may have been deleted.",
-			"backToUsers": "Back to users"
-		},
-		"UserPageError": {
-			"title": "Failed to load user",
-			"description": "Something went wrong while fetching this user. Please try again.",
-			"retry": "Retry"
-		}
-	},
-	"ValidationMessages": {
-		"LoginForm": {
-			"emailRequired": "Enter your email.",
-			"invalidEmail": "Invalid email.",
-			"passwordRequired": "Enter your password.",
-			"passwordMinLength": "At least 8 characters."
-		},
-		"PasswordResetRequestForm": {
-			"emailRequired": "Enter your email.",
-			"invalidEmail": "Invalid email."
-		},
-		"PasswordResetVerifyForm": {
-			"codeRequired": "Enter the code.",
-			"codeFormat": "Use the 8-digit code from your email.",
-			"newPasswordRequired": "Enter a new password.",
-			"newPasswordMinLength": "At least 8 characters.",
-			"passwordTooCommon": "That password is too common. Please choose a stronger one.",
-			"confirmPasswordRequired": "Confirm your new password.",
-			"passwordsMustMatch": "Passwords must match.",
-			"invalidEmail": "Invalid email."
-		},
-		"SignUpForm": {
-			"nameRequired": "Enter your full name.",
-			"emailRequired": "Enter your email.",
-			"invalidEmail": "Invalid email.",
-			"passwordRequired": "Enter your password.",
-			"passwordMinLength": "At least 8 characters.",
-			"passwordTooCommon": "That password is too common. Please choose a stronger one.",
-			"confirmPasswordRequired": "Confirm your password.",
-			"passwordsMustMatch": "Passwords must match."
-		},
-		"EmailVerificationForm": {
-			"codeRequired": "Enter the code.",
-			"codeFormat": "Use the 8-digit code from your email.",
-			"invalidEmail": "Invalid email."
-		},
-		"CreateAccommodationSchema": {
-			"nameRequired": "Name is required.",
-			"typeRequired": "Pick a type.",
-			"addressRequired": "Address is required.",
-			"cityRequired": "City is required.",
-			"countryRequired": "Country is required.",
-			"coordinatesRequired": "Unesite kompletnu adresu da bi se geografska širina i dužina automatski popunile.",
-			"coverRequired": "Add a cover image."
-		},
-		"CreateHospitalitySchema": {
-			"nameRequired": "Name is required.",
-			"typeRequired": "Pick a type.",
-			"addressRequired": "Address is required.",
-			"cityRequired": "City is required.",
-			"countryRequired": "Country is required.",
-			"coordinatesRequired": "Izaberite adresu iz predloga da bismo postavili oznaku na mapi.",
-			"descriptionRequired": "Description is required.",
-			"phoneRequired": "Phone number is required.",
-			"coverRequired": "Add a cover image."
-		},
-		"CreateCustomPartnershipSchema": {
-			"accommodationRequired": "Pick an accommodation.",
-			"hospitalityRequired": "Pick at least one hospitality venue.",
-			"connectCodeInvalid": "Unesite ispravan kod za povezivanje od 5 karaktera.",
-			"discountRange": "Discount must be between 1 and 100, or leave blank."
-		},
-		"JoinGuestStaySchema": {
-			"sharingCodeInvalid": "Kod za deljenje nije ispravan."
-		},
-		"CreateReservationSchema": {
-			"guestNameRequired": "Ime gosta je obavezno.",
-			"guestCountInvalid": "Unesite ispravan broj gostiju.",
-			"guestCountMin": "Potreban je najmanje 1 gost.",
-			"guestCountMax": "Rezervacije su ograničene na 50 gostiju.",
-			"timeInvalid": "Unesite ispravno vreme (HH:MM).",
-			"phoneRequired": "Broj telefona je obavezan.",
-			"emailInvalid": "Unesite ispravnu email adresu."
-		}
-	},
-	"ReservationsPage": {
-		"ReservationCancelButton": {
-			"label": "Odbij",
-			"title": "Odbij zahtev",
-			"description": "Odbiti zahtev za rezervaciju gosta {guestName}? Ovo će ga premestiti u otkazane rezervacije."
-		},
-		"ReservationNoShowButton": {
-			"label": "Označi no-show",
-			"title": "Označi kao no-show",
-			"description": "Označiti potvrđenu rezervaciju gosta {guestName} kao no-show? Ovo će je premestiti u no-show tab."
-		}
-	},
-	"CreateCustomPartnershipPage": {
 		"SEO": {
-			"title": "Poveži partnerstvo",
-			"description": "Povežite jedan od svojih smeštaja sa ugostiteljskim objektom."
+			"title": "Izmeni ugostiteljstvo",
+			"description": "Ažurirajte kako se vaše ugostiteljstvo prikazuje gostima na stranicama partnerskih pogodnosti."
 		},
-		"CreateCustomPartnershipHeader": {
-			"title": "Napravi posebno partnerstvo",
-			"description": "Izaberite svoj smeštaj, pa unesite kod za povezivanje objekta sa kojim želite da ga povežete.",
-			"back": "Nazad na partnerstva"
+		"EditHospitalityEmpty": {
+			"title": "Ugostiteljstvo nije pronađeno",
+			"description": "Ovo ugostiteljstvo je možda uklonjeno ili nije dodeljeno vašem nalogu."
 		},
-		"CreateCustomPartnershipForm": {
-			"sectionTitle": "Partneri",
-			"sectionDescription": "Izaberite smeštaj, pa unesite kod za povezivanje objekta. Vaši objekti se povezuju odmah; objektima drugih vlasnika prvo stiže zahtev.",
-			"fieldAccommodation": "Smeštaj",
-			"fieldConnectCode": "Kod za povezivanje",
-			"pickAccommodationFirst": "Prvo izaberite smeštaj.",
-			"connectCodePlaceholder": "npr. K7B2Q",
-			"connectCodeHint": "Zatražite kod za povezivanje od vlasnika objekta."
+		"EditHospitalityHeader": {
+			"title": "Izmeni ugostiteljstvo",
+			"description": "Ažurirajte kako se vaše ugostiteljstvo prikazuje gostima na stranicama partnerskih pogodnosti.",
+			"back": "Nazad na moja ugostiteljstva"
 		},
-		"CreateCustomPartnershipFormActions": {
-			"submit": "Poveži",
-			"trialHint": "Vaš besplatni probni period od mesec dana počinje kada vaše prvo posebno partnerstvo postane aktivno.",
-			"hint": "Ako objekat pripada drugom vlasniku, mora da prihvati pre nego što postane aktivan."
-		},
-		"SelectMyAccommodationDialog": {
-			"selectAccommodation": "Izaberi smeštaj",
-			"modifyAccommodation": "Promeni smeštaj",
-			"dialogTitle": "Izaberite smeštaj",
-			"noAccommodations": "Još nemate nijedan smeštaj. Prvo dodajte smeštaj."
-		},
-		"CustomPartnershipTrialNotice": {
-			"title": "Vaš besplatni probni period je istekao",
-			"description": "Posebna partnerstva su pauzirana za ovaj nalog. Pro plan još nije dostupan — proverite uskoro."
-		}
-	},
-	"StartProTrialDialog": {
-		"title": "Pokrenuti besplatni Pro probni period?",
-		"description": "Aktiviranjem probnog perioda otključavate kreiranje objekata i sve ostale Pro funkcije. Važi od {startDate} do {endDate}.",
-		"question": "Da li ste sigurni da želite da pokrenete probni period?",
-		"confirm": "Da, pokreni probni period",
-		"cancel": "Otkaži"
-	},
-	"AddHospitalityPage": {
-		"SEO": {
-			"title": "Dodaj objekat",
-			"description": "Dodajte objekat koji sami vodite. Povežite ga kasnije sa smeštajima pomoću koda za povezivanje."
-		},
-		"navLabel": "Dodaj objekat",
-		"AddHospitalityHeader": {
-			"title": "Dodaj objekat",
-			"description": "Dodajte objekat koji sami vodite. Ostaje privatan dok ga administrator ne objavi; koristite njegov kod za povezivanje da napravite partnerstva.",
-			"back": "Nazad na moje objekte"
-		},
-		"VisibilityNotice": {
-			"title": "Nije prikazan nikome samostalno",
-			"description": "Ovaj objekat se nikada ne prikazuje samostalno nigde na platformi. Gosti ga vide isključivo preko smeštaja sa kojima ostvarite partnerstvo."
-		},
-		"AddHospitalityAccessNotice": {
-			"title": "Isprobajte kreiranje objekata besplatno mesec dana",
-			"description": "Vaš nalog još nema pristup kreiranju objekata. Pokrenite besplatni probni period od mesec dana i odmah otključajte ovu i sve ostale Pro funkcije. Kada probni period istekne, biće vam potreban plaćeni plan za nastavak.",
-			"startTrial": "Pokreni besplatni probni period",
-			"noCreditCard": "Bez kreditne kartice.",
-			"expiredTitle": "Vaš besplatni probni period je istekao",
-			"expiredDescription": "Kreiranje novih objekata je pauzirano za ovaj nalog. Pro plan još nije dostupan — proverite ponovo uskoro. Vaši postojeći objekti i partnerstva ostaju netaknuti."
-		},
-		"AddHospitalityForm": {
+		"EditHospitalityForm": {
 			"sectionBasicsTitle": "Osnovno",
-			"sectionBasicsDescription": "Ono što gosti vide na listi benefita.",
+			"sectionBasicsDescription": "Ono što gosti vide na listi pogodnosti.",
+			"sectionLocationTitle": "Lokacija",
+			"sectionLocationDescription": "Prikazuje se na vašoj javnoj stranici ugostiteljstva.",
+			"sectionContactTitle": "Kontakt",
+			"sectionContactDescription": "Broj telefona koji gosti mogu koristiti za kontakt sa ovim ugostiteljstvom.",
+			"sectionCoverTitle": "Naslovna slika",
+			"sectionCoverDescription": "Ostavite prazno da zadržite trenutnu sliku. Preporučeni su PNG ili JPG.",
+			"currentCoverAlt": "Trenutna naslovna slika za {name}",
+			"sectionMenuTitle": "Meni",
+			"sectionMenuDescription": "Opciono. Ostavite datoteku praznom da zadržite trenutni meni.",
+			"fieldMenuFile": "Datoteka menija",
+			"fieldMenuFileHint": "Otpremite sliku ili PDF menija.",
+			"fieldMenuLink": "Link menija",
+			"fieldMenuLinkPlaceholder": "https://your-menu-online.com",
+			"currentMenu": "Trenutni meni:",
+			"currentMenuView": "Pogledaj",
+			"sectionDetailsTitle": "Detalji",
+			"sectionDetailsDescription": "Opis, rezervacije i vidljivost.",
 			"fieldName": "Naziv",
 			"fieldNamePlaceholder": "La Tapería",
 			"fieldType": "Tip",
 			"fieldTypePlaceholder": "Izaberite tip",
-			"sectionLocationTitle": "Lokacija",
-			"sectionLocationDescription": "Prikazuje se na javnoj stranici objekta.",
 			"fieldAddress": "Adresa",
 			"fieldAddressPlaceholder": "Plaza del Sol 3",
-			"fieldAddressNumber": "Broj adrese",
+			"fieldAddressNumber": "Broj",
 			"fieldAddressNumberPlaceholder": "3",
 			"fieldCity": "Grad",
 			"fieldCityPlaceholder": "Madrid",
@@ -1124,86 +1297,620 @@
 			"fieldCountryPlaceholder": "Španija",
 			"fieldLatitude": "Geografska širina",
 			"fieldLongitude": "Geografska dužina",
-			"fieldCoordinatesPlaceholder": "Automatski se popunjava kada unesete adresu",
-			"sectionContactTitle": "Kontakt",
-			"sectionContactDescription": "Broj telefona putem kog gosti mogu kontaktirati objekat.",
+			"fieldCoordinatesPlaceholder": "Automatski će se popuniti nakon što unesete adresu",
 			"fieldContactPhone": "Telefon",
-			"fieldContactPhonePlaceholder": "+381 60 000 0000",
-			"sectionCoverTitle": "Naslovna slika",
-			"sectionCoverDescription": "Prikazuje se na javnoj stranici benefita. Preporučeni PNG ili JPG; širok format.",
-			"fieldCoverImage": "Naslovna slika",
-			"sectionDetailsTitle": "Detalji",
-			"sectionDetailsDescription": "Kratak opis na stranici benefita.",
+			"fieldContactPhonePlaceholder": "+34 600 000 000",
+			"fieldReservationMode": "Režim rezervacija",
 			"fieldDescription": "Opis",
-			"fieldDescriptionPlaceholder": "Kratak opis na stranici benefita (opciono).",
-			"submit": "Napravi objekat"
+			"fieldDescriptionPlaceholder": "Kratak opis prikazan na stranici pogodnosti.",
+			"fieldIsActive": "Aktivno",
+			"fieldIsActiveDescription": "Neaktivna ugostiteljstva ostaju u bazi, ali se ne prikazuju na listama pogodnosti.",
+			"fieldCoverImage": "Zameni naslovnu sliku",
+			"submit": "Sačuvaj izmene"
+		},
+		"errorTitle": "Nije moguće učitati ugostiteljstvo",
+		"errorDescription": "Pokušajte ponovo za trenutak."
+	},
+	"SearchInput": {
+		"placeholder": "Pretraži…",
+		"ariaLabel": "Pretraga",
+		"resultsLabel": "Rezultati pretrage",
+		"loading": "Pretraga u toku…",
+		"searchFailed": "Pretraga nije uspela. Pokušajte ponovo.",
+		"tooManyRequests": "Previše zahteva za pretragu. Pokušajte ponovo uskoro.",
+		"unknownSource": "Nepoznat izvor pretrage.",
+		"rateLimitKeyUnavailable": "Ključ za ograničenje pretrage nije mogao biti određen.",
+		"rateLimitNotConfigured": "Ograničenje pretrage nije konfigurisano.",
+		"clientAddressRequired": "Adresa klijenta je obavezna za javnu pretragu.",
+		"SearchEmpty": {
+			"title": "Nema pronađenih rezultata",
+			"description": "Pokušajte sa drugim pojmom za pretragu."
+		}
+	},
+	"AdminUsersPage": {
+		"SEO": {
+			"title": "Korisnici",
+			"description": "Pretražujte, filtrirajte i upravljajte korisničkim nalozima."
+		},
+		"title": "Korisnici",
+		"description": "Pretražujte, filtrirajte i upravljajte korisničkim nalozima.",
+		"caption": "Korisnici",
+		"searchPlaceholder": "Pretraži po {field}…",
+		"columnUser": "Korisnik",
+		"columnEmail": "Imejl",
+		"columnRole": "Uloga",
+		"columnVerified": "Verifikovan",
+		"columnStatus": "Status",
+		"columnCreated": "Kreirano",
+		"verifiedYes": "Da",
+		"verifiedNo": "Ne",
+		"statusBanned": "Blokiran",
+		"statusActive": "Aktivan",
+		"addUser": "Dodaj korisnika",
+		"UsersFilters": {
+			"searchLabel": "Pretraga: {field}",
+			"searchEmail": "Imejl",
+			"searchName": "Ime",
+			"roleLabel": "Uloga: {role}",
+			"anyRole": "Bilo koja uloga",
+			"roleUser": "Korisnik",
+			"roleAdmin": "Admin",
+			"anyStatus": "Bilo koji status",
+			"statusBanned": "Blokiran",
+			"statusActive": "Aktivan",
+			"anyVerification": "Bilo koja verifikacija",
+			"verified": "Verifikovan",
+			"unverified": "Neverifikovan",
+			"clear": "Obriši"
+		}
+	},
+	"AdminUserAddPage": {
+		"SEO": {
+			"title": "Dodaj korisnika",
+			"description": "Kreirajte nalog koji kasnije može da bude vlasnik smeštaja ili ugostiteljstva."
+		},
+		"title": "Dodaj korisnika",
+		"description": "Kreirajte nalog koji kasnije može da bude vlasnik smeštaja ili ugostiteljstva.",
+		"back": "Nazad na korisnike",
+		"submit": "Kreiraj korisnika",
+		"sectionAccountTitle": "Nalog",
+		"sectionAccountDescription": "Unesite pravo ime osobe i imejl pomoću kog će se prijavljivati.",
+		"fieldName": "Puno ime",
+		"fieldNamePlaceholder": "Mila Petrović",
+		"fieldEmail": "Imejl",
+		"fieldEmailPlaceholder": "mila@primer.com",
+		"sectionCredentialsTitle": "Pristupni podaci",
+		"sectionCredentialsDescription": "Postavite privremenu lozinku. Korisnik je može promeniti nakon prijave.",
+		"fieldPassword": "Privremena lozinka",
+		"fieldPasswordDescription": "Koristite najmanje 8 karaktera i podelite je putem privatnog kanala.",
+		"fieldConfirmPassword": "Potvrdite lozinku",
+		"sectionAccessTitle": "Pristup",
+		"sectionAccessDescription": "Zadržite podrazumevanu ulogu korisnika osim ako ovaj nalog ne treba da upravlja admin delom.",
+		"fieldRole": "Uloga",
+		"fieldRolePlaceholder": "Izaberite ulogu",
+		"roleUser": "Korisnik",
+		"roleAdmin": "Admin",
+		"fieldEmailVerified": "Imejl verifikovan",
+		"fieldEmailVerifiedDescription": "Omogućite samo ako ste već potvrdili ovu adresu. U suprotnom korisnik mora da verifikuje imejl pre prijave."
+	},
+	"AdminUserPage": {
+		"SEO": {
+			"title": "Korisnik",
+			"description": "Pregledajte i upravljajte korisničkim nalogom."
+		},
+		"UserTabs": {
+			"overview": "Pregled",
+			"sessions": "Sesije",
+			"accounts": "Nalozi",
+			"activity": "Aktivnost",
+			"danger": "Opasna zona"
+		},
+		"UserOverview": {
+			"verified": "Verifikovan",
+			"unverified": "Neverifikovan",
+			"role": "Uloga",
+			"status": "Status",
+			"banReason": "Razlog blokade",
+			"created": "Kreirano",
+			"updated": "Ažurirano",
+			"userId": "ID korisnika",
+			"copyUserId": "Kopiraj ID korisnika",
+			"bannedUntil": "Blokiran do {date}",
+			"bannedPermanent": "Blokiran (trajno)",
+			"active": "Aktivan"
+		},
+		"UserSessions": {
+			"title": "Aktivne sesije",
+			"description": "Uređaji koji su trenutno prijavljeni. Opoziv odmah odjavljuje uređaj.",
+			"revokeAll": "Opozovi sve",
+			"failedLoad": "Nije moguće učitati sesije.",
+			"noSessions": "Nema aktivnih sesija.",
+			"unknownDevice": "Nepoznat uređaj",
+			"ip": "IP",
+			"created": "Kreirano",
+			"expires": "Ističe",
+			"revoke": "Opozovi"
+		},
+		"UserAccounts": {
+			"title": "Povezani nalozi",
+			"description": "Provajderi prijave povezani sa ovim korisnikom.",
+			"failedLoad": "Nije moguće učitati naloge.",
+			"noAccounts": "Nema povezanih naloga.",
+			"passwordSet": "Lozinka postavljena",
+			"noPassword": "Bez lozinke",
+			"id": "ID",
+			"created": "Kreirano",
+			"scope": "Opseg"
+		},
+		"UserActivity": {
+			"title": "Aktivnost",
+			"description": "Stavke revizionog dnevnika za ovog korisnika. Najnovije prvo.",
+			"caption": "Aktivnost",
+			"colAction": "Radnja",
+			"colStatus": "Status",
+			"colResource": "Resurs",
+			"colIp": "IP",
+			"colWhen": "Kada",
+			"statusFailed": "Neuspešno",
+			"statusSuccess": "Uspešno"
+		},
+		"UserDangerZone": {
+			"title": "Opasna zona",
+			"description": "Radnje na nivou naloga. Promene ovde se beleže u reviziji i mogu biti nepovratne.",
+			"role": "Uloga: {role}",
+			"removeAdmin": "Uklonite admin privilegije sa ovog naloga.",
+			"grantAdmin": "Dodelite admin privilegije ovom nalogu.",
+			"plan": "Plan: {plan}",
+			"upgradePlan": "Unapredite ovaj nalog na Pro plan (neograničena prilagođena partnerstva).",
+			"downgradePlan": "Vratite ovaj nalog na besplatni plan (prilagođena partnerstva samo tokom jednomesečne probe).",
+			"banned": "Blokiran",
+			"active": "Aktivan",
+			"liftBan": "Uklonite blokadu kako bi se korisnik ponovo mogao prijaviti.",
+			"signOutPrevent": "Odjavite korisnika i sprečite dalje prijave.",
+			"deleteRowTitle": "Obriši nalog",
+			"deleteRowDescription": "Trajno uklanja ovog korisnika, njegove sesije i povezane naloge provajdera. Ovo se ne može opozvati."
+		},
+		"BanUserDialog": {
+			"ban": "Blokiraj",
+			"title": "Blokiraj {email}",
+			"description": "Korisnik je odjavljen i ne može se ponovo prijaviti dok ne bude odblokiran. Opcioni razlog se prikazuje pri sledećem pokušaju prijave.",
+			"reason": "Razlog (opciono)",
+			"reasonPlaceholder": "Kršenje uslova…",
+			"expires": "Ističe",
+			"permanent": "Trajno",
+			"oneDay": "1 dan",
+			"sevenDays": "7 dana",
+			"thirtyDays": "30 dana"
+		},
+		"UnbanUserButton": {
+			"unban": "Odblokiraj"
+		},
+		"ChangeRoleButton": {
+			"demote": "Degradiraj u korisnika",
+			"promote": "Unapredi u admina",
+			"demoteTitle": "Degradirati {email} u korisnika?",
+			"promoteTitle": "Unaprediti {email} u admina?",
+			"demoteDescription": "Da li ste sigurni? Korisnik će odmah izgubiti admin privilegije.",
+			"promoteDescription": "Da li ste sigurni? Korisnik će dobiti pune admin privilegije, uključujući mogućnost blokiranja i brisanja drugih naloga."
+		},
+		"ChangePlanButton": {
+			"upgrade": "Unapredi na Pro",
+			"downgrade": "Vrati na besplatni",
+			"upgradeTitle": "Unaprediti {email} na Pro?",
+			"downgradeTitle": "Vratiti {email} na besplatni plan?",
+			"upgradeDescription": "Korisnik odmah dobija neograničena prilagođena partnerstva.",
+			"downgradeDescription": "Korisnik se vraća na besplatni plan — nova prilagođena partnerstva tada zahtevaju aktivnu jednomesečnu probu. Postojeća partnerstva se ne uklanjaju."
+		},
+		"DeleteUserDialog": {
+			"delete": "Obriši…",
+			"title": "Obrisati {email}?",
+			"description": "Ovo je trajno i obuhvata sesije i naloge. Unesite imejl ispod da biste potvrdili.",
+			"adminTitle": "Nije moguće obrisati {email}",
+			"adminDescription": "Admini moraju biti degradirani u \"korisnika\" pre nego što se mogu obrisati."
+		},
+		"UserPageEmpty": {
+			"title": "Korisnik nije pronađen",
+			"description": "Korisnik kog tražite ne postoji ili je možda obrisan.",
+			"backToUsers": "Nazad na korisnike"
+		},
+		"errorTitle": "Nije moguće učitati korisnika",
+		"errorDescription": "Došlo je do greške pri učitavanju ovog korisnika. Pokušajte ponovo.",
+		"errorRetryLabel": "Pokušaj ponovo"
+	},
+	"AdminAnalyticsPage": {
+		"SEO": {
+			"title": "Admin analitika",
+			"description": "Trendovi na celoj platformi za skeniranja gostiju, otkrivanje ugostiteljstva, potražnju za rezervacijama i konverziju."
+		},
+		"AdminAnalyticsHeader": {
+			"eyebrow": "Analitika platforme",
+			"title": "Analitika",
+			"description": "Trendovi na celoj platformi za skeniranja gostiju, otkrivanje ugostiteljstva, potražnju za rezervacijama i konverziju."
+		},
+		"AdminAnalyticsMetrics": {
+			"qrScans": "QR skeniranja",
+			"guestActivations": "Aktivacije gostiju",
+			"hospitalityViews": "Pregledi ugostiteljstva",
+			"newReservations": "Zahtevi za rezervaciju",
+			"cancelledReservations": "Stopa otkazivanja"
+		},
+		"AdminAnalyticsTrendChart": {
+			"title": "Aktivnost platforme",
+			"description": "Globalna aktivnost gostiju i potražnja za rezervacijama u poslednjih 30 dana.",
+			"qrScans": "QR skeniranja",
+			"guestActivations": "Aktivacije gostiju",
+			"hospitalityViews": "Pregledi ugostiteljstva",
+			"newReservations": "Zahtevi",
+			"confirmedReservations": "Potvrđeno"
+		},
+		"errorTitle": "Nije moguće učitati analitiku platforme",
+		"errorHeaderDescription": "Trenutni snimak analitike nije moguće učitati. Ostali admin alati su i dalje dostupni.",
+		"errorBody": "Došlo je do greške pri učitavanju analitike",
+		"errorBodyDescription": "Ovo je obično privremeno. Pokušajte ponovo da osvežite metrike, trendove i rang liste entiteta."
+	},
+	"ValidationMessages": {
+		"LoginForm": {
+			"emailRequired": "Unesite svoj imejl.",
+			"invalidEmail": "Neispravan imejl.",
+			"passwordRequired": "Unesite lozinku.",
+			"passwordMinLength": "Najmanje 8 karaktera."
+		},
+		"PasswordResetRequestForm": {
+			"emailRequired": "Unesite svoj imejl.",
+			"invalidEmail": "Neispravan imejl."
+		},
+		"PasswordResetVerifyForm": {
+			"codeRequired": "Unesite kod.",
+			"codeFormat": "Koristite osmocifreni kod iz imejla.",
+			"newPasswordRequired": "Unesite novu lozinku.",
+			"newPasswordMinLength": "Najmanje 8 karaktera.",
+			"passwordTooCommon": "Ta lozinka je previše uobičajena. Izaberite jaču.",
+			"passwordsMustMatch": "Lozinke se moraju poklapati.",
+			"invalidEmail": "Neispravan imejl."
+		},
+		"SignUpForm": {
+			"nameRequired": "Unesite puno ime.",
+			"emailRequired": "Unesite svoj imejl.",
+			"invalidEmail": "Neispravan imejl.",
+			"passwordRequired": "Unesite lozinku.",
+			"passwordMinLength": "Najmanje 8 karaktera.",
+			"passwordTooCommon": "Ta lozinka je previše uobičajena. Izaberite jaču.",
+			"confirmPasswordRequired": "Potvrdite lozinku.",
+			"passwordsMustMatch": "Lozinke se moraju poklapati."
+		},
+		"EmailVerificationForm": {
+			"codeRequired": "Unesite kod.",
+			"codeFormat": "Koristite osmocifreni kod iz imejla.",
+			"invalidEmail": "Neispravan imejl."
+		},
+		"CreateAccommodationSchema": {
+			"nameRequired": "Naziv je obavezan.",
+			"typeRequired": "Izaberite tip.",
+			"addressRequired": "Adresa je obavezna.",
+			"cityRequired": "Grad je obavezan.",
+			"countryRequired": "Država je obavezna.",
+			"coordinatesRequired": "Unesite kompletnu adresu kako bi se geografska širina i dužina automatski popunile.",
+			"coverRequired": "Dodajte naslovnu sliku."
+		},
+		"CreateHospitalitySchema": {
+			"nameRequired": "Naziv je obavezan.",
+			"typeRequired": "Izaberite tip.",
+			"addressRequired": "Adresa je obavezna.",
+			"cityRequired": "Grad je obavezan.",
+			"countryRequired": "Država je obavezna.",
+			"coordinatesRequired": "Izaberite adresu iz predloga kako bismo mogli postaviti pin na mapi.",
+			"descriptionRequired": "Opis je obavezan.",
+			"phoneRequired": "Broj telefona je obavezan.",
+			"coverRequired": "Dodajte naslovnu sliku."
+		},
+		"CreateCustomPartnershipSchema": {
+			"accommodationRequired": "Izaberite smeštaj.",
+			"hospitalityRequired": "Izaberite bar jedno ugostiteljstvo.",
+			"connectCodeInvalid": "Unesite ispravan petocifreni kod za povezivanje.",
+			"benefitRequired": "Benefit je obavezan.",
+			"benefitMaxLength": "Benefit može imati najviše 15 karaktera."
+		},
+		"JoinGuestStaySchema": {
+			"sharingCodeInvalid": "Taj kod za deljenje nije ispravan."
+		},
+		"CreateReservationSchema": {
+			"guestNameRequired": "Ime gosta je obavezno.",
+			"guestCountInvalid": "Unesite ispravan broj gostiju.",
+			"guestCountMin": "Potreban je bar 1 gost.",
+			"guestCountMax": "Rezervacije su ograničene na 50 gostiju.",
+			"timeInvalid": "Unesite ispravno vreme (HH:MM).",
+			"phoneRequired": "Broj telefona je obavezan.",
+			"emailInvalid": "Unesite ispravnu imejl adresu."
+		}
+	},
+	"CreateCustomPartnershipPage": {
+		"SEO": {
+			"title": "Povežite partnerstvo",
+			"description": "Povežite jedan od svojih smeštaja sa ugostiteljskim objektom."
+		},
+		"CreateCustomPartnershipHeader": {
+			"title": "Kreirajte prilagođeno partnerstvo",
+			"description": "Izaberite jedan od svojih smeštaja, zatim unesite kod za povezivanje objekta sa kojim želite da se povežete.",
+			"back": "Nazad na partnerstva"
+		},
+		"CreateCustomPartnershipForm": {
+			"sectionTitle": "Partneri",
+			"sectionDescription": "Izaberite smeštaj, zatim unesite kod za povezivanje objekta. Vaši objekti se povezuju odmah; objekti drugih vlasnika prvo primaju zahtev.",
+			"fieldAccommodation": "Smeštaj",
+			"fieldConnectCode": "Kod za povezivanje",
+			"pickAccommodationFirst": "Prvo izaberite smeštaj.",
+			"connectCodePlaceholder": "npr. K7B2Q",
+			"connectCodeHint": "Zatražite kod za povezivanje od vlasnika objekta.",
+			"ownVenueBadge": "Vaše",
+			"ownVenueBenefitHint": "Gosti ovog smeštaja vide ovu ponudu u vašem objektu.",
+			"partnerVenueBenefitHint": "Vlasnik objekta postaviće ponudu za goste kada prihvati vaš zahtev.",
+			"benefitLabel": "Benefit za goste",
+			"benefitPlaceholder": "15% popusta",
+			"benefitHint": "Ponuda koju će gosti videti. Primer: 15% popusta"
+		},
+		"CreateCustomPartnershipFormActions": {
+			"submitConnect": "Poveži",
+			"submitRequest": "Pošalji zahtev za partnerstvo",
+			"trialHint": "Vaša jednomesečna besplatna proba počinje kada vaše prvo prilagođeno partnerstvo postane aktivno.",
+			"hint": "Ako objekat pripada drugom vlasniku, mora prihvatiti zahtev pre nego što postane aktivno.",
+			"hintOwnVenue": "Ovo se povezuje odmah — gosti će videti benefit koji ste postavili iznad."
+		},
+		"CustomPartnershipTrialNotice": {
+			"title": "Vaša besplatna proba je završena",
+			"description": "Prilagođena partnerstva su pauzirana za ovaj nalog. Nadogradnja na Pro plan još nije dostupna — proverite uskoro."
+		}
+	},
+	"RevokePartnershipDialog": {
+		"revoke": "Opozovi",
+		"title": "Opozvati ovo partnerstvo?",
+		"description": "Ovo uklanja vezu između {accommodationName} i {hospitalityName}. Gosti više neće videti benefit u ovom objektu."
+	},
+	"DeleteAccommodationDialog": {
+		"delete": "Obriši",
+		"title": "Obrisati ovaj smeštaj?",
+		"description": "Ovo trajno uklanja {accommodationName} sa vašeg naloga. Gosti više neće moći da skeniraju njegov QR kod. Aktivne sesije gostiju ili partnerstva moraju biti uklonjene pre brisanja."
+	},
+	"DeleteHospitalityDialog": {
+		"delete": "Obriši",
+		"title": "Obrisati ovo ugostiteljstvo?",
+		"description": "Ovo trajno uklanja {hospitalityName} sa vašeg naloga. Gosti više neće moći da ga pregledaju niti da šalju zahteve za rezervaciju. Otvorene rezervacije ili partnerstva moraju biti uklonjene pre brisanja."
+	},
+	"SelectMyAccommodationDialog": {
+		"selectAccommodation": "Izaberi smeštaj",
+		"modifyAccommodation": "Promeni smeštaj",
+		"dialogTitle": "Izaberite smeštaj"
+	},
+	"StartProTrialDialog": {
+		"title": "Započeti besplatnu Pro probu?",
+		"description": "Omogućavanje probe otključava kreiranje ugostiteljstva i sve ostale Pro funkcije. Važiće od {startDate} do {endDate}.",
+		"question": "Da li ste sigurni da želite da započnete probu?",
+		"confirm": "Da, započni probu",
+		"cancel": "Otkaži"
+	},
+	"AddHospitalityPage": {
+		"SEO": {
+			"title": "Dodaj ugostiteljstvo",
+			"description": "Dodajte objekat koji sami vodite. Povežite ga sa smeštajima kasnije pomoću koda za povezivanje."
+		},
+		"navLabel": "Dodaj ugostiteljstvo",
+		"AddHospitalityHeader": {
+			"title": "Dodaj ugostiteljstvo",
+			"description": "Dodajte objekat koji sami vodite. Ostaje privatan dok ga admin ne objavi; koristite kod za povezivanje da kreirate partnerstva.",
+			"back": "Nazad na moja ugostiteljstva"
+		},
+		"AddHospitalityAccessNotice": {
+			"title": "Isprobajte kreiranje ugostiteljstva besplatno 1 mesec",
+			"description": "Vaš nalog još nema pristup kreiranju ugostiteljstva. Započnite besplatnu jednomesečnu probu da odmah otključate ovo i sve ostale Pro funkcije. Po isteku probe biće vam potreban plaćeni plan da nastavite.",
+			"startTrial": "Započni besplatnu probu",
+			"noCreditCard": "Kreditna kartica nije potrebna.",
+			"expiredTitle": "Vaša besplatna proba je završena",
+			"expiredDescription": "Kreiranje novih ugostiteljstava je pauzirano za ovaj nalog. Nadogradnja na Pro plan još nije dostupna — proverite uskoro. Vaša postojeća ugostiteljstva i partnerstva nisu pogođena."
+		},
+		"AddHospitalityForm": {
+			"sectionBasicsTitle": "Osnovno",
+			"sectionBasicsDescription": "Ono što gosti vide na listi pogodnosti.",
+			"fieldName": "Naziv",
+			"fieldNamePlaceholder": "La Tapería",
+			"fieldType": "Tip",
+			"fieldTypePlaceholder": "Izaberite tip",
+			"sectionLocationTitle": "Lokacija",
+			"sectionLocationDescription": "Prikazuje se na vašoj javnoj stranici ugostiteljstva.",
+			"fieldAddress": "Adresa",
+			"fieldAddressPlaceholder": "Plaza del Sol 3",
+			"fieldAddressNumber": "Broj",
+			"fieldAddressNumberPlaceholder": "3",
+			"fieldCity": "Grad",
+			"fieldCityPlaceholder": "Madrid",
+			"fieldCountry": "Država",
+			"fieldCountryPlaceholder": "Španija",
+			"fieldLatitude": "Geografska širina",
+			"fieldLongitude": "Geografska dužina",
+			"fieldCoordinatesPlaceholder": "Automatski će se popuniti nakon što unesete adresu",
+			"sectionContactTitle": "Kontakt",
+			"sectionContactDescription": "Broj telefona koji gosti mogu koristiti za kontakt sa ovim ugostiteljstvom.",
+			"fieldContactPhone": "Telefon",
+			"fieldContactPhonePlaceholder": "+34 600 000 000",
+			"sectionCoverTitle": "Naslovna slika",
+			"sectionCoverDescription": "Prikazuje se na javnoj stranici pogodnosti. Preporučeni su PNG ili JPG; poželjan je širok format.",
+			"fieldCoverImage": "Naslovna slika",
+			"sectionMenuTitle": "Meni",
+			"sectionMenuDescription": "Opciono. Otpremite datoteku menija i/ili unesite link ka online meniju.",
+			"fieldMenuFile": "Datoteka menija",
+			"fieldMenuFileHint": "Otpremite sliku ili PDF menija.",
+			"fieldMenuLink": "Link menija",
+			"fieldMenuLinkPlaceholder": "https://your-menu-online.com",
+			"sectionDetailsTitle": "Detalji",
+			"sectionDetailsDescription": "Kratak opis prikazan na stranici pogodnosti.",
+			"fieldDescription": "Opis",
+			"fieldDescriptionPlaceholder": "Kratak opis prikazan na stranici pogodnosti.",
+			"submit": "Kreiraj ugostiteljstvo"
+		},
+		"AddHospitalityVisibilityNotice": {
+			"title": "Ne prikazuje se nikome samostalno",
+			"description": "Ovo ugostiteljstvo se nigde na platformi ne prikazuje samo po sebi. Gosti ga vide isključivo kroz smeštaje sa kojima ste u partnerstvu."
 		}
 	},
 	"GenericMessages": {
 		"DIALOG_CLOSE": "Zatvori",
-		"PASSWORD_TOO_SHORT": "Password must be at least {min} characters.",
-		"PASSWORD_TOO_LONG": "Password is too long.",
-		"PASSWORD_TOO_COMMON": "That password is too common. Please choose a stronger one.",
-		"NO_ITEMS_PROVIDED": "No items provided.",
-		"NO_MATCHING_ITEMS": "No matching items found.",
-		"DATA_TABLE_DELETED_ALL": "Deleted {count} item(s).",
-		"DATA_TABLE_DELETED_WITH_MISSING": "Deleted {count} item(s); {missing} were already gone.",
-		"STORAGE_DELETE_FAILED": "Couldn't delete the file from storage. Nothing was removed.",
-		"STORAGE_URL_UNAVAILABLE": "Couldn't resolve the file URL.",
-		"UPLOAD_SAVE_FAILED": "Nije moguće sačuvati fajl. Pokušajte ponovo.",
-		"UPLOAD_URL_READY": "Upload URL generated.",
-		"EMAIL_SENT_SUCCESSFULLY": "Email sent successfully.",
-		"TEST_ROW_CREATED": "Test row created.",
+		"PASSWORD_TOO_SHORT": "Lozinka mora imati najmanje {min} karaktera.",
+		"NO_ITEMS_PROVIDED": "Nisu prosleđene stavke.",
+		"NO_MATCHING_ITEMS": "Nema pronađenih odgovarajućih stavki.",
+		"DATA_TABLE_DELETED_ALL": "Obrisano: {count} stavki.",
+		"DATA_TABLE_DELETED_WITH_MISSING": "Obrisano: {count} stavki; {missing} više nije postojalo.",
+		"STORAGE_DELETE_FAILED": "Datoteka nije mogla biti obrisana iz skladišta. Ništa nije uklonjeno.",
+		"STORAGE_URL_UNAVAILABLE": "URL datoteke nije mogao biti određen.",
+		"UPLOAD_SAVE_FAILED": "Otpremanje datoteke nije sačuvano. Pokušajte ponovo.",
+		"UPLOAD_URL_READY": "URL za otpremanje je generisan.",
+		"EMAIL_SENT_SUCCESSFULLY": "Imejl je uspešno poslat.",
 		"YOU_NEED_TO_CORRECT_FORM_ERRORS": "Ispravite greške u formi",
-		"BATCH_TOO_LARGE": "Too many items in a single request (max {limit}).",
+		"BATCH_TOO_LARGE": "Previše stavki u jednom zahtevu (maks. {limit}).",
 		"FORBIDDEN": "Nemate dozvolu za ovu radnju.",
 		"NOT_AUTHENTICATED": "Prijavite se da biste nastavili.",
-		"ADMIN_ACCESS_REQUIRED": "Ova radnja zahteva administratorske privilegije.",
-		"ADMIN_CANNOT_BE_DELETED": "Admins can't be deleted. Demote to \"user\" first.",
+		"ADMIN_ACCESS_REQUIRED": "Ova radnja zahteva admin privilegije.",
+		"ADMIN_CANNOT_BE_DELETED": "Admini se ne mogu obrisati. Prvo degradirajte u \"korisnika\".",
 		"USER_NOT_FOUND": "Korisnik nije pronađen.",
 		"ACCOMMODATION_CREATED": "Smeštaj je kreiran.",
-		"ACCOMMODATION_UPDATED": "Smeštaj je sačuvan.",
-		"ACCOMMODATION_SCAN_TOKEN_FAILED": "Could not generate a scan token. Please try again.",
-		"HOSPITALITY_CREATED": "Objekat je kreiran.",
-		"HOSPITALITY_UPDATED": "Objekat je sačuvan.",
-		"ACCOMMODATION_NOT_FOUND": "Accommodation not found.",
-		"ACCOMMODATION_CANNOT_DELETE_ACTIVE_GUEST": "Ovaj smeštaj se ne može obrisati. U njemu je aktivan gost koji koristi aplikaciju — sačekajte da mu boravak istekne pa pokušajte ponovo.",
-		"GUEST_CREATED": "Boravak gosta je otključan.",
-		"GUEST_ALREADY_ACTIVE": "Ovaj boravak je već otključan.",
-		"GUEST_SHARING_CODE_INVALID": "Kod za deljenje nije ispravan ili je istekao.",
-		"GUEST_SHARED_ACCESS_GRANTED": "Pristup boravku je podeljen.",
-		"HOSPITALITY_NOT_FOUND": "Ugostiteljski objekat nije pronađen.",
+		"ACCOMMODATION_UPDATED": "Smeštaj je uspešno ažuriran!",
+		"ACCOMMODATION_SCAN_TOKEN_FAILED": "Token za skeniranje nije mogao biti generisan. Pokušajte ponovo.",
+		"HOSPITALITY_CREATED": "Ugostiteljstvo je kreirano.",
+		"HOSPITALITY_UPDATED": "Ugostiteljstvo je uspešno ažurirano!",
+		"ACCOMMODATION_NOT_FOUND": "Smeštaj nije pronađen.",
+		"ACCOMMODATION_CANNOT_DELETE_ACTIVE_GUEST": "Ovaj smeštaj se ne može obrisati. U njemu je aktivan gost koji koristi aplikaciju — sačekajte da sesija istekne i pokušajte ponovo.",
+		"ACCOMMODATION_CANNOT_DELETE_ACTIVE_PARTNERSHIP": "Ovaj smeštaj se ne može obrisati dok je povezan partnerstvom sa ugostiteljstvom. Prvo opozovite partnerstvo, zatim pokušajte ponovo.",
+		"GUEST_CREATED": "Smeštaj za goste je otključan.",
+		"GUEST_ALREADY_ACTIVE": "Ovaj smeštaj je već otključan.",
+		"GUEST_SHARING_CODE_INVALID": "Taj kod za deljenje nije ispravan ili je istekao.",
+		"GUEST_SHARED_ACCESS_GRANTED": "Pristup smeštaju je podeljen.",
+		"HOSPITALITY_NOT_FOUND": "Ugostiteljstvo nije pronađeno.",
+		"HOSPITALITY_CANNOT_DELETE_ACTIVE_PARTNERSHIP": "Ovo ugostiteljstvo se ne može obrisati dok je povezano partnerstvom sa smeštajem. Prvo opozovite partnerstvo, zatim pokušajte ponovo.",
+		"HOSPITALITY_CANNOT_DELETE_OPEN_RESERVATIONS": "Ovo ugostiteljstvo se ne može obrisati dok ima rezervacija na čekanju ili potvrđenih. Prvo ih rešite, zatim pokušajte ponovo.",
 		"RESERVATION_CREATED": "Zahtev za rezervaciju je poslat.",
 		"RESERVATION_CONFIRMED": "Rezervacija je potvrđena.",
 		"RESERVATION_CANCELLED": "Rezervacija je otkazana.",
-		"RESERVATION_MARKED_NO_SHOW": "Rezervacija je označena kao no-show.",
+		"RESERVATION_MARKED_NO_SHOW": "Rezervacija je označena kao neiskorišćena.",
 		"RESERVATION_NOT_FOUND": "Rezervacija nije pronađena.",
 		"RESERVATION_ALREADY_PROCESSED": "Ova rezervacija je već obrađena.",
 		"PARTNERSHIP_CREATED": "Partnerstvo je kreirano.",
-		"PARTNERSHIPS_CREATED": "Created {count} partnerships.",
-		"PARTNERSHIP_PAIR_EXISTS": "Ovaj smeštaj je već povezan sa tim objektom.",
-		"PARTNERSHIP_REQUEST_SENT": "Zahtev za partnerstvo je poslat. Vlasnik objekta treba da ga prihvati.",
+		"PARTNERSHIPS_CREATED": "Kreirana partnerstva: {count}.",
+		"PARTNERSHIP_PAIR_EXISTS": "Ovaj smeštaj je već povezan sa tim ugostiteljstvom.",
+		"PARTNERSHIP_BENEFIT_INVALID": "Benefit mora imati od 1 do 15 karaktera.",
+		"PARTNERSHIP_BENEFIT_UPDATED": "Benefit partnerstva je ažuriran.",
+		"PARTNERSHIP_REVOKED": "Partnerstvo je opozvano.",
+		"PARTNERSHIP_REQUEST_SENT": "Zahtev za partnerstvo je poslat. Vlasnik ugostiteljstva mora da ga prihvati.",
 		"PARTNERSHIP_REQUEST_ACCEPTED": "Zahtev za partnerstvo je prihvaćen.",
 		"PARTNERSHIP_REQUEST_DECLINED": "Zahtev za partnerstvo je odbijen.",
 		"PARTNERSHIP_REQUEST_NOT_FOUND": "Zahtev za partnerstvo nije pronađen.",
 		"PARTNERSHIP_REQUEST_ALREADY_PROCESSED": "Ovaj zahtev za partnerstvo je već obrađen.",
 		"PARTNERSHIP_REQUEST_ALREADY_PENDING": "Zahtev za ovaj par već čeka odluku.",
-		"CUSTOM_PARTNERSHIP_TRIAL_EXPIRED": "Besplatni probni period za posebna partnerstva vlasnika ovog smeštaja je istekao. Pro plan još nije dostupan.",
-		"PRO_TRIAL_STARTED": "Besplatni probni period je pokrenut — imate pun pristup narednih mesec dana.",
-		"PRO_TRIAL_REQUIRED": "Još nemate pristup ovoj funkciji. Prvo pokrenite besplatni probni period.",
-		"PRO_TRIAL_EXPIRED": "Vaš besplatni probni period je istekao. Pro plan još nije dostupan.",
-		"HOSPITALITY_VISIBILITY_UPDATED": "Vidljivost objekta je ažurirana.",
+		"CUSTOM_PARTNERSHIP_TRIAL_EXPIRED": "Besplatna proba prilagođenog partnerstva za vlasnika ovog smeštaja je završena. Nadogradnja na Pro plan još nije dostupna.",
+		"PRO_TRIAL_STARTED": "Besplatna proba je započeta — imate pun pristup narednih mesec dana.",
+		"PRO_TRIAL_REQUIRED": "Još nemate pristup ovoj funkciji. Prvo započnite besplatnu probu.",
+		"PRO_TRIAL_EXPIRED": "Vaša besplatna proba je završena. Nadogradnja na Pro plan još nije dostupna.",
+		"HOSPITALITY_VISIBILITY_UPDATED": "Vidljivost ugostiteljstva je ažurirana.",
 		"USER_PLAN_UPDATED": "Plan korisnika je ažuriran.",
-		"PARTNERSHIP_DISCOUNT_INVALID": "Discount must be between 1 and 100.",
 		"USER_DELETED": "Korisnik je obrisan.",
 		"USER_CREATED": "Korisnik je kreiran.",
-		"USER_BANNED": "User banned.",
-		"USER_UNBANNED": "User unbanned.",
-		"USER_ROLE_UPDATED": "User role updated.",
-		"SESSION_REVOKED": "Session revoked.",
-		"ALL_SESSIONS_REVOKED": "All sessions revoked.",
+		"USER_BANNED": "Korisnik je blokiran.",
+		"USER_UNBANNED": "Blokada korisnika je uklonjena.",
+		"USER_ROLE_UPDATED": "Uloga korisnika je ažurirana.",
+		"SESSION_REVOKED": "Sesija je opozvana.",
+		"ALL_SESSIONS_REVOKED": "Sve sesije su opozvane.",
 		"TOO_MANY_REQUESTS": "Previše zahteva. Pokušajte ponovo kasnije.",
-		"TOO_MANY_REQUESTS_SECONDS": "Too many requests. Try again in {seconds}s.",
-		"TOO_MANY_REQUESTS_MINUTES": "Too many requests. Try again in {minutes} min."
+		"TOO_MANY_REQUESTS_SECONDS": "Previše zahteva. Pokušajte ponovo za {seconds}s.",
+		"TOO_MANY_REQUESTS_MINUTES": "Previše zahteva. Pokušajte ponovo za {minutes} min."
+	},
+	"RequestReservationDialog": {
+		"trigger": "Zatraži rezervaciju",
+		"title": "Zatraži rezervaciju",
+		"descriptionWithName": "Popunite svoje podatke i {hospitalityName} će vas kontaktirati radi potvrde.",
+		"description": "Popunite svoje podatke i ugostiteljstvo će vas kontaktirati radi potvrde.",
+		"fieldGuestName": "Ime gosta",
+		"fieldGuestNamePlaceholder": "Vaše puno ime",
+		"fieldGuestCount": "Broj gostiju",
+		"fieldGuestCountPlaceholder": "2",
+		"fieldGuestCountDescription": "Uključite sve osobe u vašoj grupi.",
+		"fieldRequestedTime": "Željeno vreme",
+		"fieldPhone": "Broj telefona",
+		"fieldPhonePlaceholder": "+381 6X XXX XXXX",
+		"fieldPhoneDescription": "Ako vaš broj nije srpski, unesite pun broj sa pozivnim brojem zemlje (+...) i proverite da je to WhatsApp broj — vlasnik ugostiteljstva će vas kontaktirati direktno tamo.",
+		"fieldEmail": "Imejl (opciono)",
+		"fieldEmailPlaceholder": "vi@primer.com",
+		"submitLabel": "Pošalji zahtev",
+		"warningTitle": "Važno — pažljivo pročitajte",
+		"warningBody": "Vlasnik ugostiteljstva ĆE vas kontaktirati radi potvrde rezervacije. Ako na vreme ne odgovorite, rezervacija ĆE BITI OTKAZANA."
+	},
+	"GuestReservationCard": {
+		"statusConfirmed": "Rezervacija potvrđena",
+		"statusPending": "Rezervacija na čekanju",
+		"confirmedTitle": "Potvrđeni ste",
+		"confirmedDescriptionWithName": "{hospitalityName} je prihvatio vašu rezervaciju. Sačuvajte ove podatke za posetu.",
+		"confirmedDescription": "Ugostiteljstvo je prihvatilo vašu rezervaciju. Sačuvajte ove podatke za posetu.",
+		"pendingTitle": "Zahtev poslat",
+		"pendingDescriptionWithName": "{hospitalityName} ima vaše podatke i može vas kontaktirati radi potvrde.",
+		"pendingDescription": "Ugostiteljstvo ima vaše podatke i može vas kontaktirati radi potvrde.",
+		"dlPreferredTime": "Željeno vreme",
+		"dlGuestName": "Ime gosta",
+		"dlGuestCount": "Broj gostiju",
+		"dlPhone": "Telefon",
+		"dlEmail": "Imejl"
+	},
+	"GoogleLoginButton": {
+		"continueWithGoogle": "Nastavite pomoću Google-a"
+	},
+	"ManagedReservationsAlert": {
+		"title": "Rezervacije uz odobrenje",
+		"description": "Gosti šalju zahtev za termin rezervacije putem aplikacije. Možete pregledati i prihvatiti ili odbiti svaki zahtev, a sve rezervacije ostaju zabeležene na vašoj kontrolnoj tabli."
+	},
+	"SelectMyAccommodationDialogError": {
+		"title": "Nije moguće učitati smeštaje",
+		"description": "Pokušajte ponovo za trenutak."
+	},
+	"SelectMyAccommodationDialogEmpty": {
+		"title": "Još nema smeštaja",
+		"description": "Dodajte smeštaj na nalog pre kreiranja partnerstva.",
+		"cta": "Dodaj smeštaj"
+	},
+	"AnalyticsTopAccommodationsTable": {
+		"topTitle": "Najbolji smeštaji",
+		"topDescription": "Smeštaji sa najjačom aktivnošću gostiju i rezervacija.",
+		"performanceTitle": "Performanse smeštaja",
+		"performanceDescription": "Koristite ovo da pronađete uspešne smeštaje i slabije QR pozicije.",
+		"detailPerformanceTitle": "Performanse smeštaja",
+		"detailPerformanceDescription": "Smeštaji koji upućuju goste na ovo ugostiteljstvo.",
+		"adminTitle": "Najbolji smeštaji",
+		"adminDescription": "Smeštaji koji generišu najjaču aktivnost gostiju i potražnju za rezervacije.",
+		"entity": "Smeštaj",
+		"type": "Tip",
+		"city": "Grad",
+		"views": "Pregledi",
+		"scans": "Skeniranja",
+		"guestActivations": "Aktivacije gostiju",
+		"reservations": "Rezervacije",
+		"confirmed": "Potvrđeno",
+		"conversion": "Konverzija",
+		"open": "Otvori",
+		"details": "Detalji",
+		"detailsAriaLabel": "Otvori analitiku za {name}"
+	},
+	"AnalyticsTopHospitalitiesTable": {
+		"topTitle": "Najbolja ugostiteljstva",
+		"topDescription": "Ugostiteljstva koja gosti otkrivaju i pretvaraju u rezervacije.",
+		"performanceTitle": "Performanse ugostiteljstva",
+		"performanceDescription": "Koristite ovo da pronađete uspešna ugostiteljstva i slabije puteve otkrivanja za goste.",
+		"detailPerformanceTitle": "Performanse partnera",
+		"detailPerformanceDescription": "Ugostiteljstva koja su gosti otvorili sa ovog smeštaja.",
+		"adminTitle": "Najbolja ugostiteljstva",
+		"adminDescription": "Ugostiteljstva koja pretvaraju otkrivanje u zahteve za rezervaciju.",
+		"entity": "Ugostiteljstvo",
+		"type": "Tip",
+		"city": "Grad",
+		"views": "Pregledi",
+		"guestViews": "Pregledi gostiju",
+		"reservations": "Rezervacije",
+		"confirmed": "Potvrđeno",
+		"conversion": "Konverzija",
+		"open": "Otvori",
+		"details": "Detalji",
+		"detailsAriaLabel": "Otvori analitiku za {name}"
 	}
 }

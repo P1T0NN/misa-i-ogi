@@ -11,11 +11,11 @@
 
 	<div class="flex flex-col gap-1">
 		<p class="text-sm font-medium">
-			{m['AddHospitalityPage.VisibilityNotice.title']()}
+			{m['AddHospitalityPage.AddHospitalityVisibilityNotice.title']()}
 		</p>
 
 		<p class="text-sm text-muted-foreground">
-			{m['AddHospitalityPage.VisibilityNotice.description']()}
+			{m['AddHospitalityPage.AddHospitalityVisibilityNotice.description']()}
 		</p>
 	</div>
 </div>

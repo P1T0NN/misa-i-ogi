@@ -7,6 +7,7 @@ import { AUDIT_ACTIONS } from '@/convex/tables/auditLog/auditLogConfigs';
 
 // UTILS
 import { authMutation } from '@/convex/auth/middleware/authMiddleware';
+import { deleteUploadedFilesByKeys } from '@/convex/storage/r2/deleteUploadedFilesByKeys';
 import { resolveStoredFileUrlAndSyncRow } from '@/convex/storage/r2/resolveStoredFileUrl.js';
 
 // SCHEMAS
@@ -63,6 +64,13 @@ export const updateAccommodation = authMutation('updateAccommodation')({
 			coverImageUrl = await resolveStoredFileUrlAndSyncRow(ctx, uploaded);
 			coverImageKey = uploaded.key;
 		}
+
+		// A replaced cover image would otherwise become ghost data: its uploadedFilesR2
+		// row and R2 object stay consistent with each other, so the orphan cron never
+		// reclaims them once the doc stops referencing the key.
+		await deleteUploadedFilesByKeys(ctx, [
+			doc.coverImageKey !== coverImageKey ? doc.coverImageKey : undefined
+		]);
 
 		const description = args.description?.trim();
 		const addressNumber = args.addressNumber?.trim();

@@ -38,10 +38,10 @@
 	{:else if hasError}
 		<ErrorComponent
 			variant="panel"
-			title={m['AdminAnalyticsPage.AdminAnalyticsError.title']()}
-			headerDescription={m['AdminAnalyticsPage.AdminAnalyticsError.headerDescription']()}
-			body={m['AdminAnalyticsPage.AdminAnalyticsError.body']()}
-			bodyDescription={m['AdminAnalyticsPage.AdminAnalyticsError.bodyDescription']()}
+			title={m['AdminAnalyticsPage.errorTitle']()}
+			headerDescription={m['AdminAnalyticsPage.errorHeaderDescription']()}
+			body={m['AdminAnalyticsPage.errorBody']()}
+			bodyDescription={m['AdminAnalyticsPage.errorBodyDescription']()}
 		/>
 	{:else if data}
 		<AdminAnalyticsMetrics metrics={data.metrics} />

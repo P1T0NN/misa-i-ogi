@@ -2,13 +2,10 @@
 import { getContext, setContext } from 'svelte';
 
 // TYPES
-import type { CurrentGuest, GuestStatus } from '@/convex/tables/guests/types/guestsTypes';
+import type { CurrentGuest } from '@/convex/tables/guests/types/guestsTypes';
+import type { GuestAuthStatus } from '@/features/guests/classes/guestAuth.svelte.js';
 
-export type StayGuestAuthStatus =
-	| Exclude<GuestStatus, 'active'>
-	| 'loading'
-	| 'authenticated'
-	| 'error';
+export type StayGuestAuthStatus = GuestAuthStatus;
 
 export type StayRouteContext = {
 	readonly guestAuthStatus: StayGuestAuthStatus;

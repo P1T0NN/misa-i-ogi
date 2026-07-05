@@ -37,5 +37,5 @@
 			fill="currentColor"
 		/>
 	</svg>
-	{m['LoginPage.continueWithGoogle']()}
+	{m['GoogleLoginButton.continueWithGoogle']()}
 </Button>

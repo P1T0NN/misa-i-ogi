@@ -5,7 +5,7 @@
 	import { m } from '@/shared/lib/paraglide/messages';
 
 	// CONFIG
-	import { ADMIN_PAGE_ENDPOINTS } from '@/shared/constants.js';
+	import { ADMIN_PAGE_ENDPOINTS } from '@/shared/page-endpoints.js';
 
 	// FEATURES
 	import {
@@ -149,6 +149,28 @@
 			]
 		},
 		{
+			id: 'menu',
+			title: m['AdminHospitalityAddPage.sectionMenuTitle'](),
+			description: m['AdminHospitalityAddPage.sectionMenuDescription'](),
+			columns: 1,
+			fields: [
+				{
+					id: 'menuFileKey',
+					kind: 'upload-single',
+					label: m['AdminHospitalityAddPage.fieldMenuFile'](),
+					description: m['AdminHospitalityAddPage.fieldMenuFileHint'](),
+					accept: 'image/*,application/pdf'
+				},
+				{
+					id: 'menuLink',
+					kind: 'input',
+					type: 'url',
+					label: m['AdminHospitalityAddPage.fieldMenuLink'](),
+					placeholder: m['AdminHospitalityAddPage.fieldMenuLinkPlaceholder']()
+				}
+			]
+		},
+		{
 			id: 'details',
 			title: m['AdminHospitalityAddPage.sectionDetailsTitle'](),
 			description: m['AdminHospitalityAddPage.sectionDetailsDescription'](),
@@ -191,7 +213,9 @@
 		reservationMode: 'managed_request',
 		ownerId: '',
 		isActive: true,
-		coverImageKey: null
+		coverImageKey: null,
+		menuFileKey: null,
+		menuLink: ''
 	});
 </script>
 

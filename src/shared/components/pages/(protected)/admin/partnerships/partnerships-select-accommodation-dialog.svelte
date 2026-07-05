@@ -80,7 +80,7 @@
 				open = true;
 			}}
 		>
-			{m['AdminPartnershipAddPage.modifyAccommodation']()}
+			{m['AdminPartnershipAddPage.PartnershipsSelectAccommodationDialog.modifyAccommodation']()}
 		</button>
 	{:else}
 		<button
@@ -90,7 +90,7 @@
 				open = true;
 			}}
 		>
-			{m['AdminPartnershipAddPage.selectAccommodation']()}
+			{m['AdminPartnershipAddPage.PartnershipsSelectAccommodationDialog.selectAccommodation']()}
 		</button>
 	{/if}
 </div>
@@ -103,7 +103,7 @@
 >
 	<div class="shrink-0 border-b border-border px-4 py-4 pr-12">
 		<h2 id="{inputId}-dialog-title" class="font-serif text-2xl leading-tight text-foreground">
-			{m['AdminPartnershipAddPage.selectAccommodationDialogTitle']()}
+			{m['AdminPartnershipAddPage.PartnershipsSelectAccommodationDialog.selectAccommodationDialogTitle']()}
 		</h2>
 	</div>
 
@@ -133,7 +133,7 @@
 		<p
 			class="shrink-0 border-t border-border px-4 py-2 text-xs leading-relaxed text-muted-foreground"
 		>
-			{m['AdminPartnershipAddPage.selectAccommodationTruncated']({ count: rows.length })}
+			{m['AdminPartnershipAddPage.PartnershipsSelectAccommodationDialog.selectAccommodationTruncated']({ count: rows.length })}
 		</p>
 	{/if}
 </Dialog>

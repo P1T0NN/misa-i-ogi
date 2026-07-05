@@ -3,7 +3,7 @@
 	import { ArrowRight, BedDouble, ConciergeBell } from '@lucide/svelte';
 
 	// CONFIG
-	import { UNPROTECTED_PAGE_ENDPOINTS } from '@/shared/constants';
+	import { UNPROTECTED_PAGE_ENDPOINTS } from '@/shared/page-endpoints';
 
 	// COMPONENTS
 	import { Badge } from '@/shared/components/ui/badge/index.js';
@@ -32,9 +32,8 @@
 		},
 		{
 			title: 'Bring your own hospitality',
-			body: 'Know a local spot we do not partner with yet? Pair up with them directly, one to one. Custom partnerships are free for your first month — our seasonal plan keeps them running after that (terms may vary by country).',
-			tag: '1 month free, then Pro',
-			learnMoreHref: '#pricing'
+			body: 'Know a local spot we do not partner with yet? The ability to pair up with them directly, one to one, is coming soon. Pricing for that feature has not been decided yet.',
+			tag: 'Coming soon'
 		}
 	];
 

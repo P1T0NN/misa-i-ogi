@@ -1,6 +1,6 @@
 <script lang="ts">
 	// CONFIG
-	import { UNPROTECTED_PAGE_ENDPOINTS } from '@/shared/constants';
+	import { UNPROTECTED_PAGE_ENDPOINTS } from '@/shared/page-endpoints';
 
 	// COMPONENTS
 	import { Badge } from '@/shared/components/ui/badge/index.js';
@@ -11,8 +11,7 @@
 
 	const accommodationFree: string[] = [
 		'Guest perks from platform partners, from day one',
-		'Full analytics — every scan, activation, and reservation',
-		'Custom partnerships — your first month free'
+		'Full analytics — every scan, activation, and reservation'
 	];
 </script>
 
@@ -44,12 +43,12 @@
 
 	<div class="mt-7 border-t border-border-2 pt-5">
 		<div class="flex items-center gap-2">
-			<p class="mb-0 text-sm font-medium text-foreground">Custom partnerships after the trial?</p>
-			<Badge variant="secondary">Optional</Badge>
+			<p class="mb-0 text-sm font-medium text-foreground">Custom partnerships</p>
+			<Badge variant="secondary">Coming soon</Badge>
 		</div>
 		<p class="mt-1.5 mb-0 text-sm leading-relaxed text-muted-foreground">
-			Everything above stays free. Custom partnerships of your own come with a 1-month free trial —
-			after that, a simple seasonal Pro plan keeps them running, only if you want to continue.
+			Forming your own partnerships directly with other hospitalities is on our roadmap. Pricing
+			for that feature has not been set yet — everything above stays free either way.
 		</p>
 	</div>
 

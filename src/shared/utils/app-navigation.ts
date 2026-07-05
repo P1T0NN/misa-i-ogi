@@ -4,6 +4,8 @@ import { localizeHref } from '@/shared/lib/paraglide/runtime';
 
 /** Canonical app path → locale-aware SvelteKit href (e.g. `/demo` → `/sr/demo`). */
 export function appHref(href: string): string {
+	// External/special hrefs (https:, mailto:, tel:, #hash…) must bypass resolve().
+	if (!href.startsWith('/') || href.startsWith('//')) return href;
 	return resolve(localizeHref(href));
 }
 

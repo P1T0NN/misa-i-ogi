@@ -42,7 +42,7 @@
 			return {
 				...item,
 				isActive:
-					(item.url ? isNavItemActive(pathnameLogical, item.url) : false) ||
+					(item.url ? isNavItemActive(pathnameLogical, item.url, { exact: item.exact }) : false) ||
 					Boolean(children?.some((child) => child.isActive)),
 				items: children
 			};

@@ -3,9 +3,10 @@ import { v } from 'convex/values';
 import { mutation } from '@/convex/_generated/server';
 import { enforceRateLimit } from '@/convex/rateLimits/enforceRateLimit';
 import { rateLimitKey } from '@/convex/rateLimits/keys';
+import { assertTrustedServer } from '@/convex/auth/assertTrustedServer';
 
 // CONFIG
-import { GUEST_STAY_DURATION_MS } from '@/convex/projectSettings';
+import { GUEST_STAY } from '@/shared/config.js';
 
 // HELPERS
 import { getGuestSessionsByAccommodationId } from '@/convex/tables/guests/helpers/getGuestSessionsByAccommodationId';
@@ -36,10 +37,12 @@ import type { ConvexMutationResult } from '@/convex/types/convexTypes';
 export const createGuest = mutation({
 	args: {
 		scanToken: v.string(),
-		ip: v.string()
+		ip: v.string(),
+		secret: v.string()
 	},
 	returns: mutationResultValidator,
 	handler: async (ctx, args): Promise<ConvexMutationResult<{ signedCookie: string }>> => {
+		assertTrustedServer(args.secret);
 		await enforceRateLimit(ctx, 'createGuest', rateLimitKey.ip(args.ip));
 
 		const accommodation = await getAccommodationByScanTokenSafe(ctx, args.scanToken);
@@ -97,7 +100,7 @@ export const createGuest = mutation({
 		}
 
 		const sessionToken = generateGuestCredential('sessionToken');
-		const expiresAt = now + GUEST_STAY_DURATION_MS;
+		const expiresAt = now + GUEST_STAY.DURATION_MS;
 		let sharingCode = generateGuestCredential('sharingCode');
 		let sharingCodeHash = hashGuestCredential('sharingCode', sharingCode);
 

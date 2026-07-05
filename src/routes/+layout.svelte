@@ -13,14 +13,14 @@
 	import { useQuery } from '@mmailaender/convex-svelte';
 	import { api } from '@/convex/_generated/api';
 	import { useAuth } from '@mmailaender/convex-better-auth-svelte/svelte';
-	import { injectSpeedInsights } from '@vercel/speed-insights/sveltekit';
 	import { NuqsAdapter } from 'nuqs-svelte/adapters/svelte-kit';
 
 	// CLASSES
 	import { authClass, type CurrentUser } from '@/features/auth/classes/authClass.svelte';
 
 	// CONFIG
-	import { COMPANY_DATA, UNPROTECTED_PAGE_ENDPOINTS } from '@/shared/constants.js';
+	import { COMPANY_DATA } from '@/shared/constants.js';
+	import { UNPROTECTED_PAGE_ENDPOINTS } from '@/shared/page-endpoints.js';
 
 	// COMPONENTS
 	import { Toaster } from '@/shared/components/ui/sonner';
@@ -78,7 +78,6 @@
 		authClient,
 		getServerState: () => data.authState
 	});
-	injectSpeedInsights();
 
 	// NOTE: Has to be after the `createSvelteAuthClient` call because it uses the `authClient` instance.
 	const auth = useAuth();

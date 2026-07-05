@@ -39,17 +39,20 @@ export const safeCommand = <S extends GenericSchema, R>(
 	handler: (data: InferOutput<S>) => Promise<R>
 ) =>
 	command(schema, async (data: InferOutput<S>) => {
-		const { request } = getRequestEvent();
+		// checkBotId() needs Vercel's x-vercel-oidc-token, which only exists on
+		// deployments — skip it in dev and local production builds.
+		if (!dev && process.env.VERCEL) {
+			const { request } = getRequestEvent();
 
-		const verification = await checkBotId({
-			developmentOptions: dev ? { bypass: 'HUMAN' } : undefined,
-			advancedOptions: {
-				headers: requestHeadersToNode(request.headers)
+			const verification = await checkBotId({
+				advancedOptions: {
+					headers: requestHeadersToNode(request.headers)
+				}
+			});
+
+			if (verification.isBot) {
+				throw error(403, m['GenericMessages.FORBIDDEN']());
 			}
-		});
-
-		if (verification.isBot) {
-			throw error(403, m['GenericMessages.FORBIDDEN']());
 		}
 
 		return handler(data);

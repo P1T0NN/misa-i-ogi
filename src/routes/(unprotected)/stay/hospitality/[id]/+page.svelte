@@ -7,26 +7,24 @@
 
 	// COMPONENTS
 	import SvelteHead from '@/shared/components/ui/svelte-head/svelte-head.svelte';
-	import * as Card from '@/shared/components/ui/card/index.js';
 	import RequestReservationDialog from '@/features/hospitalities/components/request-reservation-dialog.svelte';
 	import GuestReservationCard from '@/features/hospitalities/components/guest-reservation-card.svelte';
+	import HospitalityHeader from '@/shared/components/pages/(unprotected)/hospitality/hospitality-header.svelte';
+	import HospitalityAbout from '@/shared/components/pages/(unprotected)/hospitality/hospitality-about.svelte';
+	import HospitalityMenu from '@/shared/components/pages/(unprotected)/hospitality/hospitality-menu.svelte';
+	import HospitalityLocation from '@/shared/components/pages/(unprotected)/hospitality/hospitality-location.svelte';
+	import HospitalityPartnership from '@/shared/components/pages/(unprotected)/hospitality/hospitality-partnership.svelte';
+	import HospitalityDetails from '@/shared/components/pages/(unprotected)/hospitality/hospitality-details.svelte';
 	import HospitalityEmpty from '@/shared/components/pages/(unprotected)/hospitality/empty/hospitality-empty.svelte';
 	import HospitalityError from '@/shared/components/pages/(unprotected)/hospitality/error/hospitality-error.svelte';
 	import HospitalityLoading from '@/shared/components/pages/(unprotected)/hospitality/loading/hospitality-loading.svelte';
-	import LocationMap from '@/shared/components/ui/location-map/location-map.svelte';
-	import { Button } from '@/shared/components/ui/button/index.js';
 
-	// DATA
-	import { labelHospitalityType } from '@/features/hospitalities/data/hospitalitiesData';
+	// UTILS
+	import { loadingTimeout } from '@/utils/loadingTimeout.svelte.js';
 
 	// TYPES
 	import type { Id } from '@/convex/_generated/dataModel';
 	import type { HospitalityDetailsResult } from '@/convex/tables/hospitalities/types/hospitalitiesTypes';
-
-	// ICONS
-	import MapPinIcon from '@lucide/svelte/icons/map-pin';
-	import UtensilsIcon from '@lucide/svelte/icons/utensils';
-	import ExternalLinkIcon from '@lucide/svelte/icons/external-link';
 
 	const rawHospitalityId = $derived(page.params.id);
 
@@ -48,12 +46,15 @@
 	const isLoading = $derived(hospitalityResult === undefined && !detailQuery.error);
 	const isNotFound = $derived(hospitalityResult?.status === 'not_found');
 	const isNotPartnered = $derived(hospitalityResult?.status === 'not_partnered');
+	// Backstop: a query stuck waiting on auth looks identical to loading — cap
+	// the skeleton so it degrades to the error view (self-heals if data arrives).
+	const loadTimeout = loadingTimeout(() => isLoading);
 </script>
 
 <SvelteHead title={hospitality?.name} description={m['HospitalityPage.SEO.description']()} />
 
 <div class="bg-background text-foreground">
-	{#if detailQuery.error}
+	{#if detailQuery.error || loadTimeout.timedOut}
 		<HospitalityError />
 	{:else if isLoading}
 		<HospitalityLoading />
@@ -64,165 +65,21 @@
 	{:else if hospitality}
 		{@const h = hospitality}
 
-		<div class="lg:px-8 lg:pt-6">
-			<div class="relative w-full overflow-hidden bg-muted lg:mx-auto lg:max-w-7xl lg:rounded-2xl">
-				<div
-					class="relative aspect-16/10 max-h-[min(70vh,32rem)] w-full max-lg:max-h-[min(52vh,24rem)]"
-				>
-					<img
-						src={h.coverImageUrl}
-						alt=""
-						class="absolute inset-0 size-full object-cover"
-						decoding="async"
-						fetchpriority="high"
-					/>
-					<div
-						class="absolute inset-0 bg-linear-to-t from-background/95 via-background/40 to-transparent"
-						aria-hidden="true"
-					></div>
-					<div class="absolute inset-x-0 bottom-0 px-4 pt-24 pb-8 sm:px-8 sm:pb-10">
-						<p class="mb-2 font-mono text-[11px] tracking-[0.14em] text-primary uppercase">
-							{labelHospitalityType(h.type)}
-						</p>
-						<h1
-							class="font-serif text-3xl leading-[1.1] font-medium tracking-tight text-balance sm:text-4xl lg:text-5xl"
-						>
-							{h.name}
-						</h1>
-						<p class="mt-3 flex items-start gap-2 text-sm text-muted-foreground sm:text-base">
-							<MapPinIcon class="mt-0.5 size-4 shrink-0" aria-hidden="true" />
-							<span>
-								{m['HospitalityPage.addressLineMeta']({
-									address: h.address,
-									city: h.city,
-									country: h.country
-								})}
-							</span>
-						</p>
-					</div>
-				</div>
-			</div>
-		</div>
+		<HospitalityHeader {hospitality} />
 
 		<div
 			class="mx-auto grid max-w-7xl gap-10 px-4 py-10 sm:px-6 lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-start lg:gap-12 lg:px-8 lg:pb-16 xl:grid-cols-[minmax(0,1fr)_20rem]"
 		>
 			<div class="flex min-w-0 flex-col gap-12 lg:gap-14">
-				<section class="scroll-mt-28" aria-labelledby="about-heading">
-					<h2 id="about-heading" class="font-serif text-2xl font-medium tracking-tight sm:text-3xl">
-						{m['HospitalityPage.aboutTitle']()}
-					</h2>
+				<HospitalityAbout {hospitality} />
 
-					<p class="mt-1 text-sm text-muted-foreground">
-						{m['HospitalityPage.aboutSideNote']()}
-					</p>
+				<HospitalityMenu {hospitality} />
 
-					<p
-						class="mt-6 max-w-prose text-base leading-relaxed whitespace-pre-wrap text-foreground/95"
-					>
-						{h.description}
-					</p>
-				</section>
-
-				{#if h.menuFileUrl || h.menuLink}
-					<section class="scroll-mt-28" aria-labelledby="menu-heading">
-						<h2
-							id="menu-heading"
-							class="font-serif text-2xl font-medium tracking-tight sm:text-3xl"
-						>
-							{m['HospitalityPage.menuTitle']()}
-						</h2>
-
-						<p class="mt-1 text-sm text-muted-foreground">
-							{m['HospitalityPage.menuSideNote']()}
-						</p>
-
-						<div class="mt-6 flex flex-wrap gap-3">
-							{#if h.menuFileUrl}
-								<Button
-									href={h.menuFileUrl}
-									target="_blank"
-									rel="noopener noreferrer"
-									variant="outline"
-								>
-									<UtensilsIcon data-icon="inline-start" />
-									{m['HospitalityPage.viewMenu']()}
-								</Button>
-							{/if}
-							{#if h.menuLink}
-								<Button
-									href={h.menuLink}
-									target="_blank"
-									rel="noopener noreferrer"
-									variant="outline"
-								>
-									<ExternalLinkIcon data-icon="inline-start" />
-									{m['HospitalityPage.viewMenuOnline']()}
-								</Button>
-							{/if}
-						</div>
-					</section>
-				{/if}
-
-				<section class="scroll-mt-28" aria-labelledby="location-heading">
-					<h2
-						id="location-heading"
-						class="font-serif text-2xl font-medium tracking-tight sm:text-3xl"
-					>
-						{m['HospitalityPage.locationTitle']()}
-					</h2>
-
-					<p class="mt-1 text-sm text-muted-foreground">
-						{m['HospitalityPage.addressLineMeta']({
-							address: h.address,
-							city: h.city,
-							country: h.country
-						})}
-					</p>
-
-					{#if typeof h.latitude === 'number' && typeof h.longitude === 'number'}
-						<LocationMap
-							lat={h.latitude}
-							lng={h.longitude}
-							query={`${h.address}, ${h.city}, ${h.country}`}
-							zoom={15}
-							iframe
-							class="mt-6 aspect-16/10 sm:aspect-2/1"
-						/>
-					{/if}
-				</section>
+				<HospitalityLocation {hospitality} />
 			</div>
 
 			<aside class="space-y-6 lg:sticky lg:top-28">
-				{#if partnership}
-					{@const benefitTitle =
-						partnership.benefit ??
-						(partnership.discountPercentage == null
-							? m['HospitalityPage.benefitGenericTitle']()
-							: m['HospitalityPage.benefitLegacyDiscountTitle']({
-									percent: partnership.discountPercentage
-								}))}
-					<Card.Root class="overflow-hidden border-primary/20 bg-accent/40">
-						<Card.Header class="pb-3">
-							<p class="mb-2 font-mono text-[10px] tracking-[0.14em] text-primary uppercase">
-								{m['HospitalityPage.benefitEyebrow']()}
-							</p>
-
-							<Card.Title class="font-serif text-3xl leading-none">{benefitTitle}</Card.Title>
-						</Card.Header>
-						<Card.Content class="space-y-3">
-							<p class="text-sm leading-relaxed text-muted-foreground">
-								{m['HospitalityPage.benefitBody']({ hospitalityName: h.name })}
-							</p>
-
-							<p
-								class="border-t border-primary/15 pt-3 text-xs leading-relaxed text-muted-foreground"
-							>
-								{m['HospitalityPage.benefitSourceNote']()}
-							</p>
-						</Card.Content>
-					</Card.Root>
-				{/if}
+				<HospitalityPartnership {partnership} hospitalityName={h.name} />
 
 				{#if guestReservation}
 					<GuestReservationCard reservation={guestReservation} hospitalityName={h.name} />
@@ -230,29 +87,7 @@
 					<RequestReservationDialog hospitalityName={h.name} hospitalityId={h._id} />
 				{/if}
 
-				<Card.Root class="border-border/80">
-					<Card.Header class="pb-2">
-						<Card.Title class="font-serif text-lg"
-							>{m['HospitalityPage.hospitalityDetailsTitle']()}</Card.Title
-						>
-					</Card.Header>
-					<Card.Content>
-						<dl class="space-y-4 text-sm">
-							<div>
-								<dt class="font-mono text-[10px] tracking-widest text-muted-foreground uppercase">
-									{m['HospitalityPage.dlType']()}
-								</dt>
-								<dd class="mt-1">{labelHospitalityType(h.type)}</dd>
-							</div>
-							<div>
-								<dt class="font-mono text-[10px] tracking-widest text-muted-foreground uppercase">
-									{m['HospitalityPage.factArea']()}
-								</dt>
-								<dd class="mt-1">{h.city}, {h.country}</dd>
-							</div>
-						</dl>
-					</Card.Content>
-				</Card.Root>
+				<HospitalityDetails {hospitality} />
 			</aside>
 		</div>
 	{/if}

@@ -17,6 +17,15 @@
 	} = $props();
 
 	let inputEl = $state<HTMLInputElement | null>(null);
+	let focused = $state(false);
+
+	// Reflect programmatic `value` changes (e.g. quick-pick buttons) into the
+	// display — but only while unfocused, so it never fights mid-typing input.
+	$effect(() => {
+		if (!focused && inputEl && inputEl.value !== value) {
+			inputEl.value = value;
+		}
+	});
 
 	function handleInput(e: Event) {
 		const input = e.currentTarget as HTMLInputElement;
@@ -54,6 +63,7 @@
 	}
 
 	function handleBlur() {
+		focused = false;
 		// If partial input (e.g. "12:"), clear it
 		const input = inputEl;
 		if (!input) return;
@@ -86,6 +96,7 @@
 			{disabled}
 			oninput={handleInput}
 			onkeydown={handleKeydown}
+			onfocus={() => (focused = true)}
 			onblur={handleBlur}
 			class="h-10 w-full rounded-xl border border-input bg-card pr-3 pl-9 font-mono text-sm text-foreground transition-colors placeholder:text-muted-foreground hover:border-primary focus:border-primary focus:ring-2 focus:ring-ring focus:outline-none disabled:cursor-not-allowed disabled:opacity-45"
 			aria-label={label || 'Time'}

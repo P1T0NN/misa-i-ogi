@@ -49,8 +49,8 @@
 		{#if accommodationQuery.error}
 			<ErrorComponent
 				variant="minimal"
-				title={m['EditAccommodationPage.EditAccommodationError.title']()}
-				description={m['EditAccommodationPage.EditAccommodationError.description']()}
+				title={m['EditAccommodationPage.errorTitle']()}
+				description={m['EditAccommodationPage.errorDescription']()}
 				showRetry={false}
 			/>
 		{:else if accommodation === null}

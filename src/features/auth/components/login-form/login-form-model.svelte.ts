@@ -6,7 +6,7 @@ import { safeParse } from 'valibot';
 import { toast } from 'svelte-sonner';
 
 // CONFIG
-import { PROTECTED_PAGE_ENDPOINTS } from '@/shared/constants';
+import { PROTECTED_PAGE_ENDPOINTS } from '@/shared/page-endpoints';
 
 // UTILS
 import { authClient } from '@/features/auth/lib/auth-client';

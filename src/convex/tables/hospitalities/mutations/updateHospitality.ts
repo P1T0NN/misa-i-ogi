@@ -4,11 +4,15 @@ import { v } from 'convex/values';
 // HELPERS
 import { getOwnedHospitality } from '@/convex/tables/hospitalities/helpers/getOwnedHospitality';
 import { getUserPlan } from '@/convex/tables/proTrials/helpers/proTrial';
-import { resolveMenuFile, normalizeMenuLink } from '@/convex/tables/hospitalities/helpers/resolveMenuFile';
+import {
+	resolveMenuFile,
+	normalizeMenuLink
+} from '@/convex/tables/hospitalities/helpers/resolveMenuFile';
 import { AUDIT_ACTIONS } from '@/convex/tables/auditLog/auditLogConfigs';
 
 // UTILS
 import { authMutation } from '@/convex/auth/middleware/authMiddleware';
+import { deleteUploadedFilesByKeys } from '@/convex/storage/r2/deleteUploadedFilesByKeys';
 import { resolveStoredFileUrlAndSyncRow } from '@/convex/storage/r2/resolveStoredFileUrl.js';
 
 // SCHEMAS
@@ -99,8 +103,15 @@ export const updateHospitality = authMutation('updateHospitality')({
 
 		// Link field is always sent by the edit form (empty clears it); a caller that
 		// omits it entirely keeps the existing link.
-		const menuLink =
-			args.menuLink !== undefined ? normalizeMenuLink(args.menuLink) : doc.menuLink;
+		const menuLink = args.menuLink !== undefined ? normalizeMenuLink(args.menuLink) : doc.menuLink;
+
+		// A replaced cover/menu file would otherwise become ghost data: its
+		// uploadedFilesR2 row and R2 object stay consistent with each other, so the
+		// orphan cron never reclaims them once the doc stops referencing the key.
+		await deleteUploadedFilesByKeys(ctx, [
+			doc.coverImageKey !== coverImageKey ? doc.coverImageKey : undefined,
+			doc.menuFileKey !== menuFileKey ? doc.menuFileKey : undefined
+		]);
 
 		const addressNumber = args.addressNumber?.trim();
 		await ctx.db.patch(args.hospitalityId, {
