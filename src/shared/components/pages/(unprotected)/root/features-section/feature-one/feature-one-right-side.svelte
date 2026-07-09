@@ -3,7 +3,7 @@
 	import { getLocale } from '@/shared/lib/paraglide/runtime';
 
 	// COMPONENTS
-	import AreaChartInteractive from '@/shared/components/ui/custom-charts/area-chart-interactive.svelte';
+	import LazyAreaChartInteractive from '@/shared/components/ui/custom-charts/lazy-area-chart-interactive.svelte';
 
 	// DATA
 	import {
@@ -80,7 +80,7 @@
 	></div>
 
 	<div class="relative z-20 w-full lg:absolute lg:-top-8 lg:left-0 lg:w-[84%]">
-		<AreaChartInteractive
+		<LazyAreaChartInteractive
 			data={landingAccommodationAnalyticsAreaChartData}
 			x="date"
 			config={accommodationAnalyticsChartConfig}
@@ -99,7 +99,7 @@
 	</div>
 
 	<div class="relative z-10 w-full lg:absolute lg:right-0 lg:bottom-0 lg:w-[84%]">
-		<AreaChartInteractive
+		<LazyAreaChartInteractive
 			data={landingHospitalityAnalyticsAreaChartData}
 			x="date"
 			config={hospitalityAnalyticsChartConfig}

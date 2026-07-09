@@ -9,9 +9,13 @@ import { getAuthUserId } from '@/convex/auth/helpers/getAuthUserId';
 import type { ConvexErrorPayload } from '@/convex/types/convexTypes';
 import type { MyHospitalitiesSummary } from '@/convex/tables/hospitalities/types/hospitalitiesTypes';
 
+// VALIDATORS
+import { myHospitalitiesSummaryValidator } from '@/convex/tables/hospitalities/validators/hospitalityQueryValidators';
+
 /** Portfolio-wide counts for the owner header — independent of paginated list pages. */
 export const fetchMyHospitalitiesSummary = query({
 	args: {},
+	returns: myHospitalitiesSummaryValidator,
 	handler: async (ctx): Promise<MyHospitalitiesSummary> => {
 		const userId = await getAuthUserId(ctx);
 		if (!userId) {
@@ -26,14 +30,18 @@ export const fetchMyHospitalitiesSummary = query({
 			.withIndex('by_owner', (q) => q.eq('ownerId', userId))
 			.collect();
 
-		let activePartnershipsCount = 0;
-		for (const hospitality of hospitalities) {
-			const partnerships = await ctx.db
-				.query('partnerships')
-				.withIndex('by_hospitality', (q) => q.eq('hospitalityId', hospitality._id))
-				.collect();
-			activePartnershipsCount += partnerships.filter((partnership) => partnership.isActive).length;
-		}
+		const partnershipCounts = await Promise.all(
+			hospitalities.map((hospitality) =>
+				ctx.db
+					.query('partnerships')
+					.withIndex('by_hospitality_active', (q) =>
+						q.eq('hospitalityId', hospitality._id).eq('isActive', true)
+					)
+					.collect()
+					.then((partnerships) => partnerships.length)
+			)
+		);
+		const activePartnershipsCount = partnershipCounts.reduce((sum, count) => sum + count, 0);
 
 		return {
 			totalCount: hospitalities.length,

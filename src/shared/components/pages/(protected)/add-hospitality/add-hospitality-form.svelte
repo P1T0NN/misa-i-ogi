@@ -40,6 +40,7 @@
 		longitude: null,
 		description: '',
 		contactPhone: '',
+		benefit: '',
 		// Managed in-app for every venue — no owner-facing choice, so no field.
 		reservationMode: 'managed_request',
 		coverImageKey: null,

@@ -1,4 +1,5 @@
 // SVELTEKIT IMPORTS
+import { env } from '$env/dynamic/private';
 import { redirect } from '@sveltejs/kit';
 
 // LIBRARIES
@@ -29,7 +30,11 @@ export const load: PageServerLoad = async (event) => {
 	const client = createConvexHttpClient();
 	const currentGuest = await client.query(
 		api.tables.guests.queries.fetchGuestSessionFromCookie.fetchGuestSessionFromCookie,
-		{ guestStayCookie }
+		{
+			guestStayCookie,
+			trustedServerSecret: env.SEARCH_INPUT_RATE_LIMIT_SECRET,
+			asOfMs: Date.now()
+		}
 	);
 
 	if (currentGuest.status !== 'active') {

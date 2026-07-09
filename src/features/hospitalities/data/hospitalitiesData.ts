@@ -47,3 +47,15 @@ export function hospitalityTypeSelectOptions(): Array<{ value: HospitalityType; 
 export function reservationModeSelectOptions(): Array<{ value: ReservationMode; label: string }> {
 	return [{ value: 'managed_request', label: m['ManagedReservationsAlert.title']() }];
 }
+
+/**
+ * Admin-only `createType` picker. `platform` = a public venue every accommodation
+ * can be linked to; `user` = a private venue reachable only through the owner's
+ * custom-partnership connect code (never shown in other accommodations' benefits).
+ */
+export function partnerTypeSelectOptions(): Array<{ value: 'platform' | 'user'; label: string }> {
+	return [
+		{ value: 'platform', label: m['HospitalityData.partnerTypePlatform']() },
+		{ value: 'user', label: m['HospitalityData.partnerTypeUser']() }
+	];
+}

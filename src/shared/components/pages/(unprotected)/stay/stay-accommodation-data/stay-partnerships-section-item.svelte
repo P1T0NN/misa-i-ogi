@@ -16,12 +16,13 @@
 	import { labelHospitalityType } from '@/features/hospitalities/data/hospitalitiesData';
 
 	// TYPES
-	import type { typesPartnershipAccommodationSafe } from '@/features/partnerships/types/partnershipsTypes';
+	import type { PartnershipAccommodationSafe } from '@/convex/tables/partnerships/types/partnershipsTypes';
 
 	// LUCIDE ICONS
 	import ArrowRightIcon from '@lucide/svelte/icons/arrow-right';
 	import StoreIcon from '@lucide/svelte/icons/store';
 	import MapPinIcon from '@lucide/svelte/icons/map-pin';
+	import TagIcon from '@lucide/svelte/icons/tag';
 
 	let {
 		partnership,
@@ -29,7 +30,7 @@
 		originLng,
 		onHover
 	}: {
-		partnership: typesPartnershipAccommodationSafe;
+		partnership: PartnershipAccommodationSafe;
 		/** Accommodation coordinates, to show how far this partner is. */
 		originLat?: number | null;
 		originLng?: number | null;
@@ -50,40 +51,48 @@
 			distanceMeters(originLat, originLng, hospitality.latitude, hospitality.longitude)
 		);
 	});
-	const benefit = $derived(
-		partnership.benefit ??
-			(partnership.discountPercentage == null
-				? undefined
-				: `${partnership.discountPercentage}% ${m['StayPage.StayPartnershipsSectionItem.off']()}`)
-	);
+	const benefit = $derived(partnership.benefit);
 </script>
 
-<li>
+<li class="h-full">
 	<Link
 		href={UNPROTECTED_PAGE_ENDPOINTS.HOSPITALITY.replace(':id', hospitality._id)}
-		class="group flex gap-3 rounded-xl border border-border/80 bg-card p-3 text-foreground no-underline transition-[background-color,border-color,box-shadow] hover:border-primary/25 hover:bg-accent/40 hover:no-underline focus-visible:ring-[3px] focus-visible:ring-ring/50 sm:gap-4 sm:p-4"
+		class="group flex h-full flex-row overflow-hidden rounded-xl border border-border/80 bg-card text-foreground no-underline transition-[background-color,border-color,box-shadow] hover:border-primary/25 hover:no-underline hover:shadow-md focus-visible:ring-[3px] focus-visible:ring-ring/50 sm:flex-col"
 		onmouseenter={() => onHover?.(hospitality._id)}
 		onmouseleave={() => onHover?.(null)}
 		onfocus={() => onHover?.(hospitality._id)}
 		onblur={() => onHover?.(null)}
 	>
-		<div class="relative size-24 shrink-0 overflow-hidden rounded-lg bg-muted">
+		<div
+			class="relative aspect-square w-24 shrink-0 self-stretch overflow-hidden bg-muted sm:aspect-4/3 sm:w-full"
+		>
 			{#if hospitality.coverImageUrl}
 				<img
 					src={hospitality.coverImageUrl}
 					alt=""
-					class="absolute inset-0 size-full object-cover"
+					class="absolute inset-0 size-full object-cover transition-transform duration-300 group-hover:scale-105"
 					loading="lazy"
 					decoding="async"
 				/>
 			{:else}
 				<div class="flex size-full items-center justify-center text-muted-foreground">
-					<StoreIcon class="size-6" aria-hidden="true" />
+					<StoreIcon class="size-8" aria-hidden="true" />
+				</div>
+			{/if}
+
+			{#if benefit}
+				<div class="absolute top-2 left-2">
+					<Badge
+						class="gap-1 bg-primary font-semibold text-primary-foreground shadow-sm [&_svg]:size-3.5"
+					>
+						<TagIcon aria-hidden="true" />
+						{benefit}
+					</Badge>
 				</div>
 			{/if}
 		</div>
 
-		<div class="flex min-w-0 flex-1 flex-col gap-1 text-left">
+		<div class="flex min-w-0 flex-1 flex-col gap-1 p-3 text-left sm:p-4">
 			<span class="font-mono text-[10px] tracking-[0.14em] text-primary uppercase">
 				{labelHospitalityType(hospitality.type)}
 			</span>
@@ -99,17 +108,10 @@
 				</span>
 			{/if}
 
-			<div class="mt-auto flex flex-wrap items-center justify-between gap-x-3 gap-y-2 pt-2">
-				{#if benefit}
-					<Badge variant="secondary" class="bg-accent text-primary">
-						{benefit}
-					</Badge>
-				{:else}
-					<span class="text-sm text-muted-foreground">{hospitality.city}</span>
-				{/if}
-
+			<div class="mt-auto flex items-center justify-between gap-x-3 pt-3">
+				<span class="min-w-0 truncate text-sm text-muted-foreground">{hospitality.city}</span>
 				<span
-					class="inline-flex items-center gap-1 text-xs font-medium text-muted-foreground transition-colors group-hover:text-primary"
+					class="inline-flex shrink-0 items-center gap-1 text-xs font-semibold text-primary transition-transform group-hover:translate-x-0.5"
 				>
 					{m['StayPage.StayPartnershipsSectionItem.viewDetails']()}
 					<ArrowRightIcon class="size-3.5" aria-hidden="true" />

@@ -12,7 +12,8 @@ import type { MutationCtx, QueryCtx } from '@/convex/_generated/server';
 /** Resolves an active guest row from the signed HttpOnly cookie, or `null`. */
 export async function getActiveGuestSession(
 	ctx: QueryCtx | MutationCtx,
-	rawCookie: string
+	rawCookie: string,
+	asOfMs?: number
 ): Promise<Doc<'guests'> | null> {
 	const payload = await verifyGuestSessionCookie(rawCookie);
 	if (!payload) return null;
@@ -35,7 +36,7 @@ export async function getActiveGuestSession(
 	}
 
 	if (!guest) return null;
-	if (guest.expiresAt < Date.now()) return null;
+	if (asOfMs !== undefined && guest.expiresAt < asOfMs) return null;
 
 	const accommodation = await ctx.db.get(guest.accommodationId);
 	if (!accommodation?.isActive) return null;

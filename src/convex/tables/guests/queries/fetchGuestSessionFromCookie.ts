@@ -3,43 +3,25 @@ import { v } from 'convex/values';
 import { query } from '@/convex/_generated/server';
 
 // HELPERS
-import { getActiveGuestSession } from '@/convex/tables/guests/helpers/getActiveGuestSession';
+import { assertTrustedServer } from '@/convex/auth/assertTrustedServer';
+import { resolveGuestSessionFromCookie } from '@/convex/tables/guests/helpers/resolveGuestSessionFromCookie';
 
-// UTILS
-import { verifyGuestSessionCookie } from '@/convex/tables/guests/utils/guestStayCookieCrypto';
+// VALIDATORS
+import { currentGuestValidator } from '@/convex/tables/guests/validators/guestQueryValidators';
 
-// TYPES
-import type { CurrentGuest } from '@/convex/tables/guests/types/guestsTypes';
-
-/** Server-side bridge from the HttpOnly guest cookie to a short-lived Convex guest JWT. */
+/**
+ * SvelteKit-only bridge from the HttpOnly guest cookie to a guest session row.
+ * Requires the shared server secret — not callable from the browser.
+ */
 export const fetchGuestSessionFromCookie = query({
 	args: {
-		guestStayCookie: v.string()
+		guestStayCookie: v.string(),
+		trustedServerSecret: v.string(),
+		asOfMs: v.number()
 	},
-	handler: async (ctx, args): Promise<CurrentGuest> => {
-		const payload = await verifyGuestSessionCookie(args.guestStayCookie);
-		if (!payload) {
-			return { status: 'missing', guest: null };
-		}
-
-		if (payload.exp < Date.now()) {
-			return { status: 'expired', guest: null };
-		}
-
-		const guest = await getActiveGuestSession(ctx, args.guestStayCookie);
-		if (!guest) {
-			return { status: 'expired', guest: null };
-		}
-
-		return {
-			status: 'active',
-			guest: {
-				_id: guest._id,
-				accommodationId: guest.accommodationId,
-				expiresAt: guest.expiresAt,
-				createdAt: guest.createdAt,
-				lastSeenAt: guest.lastSeenAt
-			}
-		};
+	returns: currentGuestValidator,
+	handler: async (ctx, args) => {
+		assertTrustedServer(args.trustedServerSecret);
+		return resolveGuestSessionFromCookie(ctx, args.guestStayCookie, args.asOfMs);
 	}
 });

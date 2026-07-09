@@ -1,5 +1,7 @@
 // HELPERS
 import { createDeleteMutation } from '@/convex/helpers/createDeleteMutation';
+import { COUNTER_KEYS } from '@/convex/helpers/counterKeys';
+import { decrementActivePartnershipCounters } from '@/convex/tables/partnerships/helpers/decrementActivePartnershipCounters';
 import { AUDIT_ACTIONS } from '@/convex/tables/auditLog/auditLogConfigs';
 
 // UTILS
@@ -11,7 +13,15 @@ import { createAnalyticsScopeId } from '@piton-/analytics-convex';
  */
 export const deletePartnerships = createDeleteMutation('deletePartnerships', {
 	table: 'partnerships',
-	phase2Strategy: 'optimized',
+	totalCounterKey: COUNTER_KEYS.PARTNERSHIPS_TOTAL,
+	// MUST be sequential: `onDelete` below read-modify-writes per-owner counter
+	// keys, and two partnerships sharing an owner would lose updates under the
+	// parallel `optimized` strategy (subtract 1 total instead of N).
+	phase2Strategy: 'sequential',
+	// Keep the per-owner active/custom counters in step with `revokePartnership`.
+	// `totalCounterKey` above only handles PARTNERSHIPS_TOTAL; the owner-scoped
+	// counters the dashboards read are decremented here, once per removed row.
+	onDelete: (ctx, partnership) => decrementActivePartnershipCounters(ctx, partnership),
 	analytics: async (ctx, partnership) => {
 		const [accommodation, hospitality] = await Promise.all([
 			ctx.db.get(partnership.accommodationId),

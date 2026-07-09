@@ -1,5 +1,5 @@
 // LIBRARIES
-import { v } from 'convex/values';
+import { ConvexError, v } from 'convex/values';
 import { createAnalyticsScopeId } from '@piton-/analytics-convex';
 import { analytics } from '@/convex/analytics';
 import { query } from '@/convex/_generated/server';
@@ -19,6 +19,7 @@ import { ANALYTICS_QUERY_RANGE_DAYS } from '@/convex/analytics/analyticsConstant
 import { createAnalyticsQueryDayRange } from '@/convex/analytics/utils/analyticsQueryRange';
 
 // TYPES
+import type { ConvexErrorPayload } from '@/convex/types/convexTypes';
 import type { UserAnalyticsHospitalityDetailResult } from '../types/userAnalyticsTypes';
 
 export const fetchUserAnalyticsHospitalityPage = query({
@@ -29,7 +30,10 @@ export const fetchUserAnalyticsHospitalityPage = query({
 		const userId = await requireAuthUserId(ctx);
 		const hospitality = await getOwnedHospitality(ctx, args.hospitalityId, userId);
 		if (!hospitality) {
-			throw new Error('Hospitality not found');
+			throw new ConvexError({
+				code: 'NOT_FOUND',
+				message: { key: 'GenericMessages.HOSPITALITY_NOT_FOUND' }
+			} satisfies ConvexErrorPayload);
 		}
 
 		const { from, to: todayStart } = createAnalyticsQueryDayRange();

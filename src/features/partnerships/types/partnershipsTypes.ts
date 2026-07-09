@@ -1,26 +1,11 @@
 // TYPES
 import type { Doc, Id } from '@/convex/_generated/dataModel';
-import type { HospitalityDetailsSafe } from '@/convex/tables/hospitalities/types/hospitalitiesTypes';
-
-/** Public-safe hospitality fields shown on the guest scan perks list. */
-export type typesPartnershipScanHospitalitySafe = Pick<
-	HospitalityDetailsSafe,
-	'_id' | 'name' | 'type' | 'city' | 'coverImageUrl' | 'latitude' | 'longitude'
->;
-
-/** Active partnership for a stay, enriched with its partner venue. */
-export type typesPartnershipAccommodationSafe = Pick<
-	Doc<'partnerships'>,
-	'_id' | 'benefit' | 'discountPercentage'
-> & {
-	hospitality: typesPartnershipScanHospitalitySafe;
-};
 
 /** Active partnership item on the owner `/partnerships` hub (names denormalized). */
 export type typesPartnershipMyItem = {
 	partnershipId: Id<'partnerships'>;
 	createdAt: Doc<'partnerships'>['_creationTime'];
-	benefit: string | null;
+	benefit: string;
 	isOwnHospitality: boolean;
 	accommodationName: Doc<'accommodations'>['name'];
 	hospitalityName: Doc<'hospitalities'>['name'];

@@ -62,7 +62,8 @@
 					id: 'type',
 					kind: 'select',
 					label: m['EditAccommodationPage.EditAccommodationForm.fieldType'](),
-					selectPlaceholder: m['EditAccommodationPage.EditAccommodationForm.fieldTypePlaceholder'](),
+					selectPlaceholder:
+						m['EditAccommodationPage.EditAccommodationForm.fieldTypePlaceholder'](),
 					options: accommodationTypeSelectOptions(),
 					colSpan: 1
 				}
@@ -83,7 +84,8 @@
 					id: 'addressNumber',
 					kind: 'input',
 					label: m['EditAccommodationPage.EditAccommodationForm.fieldAddressNumber'](),
-					placeholder: m['EditAccommodationPage.EditAccommodationForm.fieldAddressNumberPlaceholder'](),
+					placeholder:
+						m['EditAccommodationPage.EditAccommodationForm.fieldAddressNumberPlaceholder'](),
 					colSpan: 1
 				},
 				{
@@ -105,7 +107,8 @@
 					kind: 'input',
 					type: 'number',
 					label: m['EditAccommodationPage.EditAccommodationForm.fieldLatitude'](),
-					placeholder: m['EditAccommodationPage.EditAccommodationForm.fieldCoordinatesPlaceholder'](),
+					placeholder:
+						m['EditAccommodationPage.EditAccommodationForm.fieldCoordinatesPlaceholder'](),
 					disabled: true,
 					colSpan: 1
 				},
@@ -114,7 +117,8 @@
 					kind: 'input',
 					type: 'number',
 					label: m['EditAccommodationPage.EditAccommodationForm.fieldLongitude'](),
-					placeholder: m['EditAccommodationPage.EditAccommodationForm.fieldCoordinatesPlaceholder'](),
+					placeholder:
+						m['EditAccommodationPage.EditAccommodationForm.fieldCoordinatesPlaceholder'](),
 					disabled: true,
 					colSpan: 1
 				}
@@ -140,13 +144,6 @@
 			description: m['EditAccommodationPage.EditAccommodationForm.sectionDetailsDescription'](),
 			fields: [
 				{
-					id: 'description',
-					kind: 'textarea',
-					label: m['EditAccommodationPage.EditAccommodationForm.fieldDescription'](),
-					placeholder: m['EditAccommodationPage.EditAccommodationForm.fieldDescriptionPlaceholder'](),
-					rows: 4
-				},
-				{
 					id: 'isActive',
 					kind: 'checkbox',
 					label: m['EditAccommodationPage.EditAccommodationForm.fieldIsActive'](),
@@ -166,7 +163,6 @@
 		country: '',
 		latitude: null,
 		longitude: null,
-		description: '',
 		isActive: true,
 		coverImageKey: null
 	});
@@ -192,7 +188,6 @@
 			country: row.country,
 			latitude: row.latitude ?? null,
 			longitude: row.longitude ?? null,
-			description: row.description ?? '',
 			isActive: row.isActive,
 			coverImageKey: null
 		};
@@ -250,7 +245,9 @@
 		id={inputId}
 		accept={field.accept}
 		existingPreviewUrl={accommodation.coverImageUrl}
-		existingPreviewAlt={m['EditAccommodationPage.EditAccommodationForm.currentCoverAlt']({ name: accommodation.name })}
+		existingPreviewAlt={m['EditAccommodationPage.EditAccommodationForm.currentCoverAlt']({
+			name: accommodation.name
+		})}
 		bind:file={() => (value as File | null) ?? null, (next) => setValue(next)}
 	/>
 {/snippet}

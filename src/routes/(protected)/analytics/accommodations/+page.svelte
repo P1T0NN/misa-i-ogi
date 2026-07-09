@@ -53,9 +53,7 @@
 		<ErrorComponent
 			variant="card"
 			title={m['AnalyticsAccommodationsPage.errorTitle']()}
-			headerDescription={m[
-				'AnalyticsAccommodationsPage.errorHeaderDescription'
-			]()}
+			headerDescription={m['AnalyticsAccommodationsPage.errorHeaderDescription']()}
 			body={m['AnalyticsAccommodationsPage.errorBody']()}
 			showRetry={false}
 		/>

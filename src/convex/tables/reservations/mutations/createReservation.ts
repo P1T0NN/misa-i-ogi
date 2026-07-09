@@ -6,12 +6,13 @@ import { rateLimitKey } from '@/convex/rateLimits/keys';
 
 // HELPERS
 import { getActiveGuestSessionFromAuth } from '@/convex/tables/guests/helpers/getActiveGuestSessionFromAuth';
-import { hasActiveAccommodationHospitalityPartnership } from '@/convex/tables/partnerships/helpers/getAccommodationPartnerships';
+import { hasActivePartnership } from '@/convex/tables/partnerships/helpers/hasActivePartnership';
 import { getGuestActiveHospitalityReservation } from '@/convex/tables/reservations/helpers/getGuestActiveHospitalityReservation';
 import { sendReservationEmailToHospitalityOwner } from '@/convex/tables/reservations/emails/sendReservationEmailToHospitalityOwner';
 import { sendReservationEmailToGuest } from '@/convex/tables/reservations/emails/sendReservationEmailToGuest';
 import { analytics } from '@/convex/analytics';
 import { reservationStatusCounterKey } from '@/convex/helpers/counterKeys';
+import { bumpOwnerReservationStatus } from '@/convex/helpers/ownerCounterHelpers';
 
 // SCHEMAS
 import { mutationResultValidator, type MutationResult } from '@/convex/schemas/mutationResult';
@@ -81,7 +82,7 @@ export const createReservation = mutation({
 			};
 		}
 
-		const guest = await getActiveGuestSessionFromAuth(ctx);
+		const guest = await getActiveGuestSessionFromAuth(ctx, Date.now());
 		if (!guest) {
 			return {
 				success: false,
@@ -93,12 +94,15 @@ export const createReservation = mutation({
 		await enforceRateLimit(ctx, 'createReservation', rateLimitKey.guest(guest._id));
 
 		const hospitality = await ctx.db.get(args.hospitalityId);
-		const hasGuestAccess = await hasActiveAccommodationHospitalityPartnership(
-			ctx,
-			guest.accommodationId,
-			args.hospitalityId
-		);
-		if (!hospitality?.isActive || !hasGuestAccess) {
+		if (!hospitality?.isActive) {
+			return {
+				success: false,
+				message: { key: 'GenericMessages.HOSPITALITY_NOT_FOUND' }
+			};
+		}
+
+		const hasGuestAccess = await hasActivePartnership(ctx, guest.accommodationId, hospitality);
+		if (!hasGuestAccess) {
 			return {
 				success: false,
 				message: { key: 'GenericMessages.HOSPITALITY_NOT_FOUND' }
@@ -131,6 +135,7 @@ export const createReservation = mutation({
 			status: 'pending'
 		});
 		await analytics.counters.bump(ctx, reservationStatusCounterKey('pending'), 1);
+		await bumpOwnerReservationStatus(ctx, hospitality.ownerId, 'pending', 1);
 
 		const accommodation = await ctx.db.get(guest.accommodationId);
 		if (accommodation) {

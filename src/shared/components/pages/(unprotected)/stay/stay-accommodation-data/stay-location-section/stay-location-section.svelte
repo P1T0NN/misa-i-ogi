@@ -6,7 +6,7 @@
 	import StayLocationSectionMap from '@/shared/components/pages/(unprotected)/stay/stay-accommodation-data/stay-location-section/stay-location-section-map.svelte';
 
 	// TYPES
-	import type { typesPartnershipAccommodationSafe } from '@/features/partnerships/types/partnershipsTypes';
+	import type { PartnershipAccommodationSafe } from '@/convex/tables/partnerships/types/partnershipsTypes';
 
 	let {
 		latitude,
@@ -20,7 +20,7 @@
 		longitude: number;
 		accommodationId: string;
 		accommodationName: string;
-		partnerships: typesPartnershipAccommodationSafe[];
+		partnerships: PartnershipAccommodationSafe[];
 		focusedId?: string | null;
 	} = $props();
 </script>

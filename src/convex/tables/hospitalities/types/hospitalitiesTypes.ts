@@ -1,5 +1,11 @@
 // TYPES
 import type { Doc } from '@/convex/_generated/dataModel';
+import type { ProjectionType } from '@/convex/helpers/createProjection';
+import type {
+	hospitalityDetailsSafe,
+	hospitalityGuestReservationSafe
+} from '@/convex/tables/hospitalities/validators/hospitalityQueryValidators';
+import type { PartnershipBenefitSafe } from '@/convex/tables/partnerships/types/partnershipsTypes';
 
 /** Union of all hospitality kinds — derived from the schema so it stays in sync. */
 export type HospitalityType = Doc<'hospitalities'>['type'];
@@ -7,33 +13,23 @@ export type HospitalityType = Doc<'hospitalities'>['type'];
 /** Reservation handling workflow available to a hospitality. */
 export type ReservationMode = Doc<'hospitalities'>['reservationMode'];
 
-/** Public-safe `hospitalities` doc — strips owner, storage keys, lifecycle, and system metadata. */
-export type HospitalityDetailsSafe = Omit<
-	Doc<'hospitalities'>,
-	'ownerId' | 'coverImageKey' | 'menuFileKey' | 'reservationMode' | 'isActive' | '_creationTime'
+/**
+ * Public-safe `hospitalities` doc. The field list lives on `hospitalityDetailsSafe`;
+ * anything not enumerated there (owner, storage keys, `connectCode`, `visibility`,
+ * lifecycle, system metadata) can't reach a guest.
+ */
+export type HospitalityDetailsSafe = ProjectionType<typeof hospitalityDetailsSafe>;
+
+export type HospitalityGuestReservationSafe = ProjectionType<
+	typeof hospitalityGuestReservationSafe
 >;
-
-export type HospitalityGuestReservation = Pick<
-	Doc<'reservations'>,
-	'guestName' | 'email' | 'phone' | 'guestCount' | 'requestedTime'
-> & {
-	status: 'pending' | 'confirmed';
-};
-
-export type HospitalityPartnershipBenefit = Pick<
-	Doc<'partnerships'>,
-	'_id' | 'benefit' | 'discountPercentage'
->;
-
-/** @deprecated Use `HospitalityGuestReservation`. */
-export type HospitalityGuestPendingReservation = HospitalityGuestReservation;
 
 export type HospitalityDetailsResult =
 	| {
 			status: 'available';
 			hospitality: HospitalityDetailsSafe;
-			partnership: HospitalityPartnershipBenefit | null;
-			guestReservation: HospitalityGuestReservation | null;
+			partnership: PartnershipBenefitSafe | null;
+			guestReservation: HospitalityGuestReservationSafe | null;
 	  }
 	| { status: 'not_found' }
 	| { status: 'not_partnered' };

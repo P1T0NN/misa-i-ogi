@@ -1,16 +1,19 @@
 <script lang="ts">
 	// LIBRARIES
+	import { api } from '@/convex/_generated/api';
 	import { m } from '@/shared/lib/paraglide/messages';
+
+	// CONFIG
+	import { CUSTOM_PARTNERSHIP_ENABLED, PAGINATION_DATA } from '@/shared/config';
 
 	// FEATURES
 	import { labelHospitalityType } from '@/features/hospitalities/data/hospitalitiesData';
 
 	// COMPONENTS
-	import DataTable from '@/shared/components/ui/data-table/data-table.svelte';
+	import ConvexDataTable from '@/shared/components/ui/data-table/convex-data-table.svelte';
 	import { Badge } from '@/shared/components/ui/badge/index.js';
-	import PartnershipsTabEmpty from '../empty/partnerships-tab-empty.svelte';
-	import PartnershipSetBenefitButton from './partnership-set-benefit-button.svelte';
 	import RevokePartnershipDialog from '@/features/partnerships/components/revoke-partnership-dialog.svelte';
+	import PartnershipsPlatformTable from './partnerships-platform-table.svelte';
 
 	// TYPES
 	import type { typesPartnershipMyItem } from '@/features/partnerships/types/partnershipsTypes';
@@ -19,13 +22,7 @@
 		DataTableCellSnippetProps
 	} from '@/shared/components/ui/data-table/types.js';
 
-	interface Props {
-		rows: typesPartnershipMyItem[];
-	}
-
-	let { rows }: Props = $props();
-
-	const columns: ColumnDef<typesPartnershipMyItem>[] = [
+	const customColumns: ColumnDef<typesPartnershipMyItem>[] = [
 		{
 			id: 'venue',
 			header: m['PartnershipsPage.PartnershipsActiveTab.columnVenue'](),
@@ -42,7 +39,7 @@
 		{
 			id: 'benefit',
 			header: m['PartnershipsPage.PartnershipsActiveTab.columnBenefit'](),
-			accessor: (r) => r.benefit ?? '',
+			accessor: (r) => r.benefit,
 			wrap: true
 		},
 		{
@@ -67,25 +64,26 @@
 	];
 </script>
 
-{#if rows.length === 0}
-	<PartnershipsTabEmpty tab="active" />
-{:else}
-	<DataTable
-		caption={m['PartnershipsPage.PartnershipsActiveTab.caption']()}
-		data={rows}
-		{columns}
+{#if CUSTOM_PARTNERSHIP_ENABLED}
+	<ConvexDataTable
+		caption={m['PartnershipsPage.PartnershipsActiveTab.captionCustom']()}
+		query={api.tables.partnerships.queries.fetchActivePartnershipsSafe.fetchActivePartnershipsSafe}
+		optimizationStrategy="cursor"
+		pageSize={PAGINATION_DATA.MAX_PAGE_SIZE}
+		columns={customColumns}
 		getRowId={(r) => String(r.partnershipId)}
 		customCells={{
-			venue: venueCell,
-			benefit: benefitCell,
-			owner: ownerCell,
-			actions: actionsCell
+			venue: customVenueCell,
+			benefit: customBenefitCell,
+			owner: customOwnerCell,
+			actions: customActionsCell
 		}}
-		showPagination={false}
 	/>
 {/if}
 
-{#snippet venueCell({ row }: DataTableCellSnippetProps<typesPartnershipMyItem>)}
+<PartnershipsPlatformTable />
+
+{#snippet customVenueCell({ row }: DataTableCellSnippetProps<typesPartnershipMyItem>)}
 	<div class="flex min-w-0 flex-col gap-0.5">
 		<span class="truncate font-medium">{row.hospitalityName}</span>
 		<span class="text-xs text-muted-foreground">
@@ -94,19 +92,11 @@
 	</div>
 {/snippet}
 
-{#snippet benefitCell({ row }: DataTableCellSnippetProps<typesPartnershipMyItem>)}
-	{#if row.benefit}
-		<Badge variant="success">{row.benefit}</Badge>
-	{:else if row.isOwnHospitality}
-		<PartnershipSetBenefitButton partnershipId={row.partnershipId} />
-	{:else}
-		<span class="text-sm text-muted-foreground">
-			{m['PartnershipsPage.PartnershipsActiveTab.benefitNone']()}
-		</span>
-	{/if}
+{#snippet customBenefitCell({ row }: DataTableCellSnippetProps<typesPartnershipMyItem>)}
+	<Badge variant="success">{row.benefit}</Badge>
 {/snippet}
 
-{#snippet ownerCell({ row }: DataTableCellSnippetProps<typesPartnershipMyItem>)}
+{#snippet customOwnerCell({ row }: DataTableCellSnippetProps<typesPartnershipMyItem>)}
 	{#if row.isOwnHospitality}
 		<Badge variant="outline">{m['PartnershipsPage.PartnershipsActiveTab.ownerYours']()}</Badge>
 	{:else}
@@ -114,7 +104,7 @@
 	{/if}
 {/snippet}
 
-{#snippet actionsCell({ row }: DataTableCellSnippetProps<typesPartnershipMyItem>)}
+{#snippet customActionsCell({ row }: DataTableCellSnippetProps<typesPartnershipMyItem>)}
 	<RevokePartnershipDialog
 		partnershipId={row.partnershipId}
 		accommodationName={row.accommodationName}

@@ -36,6 +36,12 @@ export const limitPresets = {
 		period: MINUTE,
 		capacity: 30
 	},
+	connectCodeLookup: {
+		kind: 'token bucket' as const,
+		rate: 30,
+		period: MINUTE,
+		capacity: 15
+	},
 	guestStayActivate: {
 		kind: 'token bucket' as const,
 		rate: 60,
@@ -47,6 +53,16 @@ export const limitPresets = {
 		rate: 5,
 		period: MINUTE,
 		capacity: 5
+	},
+	// Guest JWT mint: keyed per IP, but many guests share one NAT IP (hotel WiFi)
+	// and every tab-focus/bfcache restore after the 5-min JWT TTL re-hits it.
+	// Generous so legitimate shared-IP traffic never locks guests out of the stay
+	// page, while still bounding a hostile IP to ~5 req/s sustained.
+	guestTokenMint: {
+		kind: 'token bucket' as const,
+		rate: 300,
+		period: MINUTE,
+		capacity: 100
 	},
 	guestReservationCreate: {
 		kind: 'token bucket' as const,
@@ -104,6 +120,15 @@ export const convexRateLimitRegistry = {
 	createGuest: limitPresets.guestStayActivate,
 	joinGuestBySharingCode: limitPresets.guestStayShareJoin,
 
+	// Guest stay-page endpoints reachable with only a stay cookie
+	viewHospitality: limitPresets.interactiveWrite,
+	createGuestSharingCode: limitPresets.connectCodeLookup,
+
+	// Public report form (anonymous callers share one bucket, signed-in users get their own)
+	createReport: limitPresets.connectCodeLookup,
+	// Guest JWT mint (trusted-server action, IP-keyed; NAT-friendly preset)
+	guestTokenMint: limitPresets.guestTokenMint,
+
 	// Reservation flow (createReservation is guest-session-keyed; sends emails, keep tight)
 	createReservation: limitPresets.guestReservationCreate,
 	confirmReservation: limitPresets.interactiveWrite,
@@ -152,9 +177,15 @@ export const convexRateLimitRegistry = {
 	// Admin list queries (advisory check when name passed to fetchOptimized)
 	fetchAllAccommodations: limitPresets.searchQuery,
 	fetchAllHospitalities: limitPresets.searchQuery,
-	fetchAllPartnerships: limitPresets.searchQuery,
+	fetchAllPartnershipsAdmin: limitPresets.searchQuery,
+	fetchReports: limitPresets.searchQuery,
 	fetchUploadedFilesR2: limitPresets.searchQuery,
 	publicSearchInput: limitPresets.searchQuery,
+	lookupCustomPartnershipFormVenueByConnectCode: limitPresets.connectCodeLookup,
+	searchAllAccommodations: limitPresets.searchQuery,
+	searchAllHospitalities: limitPresets.searchQuery,
+	searchMyAccommodations: limitPresets.searchQuery,
+	searchMyHospitalities: limitPresets.searchQuery,
 
 	// Better Auth HTTP routes (enforced in hooks.before — see auth/authRoutes.ts)
 	signInEmail: limitPresets.authSignIn,

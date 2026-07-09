@@ -121,20 +121,6 @@
 					accept: 'image/*'
 				}
 			]
-		},
-		{
-			id: 'details',
-			title: m['AddAccommodationPage.sectionDetailsTitle'](),
-			description: m['AddAccommodationPage.sectionDetailsDescription'](),
-			fields: [
-				{
-					id: 'description',
-					kind: 'textarea',
-					label: m['AddAccommodationPage.fieldDescription'](),
-					placeholder: m['AddAccommodationPage.fieldDescriptionPlaceholder'](),
-					rows: 4
-				}
-			]
 		}
 	];
 
@@ -147,7 +133,6 @@
 		country: '',
 		latitude: null,
 		longitude: null,
-		description: '',
 		coverImageKey: null
 	});
 </script>

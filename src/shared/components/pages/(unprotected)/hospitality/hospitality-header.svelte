@@ -26,7 +26,7 @@
 				decoding="async"
 				fetchpriority="high"
 			/>
-            
+
 			<div
 				class="absolute inset-0 bg-linear-to-t from-background/95 via-background/40 to-transparent"
 				aria-hidden="true"

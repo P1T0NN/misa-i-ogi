@@ -43,6 +43,10 @@
 		summaryLoading = false,
 		/** External error (e.g. summary query) merged with list query errors. */
 		hasError: externalHasError = false,
+		/** Optional bindable mirror of the current page items (e.g. map markers). */
+		pageItems = $bindable([] as T[]),
+		/** Optional bindable — true while the list query has no resolved payload yet. */
+		queryPending = $bindable(false),
 		item: itemSnippet,
 		empty,
 		error,
@@ -63,6 +67,10 @@
 		totalCount?: number;
 		summaryLoading?: boolean;
 		hasError?: boolean;
+		/** Bindable mirror of the current page items (e.g. map markers). */
+		pageItems?: T[];
+		/** Bindable — true while the list query has no resolved payload yet. */
+		queryPending?: boolean;
 		item: Snippet<[DataListItemSnippetProps<T>]>;
 		empty?: Snippet;
 		error?: Snippet;
@@ -169,6 +177,14 @@
 				? (totalPages ?? 1) > 1
 				: page > 1 || canGoNext
 	);
+
+	$effect(() => {
+		pageItems = items;
+	});
+
+	$effect(() => {
+		queryPending = listPending;
+	});
 </script>
 
 <DataList

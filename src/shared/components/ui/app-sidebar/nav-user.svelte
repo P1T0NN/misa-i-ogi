@@ -6,6 +6,9 @@
 	import { m } from '@/shared/lib/paraglide/messages';
 	import { useAuth } from '@mmailaender/convex-better-auth-svelte/svelte';
 
+	// CONFIG
+	import { SUBSCRIPTION_ENABLED } from '@/shared/config.js';
+
 	// COMPONENT
 	import LogoutButton from '@/features/auth/components/logout-button/logout-button.svelte';
 	import NavUserPlan from './nav-user-plan.svelte';
@@ -72,18 +75,20 @@
 								<span class="flex items-center gap-1.5">
 									<span class="truncate font-medium">{user?.name ?? 'Account'}</span>
 
-									{#if isPro}
-										<span
-											class="shrink-0 rounded bg-primary/10 px-1 text-[10px] font-semibold tracking-wide text-primary uppercase"
-										>
-											{m['NavUserPlan.pro']()}
-										</span>
-									{:else if trialActive}
-										<span
-											class="shrink-0 rounded bg-muted px-1 text-[10px] font-semibold tracking-wide text-muted-foreground uppercase"
-										>
-											{m['NavUserPlan.trialShort']()}
-										</span>
+									{#if SUBSCRIPTION_ENABLED}
+										{#if isPro}
+											<span
+												class="shrink-0 rounded bg-primary/10 px-1 text-[10px] font-semibold tracking-wide text-primary uppercase"
+											>
+												{m['NavUserPlan.pro']()}
+											</span>
+										{:else if trialActive}
+											<span
+												class="shrink-0 rounded bg-muted px-1 text-[10px] font-semibold tracking-wide text-muted-foreground uppercase"
+											>
+												{m['NavUserPlan.trialShort']()}
+											</span>
+										{/if}
 									{/if}
 								</span>
 
@@ -118,7 +123,7 @@
 					</div>
 				</DropdownMenu.Label>
 
-				{#if user}
+				{#if user && SUBSCRIPTION_ENABLED}
 					<DropdownMenu.Separator />
 
 					<DropdownMenu.Group>

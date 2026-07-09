@@ -252,19 +252,27 @@ export const revokeAllSessions = adminMutation('revokeAllSessions')({
 });
 
 /**
- * Permanently delete a user, cascading project-owned rows first.
+ * Permanently delete a user.
  *
- * Ordering is intentional: cascade *before* the auth removal so the user
- * row is still findable while we look up rows that reference it. The whole
- * handler runs inside a single Convex mutation transaction, so any throw
- * rolls everything back — a partial delete can't leave the auth record
+ * Referential integrity: Convex has no FKs, so a user who still owns rows
+ * (accommodations, hospitalities, files — and transitively the partnerships,
+ * reservations and guests hanging off them) would be orphaned by a raw delete,
+ * permanently drifting the analytics counters. Rather than re-implement every
+ * table's delete logic here, we REFUSE to delete an owner with live data and
+ * force the admin through the dedicated delete mutations first (they carry the
+ * storage cleanup, counter decrements, and child-row guards). Only the
+ * per-user satellite rows with no self-service delete UI (`proTrials`) are
+ * cascaded inline.
+ *
+ * The whole handler runs inside a single Convex mutation transaction, so any
+ * throw rolls everything back — a partial delete can't leave the auth record
  * gone while project tables still point at it.
  *
  * Portability: the only Better-Auth–specific lines are the
  * `authComponent.getAnyUserById` lookup and the `auth.api.removeUser` call.
  * In a project without BA, swap those for `ctx.db.get(args.userId)` /
  * `ctx.db.delete(args.userId)` (plus your own session + account cleanup);
- * the cascade block and audit step are unchanged. The audit log is retained
+ * the guard and audit step are unchanged. The audit log is retained
  * 5 years (see AUDIT_RETENTION_DAYS).
  */
 export const deleteUser = adminMutation('deleteUser')({
@@ -303,15 +311,41 @@ export const deleteUser = adminMutation('deleteUser')({
 			return { success: false, message: { key: 'GenericMessages.ADMIN_CANNOT_BE_DELETED' } };
 		}
 
-		// 3. CASCADE — delete project-owned rows that reference this user.
-		//    Add one block per such table. Convex has no FK enforcement, so
-		//    anything you skip here becomes orphaned data. Example shape:
-		//
-		//      const posts = await ctx.db
-		//          .query('posts')
-		//          .withIndex('byUserId', (q) => q.eq('userId', args.userId))
-		//          .collect();
-		//      for (const row of posts) await ctx.db.delete(row._id);
+		// 3. Referential-integrity guard: refuse to delete a user who still owns
+		//    rows. Owned data must go through its own delete mutations first —
+		//    they carry the storage cleanup, counter decrements, and child guards.
+		//    Blocking on the two venue tables (+ files) transitively protects the
+		//    partnerships / reservations / guests that hang off them.
+		const [ownsAccommodation, ownsHospitality, ownsFile] = await Promise.all([
+			ctx.db
+				.query('accommodations')
+				.withIndex('by_owner', (q) => q.eq('ownerId', args.userId))
+				.first(),
+			ctx.db
+				.query('hospitalities')
+				.withIndex('by_owner', (q) => q.eq('ownerId', args.userId))
+				.first(),
+			ctx.db
+				.query('uploadedFilesR2')
+				.withIndex('by_owner', (q) => q.eq('ownerId', args.userId))
+				.first()
+		]);
+		if (ownsAccommodation || ownsHospitality || ownsFile) {
+			ctx.audit(AUDIT_ACTIONS.USER_DELETE, {
+				resource: { table: 'user', id: args.userId },
+				status: 'failure',
+				errorMessage: 'USER_HAS_OWNED_DATA'
+			});
+			return { success: false, message: { key: 'GenericMessages.USER_HAS_OWNED_DATA' } };
+		}
+
+		// 3b. Cascade the harmless per-user satellite rows that have no
+		//     self-service delete UI (one trial row per account, forever).
+		const proTrials = await ctx.db
+			.query('proTrials')
+			.withIndex('by_user', (q) => q.eq('userId', args.userId))
+			.collect();
+		for (const row of proTrials) await ctx.db.delete(row._id);
 
 		// 4. Remove the auth record. BA-specific — internally cascades to BA's
 		//    own session/account/verification tables. In a non-BA project this

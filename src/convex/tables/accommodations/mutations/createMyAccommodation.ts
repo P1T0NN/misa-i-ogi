@@ -26,7 +26,6 @@ export const createMyAccommodation = authMutation('createMyAccommodation')({
 		addressNumber: v.optional(v.string()),
 		latitude: v.number(),
 		longitude: v.number(),
-		description: v.optional(v.string()),
 		coverImageKey: v.string()
 	},
 	returns: mutationResultValidator,
@@ -38,11 +37,17 @@ export const createMyAccommodation = authMutation('createMyAccommodation')({
 		return createAccommodationForOwner(
 			ctx,
 			{
-				...args,
+				name: args.name,
+				type: args.type,
 				address,
+				city: args.city,
+				country: args.country,
 				addressNumber: addressNumber || undefined,
-				ownerId: ctx.userId,
-				isActive: true
+				latitude: args.latitude,
+				longitude: args.longitude,
+				isActive: true,
+				coverImageKey: args.coverImageKey,
+				ownerId: ctx.userId
 			},
 			{
 				uploadOwnerId: ctx.userId,

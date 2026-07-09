@@ -28,6 +28,11 @@ export const PAGINATION_DATA = {
 	DEFAULT_OPTIMIZATION_STRATEGY: 'cursor' as const
 } as const;
 
+export const ADMIN_DASHBOARD = {
+	/** Admin home — latest reservation rows. */
+	RECENT_RESERVATION_LIMIT: 5
+} as const;
+
 export const COOKIE_NAMES = {
 	SESSION_TOKEN: 'session_token',
 	DEVICE_FINGERPRINT: 'device_fingerprint',
@@ -43,13 +48,25 @@ export const GUEST_STAY = {
 export const PARTNERSHIP_BENEFIT_MAX_LENGTH = 15;
 
 /**
- * Launch switch for the custom-partnership flow (feature is built but hidden
- * to keep the initial owner experience simple). Flip to `true` to release it.
- * To remove the switch for good: grep this name and delete each guard —
- * partnerships-header, partnerships-tab-empty, the create-custom-partnership
- * route guard (`+page.ts`), and the `createCustomPartnership` mutation.
+ * Self-service custom partnerships: connect codes, sent/received requests, active
+ * custom links, and the create-custom-partnership flow. Platform hospitalities
+ * are unaffected — they always show on the Partnerships page.
+ *
+ * When `false`, hide custom-partnership UI and refuse custom-partnership
+ * mutations. Grep this name to find every guard.
  */
 export const CUSTOM_PARTNERSHIP_ENABLED = false;
+
+/**
+ * Pro / paid tier: free trial, plan badges, self-service hospitality creation,
+ * and the subscription surfaces in the nav. Shares the account-level `proTrials`
+ * row with custom partnerships when both are on.
+ *
+ * When `false`, hide Pro/trial UI and refuse `startProTrial` /
+ * `createUserHospitality`. Custom-partnership trial auto-start also requires
+ * this flag (or an admin-assigned `plan: 'pro'`). Grep this name to find guards.
+ */
+export const SUBSCRIPTION_ENABLED = false;
 
 /**
  * Routes instrumented by `initBotId` on the client and verified by

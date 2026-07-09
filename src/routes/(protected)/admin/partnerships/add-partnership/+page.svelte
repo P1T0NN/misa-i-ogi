@@ -16,8 +16,8 @@
 	import { Button } from '@/shared/components/ui/button/index.js';
 	import { FieldDescription } from '@/shared/components/ui/field/index.js';
 	import { Input } from '@/shared/components/ui/input/index.js';
-	import PartnershipsSelectAccommodationDialog from '@/shared/components/pages/(protected)/admin/partnerships/partnerships-select-accommodation-dialog.svelte';
-	import PartnershipsSelectHospitalityDialog from '@/shared/components/pages/(protected)/admin/partnerships/partnerships-select-hospitality-dialog.svelte';
+	import SelectAccommodationDialog from '@/features/accommodations/components/select-accommodation-dialog/select-accommodation-dialog.svelte';
+	import SelectHospitalityDialog from '@/features/hospitalities/components/select-hospitality-dialog/select-hospitality-dialog.svelte';
 
 	// SCHEMAS
 	import {
@@ -102,7 +102,8 @@
 	value,
 	setValue
 }: MutationFormFieldSnippetProps<PartnershipAddFormInputs>)}
-	<PartnershipsSelectAccommodationDialog
+	<SelectAccommodationDialog
+		forAdmin
 		{inputId}
 		value={typeof value === 'string' ? value : ''}
 		{setValue}
@@ -114,7 +115,8 @@
 	value,
 	setValue
 }: MutationFormFieldSnippetProps<PartnershipAddFormInputs>)}
-	<PartnershipsSelectHospitalityDialog
+	<SelectHospitalityDialog
+		forAdmin
 		{inputId}
 		value={Array.isArray(value) ? value : []}
 		{setValue}
@@ -134,13 +136,13 @@
 		value={benefitValue}
 		maxlength={PARTNERSHIP_BENEFIT_MAX_LENGTH}
 		placeholder={m['AdminPartnershipAddPage.fieldBenefitPlaceholder']()}
-		required
 		aria-invalid={error ? 'true' : undefined}
 		aria-describedby={`${inputId}-hint`}
 		oninput={(event) => setValue(event.currentTarget.value)}
 	/>
 	<FieldDescription id={`${inputId}-hint`} class="flex items-center justify-between gap-3">
 		<span>{m['AdminPartnershipAddPage.fieldBenefitDescription']()}</span>
-		<span class="shrink-0 tabular-nums">{benefitValue.length}/{PARTNERSHIP_BENEFIT_MAX_LENGTH}</span>
+		<span class="shrink-0 tabular-nums">{benefitValue.length}/{PARTNERSHIP_BENEFIT_MAX_LENGTH}</span
+		>
 	</FieldDescription>
 {/snippet}

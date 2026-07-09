@@ -2,6 +2,19 @@
 import * as v from 'valibot';
 import { m } from '@/shared/lib/paraglide/messages';
 
+// CONFIG
+import { PARTNERSHIP_BENEFIT_MAX_LENGTH } from '@/shared/config.js';
+
+const hospitalityBenefit = v.pipe(
+	v.string(),
+	v.trim(),
+	v.minLength(1, m['ValidationMessages.CreateHospitalitySchema.benefitRequired']()),
+	v.maxLength(
+		PARTNERSHIP_BENEFIT_MAX_LENGTH,
+		m['ValidationMessages.CreateHospitalitySchema.benefitMaxLength']()
+	)
+);
+
 const hospitalityCoordinate = v.pipe(
 	v.nullable(v.number()),
 	v.check(
@@ -49,9 +62,10 @@ export const hospitalityAddFormSchema = v.object({
 	latitude: hospitalityCoordinate,
 	longitude: hospitalityCoordinate,
 	reservationMode: v.literal('managed_request'),
+	createType: v.picklist(['platform', 'user'] as const),
+	benefit: hospitalityBenefit,
 	ownerId: v.optional(v.pipe(v.string(), v.trim())),
 	isActive: v.boolean(),
-	// `null` until the user picks a file; validated as a real `File` on submit, then swapped for an R2 key.
 	coverImageKey: v.pipe(
 		v.union([v.null(), v.file()]),
 		v.check(
@@ -59,19 +73,18 @@ export const hospitalityAddFormSchema = v.object({
 			m['ValidationMessages.CreateHospitalitySchema.coverRequired']()
 		)
 	),
-	// Optional menu: a file (image or PDF) and/or an external link. No required check.
 	menuFileKey: v.optional(v.union([v.null(), v.file()])),
 	menuLink: v.optional(v.pipe(v.string(), v.trim()))
 });
 
 export type HospitalityAddFormInputs = v.InferInput<typeof hospitalityAddFormSchema>;
 
-/**
- * Self-service Add Hospitality page: the admin form minus `ownerId`/`isActive`
- * (both forced server-side). Just the venue — partnerships are created
- * separately via the create-custom-partnership flow.
- */
-export const addHospitalityFormSchema = v.omit(hospitalityAddFormSchema, ['ownerId', 'isActive']);
+/** Self-service Add Hospitality page — venue only; partnerships are created separately. */
+export const addHospitalityFormSchema = v.omit(hospitalityAddFormSchema, [
+	'ownerId',
+	'isActive',
+	'createType'
+]);
 
 export type AddHospitalityFormInputs = v.InferInput<typeof addHospitalityFormSchema>;
 

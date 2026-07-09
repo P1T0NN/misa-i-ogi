@@ -39,7 +39,7 @@
 					{m['HospitalityPage.HospitalityMenu.viewMenu']()}
 				</Button>
 			{/if}
-			
+
 			{#if hospitality.menuLink}
 				<Button
 					href={hospitality.menuLink}

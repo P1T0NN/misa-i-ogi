@@ -5,11 +5,13 @@ import { m } from '@/shared/lib/paraglide/messages';
 import { UNPROTECTED_PAGE_ENDPOINTS } from '@/shared/page-endpoints.js';
 
 // UTILS
+import { deLocalizeHref } from '@/shared/lib/paraglide/runtime';
 import { isNavItemActive } from '@/shared/utils/isNavItemActive.js';
 
 export function getNormalHeaderNavItems() {
 	const root = UNPROTECTED_PAGE_ENDPOINTS.ROOT;
 	return [
+		{ href: root, label: m['Header.linkHome']() },
 		{ href: `${root}#benefits`, label: m['Header.linkBenefits']() },
 		{ href: `${root}#guest-flow`, label: m['Header.linkHowItWorks']() },
 		{ href: `${root}#owner-features`, label: m['Header.linkFeatures']() },
@@ -24,7 +26,12 @@ export function getNormalHeaderNavItems() {
  */
 export function isHeaderNavActive(href: string, pathname: string, activeHash: string): boolean {
 	const hashIndex = href.indexOf('#');
-	if (hashIndex === -1) return isNavItemActive(pathname, href);
+	if (hashIndex === -1) {
+		if (deLocalizeHref(href) === '/') {
+			return isNavItemActive(pathname, href) && activeHash === '';
+		}
+		return isNavItemActive(pathname, href);
+	}
 	return activeHash !== '' && href.slice(hashIndex) === activeHash;
 }
 

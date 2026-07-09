@@ -43,47 +43,24 @@ export function resolvePaginationOpts(opts: PaginationOptions | undefined): Pagi
 }
 
 /**
- * Shape returned by any offset/limit data source (BA admin API, REST upstreams,
- * `.collect().slice()`, etc.). Decoupled from any specific library so a query
- * built around an unknown source can plug straight into {@link toPaginatedListPayload}.
- */
-export type OffsetLimitPage<T> = { items: T[]; total: number };
-
-/**
- * Adapts an offset/limit data source into the `PaginatedListPayload` shape that
- * `DataTable` consumes in `optimizationStrategy="offset"` mode. Universal — has no
- * knowledge of the source (better-auth, REST, raw doc slicing). Pass a fetcher that
- * returns `{ items, total }`; this computes `offset` from `(page, numItems)` and
- * reshapes the result.
+ * Offset-mode pagination accounting for an already-materialized, bounded row set:
+ * 1-based page clamp → slice → `totalCount` → `isDone`. The single place this
+ * arithmetic lives, so `fetchOptimized`'s offset branches can't drift from each other.
  *
- * @example
- *   return toPaginatedListPayload({
- *     page: args.page,
- *     paginationOpts: args.paginationOpts,
- *     fetch: ({ limit, offset }) => callUpstream({ limit, offset })
- *   });
+ * `continueCursor` is `''` in offset mode — the `DataTable`'s own contract.
  */
-export async function toPaginatedListPayload<T>(params: {
-	page: number | undefined;
-	paginationOpts: PaginationOptions | undefined;
-	fetch: (range: { limit: number; offset: number }) => Promise<OffsetLimitPage<T>>;
-}): Promise<{
-	page: T[];
-	isDone: boolean;
-	continueCursor: string;
-	totalCount: number;
-}> {
-	const oneBasedPage = normalizeOneBasedPage(params.page);
-	const { numItems } = resolvePaginationOpts(params.paginationOpts);
-	const offset = (oneBasedPage - 1) * numItems;
-
-	const { items, total } = await params.fetch({ limit: numItems, offset });
+export function offsetPayload<T>(
+	all: T[],
+	page: number | undefined,
+	numItems: number
+): { page: T[]; isDone: boolean; continueCursor: string; totalCount: number } {
+	const offset = (normalizeOneBasedPage(page) - 1) * numItems;
+	const slice = all.slice(offset, offset + numItems);
 
 	return {
-		page: items,
-		isDone: offset + items.length >= total,
-		// Empty string in offset mode (mirrors DataTable's own contract).
+		page: slice,
+		isDone: offset + slice.length >= all.length,
 		continueCursor: '',
-		totalCount: total
+		totalCount: all.length
 	};
 }

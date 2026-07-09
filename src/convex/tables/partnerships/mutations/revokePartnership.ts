@@ -3,9 +3,13 @@ import { v } from 'convex/values';
 import { authMutation } from '@/convex/auth/middleware/authMiddleware';
 import { AUDIT_ACTIONS } from '@/convex/tables/auditLog/auditLogConfigs';
 
+// CONFIG
+import { CUSTOM_PARTNERSHIP_ENABLED } from '@/shared/config.js';
+
 // HELPERS
 import { analytics } from '@/convex/analytics';
-import { customPartnershipsCounterKey } from '@/convex/helpers/counterKeys';
+import { COUNTER_KEYS, customPartnershipsCounterKey } from '@/convex/helpers/counterKeys';
+import { bumpActivePartnershipsForOwners } from '@/convex/helpers/ownerCounterHelpers';
 
 // UTILS
 import { createAnalyticsScopeId } from '@piton-/analytics-convex';
@@ -20,6 +24,10 @@ export const revokePartnership = authMutation('revokePartnership')({
 	},
 	returns: mutationResultValidator,
 	handler: async (ctx, args): Promise<MutationResult> => {
+		if (!CUSTOM_PARTNERSHIP_ENABLED) {
+			return { success: false, message: { key: 'GenericMessages.FORBIDDEN' } };
+		}
+
 		const partnership = await ctx.db.get(args.partnershipId);
 		if (!partnership?.isActive) {
 			return { success: false, message: { key: 'GenericMessages.FORBIDDEN' } };
@@ -38,13 +46,11 @@ export const revokePartnership = authMutation('revokePartnership')({
 		}
 
 		await ctx.db.delete(partnership._id);
+		await analytics.counters.bump(ctx, COUNTER_KEYS.PARTNERSHIPS_TOTAL, -1);
+		await bumpActivePartnershipsForOwners(ctx, accommodation.ownerId, hospitality.ownerId, -1);
 
 		if (partnership.createType === 'custom') {
-			await analytics.counters.bump(
-				ctx,
-				customPartnershipsCounterKey(accommodation.ownerId),
-				-1
-			);
+			await analytics.counters.bump(ctx, customPartnershipsCounterKey(accommodation.ownerId), -1);
 		}
 
 		ctx.audit(AUDIT_ACTIONS.PARTNERSHIP_DELETE, {

@@ -3,6 +3,8 @@ import { ConvexError } from 'convex/values';
 
 // HELPERS
 import { createDeleteMutation } from '@/convex/helpers/createDeleteMutation';
+import { COUNTER_KEYS } from '@/convex/helpers/counterKeys';
+import { cascadeHospitalityChildren } from '@/convex/tables/hospitalities/helpers/cascadeHospitalityChildren';
 import { cleanupHospitalityFiles } from '@/convex/tables/hospitalities/helpers/cleanupHospitalityFiles';
 import { hasActiveHospitalityPartnership } from '@/convex/tables/partnerships/helpers/hasActivePartnership';
 import { hospitalityHasOpenReservations } from '@/convex/tables/reservations/helpers/hospitalityHasOpenReservations';
@@ -17,8 +19,15 @@ import type { ConvexErrorPayload } from '@/convex/types/convexTypes';
  */
 export const deleteHospitalities = createDeleteMutation('deleteHospitalities', {
 	table: 'hospitalities',
+	totalCounterKey: COUNTER_KEYS.HOSPITALITIES_TOTAL,
 	runStorageDelete: cleanupHospitalityFiles,
-	phase2Strategy: 'optimized',
+	// Sequential: the cascade decrements shared per-owner reservation/partnership
+	// counters, which would lose updates under the parallel strategy.
+	phase2Strategy: 'sequential',
+	// Remove inactive partnerships + terminal (cancelled/no_show) reservations that
+	// hang off each venue (the authorize guard already blocked ACTIVE partnerships
+	// and OPEN reservations), keeping the totals and per-owner counters in step.
+	onDelete: (ctx, doc) => cascadeHospitalityChildren(ctx, doc._id, doc.ownerId),
 	authorize: async (ctx, doc) => {
 		if (await hasActiveHospitalityPartnership(ctx, doc._id)) {
 			throw new ConvexError({

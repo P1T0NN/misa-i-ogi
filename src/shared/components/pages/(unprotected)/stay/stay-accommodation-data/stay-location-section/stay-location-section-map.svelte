@@ -15,7 +15,7 @@
 		GoogleMapHandle,
 		GoogleMapMarkerContext
 	} from '@/shared/components/ui/google-map/types.js';
-	import type { typesPartnershipAccommodationSafe } from '@/features/partnerships/types/partnershipsTypes';
+	import type { PartnershipAccommodationSafe } from '@/convex/tables/partnerships/types/partnershipsTypes';
 
 	// LUCIDE ICONS
 	import HouseIcon from '@lucide/svelte/icons/house';
@@ -26,15 +26,18 @@
 		accommodationId,
 		accommodationName,
 		partnerships,
-		focusedId = null
+		focusedId = null,
+		mapClass = 'aspect-4/3 h-auto rounded-lg border lg:aspect-square'
 	}: {
 		latitude: number;
 		longitude: number;
 		accommodationId: string;
 		accommodationName: string;
-		partnerships: typesPartnershipAccommodationSafe[];
+		partnerships: PartnershipAccommodationSafe[];
 		/** Hospitality id the guest is hovering on a card — the map pans/highlights its pin. */
 		focusedId?: string | null;
+		/** Sizing for the map surface; overridden when shown full-height in a drawer. */
+		mapClass?: string;
 	} = $props();
 
 	type StayMarker = {
@@ -84,15 +87,7 @@
 
 	const selectedHospitality = $derived(selectedPartnership?.hospitality ?? null);
 
-	const selectedBenefit = $derived.by(() => {
-		if (!selectedPartnership) return null;
-		return (
-			selectedPartnership.benefit ??
-			(selectedPartnership.discountPercentage == null
-				? null
-				: `${selectedPartnership.discountPercentage}% ${m['StayPage.StayPartnershipsSectionItem.off']()}`)
-		);
-	});
+	const selectedBenefit = $derived(selectedPartnership?.benefit ?? null);
 
 	const selectedDistanceLabel = $derived.by(() => {
 		const h = selectedHospitality;
@@ -138,7 +133,7 @@
 	{markers}
 	fitBounds={{ maxZoom: 15, padding: 56 }}
 	onMarkerClick={handleMarkerClick}
-	class="aspect-4/3 h-auto rounded-lg border lg:aspect-square"
+	class={mapClass}
 >
 	{#snippet markerContent(item: StayMarker, context: GoogleMapMarkerContext)}
 		{#if item.kind === 'accommodation'}

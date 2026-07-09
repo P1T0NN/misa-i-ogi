@@ -148,6 +148,14 @@ export function addHospitalityFormSections(): MutationFormSection[] {
 					placeholder: m['AddHospitalityPage.AddHospitalityForm.fieldDescriptionPlaceholder'](),
 					rows: 4,
 					required: true
+				},
+				{
+					id: 'benefit',
+					kind: 'input',
+					label: m['AddHospitalityPage.AddHospitalityForm.fieldBenefit'](),
+					placeholder: m['AddHospitalityPage.AddHospitalityForm.fieldBenefitPlaceholder'](),
+					description: m['AddHospitalityPage.AddHospitalityForm.fieldBenefitHint'](),
+					required: true
 				}
 			]
 		}

@@ -4,10 +4,7 @@
 	import { m } from '@/shared/lib/paraglide/messages';
 
 	// CONFIG
-	import {
-	ADMIN_PAGE_ENDPOINTS,
-	UNPROTECTED_PAGE_ENDPOINTS,
-} from '@/shared/page-endpoints.js';
+	import { ADMIN_PAGE_ENDPOINTS, UNPROTECTED_PAGE_ENDPOINTS } from '@/shared/page-endpoints.js';
 
 	// COMPONENTS
 	import SvelteHead from '@/shared/components/ui/svelte-head/svelte-head.svelte';
@@ -33,16 +30,6 @@
 		sortColumn: sortColumn as 'accommodation' | 'hospitality' | 'created' | undefined,
 		sortDirection
 	});
-
-	function benefitLabel(row: Doc<'partnerships'>) {
-		if (row.benefit) {
-			return row.benefit;
-		}
-		if (row.discountPercentage != null) {
-			return m['AdminPartnershipsPage.legacyDiscountValue']({ percent: row.discountPercentage });
-		}
-		return m['AdminPartnershipsPage.benefitNone']();
-	}
 
 	const columns: ColumnDef<Doc<'partnerships'>>[] = [
 		{
@@ -72,7 +59,7 @@
 		{
 			id: 'benefit',
 			header: m['AdminPartnershipsPage.columnBenefit'](),
-			accessor: (r) => benefitLabel(r),
+			accessor: (r) => r.benefit,
 			hideBelow: 'sm'
 		},
 		{
@@ -108,7 +95,7 @@
 
 	<ConvexDataTable
 		caption={m['AdminPartnershipsPage.caption']()}
-		query={api.tables.partnerships.queries.fetchAllPartnerships.fetchAllPartnerships}
+		query={api.tables.partnerships.queries.fetchAllPartnershipsAdmin.fetchAllPartnershipsAdmin}
 		{queryArgs}
 		optimizationStrategy="cursor"
 		getRowId={(r) => r._id}
@@ -144,13 +131,5 @@
 {/snippet}
 
 {#snippet benefitCell({ row }: DataTableCellSnippetProps<Doc<'partnerships'>>)}
-	{#if row.benefit}
-		<Badge variant="secondary">{row.benefit}</Badge>
-	{:else if row.discountPercentage != null}
-		<Badge variant="secondary">
-			{m['AdminPartnershipsPage.legacyDiscountValue']({ percent: row.discountPercentage })}
-		</Badge>
-	{:else}
-		<span class="text-sm text-muted-foreground">{m['AdminPartnershipsPage.benefitNone']()}</span>
-	{/if}
+	<Badge variant="secondary">{row.benefit}</Badge>
 {/snippet}

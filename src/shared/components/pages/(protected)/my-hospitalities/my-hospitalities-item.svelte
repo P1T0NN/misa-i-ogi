@@ -3,10 +3,8 @@
 	import { m } from '@/shared/lib/paraglide/messages';
 
 	// CONFIG
-	import {
-	PROTECTED_PAGE_ENDPOINTS,
-	UNPROTECTED_PAGE_ENDPOINTS,
-} from '@/shared/page-endpoints.js';
+	import { PROTECTED_PAGE_ENDPOINTS, UNPROTECTED_PAGE_ENDPOINTS } from '@/shared/page-endpoints.js';
+	import { CUSTOM_PARTNERSHIP_ENABLED } from '@/shared/config.js';
 
 	// COMPONENTS
 	import { Badge } from '@/shared/components/ui/badge/index.js';
@@ -101,7 +99,7 @@
 					</Button>
 				</span>
 
-				{#if hospitality.connectCode}
+				{#if CUSTOM_PARTNERSHIP_ENABLED && hospitality.connectCode}
 					<span class="inline-flex items-center gap-1.5 whitespace-nowrap">
 						<span class="text-xs font-medium">
 							{m['MyHospitalitiesPage.MyHospitalitiesItem.connectCode']()}

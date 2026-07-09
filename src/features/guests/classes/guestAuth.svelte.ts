@@ -4,7 +4,11 @@ import { getConvexClient } from '@mmailaender/convex-svelte';
 // TYPES
 import type { GuestStatus } from '@/convex/tables/guests/types/guestsTypes';
 
-export type GuestAuthStatus = Exclude<GuestStatus, 'active'> | 'loading' | 'authenticated' | 'error';
+export type GuestAuthStatus =
+	| Exclude<GuestStatus, 'active'>
+	| 'loading'
+	| 'authenticated'
+	| 'error';
 
 type FetchAccessToken = (args: { forceRefreshToken: boolean }) => Promise<string | null>;
 
@@ -39,7 +43,11 @@ export function createGuestAuth(fallbackFetchAccessToken: FetchAccessToken) {
 				return null;
 			}
 
-			if (!response.ok || typeof body?.token !== 'string' || typeof body?.sharingCode !== 'string') {
+			if (
+				!response.ok ||
+				typeof body?.token !== 'string' ||
+				typeof body?.sharingCode !== 'string'
+			) {
 				status = 'error';
 				established = false;
 				return null;

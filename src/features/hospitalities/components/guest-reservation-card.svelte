@@ -10,7 +10,7 @@
 	import { formatReservationGuestCount } from '@/features/reservations/utils/formatReservationGuestCount';
 
 	// TYPES
-	import type { HospitalityGuestReservation } from '@/convex/tables/hospitalities/types/hospitalitiesTypes';
+	import type { HospitalityGuestReservationSafe } from '@/convex/tables/hospitalities/types/hospitalitiesTypes';
 
 	// LUCIDE ICONS
 	import CheckCircle2Icon from '@lucide/svelte/icons/circle-check';
@@ -24,7 +24,7 @@
 		reservation,
 		hospitalityName = ''
 	}: {
-		reservation: HospitalityGuestReservation;
+		reservation: HospitalityGuestReservationSafe;
 		hospitalityName?: string;
 	} = $props();
 

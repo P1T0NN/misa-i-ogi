@@ -5,6 +5,9 @@ import { internalMutation } from '@/convex/_generated/server';
 import { getUserPlan } from '@/convex/tables/proTrials/helpers/proTrial';
 import { logAudit } from '@/convex/tables/auditLog/helpers/logAudit';
 import { AUDIT_ACTIONS } from '@/convex/tables/auditLog/auditLogConfigs';
+import { analytics } from '@/convex/analytics';
+import { customPartnershipsCounterKey } from '@/convex/helpers/counterKeys';
+import { bumpActivePartnershipsForOwners } from '@/convex/helpers/ownerCounterHelpers';
 
 /**
  * Expire due pro trials. For each unswept trial past its `endsAt` (unless the
@@ -56,10 +59,24 @@ export const expireProTrials = internalMutation({
 
 					for (const partnership of partnerships) {
 						if (partnership.createType !== 'custom') continue;
+						const hospitality = await ctx.db.get(partnership.hospitalityId);
 						await ctx.db.patch(partnership._id, {
 							isActive: false,
 							deactivationReason: 'trial_expired'
 						});
+						await analytics.counters.bump(
+							ctx,
+							customPartnershipsCounterKey(accommodation.ownerId),
+							-1
+						);
+						if (hospitality) {
+							await bumpActivePartnershipsForOwners(
+								ctx,
+								accommodation.ownerId,
+								hospitality.ownerId,
+								-1
+							);
+						}
 						trialPartnerships++;
 					}
 				}

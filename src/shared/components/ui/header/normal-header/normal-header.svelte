@@ -8,10 +8,7 @@
 
 	// CONFIG
 	import { COMPANY_DATA } from '@/shared/constants.js';
-	import {
-		PROTECTED_PAGE_ENDPOINTS,
-		UNPROTECTED_PAGE_ENDPOINTS
-	} from '@/shared/page-endpoints.js';
+	import { PROTECTED_PAGE_ENDPOINTS, UNPROTECTED_PAGE_ENDPOINTS } from '@/shared/page-endpoints.js';
 
 	// CLASSES
 	import { authClass } from '@/features/auth/classes/authClass.svelte';

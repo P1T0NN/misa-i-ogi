@@ -69,6 +69,7 @@
 	"Header": {
 		"navAriaLabel": "Main",
 		"mobileNavAriaLabel": "Mobile main",
+		"linkHome": "Home",
 		"linkBenefits": "Benefits",
 		"linkHowItWorks": "How it works",
 		"linkFeatures": "Features",
@@ -243,7 +244,9 @@
 		"typeHorseRide": "Horse ride",
 		"typeSpa": "Spa",
 		"typeTour": "Tour",
-		"typeOtherVenue": "Other"
+		"typeOtherVenue": "Other",
+		"partnerTypePlatform": "Platform",
+		"partnerTypeUser": "User"
 	},
 	"ActivatePage": {
 		"SEO": {
@@ -261,7 +264,11 @@
 			"description": "View your accommodation details and partner perks."
 		},
 		"StayAccommodationData": {
-			"eyebrow": "Your accommodation"
+			"eyebrow": "Your accommodation",
+			"perksEyebrow": "Exclusive to guests",
+			"perksTitle": "Your stay unlocks more than a room",
+			"perksBody": "As a guest of this accommodation, you've unlocked handpicked discounts and perks at restaurants, cafés, and local favourites nearby — partners chosen just for the people who stay here. Scroll down to see everything waiting for you.",
+			"addressLabel": "Address"
 		},
 		"StaySharingCode": {
 			"eyebrow": "Share this accommodation",
@@ -317,16 +324,16 @@
 		"StayLocationSection": {
 			"title": "Partners nearby",
 			"yourStay": "Your stay",
-			"closePanel": "Close partner details"
+			"closePanel": "Close partner details",
+			"openMapMobile": "See them on the map"
 		},
 		"StayPartnershipsSection": {
 			"partnerBenefitsEyebrow": "Included with your accommodation",
 			"partnersTitle": "Your partners in {city}",
-			"partnersLead": "Show this page to staff at any partner hospitality. No app, no account."
+			"partnersLead": "Tap any place to see what's waiting for you inside — then just show this page to redeem. No app, no account."
 		},
 		"StayPartnershipsSectionItem": {
-			"off": "off",
-			"viewDetails": "View details",
+			"viewDetails": "See what's inside",
 			"distanceAway": "{distance} away"
 		}
 	},
@@ -345,7 +352,6 @@
 		},
 		"HospitalityPartnership": {
 			"eyebrow": "Your accommodation benefit",
-			"legacyDiscountTitle": "{percent}% off",
 			"genericTitle": "Partner benefit active",
 			"body": "Show this accommodation page at {hospitalityName}; staff can honor the listed benefit.",
 			"sourceNote": "This benefit comes from the accommodation you scanned from."
@@ -727,12 +733,12 @@
 	"AdminDashboardPage": {
 		"SEO": {
 			"title": "Admin dashboard",
-			"description": "Operational snapshot of the full platform: setup health, reservation workload, and recent activity."
+			"description": "Operational snapshot of the full platform: users, venues, partnerships, and guest activity at a glance."
 		},
 		"AdminDashboardHeader": {
 			"eyebrow": "Platform owner",
 			"title": "Admin dashboard",
-			"description": "Operational snapshot of the full platform: setup health, reservation workload, and recent activity."
+			"description": "Operational snapshot of the full platform: users, venues, partnerships, and guest activity at a glance."
 		},
 		"AdminDashboardMetrics": {
 			"cardTitle": "Platform totals",
@@ -742,28 +748,6 @@
 			"hospitalities": "Hospitalities",
 			"partnerships": "Active links",
 			"guests": "Guest sessions"
-		},
-		"AdminDashboardReservationMetrics": {
-			"cardTitle": "Reservation workload",
-			"cardDescription": "Current reservation outcomes across the whole platform."
-		},
-		"AdminDashboardSetupHealth": {
-			"cardTitle": "Setup health",
-			"cardDescription": "Operational gaps that can keep guests from discovering hospitalities.",
-			"inactiveAccommodations": "Inactive accommodations",
-			"inactiveHospitalities": "Inactive hospitalities",
-			"unlinkedAccommodations": "Accommodations without links",
-			"unlinkedHospitalities": "Hospitalities without links",
-			"pendingReservations": "Pending reservations"
-		},
-		"AdminDashboardRecentReservations": {
-			"cardTitle": "Recent reservations",
-			"cardDescription": "Newest guest requests across all hospitality owners."
-		},
-		"AdminDashboardRecentReservationsEmpty": {
-			"ariaLabel": "No recent reservation requests",
-			"title": "No reservation requests yet",
-			"description": "When guests start requesting tables through connected accommodations, the newest requests will appear here for quick platform oversight."
 		},
 		"errorTitle": "Could not load admin dashboard",
 		"errorDescription": "The platform snapshot could not be loaded right now. Please try again."
@@ -1010,7 +994,14 @@
 		"statusInactive": "Inactive",
 		"addAccommodation": "Add accommodation",
 		"columnQr": "QR",
-		"openQr": "Show QR code for {name}"
+		"openQr": "Show QR code for {name}",
+		"columnActions": "Actions",
+		"edit": "Edit",
+		"DeleteAccommodationButton": {
+			"delete": "Delete",
+			"title": "Delete this accommodation?",
+			"description": "This permanently removes {accommodationName} from the platform. Guests will no longer be able to scan its QR code. An active guest session or partnership must be cleared first."
+		}
 	},
 	"AdminAccommodationAddPage": {
 		"SEO": {
@@ -1035,10 +1026,15 @@
 		"fieldOwner": "Owner",
 		"fieldAddress": "Address",
 		"fieldAddressPlaceholder": "Calle Mayor 14, 2nd floor",
+		"fieldAddressNumber": "Address number",
+		"fieldAddressNumberPlaceholder": "14",
 		"fieldCity": "City",
 		"fieldCityPlaceholder": "Madrid",
 		"fieldCountry": "Country",
 		"fieldCountryPlaceholder": "Spain",
+		"fieldLatitude": "Latitude",
+		"fieldLongitude": "Longitude",
+		"fieldCoordinatesPlaceholder": "These will automatically populate once you wrote the address",
 		"fieldDescription": "Description",
 		"fieldDescriptionPlaceholder": "Short description shown on the benefits page (optional).",
 		"fieldIsActive": "Active",
@@ -1060,7 +1056,6 @@
 		"columnBenefit": "Benefit",
 		"columnCreated": "Created",
 		"benefitNone": "No benefit",
-		"legacyDiscountValue": "{percent}% off",
 		"addPartnership": "Add partnership"
 	},
 	"PartnershipsPage": {
@@ -1084,8 +1079,11 @@
 		},
 		"PartnershipsActiveTab": {
 			"caption": "Active partnerships",
+			"captionCustom": "Your custom partnerships",
+			"captionPlatform": "Platform partners",
 			"columnVenue": "Venue",
 			"columnAccommodation": "Accommodation",
+			"allAccommodations": "All accommodations",
 			"columnBenefit": "Benefit",
 			"columnOwner": "Ownership",
 			"columnCreated": "Created",
@@ -1095,11 +1093,20 @@
 			"setBenefitDescription": "Guests of the linked accommodation will see this offer at your venue.",
 			"columnActions": "Actions",
 			"ownerYours": "Yours",
-			"ownerPartner": "Partner"
+			"ownerPartner": "Partner",
+			"ownerPlatform": "Platform partner"
 		},
 		"PartnershipsSentTab": {
+			"caption": "Sent partnership requests",
+			"columnVenue": "Venue",
+			"columnSent": "Sent",
+			"columnStatus": "Status",
 			"unknownVenue": "Deleted venue",
 			"sentOn": "Sent {date}"
+		},
+		"PartnershipsReceivedTab": {
+			"caption": "Received partnership requests",
+			"columnRequest": "Request"
 		},
 		"PartnershipRequestItem": {
 			"unknownProperty": "Deleted property",
@@ -1141,34 +1148,12 @@
 		"sectionPartnersTitle": "Partners",
 		"sectionPartnersDescription": "Paste Convex document IDs from the accommodations and hospitalities admin lists.",
 		"fieldAccommodation": "Accommodation",
-		"PartnershipsSelectAccommodationDialogEmpty": {
-			"description": "No accommodations yet."
-		},
 		"fieldHospitality": "Hospitalities",
-		"PartnershipsSelectHospitalityDialogEmpty": {
-			"description": "No hospitalities yet."
-		},
 		"sectionOfferTitle": "Offer",
 		"sectionOfferDescription": "A short guest-facing benefit that staff can honor in person.",
 		"fieldBenefit": "Benefit",
 		"fieldBenefitPlaceholder": "15% off",
-		"fieldBenefitDescription": "Example: 15% off",
-		"PartnershipsSelectAccommodationDialog": {
-			"selectAccommodation": "Select Accommodation",
-			"modifyAccommodation": "Modify",
-			"selectAccommodationDialogTitle": "Select accommodation",
-			"selectAccommodationLoading": "Loading accommodations…",
-			"selectAccommodationTruncated": "Showing the first {count} — add more from the accommodations admin list."
-		},
-		"PartnershipsSelectHospitalityDialog": {
-			"selectHospitality": "Select hospitalities",
-			"modifyHospitality": "Modify",
-			"selectHospitalityDialogTitle": "Select hospitalities",
-			"selectHospitalityDone": "Done",
-			"selectHospitalitySelectedCount": "{count} selected",
-			"selectHospitalityLoading": "Loading hospitalities…",
-			"selectHospitalityTruncated": "Showing the first {count} — add more from the hospitalities admin list."
-		}
+		"fieldBenefitDescription": "Example: 15% off"
 	},
 	"AdminHospitalitiesPage": {
 		"SEO": {
@@ -1190,6 +1175,8 @@
 		"contactNone": "—",
 		"addHospitality": "Add hospitality",
 		"columnVisibility": "Visibility",
+		"columnActions": "Actions",
+		"edit": "Edit",
 		"HospitalityVisibilityButton": {
 			"public": "Public",
 			"private": "Private",
@@ -1197,6 +1184,11 @@
 			"makePrivateTitle": "Unpublish {name}?",
 			"makePublicDescription": "Other users will be able to find this hospitality in their custom-partnership connect flow and send partnership requests to its owner.",
 			"makePrivateDescription": "This hospitality will no longer appear in other users' custom-partnership connect flow. Existing partnerships are not affected."
+		},
+		"DeleteHospitalityButton": {
+			"delete": "Delete",
+			"title": "Delete this hospitality?",
+			"description": "This permanently removes {hospitalityName} from the platform. Guests will no longer be able to view it or send reservation requests. An active partnership or open reservation must be cleared first."
 		}
 	},
 	"AdminHospitalityAddPage": {
@@ -1236,6 +1228,11 @@
 		"fieldContactPhone": "Phone",
 		"fieldContactPhonePlaceholder": "+34 600 000 000",
 		"fieldReservationMode": "Reservation mode",
+		"fieldPartnerType": "Partner type",
+		"fieldPartnerTypeHint": "Platform: a public venue every accommodation can be linked to and shown as a benefit. User: a private venue only its owner can link via a custom-partnership connect code — it never appears in other accommodations' benefits.",
+		"fieldBenefit": "Guest benefit",
+		"fieldBenefitPlaceholder": "15% off",
+		"fieldBenefitHint": "Shown to guests of every accommodation for platform partners.",
 		"fieldDescription": "Description",
 		"fieldDescriptionPlaceholder": "Short description shown on the benefits page.",
 		"fieldIsActive": "Active",
@@ -1601,7 +1598,9 @@
 			"coordinatesRequired": "Pick an address from the suggestions so we can place the map pin.",
 			"descriptionRequired": "Description is required.",
 			"phoneRequired": "Phone number is required.",
-			"coverRequired": "Add a cover image."
+			"coverRequired": "Add a cover image.",
+			"benefitRequired": "Benefit is required.",
+			"benefitMaxLength": "Benefit must be 15 characters or fewer."
 		},
 		"CreateCustomPartnershipSchema": {
 			"accommodationRequired": "Pick an accommodation.",
@@ -1621,7 +1620,30 @@
 			"timeInvalid": "Enter a valid time (HH:MM).",
 			"phoneRequired": "Phone number is required.",
 			"emailInvalid": "Enter a valid email address."
+		},
+		"CreateReportSchema": {
+			"messageRequired": "Please describe what happened.",
+			"messageMax": "Keep your message under {max} characters.",
+			"emailInvalid": "Enter a valid email address."
 		}
+	},
+	"ReportPage": {
+		"SEO": {
+			"title": "Report an issue",
+			"description": "Tell us about a bug or anything else you ran into."
+		},
+		"title": "Tell us what happened",
+		"intro": "Found a bug or something that didn't feel right? A few words is all we need — we read every report.",
+		"categoryLabel": "What's this about?",
+		"categoryBug": "Something is broken",
+		"categoryIdea": "I have an idea",
+		"categoryOther": "Something else",
+		"fieldMessage": "Details",
+		"fieldMessagePlaceholder": "Describe what you were doing and what went wrong. The more detail, the faster we can fix it.",
+		"fieldEmail": "Email (optional)",
+		"fieldEmailPlaceholder": "you@example.com",
+		"fieldEmailDescription": "Leave your email if you'd like us to follow up.",
+		"submit": "Send report"
 	},
 	"CreateCustomPartnershipPage": {
 		"SEO": {
@@ -1675,10 +1697,21 @@
 		"title": "Delete this hospitality?",
 		"description": "This permanently removes {hospitalityName} from your account. Guests will no longer be able to view it or send reservation requests. Open reservations or partnerships must be cleared first."
 	},
-	"SelectMyAccommodationDialog": {
+	"SelectAccommodationDialog": {
 		"selectAccommodation": "Select accommodation",
 		"modifyAccommodation": "Change accommodation",
-		"dialogTitle": "Select an accommodation"
+		"dialogTitle": "Select an accommodation",
+		"searchPlaceholder": "Search accommodations by name…",
+		"SelectAccommodationDialogError": {
+			"title": "Could not load accommodations",
+			"description": "Please try again in a moment."
+		},
+		"SelectAccommodationDialogEmpty": {
+			"title": "No accommodations yet",
+			"description": "Add an accommodation to your account before creating a partnership.",
+			"adminDescription": "No accommodations yet.",
+			"cta": "Add accommodation"
+		}
 	},
 	"StartProTrialDialog": {
 		"title": "Start your free Pro trial?",
@@ -1743,6 +1776,9 @@
 			"sectionDetailsDescription": "Short description shown on the benefits page.",
 			"fieldDescription": "Description",
 			"fieldDescriptionPlaceholder": "Short description shown on the benefits page.",
+			"fieldBenefit": "Guest benefit",
+			"fieldBenefitPlaceholder": "15% off",
+			"fieldBenefitHint": "Short offer guests see when this venue is linked to an accommodation.",
 			"submit": "Create hospitality"
 		},
 		"AddHospitalityVisibilityNotice": {
@@ -1768,6 +1804,7 @@
 		"NOT_AUTHENTICATED": "Please sign in to continue.",
 		"ADMIN_ACCESS_REQUIRED": "This action requires admin privileges.",
 		"ADMIN_CANNOT_BE_DELETED": "Admins can't be deleted. Demote to \"user\" first.",
+		"USER_HAS_OWNED_DATA": "This user still owns accommodations, hospitalities, or files. Delete those first.",
 		"USER_NOT_FOUND": "User not found.",
 		"ACCOMMODATION_CREATED": "Accommodation created.",
 		"ACCOMMODATION_UPDATED": "Accommodation updated successfully!",
@@ -1778,6 +1815,7 @@
 		"ACCOMMODATION_CANNOT_DELETE_ACTIVE_GUEST": "This accommodation cannot be deleted. There is an active guest in it using the app, please wait for it to expire and then try again!",
 		"ACCOMMODATION_CANNOT_DELETE_ACTIVE_PARTNERSHIP": "This accommodation cannot be deleted while it is linked to a hospitality partnership. Revoke the partnership first, then try again.",
 		"GUEST_CREATED": "Guest accommodation unlocked.",
+		"REPORT_CREATED": "Thanks — your report has been sent.",
 		"GUEST_ALREADY_ACTIVE": "This accommodation is already unlocked.",
 		"GUEST_SHARING_CODE_INVALID": "That sharing code is invalid or has expired.",
 		"GUEST_SHARED_ACCESS_GRANTED": "Accommodation access shared.",
@@ -1793,6 +1831,7 @@
 		"PARTNERSHIP_CREATED": "Partnership created.",
 		"PARTNERSHIPS_CREATED": "Created {count} partnerships.",
 		"PARTNERSHIP_PAIR_EXISTS": "This accommodation is already linked to that hospitality.",
+		"PARTNERSHIP_PLATFORM_HOSPITALITY_IMPLICIT": "Platform hospitalities are already partnered with every accommodation. Set the guest offer on the hospitality instead.",
 		"PARTNERSHIP_BENEFIT_INVALID": "Benefit must be 1 to 15 characters.",
 		"PARTNERSHIP_BENEFIT_UPDATED": "Partnership benefit updated.",
 		"PARTNERSHIP_REVOKED": "Partnership revoked.",
@@ -1862,14 +1901,30 @@
 		"title": "Managed reservations",
 		"description": "Guests request a reservation time through the app. You can review and accept or decline each request, so every request is recorded in your dashboard."
 	},
-	"SelectMyAccommodationDialogError": {
-		"title": "Could not load accommodations",
-		"description": "Please try again in a moment."
+	"SelectHospitalityDialog": {
+		"selectHospitality": "Select hospitalities",
+		"modifyHospitality": "Change hospitalities",
+		"dialogTitle": "Select hospitalities",
+		"searchPlaceholder": "Search hospitalities by name…",
+		"selectedCount": "{count} selected",
+		"done": "Done",
+		"SelectHospitalityDialogError": {
+			"title": "Could not load hospitalities",
+			"description": "Please try again in a moment."
+		},
+		"SelectHospitalityDialogEmpty": {
+			"title": "No hospitalities yet",
+			"description": "Add a hospitality to your account before creating a partnership.",
+			"adminDescription": "No hospitalities yet.",
+			"cta": "Add hospitality"
+		}
 	},
-	"SelectMyAccommodationDialogEmpty": {
-		"title": "No accommodations yet",
-		"description": "Add an accommodation to your account before creating a partnership.",
-		"cta": "Add accommodation"
+	"SearchDialog": {
+		"hint": "Type to search.",
+		"loading": "Searching…",
+		"noResults": "No matches found.",
+		"selectedCount": "{count} selected",
+		"done": "Done"
 	},
 	"AnalyticsTopAccommodationsTable": {
 		"topTitle": "Top accommodations",

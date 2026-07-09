@@ -1,44 +1,65 @@
 <script lang="ts">
 	// LIBRARIES
+	import { api } from '@/convex/_generated/api';
 	import { m } from '@/shared/lib/paraglide/messages';
 
+	// CONFIG
+	import { PAGINATION_DATA } from '@/shared/config';
+
 	// COMPONENTS
-	import DataList from '@/shared/components/ui/data-list/data-list.svelte';
+	import ConvexDataTable from '@/shared/components/ui/data-table/convex-data-table.svelte';
 	import PartnershipStatusBadge from './partnership-status-badge.svelte';
-	import PartnershipsTabEmpty from '../empty/partnerships-tab-empty.svelte';
 
 	// TYPES
 	import type { typesPartnershipRequestItem } from '@/features/partnerships/types/partnershipsTypes';
+	import type {
+		ColumnDef,
+		DataTableCellSnippetProps
+	} from '@/shared/components/ui/data-table/types.js';
 
-	interface Props {
-		rows: typesPartnershipRequestItem[];
-	}
-
-	let { rows }: Props = $props();
+	const columns: ColumnDef<typesPartnershipRequestItem>[] = [
+		{
+			id: 'venue',
+			header: m['PartnershipsPage.PartnershipsSentTab.columnVenue'](),
+			accessor: (r) => r.hospitalityName ?? '',
+			cellClass: 'font-medium',
+			wrap: true
+		},
+		{
+			id: 'sent',
+			header: m['PartnershipsPage.PartnershipsSentTab.columnSent'](),
+			accessor: (r) => new Date(r.requestedAt).toLocaleDateString(),
+			hideBelow: 'sm'
+		},
+		{
+			id: 'status',
+			header: m['PartnershipsPage.PartnershipsSentTab.columnStatus'](),
+			accessor: (r) => r.status,
+			wrap: true
+		}
+	];
 </script>
 
-<DataList items={rows} isEmpty={rows.length === 0} getItemKey={(row) => String(row.requestId)}>
-	{#snippet item({ item: row })}
-		<div
-			class="flex items-center justify-between gap-3 rounded-lg border border-border bg-background/70 p-4"
-		>
-			<div class="flex min-w-0 flex-col gap-0.5">
-				<span class="truncate font-medium">
-					{row.hospitalityName ?? m['PartnershipsPage.PartnershipsSentTab.unknownVenue']()}
-				</span>
+<ConvexDataTable
+	caption={m['PartnershipsPage.PartnershipsSentTab.caption']()}
+	query={api.tables.partnershipRequests.queries.fetchPartnershipsRequestsSent
+		.fetchPartnershipsRequestsSent}
+	optimizationStrategy="cursor"
+	pageSize={PAGINATION_DATA.DEFAULT_PAGE_SIZE}
+	{columns}
+	getRowId={(r) => String(r.requestId)}
+	customCells={{
+		venue: venueCell,
+		status: statusCell
+	}}
+/>
 
-				<span class="text-xs text-muted-foreground">
-					{m['PartnershipsPage.PartnershipsSentTab.sentOn']({
-						date: new Date(row.requestedAt).toLocaleDateString()
-					})}
-				</span>
-			</div>
+{#snippet venueCell({ row }: DataTableCellSnippetProps<typesPartnershipRequestItem>)}
+	<span class="truncate font-medium">
+		{row.hospitalityName ?? m['PartnershipsPage.PartnershipsSentTab.unknownVenue']()}
+	</span>
+{/snippet}
 
-			<PartnershipStatusBadge status={row.status} />
-		</div>
-	{/snippet}
-
-	{#snippet empty()}
-		<PartnershipsTabEmpty tab="sent" />
-	{/snippet}
-</DataList>
+{#snippet statusCell({ row }: DataTableCellSnippetProps<typesPartnershipRequestItem>)}
+	<PartnershipStatusBadge status={row.status} />
+{/snippet}

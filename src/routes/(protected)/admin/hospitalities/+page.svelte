@@ -5,9 +5,10 @@
 
 	// CONFIG
 	import {
-	ADMIN_PAGE_ENDPOINTS,
-	UNPROTECTED_PAGE_ENDPOINTS,
-} from '@/shared/page-endpoints.js';
+		ADMIN_PAGE_ENDPOINTS,
+		PROTECTED_PAGE_ENDPOINTS,
+		UNPROTECTED_PAGE_ENDPOINTS
+	} from '@/shared/page-endpoints.js';
 
 	// FEATURES
 	import { labelHospitalityType } from '@/features/hospitalities/data/hospitalitiesData';
@@ -19,6 +20,7 @@
 	import { Badge } from '@/shared/components/ui/badge/index.js';
 	import { Button } from '@/shared/components/ui/button/index.js';
 	import HospitalityVisibilityButton from '@/shared/components/pages/(protected)/admin/hospitalities/hospitality-visibility-button.svelte';
+	import DeleteHospitalityButton from '@/shared/components/pages/(protected)/admin/hospitalities/delete-hospitality-button.svelte';
 
 	// TYPES
 	import type {
@@ -28,6 +30,7 @@
 	import type { Doc } from '@/convex/_generated/dataModel';
 
 	// LUCIDE ICONS
+	import PencilIcon from '@lucide/svelte/icons/pencil';
 	import PlusIcon from '@lucide/svelte/icons/plus';
 
 	let sortColumn = $state<string | undefined>(undefined);
@@ -41,6 +44,10 @@
 
 	function cityLine(row: Doc<'hospitalities'>) {
 		return [row.city, row.country].filter(Boolean).join(', ');
+	}
+
+	function editHref(row: Doc<'hospitalities'>) {
+		return PROTECTED_PAGE_ENDPOINTS.EDIT_HOSPITALITY.replace(':id', row._id);
 	}
 
 	const columns: ColumnDef<Doc<'hospitalities'>>[] = [
@@ -92,6 +99,12 @@
 			hideBelow: 'md'
 		},
 		{
+			id: 'actions',
+			header: m['AdminHospitalitiesPage.columnActions'](),
+			accessor: () => '',
+			hideBelow: 'sm'
+		},
+		{
 			id: 'created',
 			header: m['AdminHospitalitiesPage.columnCreated'](),
 			accessor: (r) => new Date(r._creationTime).toLocaleString(),
@@ -129,13 +142,28 @@
 		optimizationStrategy="cursor"
 		getRowId={(r) => r._id}
 		{columns}
-		customCells={{ name: nameCell, status: statusCell, visibility: visibilityCell }}
+		customCells={{
+			name: nameCell,
+			actions: actionsCell,
+			status: statusCell,
+			visibility: visibilityCell
+		}}
 		bind:sortColumn
 		bind:sortDirection
 		selectable
 		deleteMutation={api.tables.hospitalities.mutations.deleteHospitalities.deleteHospitalities}
 	/>
 </section>
+
+{#snippet actionsCell({ row }: DataTableCellSnippetProps<Doc<'hospitalities'>>)}
+	<div class="flex flex-wrap gap-2">
+		<Button href={editHref(row)} variant="outline" size="sm">
+			<PencilIcon data-icon="inline-start" />
+			{m['AdminHospitalitiesPage.edit']()}
+		</Button>
+		<DeleteHospitalityButton hospitalityId={row._id} hospitalityName={row.name} />
+	</div>
+{/snippet}
 
 {#snippet nameCell({ row }: DataTableCellSnippetProps<Doc<'hospitalities'>>)}
 	<Link

@@ -1,15 +1,19 @@
 // LIBRARIES
 import { v } from 'convex/values';
 import { authMutation } from '@/convex/auth/middleware/authMiddleware';
-import { AUDIT_ACTIONS } from '@/convex/tables/auditLog/auditLogConfigs';
+
+// CONFIG
+import { CUSTOM_PARTNERSHIP_ENABLED } from '@/shared/config.js';
 
 // HELPERS
 import { analytics } from '@/convex/analytics';
 import { customPartnershipsCounterKey } from '@/convex/helpers/counterKeys';
 import { ensureCustomPartnershipAccess } from '@/convex/tables/partnerships/helpers/ensureCustomPartnershipAccess';
+import { insertPartnership } from '@/convex/tables/partnerships/helpers/insertPartnership';
+import { reactivatePartnership } from '@/convex/tables/partnerships/helpers/reactivatePartnership';
+import { isPlatformHospitality } from '@/convex/tables/hospitalities/utils/isPlatformHospitality';
 
 // UTILS
-import { createAnalyticsScopeId } from '@piton-/analytics-convex';
 import { parsePartnershipBenefit } from '@/convex/tables/partnerships/utils/parsePartnershipBenefit';
 
 // SCHEMAS
@@ -29,6 +33,10 @@ export const acceptPartnershipRequest = authMutation('acceptPartnershipRequest')
 	},
 	returns: mutationResultValidator,
 	handler: async (ctx, args): Promise<MutationResult> => {
+		if (!CUSTOM_PARTNERSHIP_ENABLED) {
+			return { success: false, message: { key: 'GenericMessages.FORBIDDEN' } };
+		}
+
 		const request = await ctx.db.get(args.requestId);
 		if (!request || request.hospitalityOwnerId !== ctx.userId) {
 			return { success: false, message: { key: 'GenericMessages.PARTNERSHIP_REQUEST_NOT_FOUND' } };
@@ -56,16 +64,23 @@ export const acceptPartnershipRequest = authMutation('acceptPartnershipRequest')
 		if (!hospitality) {
 			return { success: false, message: { key: 'GenericMessages.HOSPITALITY_NOT_FOUND' } };
 		}
+		if (isPlatformHospitality(hospitality)) {
+			return {
+				success: false,
+				message: { key: 'GenericMessages.PARTNERSHIP_PLATFORM_HOSPITALITY_IMPLICIT' }
+			};
+		}
 
-		// An admin may have linked the pair while the request sat in the queue —
-		// resolve the request without inserting a duplicate or consuming quota.
 		const existingPartnership = await ctx.db
 			.query('partnerships')
 			.withIndex('by_pair', (q) =>
 				q.eq('accommodationId', request.accommodationId).eq('hospitalityId', request.hospitalityId)
 			)
 			.unique();
-		if (existingPartnership) {
+
+		// An admin may have linked the pair while the request sat in the queue —
+		// resolve without inserting a duplicate or consuming quota.
+		if (existingPartnership?.isActive) {
 			await ctx.db.patch(request._id, { status: 'accepted', respondedAt: Date.now() });
 			return { success: true, message: { key: 'GenericMessages.PARTNERSHIP_REQUEST_ACCEPTED' } };
 		}
@@ -77,55 +92,33 @@ export const acceptPartnershipRequest = authMutation('acceptPartnershipRequest')
 
 		await ctx.db.patch(request._id, { status: 'accepted', benefit, respondedAt: Date.now() });
 
-		const partnershipId = await ctx.db.insert('partnerships', {
-			accommodationId: request.accommodationId,
-			accommodationScanToken: accommodation.scanToken,
-			hospitalityId: request.hospitalityId,
+		if (existingPartnership) {
+			await reactivatePartnership(ctx, {
+				partnershipId: existingPartnership._id,
+				partnership: existingPartnership,
+				accommodationOwnerId: accommodation.ownerId,
+				hospitalityOwnerId: hospitality.ownerId,
+				benefit,
+				actorId: ctx.userId,
+				auditMetadata: { partnershipRequestId: request._id }
+			});
+			return { success: true, message: { key: 'GenericMessages.PARTNERSHIP_REQUEST_ACCEPTED' } };
+		}
+
+		const { event } = await insertPartnership(ctx, {
+			accommodation,
+			hospitality,
 			benefit,
 			createType: 'custom',
-			isActive: true
+			actorId: ctx.userId,
+			auditMetadata: { partnershipRequestId: request._id }
 		});
 		await analytics.counters.bump(
 			ctx,
 			customPartnershipsCounterKey(request.accommodationOwnerId),
 			1
 		);
-
-		ctx.audit(AUDIT_ACTIONS.PARTNERSHIP_CREATE, {
-			resource: { table: 'partnerships', id: partnershipId },
-			after: {
-				accommodationId: request.accommodationId,
-				accommodationScanToken: accommodation.scanToken,
-				hospitalityId: request.hospitalityId,
-				benefit,
-				isActive: true
-			},
-			metadata: { partnershipRequestId: request._id }
-		});
-
-		await analytics.track(ctx, 'partnership.created', {
-			subject: { type: 'hospitality', id: hospitality._id },
-			organizationId: accommodation.ownerId,
-			scopes: [
-				{ scopeType: 'organization', scopeId: hospitality.ownerId },
-				{
-					scopeType: 'organization',
-					scopeId: createAnalyticsScopeId('accommodationOwner', accommodation.ownerId)
-				},
-				{
-					scopeType: 'organization',
-					scopeId: createAnalyticsScopeId('hospitalityOwner', hospitality.ownerId)
-				}
-			],
-			properties: {
-				accommodationId: accommodation._id,
-				accommodationName: accommodation.name,
-				hospitalityId: hospitality._id,
-				hospitalityName: hospitality.name,
-				benefit,
-				partnershipDelta: 1
-			}
-		});
+		await analytics.track(ctx, event);
 
 		return { success: true, message: { key: 'GenericMessages.PARTNERSHIP_REQUEST_ACCEPTED' } };
 	}

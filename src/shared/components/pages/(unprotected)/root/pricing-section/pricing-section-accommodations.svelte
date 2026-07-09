@@ -47,8 +47,8 @@
 			<Badge variant="secondary">Coming soon</Badge>
 		</div>
 		<p class="mt-1.5 mb-0 text-sm leading-relaxed text-muted-foreground">
-			Forming your own partnerships directly with other hospitalities is on our roadmap. Pricing
-			for that feature has not been set yet — everything above stays free either way.
+			Forming your own partnerships directly with other hospitalities is on our roadmap. Pricing for
+			that feature has not been set yet — everything above stays free either way.
 		</p>
 	</div>
 

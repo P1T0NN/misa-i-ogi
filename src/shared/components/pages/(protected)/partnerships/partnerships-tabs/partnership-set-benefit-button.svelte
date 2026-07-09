@@ -57,7 +57,7 @@
 
 <ActionButton
 	function={save}
-	isPending={isPending}
+	{isPending}
 	actionDisabled={benefit.trim().length === 0}
 	title={m['PartnershipsPage.PartnershipsActiveTab.setBenefitTitle']()}
 	description={m['PartnershipsPage.PartnershipsActiveTab.setBenefitDescription']()}

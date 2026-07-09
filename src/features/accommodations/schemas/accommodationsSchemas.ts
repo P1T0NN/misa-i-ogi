@@ -35,7 +35,6 @@ const accommodationAddBaseSchema = {
 		v.trim(),
 		v.minLength(1, m['ValidationMessages.CreateAccommodationSchema.countryRequired']())
 	),
-	description: v.optional(v.pipe(v.string(), v.trim())),
 	// `null` until the user picks a file; validated as a real `File` on submit, then swapped for an R2 key.
 	coverImageKey: v.pipe(
 		v.union([v.null(), v.file()]),
@@ -48,6 +47,9 @@ const accommodationAddBaseSchema = {
 
 export const accommodationAddFormSchema = v.object({
 	...accommodationAddBaseSchema,
+	addressNumber: v.optional(v.pipe(v.string(), v.trim())),
+	latitude: accommodationCoordinate,
+	longitude: accommodationCoordinate,
 	ownerId: v.optional(v.pipe(v.string(), v.trim())),
 	isActive: v.boolean()
 });
@@ -89,7 +91,6 @@ export const accommodationEditFormSchema = v.object({
 		v.trim(),
 		v.minLength(1, m['ValidationMessages.CreateAccommodationSchema.countryRequired']())
 	),
-	description: v.optional(v.pipe(v.string(), v.trim())),
 	addressNumber: v.optional(v.pipe(v.string(), v.trim())),
 	latitude: accommodationCoordinate,
 	longitude: accommodationCoordinate,

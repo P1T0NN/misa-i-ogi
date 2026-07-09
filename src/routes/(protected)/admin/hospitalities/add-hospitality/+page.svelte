@@ -10,7 +10,8 @@
 	// FEATURES
 	import {
 		hospitalityTypeSelectOptions,
-		reservationModeSelectOptions
+		reservationModeSelectOptions,
+		partnerTypeSelectOptions
 	} from '@/features/hospitalities/data/hospitalitiesData';
 	import ReservationModeField from '@/features/hospitalities/components/reservation-mode-field.svelte';
 
@@ -190,6 +191,23 @@
 					options: reservationModeSelectOptions()
 				},
 				{
+					id: 'createType',
+					kind: 'select',
+					label: m['AdminHospitalityAddPage.fieldPartnerType'](),
+					options: partnerTypeSelectOptions(),
+					description: m['AdminHospitalityAddPage.fieldPartnerTypeHint'](),
+					colSpan: 2
+				},
+				{
+					id: 'benefit',
+					kind: 'input',
+					label: m['AdminHospitalityAddPage.fieldBenefit'](),
+					placeholder: m['AdminHospitalityAddPage.fieldBenefitPlaceholder'](),
+					description: m['AdminHospitalityAddPage.fieldBenefitHint'](),
+					required: true,
+					colSpan: 2
+				},
+				{
 					id: 'isActive',
 					kind: 'checkbox',
 					label: m['AdminHospitalityAddPage.fieldIsActive'](),
@@ -211,6 +229,8 @@
 		description: '',
 		contactPhone: '',
 		reservationMode: 'managed_request',
+		createType: 'platform',
+		benefit: '',
 		ownerId: '',
 		isActive: true,
 		coverImageKey: null,

@@ -1,5 +1,6 @@
 // SVELTEKIT IMPORTS
 import { json } from '@sveltejs/kit';
+import { env } from '$env/dynamic/private';
 
 // LIBRARIES
 import { api } from '@/convex/_generated/api';
@@ -28,22 +29,30 @@ function unauthorized(status: CurrentGuest['status']) {
 	return json({ status }, { status: 401, headers: noStoreHeaders });
 }
 
-// TODO(rate-limit): Add Upstash Redis rate limiting here before calling Convex.
-// Key by client IP (`getClientAddress()`) and optionally a hash of `guestStayCookie`
-// for per-session limits on shared WiFi.
-
 /** Thin bridge: HttpOnly cookie -> short-lived Convex guest JWT (crypto lives in Convex). */
-export const GET: RequestHandler = async ({ cookies }) => {
+export const GET: RequestHandler = async ({ cookies, getClientAddress }) => {
 	const guestStayCookie = cookies.get(COOKIE_NAMES.GUEST_STAY);
 	if (!guestStayCookie) {
 		return unauthorized('missing');
 	}
 
-	const client = createConvexHttpClient();
-	const result: CreateGuestConvexAuthTokenResult = await client.action(
-		api.tables.guests.actions.createGuestConvexAuthToken.createGuestConvexAuthToken,
-		{ guestStayCookie }
-	);
+	let result: CreateGuestConvexAuthTokenResult;
+	try {
+		const client = createConvexHttpClient();
+		result = await client.action(
+			api.tables.guests.actions.createGuestConvexAuthToken.createGuestConvexAuthToken,
+			{
+				guestStayCookie,
+				ip: getClientAddress(),
+				secret: env.SEARCH_INPUT_RATE_LIMIT_SECRET ?? ''
+			}
+		);
+	} catch (err) {
+		// Rate-limited or a transient Convex failure — degrade to the tolerated
+		// "missing" response the client already handles, never an unhandled 500.
+		console.error('[guest-auth/token] token mint failed', err);
+		return unauthorized('missing');
+	}
 
 	if ('token' in result) {
 		if (!result.sharingCode) {

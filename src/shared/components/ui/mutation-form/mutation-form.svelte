@@ -117,6 +117,7 @@
 
 	async function handleSubmit(event: SubmitEvent) {
 		event.preventDefault();
+		if (busy) return; // guard against a double Enter before the button disables
 
 		const valueSnapshot = $state.snapshot(values) as T;
 		const validation = safeParse(schema, valueSnapshot);

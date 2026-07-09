@@ -3,10 +3,7 @@
 	import { m } from '@/shared/lib/paraglide/messages';
 
 	// CONFIG
-	import {
-	ADMIN_PAGE_ENDPOINTS,
-	PROTECTED_PAGE_ENDPOINTS,
-} from '@/shared/page-endpoints.js';
+	import { ADMIN_PAGE_ENDPOINTS, PROTECTED_PAGE_ENDPOINTS } from '@/shared/page-endpoints.js';
 
 	// COMPONENTS
 	import * as Sidebar from '@/shared/components/ui/sidebar/index.js';

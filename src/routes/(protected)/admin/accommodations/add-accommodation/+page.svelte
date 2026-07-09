@@ -10,6 +10,8 @@
 	// COMPONENTS
 	import SvelteHead from '@/shared/components/ui/svelte-head/svelte-head.svelte';
 	import ConvexMutationForm from '@/shared/components/ui/mutation-form/convex-mutation-form.svelte';
+	import GooglePlacesAutocomplete from '@/shared/components/ui/google-places-autocomplete/google-places-autocomplete.svelte';
+	import LocationMap from '@/shared/components/ui/location-map/location-map.svelte';
 	import { Button } from '@/shared/components/ui/button/index.js';
 	import AdminOwnerField from '@/features/users/components/admin-owner-field.svelte';
 
@@ -73,6 +75,13 @@
 					placeholder: m['AdminAccommodationAddPage.fieldAddressPlaceholder']()
 				},
 				{
+					id: 'addressNumber',
+					kind: 'input',
+					label: m['AdminAccommodationAddPage.fieldAddressNumber'](),
+					placeholder: m['AdminAccommodationAddPage.fieldAddressNumberPlaceholder'](),
+					colSpan: 1
+				},
+				{
 					id: 'city',
 					kind: 'input',
 					label: m['AdminAccommodationAddPage.fieldCity'](),
@@ -84,6 +93,24 @@
 					kind: 'input',
 					label: m['AdminAccommodationAddPage.fieldCountry'](),
 					placeholder: m['AdminAccommodationAddPage.fieldCountryPlaceholder'](),
+					colSpan: 1
+				},
+				{
+					id: 'latitude',
+					kind: 'input',
+					type: 'number',
+					label: m['AdminAccommodationAddPage.fieldLatitude'](),
+					placeholder: m['AdminAccommodationAddPage.fieldCoordinatesPlaceholder'](),
+					disabled: true,
+					colSpan: 1
+				},
+				{
+					id: 'longitude',
+					kind: 'input',
+					type: 'number',
+					label: m['AdminAccommodationAddPage.fieldLongitude'](),
+					placeholder: m['AdminAccommodationAddPage.fieldCoordinatesPlaceholder'](),
+					disabled: true,
 					colSpan: 1
 				}
 			]
@@ -108,13 +135,6 @@
 			description: m['AdminAccommodationAddPage.sectionDetailsDescription'](),
 			fields: [
 				{
-					id: 'description',
-					kind: 'textarea',
-					label: m['AdminAccommodationAddPage.fieldDescription'](),
-					placeholder: m['AdminAccommodationAddPage.fieldDescriptionPlaceholder'](),
-					rows: 4
-				},
-				{
 					id: 'isActive',
 					kind: 'checkbox',
 					label: m['AdminAccommodationAddPage.fieldIsActive'](),
@@ -128,14 +148,44 @@
 		name: '',
 		type: '' as AccommodationAddFormInputs['type'],
 		address: '',
+		addressNumber: '',
 		city: '',
 		country: '',
-		description: '',
+		latitude: null,
+		longitude: null,
 		ownerId: '',
 		isActive: true,
 		coverImageKey: null
 	});
 </script>
+
+{#snippet addressField({
+	value,
+	setValue,
+	error,
+	inputId
+}: MutationFormFieldSnippetProps<AccommodationAddFormInputs>)}
+	<GooglePlacesAutocomplete
+		id={inputId}
+		value={value as string}
+		invalid={!!error}
+		onInput={(next) => {
+			setValue(next);
+			// A manual edit invalidates the last picked pin — coordinates are only valid from a real selection.
+			values.latitude = null;
+			values.longitude = null;
+		}}
+		onSelect={(place) => {
+			setValue(place.street || place.addressLine);
+			values.addressNumber = place.streetNumber;
+			values.city = place.city;
+			values.country = place.country;
+			values.latitude = place.lat;
+			values.longitude = place.lng;
+		}}
+	/>
+	<LocationMap lat={values.latitude} lng={values.longitude} class="mt-3" />
+{/snippet}
 
 <SvelteHead
 	title={m['AdminAccommodationAddPage.SEO.title']()}
@@ -173,7 +223,7 @@
 			runFunction={api.tables.accommodations.mutations.adminCreateAccommodation
 				.adminCreateAccommodation}
 			submitLabel={m['AdminAccommodationAddPage.submit']()}
-			customFields={{ ownerId: ownerField }}
+			customFields={{ ownerId: ownerField, address: addressField }}
 			resetOnSuccess={false}
 			onSuccess={() => appGoto(ADMIN_PAGE_ENDPOINTS.ACCOMMODATIONS)}
 		/>

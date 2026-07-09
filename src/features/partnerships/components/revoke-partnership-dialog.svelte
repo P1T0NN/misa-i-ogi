@@ -25,7 +25,7 @@
 	} = $props();
 
 	const convex = useConvexClient();
-	
+
 	let isPending = $state(false);
 
 	async function revoke() {

@@ -10,9 +10,7 @@
 
 	let { hospitality }: { hospitality: HospitalityDetailsSafe } = $props();
 
-	const mapQuery = $derived(
-		`${hospitality.address}, ${hospitality.city}, ${hospitality.country}`
-	);
+	const mapQuery = $derived(`${hospitality.address}, ${hospitality.city}, ${hospitality.country}`);
 
 	const hasCoordinates = $derived(
 		typeof hospitality.latitude === 'number' && typeof hospitality.longitude === 'number'

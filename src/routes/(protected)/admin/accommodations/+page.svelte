@@ -5,9 +5,10 @@
 
 	// CONFIG
 	import {
-	ADMIN_PAGE_ENDPOINTS,
-	UNPROTECTED_PAGE_ENDPOINTS,
-} from '@/shared/page-endpoints.js';
+		ADMIN_PAGE_ENDPOINTS,
+		PROTECTED_PAGE_ENDPOINTS,
+		UNPROTECTED_PAGE_ENDPOINTS
+	} from '@/shared/page-endpoints.js';
 
 	// COMPONENTS
 	import SvelteHead from '@/shared/components/ui/svelte-head/svelte-head.svelte';
@@ -16,6 +17,7 @@
 	import { Badge } from '@/shared/components/ui/badge/index.js';
 	import { Button } from '@/shared/components/ui/button/index.js';
 	import AccommodationQrDialog from '@/features/accommodations/components/accommodation-qr-dialog/accommodation-qr-dialog.svelte';
+	import DeleteAccommodationButton from '@/shared/components/pages/(protected)/admin/accommodations/delete-accommodation-button.svelte';
 
 	// DATA
 	import { labelAccommodationType } from '@/features/accommodations/data/accommodationsData';
@@ -28,6 +30,7 @@
 	import type { Doc } from '@/convex/_generated/dataModel';
 
 	// LUCIDE ICONS
+	import PencilIcon from '@lucide/svelte/icons/pencil';
 	import QrCodeIcon from '@lucide/svelte/icons/qr-code';
 	import PlusIcon from '@lucide/svelte/icons/plus';
 
@@ -45,6 +48,10 @@
 	function openQrDialog(row: Doc<'accommodations'>) {
 		qrDialogTarget = { name: row.name, scanToken: row.scanToken };
 		qrDialogOpen = true;
+	}
+
+	function editHref(row: Doc<'accommodations'>) {
+		return PROTECTED_PAGE_ENDPOINTS.EDIT_ACCOMMODATION.replace(':id', row._id);
 	}
 
 	const columns: ColumnDef<Doc<'accommodations'>>[] = [
@@ -98,6 +105,12 @@
 			hideBelow: 'md'
 		},
 		{
+			id: 'actions',
+			header: m['AdminAccommodationsPage.columnActions'](),
+			accessor: () => '',
+			hideBelow: 'sm'
+		},
+		{
 			id: 'created',
 			header: m['AdminAccommodationsPage.columnCreated'](),
 			accessor: (r) => new Date(r._creationTime).toLocaleString(),
@@ -135,7 +148,7 @@
 		optimizationStrategy="cursor"
 		getRowId={(r) => r._id}
 		{columns}
-		customCells={{ name: nameCell, qr: qrCell, status: statusCell }}
+		customCells={{ name: nameCell, qr: qrCell, actions: actionsCell, status: statusCell }}
 		bind:sortColumn
 		bind:sortDirection
 		selectable
@@ -150,6 +163,16 @@
 		scanToken={qrDialogTarget.scanToken}
 	/>
 {/if}
+
+{#snippet actionsCell({ row }: DataTableCellSnippetProps<Doc<'accommodations'>>)}
+	<div class="flex flex-wrap gap-2">
+		<Button href={editHref(row)} variant="outline" size="sm">
+			<PencilIcon data-icon="inline-start" />
+			{m['AdminAccommodationsPage.edit']()}
+		</Button>
+		<DeleteAccommodationButton accommodationId={row._id} accommodationName={row.name} />
+	</div>
+{/snippet}
 
 {#snippet qrCell({ row }: DataTableCellSnippetProps<Doc<'accommodations'>>)}
 	<Button

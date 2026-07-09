@@ -1,16 +1,17 @@
 // LIBRARIES
 import { v } from 'convex/values';
 import { adminMutation } from '@/convex/auth/middleware/authMiddleware';
-import { AUDIT_ACTIONS } from '@/convex/tables/auditLog/auditLogConfigs';
 
 // HELPERS
 import { analytics } from '@/convex/analytics';
+import { insertPartnership } from '@/convex/tables/partnerships/helpers/insertPartnership';
+import { reactivatePartnership } from '@/convex/tables/partnerships/helpers/reactivatePartnership';
+import { isPlatformHospitality } from '@/convex/tables/hospitalities/utils/isPlatformHospitality';
 
 // VALIDATORS
 import { mutationResultValidator } from '@/convex/schemas/mutationResult';
 
 // UTILS
-import { createAnalyticsScopeId } from '@piton-/analytics-convex';
 import { parsePartnershipBenefit } from '@/convex/tables/partnerships/utils/parsePartnershipBenefit';
 
 // TYPES
@@ -25,17 +26,11 @@ export const createPartnership = adminMutation('createPartnership')({
 	returns: mutationResultValidator,
 	handler: async (ctx, args): Promise<MutationResult> => {
 		const hospitalityIds = [...new Set(args.hospitalityIds)];
-		const benefit = parsePartnershipBenefit(args.benefit);
-
 		if (hospitalityIds.length === 0) {
 			return { success: false, message: { key: 'GenericMessages.NO_ITEMS_PROVIDED' } };
 		}
 
-		const accommodation = await ctx.db.get(args.accommodationId);
-		if (!accommodation) {
-			return { success: false, message: { key: 'GenericMessages.ACCOMMODATION_NOT_FOUND' } };
-		}
-
+		const benefit = parsePartnershipBenefit(args.benefit);
 		if (!benefit) {
 			return {
 				success: false,
@@ -43,12 +38,23 @@ export const createPartnership = adminMutation('createPartnership')({
 			};
 		}
 
-		const hospitalities = [];
+		const accommodation = await ctx.db.get(args.accommodationId);
+		if (!accommodation) {
+			return { success: false, message: { key: 'GenericMessages.ACCOMMODATION_NOT_FOUND' } };
+		}
+
+		const partnershipEvents = [];
 
 		for (const hospitalityId of hospitalityIds) {
 			const hospitality = await ctx.db.get(hospitalityId);
 			if (!hospitality) {
 				return { success: false, message: { key: 'GenericMessages.HOSPITALITY_NOT_FOUND' } };
+			}
+			if (isPlatformHospitality(hospitality)) {
+				return {
+					success: false,
+					message: { key: 'GenericMessages.PARTNERSHIP_PLATFORM_HOSPITALITY_IMPLICIT' }
+				};
 			}
 
 			const existing = await ctx.db
@@ -57,62 +63,29 @@ export const createPartnership = adminMutation('createPartnership')({
 					q.eq('accommodationId', args.accommodationId).eq('hospitalityId', hospitalityId)
 				)
 				.unique();
-
-			if (existing) {
+			if (existing?.isActive) {
 				return { success: false, message: { key: 'GenericMessages.PARTNERSHIP_PAIR_EXISTS' } };
 			}
 
-			hospitalities.push(hospitality);
-		}
+			if (existing) {
+				await reactivatePartnership(ctx, {
+					partnershipId: existing._id,
+					partnership: existing,
+					accommodationOwnerId: accommodation.ownerId,
+					hospitalityOwnerId: hospitality.ownerId,
+					benefit,
+					actorId: ctx.userId
+				});
+				continue;
+			}
 
-		const partnershipEvents = [];
-
-		for (const hospitality of hospitalities) {
-			const hospitalityId = hospitality._id;
-
-			const partnershipId = await ctx.db.insert('partnerships', {
-				accommodationId: args.accommodationId,
-				accommodationScanToken: accommodation.scanToken,
-				hospitalityId,
+			const { event } = await insertPartnership(ctx, {
+				accommodation,
+				hospitality,
 				benefit,
-				isActive: true
+				actorId: ctx.userId
 			});
-
-			ctx.audit(AUDIT_ACTIONS.PARTNERSHIP_CREATE, {
-				resource: { table: 'partnerships', id: partnershipId },
-				after: {
-					accommodationId: args.accommodationId,
-					accommodationScanToken: accommodation.scanToken,
-					hospitalityId,
-					benefit,
-					isActive: true
-				}
-			});
-
-			partnershipEvents.push({
-				name: 'partnership.created' as const,
-				subject: { type: 'hospitality', id: hospitality._id },
-				organizationId: accommodation.ownerId,
-				scopes: [
-					{ scopeType: 'organization' as const, scopeId: hospitality.ownerId },
-					{
-						scopeType: 'organization' as const,
-						scopeId: createAnalyticsScopeId('accommodationOwner', accommodation.ownerId)
-					},
-					{
-						scopeType: 'organization' as const,
-						scopeId: createAnalyticsScopeId('hospitalityOwner', hospitality.ownerId)
-					}
-				],
-				properties: {
-					accommodationId: accommodation._id,
-					accommodationName: accommodation.name,
-					hospitalityId: hospitality._id,
-					hospitalityName: hospitality.name,
-					benefit,
-					partnershipDelta: 1
-				}
-			});
+			partnershipEvents.push(event);
 		}
 
 		if (partnershipEvents.length === 1) {

@@ -2,7 +2,8 @@
 import { v } from 'convex/values';
 
 // HELPERS
-import { getOwnedHospitality } from '@/convex/tables/hospitalities/helpers/getOwnedHospitality';
+import { isAdminUser } from '@/convex/auth/helpers/isAdminUser';
+import { getHospitalityForEdit } from '@/convex/tables/hospitalities/helpers/getHospitalityForEdit';
 import { getUserPlan } from '@/convex/tables/proTrials/helpers/proTrial';
 import {
 	resolveMenuFile,
@@ -18,7 +19,7 @@ import { resolveStoredFileUrlAndSyncRow } from '@/convex/storage/r2/resolveStore
 // SCHEMAS
 import { mutationResultValidator, type MutationResult } from '@/convex/schemas/mutationResult';
 
-/** Owner-scoped update. Does not change `ownerId`. */
+/** Owner- or admin-scoped update. Does not change `ownerId`. */
 export const updateHospitality = authMutation('updateHospitality')({
 	args: {
 		hospitalityId: v.id('hospitalities'),
@@ -49,7 +50,7 @@ export const updateHospitality = authMutation('updateHospitality')({
 	},
 	returns: mutationResultValidator,
 	handler: async (ctx, args): Promise<MutationResult> => {
-		const doc = await getOwnedHospitality(ctx, args.hospitalityId, ctx.userId);
+		const doc = await getHospitalityForEdit(ctx, args.hospitalityId, ctx.userId);
 		if (!doc) {
 			return {
 				success: false,
@@ -57,16 +58,18 @@ export const updateHospitality = authMutation('updateHospitality')({
 			};
 		}
 
-		// Cron-deactivated venue (expired pro trial): only a Pro upgrade may switch
-		// it back on — otherwise the expiry would be a checkbox away from undone.
+		// Cron-deactivated venue (expired pro trial): only Pro (or admin) may switch it back on.
 		let deactivationReason = doc.deactivationReason;
 		if (doc.deactivationReason === 'trial_expired' && args.isActive) {
-			const plan = await getUserPlan(ctx, ctx.userId);
-			if (plan !== 'pro') {
-				return {
-					success: false,
-					message: { key: 'GenericMessages.PRO_TRIAL_EXPIRED' }
-				};
+			const callerIsAdmin = await isAdminUser(ctx);
+			if (!callerIsAdmin) {
+				const plan = await getUserPlan(ctx, ctx.userId);
+				if (plan !== 'pro') {
+					return {
+						success: false,
+						message: { key: 'GenericMessages.PRO_TRIAL_EXPIRED' }
+					};
+				}
 			}
 			deactivationReason = undefined;
 		}
@@ -86,6 +89,12 @@ export const updateHospitality = authMutation('updateHospitality')({
 					message: { key: 'GenericMessages.STORAGE_URL_UNAVAILABLE' }
 				};
 			}
+			if (uploaded.ownerId !== ctx.userId) {
+				return {
+					success: false,
+					message: { key: 'GenericMessages.FORBIDDEN' }
+				};
+			}
 
 			coverImageUrl = await resolveStoredFileUrlAndSyncRow(ctx, uploaded);
 			coverImageKey = uploaded.key;
@@ -95,7 +104,7 @@ export const updateHospitality = authMutation('updateHospitality')({
 		let menuFileKey = doc.menuFileKey;
 		let menuFileUrl = doc.menuFileUrl;
 		if (args.menuFileKey) {
-			const menu = await resolveMenuFile(ctx, args.menuFileKey);
+			const menu = await resolveMenuFile(ctx, args.menuFileKey, ctx.userId);
 			if (!menu.ok) return menu.error;
 			menuFileKey = menu.menuFileKey;
 			menuFileUrl = menu.menuFileUrl;

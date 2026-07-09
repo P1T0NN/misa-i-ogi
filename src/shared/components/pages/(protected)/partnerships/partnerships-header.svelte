@@ -7,7 +7,7 @@
 
 	// CONFIG
 	import { PROTECTED_PAGE_ENDPOINTS } from '@/shared/page-endpoints.js';
-	import { CUSTOM_PARTNERSHIP_ENABLED } from '@/shared/config.js';
+	import { CUSTOM_PARTNERSHIP_ENABLED, SUBSCRIPTION_ENABLED } from '@/shared/config.js';
 
 	// COMPONENTS
 	import { Badge } from '@/shared/components/ui/badge/index.js';
@@ -28,7 +28,7 @@
 
 <header class="flex w-full flex-col gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
 	<div class="flex max-w-3xl min-w-0 flex-col gap-2">
-		{#if access !== null}
+		{#if SUBSCRIPTION_ENABLED && access !== null}
 			<div class="flex flex-wrap items-center gap-2">
 				{#if access === 'pro'}
 					<Badge variant="default">

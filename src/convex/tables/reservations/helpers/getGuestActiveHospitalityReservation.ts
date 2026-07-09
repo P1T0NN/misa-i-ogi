@@ -3,7 +3,7 @@ import type { Doc, Id } from '@/convex/_generated/dataModel';
 import type { MutationCtx, QueryCtx } from '@/convex/_generated/server';
 import type { ReservationStatus } from '@/convex/tables/reservations/types/reservationsTypes';
 
-const ACTIVE_GUEST_RESERVATION_STATUSES = new Set<ReservationStatus>(['pending', 'confirmed']);
+const ACTIVE_GUEST_RESERVATION_STATUSES: ReservationStatus[] = ['pending', 'confirmed'];
 
 /**
  * Finds the guest's open reservation for one hospitality.
@@ -14,16 +14,15 @@ export async function getGuestActiveHospitalityReservation(
 	guestId: Id<'guests'>,
 	hospitalityId: Id<'hospitalities'>
 ): Promise<Doc<'reservations'> | null> {
-	const guestReservations = await ctx.db
-		.query('reservations')
-		.withIndex('by_guest', (q) => q.eq('guestId', guestId))
-		.collect();
+	for (const status of ACTIVE_GUEST_RESERVATION_STATUSES) {
+		const reservation = await ctx.db
+			.query('reservations')
+			.withIndex('by_guest_hospitality_status', (q) =>
+				q.eq('guestId', guestId).eq('hospitalityId', hospitalityId).eq('status', status)
+			)
+			.first();
+		if (reservation) return reservation;
+	}
 
-	return (
-		guestReservations.find(
-			(reservation) =>
-				reservation.hospitalityId === hospitalityId &&
-				ACTIVE_GUEST_RESERVATION_STATUSES.has(reservation.status)
-		) ?? null
-	);
+	return null;
 }

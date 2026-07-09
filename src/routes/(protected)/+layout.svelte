@@ -14,6 +14,7 @@
 		PROTECTED_PAGE_ENDPOINTS,
 		UNPROTECTED_PAGE_ENDPOINTS
 	} from '@/shared/page-endpoints.js';
+	import { SUBSCRIPTION_ENABLED } from '@/shared/config.js';
 
 	// COMPONENTS
 	import * as Sidebar from '@/shared/components/ui/sidebar/index.js';
@@ -88,12 +89,17 @@
 					icon: HospitalIcon,
 					groupLabel: hospitalityGroup
 				},
-				{
-					name: m['AddHospitalityPage.navLabel'](),
-					url: PROTECTED_PAGE_ENDPOINTS.MY_HOSPITALITY_ADD,
-					icon: CirclePlusIcon,
-					groupLabel: hospitalityGroup
-				},
+				// Self-service hospitality creation is Pro-gated — hidden with the paid tier.
+				...(SUBSCRIPTION_ENABLED
+					? [
+							{
+								name: m['AddHospitalityPage.navLabel'](),
+								url: PROTECTED_PAGE_ENDPOINTS.MY_HOSPITALITY_ADD,
+								icon: CirclePlusIcon,
+								groupLabel: hospitalityGroup
+							}
+						]
+					: []),
 				{
 					name: m['ProtectedSidebar.reservations'](),
 					url: PROTECTED_PAGE_ENDPOINTS.RESERVATIONS,

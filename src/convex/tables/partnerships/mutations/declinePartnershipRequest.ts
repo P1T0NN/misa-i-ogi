@@ -3,6 +3,9 @@ import { v } from 'convex/values';
 import { authMutation } from '@/convex/auth/middleware/authMiddleware';
 import { AUDIT_ACTIONS } from '@/convex/tables/auditLog/auditLogConfigs';
 
+// CONFIG
+import { CUSTOM_PARTNERSHIP_ENABLED } from '@/shared/config.js';
+
 // HELPERS
 import { analytics } from '@/convex/analytics';
 
@@ -23,6 +26,10 @@ export const declinePartnershipRequest = authMutation('declinePartnershipRequest
 	},
 	returns: mutationResultValidator,
 	handler: async (ctx, args): Promise<MutationResult> => {
+		if (!CUSTOM_PARTNERSHIP_ENABLED) {
+			return { success: false, message: { key: 'GenericMessages.FORBIDDEN' } };
+		}
+
 		const request = await ctx.db.get(args.requestId);
 		if (!request || request.hospitalityOwnerId !== ctx.userId) {
 			return { success: false, message: { key: 'GenericMessages.PARTNERSHIP_REQUEST_NOT_FOUND' } };

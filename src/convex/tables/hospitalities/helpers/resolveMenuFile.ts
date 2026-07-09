@@ -17,7 +17,8 @@ type MenuFileResolution =
  */
 export async function resolveMenuFile(
 	ctx: MutationCtx,
-	menuFileKey: string | undefined
+	menuFileKey: string | undefined,
+	uploadOwnerId?: string
 ): Promise<MenuFileResolution> {
 	if (!menuFileKey) return { ok: true };
 
@@ -26,7 +27,13 @@ export async function resolveMenuFile(
 		.withIndex('by_key', (q) => q.eq('key', menuFileKey))
 		.unique();
 	if (!uploaded) {
-		return { ok: false, error: { success: false, message: { key: 'GenericMessages.STORAGE_URL_UNAVAILABLE' } } };
+		return {
+			ok: false,
+			error: { success: false, message: { key: 'GenericMessages.STORAGE_URL_UNAVAILABLE' } }
+		};
+	}
+	if (uploadOwnerId && uploaded.ownerId !== uploadOwnerId) {
+		return { ok: false, error: { success: false, message: { key: 'GenericMessages.FORBIDDEN' } } };
 	}
 
 	const menuFileUrl = await resolveStoredFileUrlAndSyncRow(ctx, uploaded);

@@ -7,9 +7,6 @@
 	// COMPONENTS
 	import SvelteHead from '@/shared/components/ui/svelte-head/svelte-head.svelte';
 	import AdminDashboardMetrics from '@/shared/components/pages/(protected)/admin/dashboard/admin-dashboard-metrics.svelte';
-	import AdminDashboardReservationMetrics from '@/shared/components/pages/(protected)/admin/dashboard/admin-dashboard-reservation-metrics/admin-dashboard-reservation-metrics.svelte';
-	import AdminDashboardSetupHealth from '@/shared/components/pages/(protected)/admin/dashboard/admin-dashboard-setup-health/admin-dashboard-setup-health.svelte';
-	import AdminDashboardRecentReservations from '@/shared/components/pages/(protected)/admin/dashboard/admin-dashboard-recent-reservations/admin-dashboard-recent-reservations.svelte';
 	import AdminDashboardHeader from '@/shared/components/pages/(protected)/admin/dashboard/admin-dashboard-header.svelte';
 	import AdminDashboardLoading from '@/shared/components/pages/(protected)/admin/dashboard/loading/admin-dashboard-loading.svelte';
 	import { ErrorComponent } from '@/shared/components/ui/error-component/index.js';
@@ -43,11 +40,5 @@
 		/>
 	{:else if data}
 		<AdminDashboardMetrics totals={data.totals} />
-
-		<AdminDashboardReservationMetrics counts={data.reservationCounts} />
-
-		<AdminDashboardSetupHealth health={data.setupHealth} />
-
-		<AdminDashboardRecentReservations reservations={data.recentReservations} />
 	{/if}
 </section>

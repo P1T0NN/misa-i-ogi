@@ -1,6 +1,7 @@
 // HELPERS
 import { allocateScanToken } from '@/convex/tables/accommodations/helpers/allocateScanToken';
 import { analytics } from '@/convex/analytics';
+import { COUNTER_KEYS } from '@/convex/helpers/counterKeys';
 import { logAudit } from '@/convex/tables/auditLog/helpers/logAudit';
 import { AUDIT_ACTIONS } from '@/convex/tables/auditLog/auditLogConfigs';
 
@@ -23,7 +24,6 @@ export type CreateAccommodationForOwnerInput = {
 	addressNumber?: string;
 	latitude?: number;
 	longitude?: number;
-	description?: string;
 	isActive: boolean;
 	coverImageKey: string;
 	ownerId: string;
@@ -42,7 +42,7 @@ export async function createAccommodationForOwner(
 		};
 	}
 
-	const { coverImageKey: uploadedKey, ownerId, ...rest } = input;
+	const { coverImageKey: uploadedKey, ownerId } = input;
 
 	const uploaded = await ctx.db
 		.query('uploadedFilesR2')
@@ -64,27 +64,29 @@ export async function createAccommodationForOwner(
 
 	const coverImageUrl = await resolveStoredFileUrlAndSyncRow(ctx, uploaded);
 
-	const accommodation: typeof rest & {
-		scanToken: string;
-		coverImageKey: string;
-		coverImageUrl: string;
-		ownerId: string;
-	} = {
-		...rest,
+	const accommodationId = await ctx.db.insert('accommodations', {
+		name: input.name,
+		type: input.type,
+		address: input.address,
+		city: input.city,
+		country: input.country,
+		addressNumber: input.addressNumber,
+		latitude: input.latitude,
+		longitude: input.longitude,
+		isActive: input.isActive,
 		scanToken,
 		coverImageKey: uploaded.key,
 		coverImageUrl,
 		ownerId
-	};
-
-	const accommodationId = await ctx.db.insert('accommodations', accommodation);
+	});
+	await analytics.counters.bump(ctx, COUNTER_KEYS.ACCOMMODATIONS_TOTAL, 1);
 
 	// Actor is the admin for admin-create, the owner for self-service. `ownerId`
 	// (who the venue belongs to) rides in metadata so both are on the record.
 	logAudit(ctx, AUDIT_ACTIONS.ACCOMMODATION_CREATE, {
 		userId: options.actorId,
 		resource: { table: 'accommodations', id: accommodationId },
-		after: { name: accommodation.name, type: accommodation.type, isActive: accommodation.isActive },
+		after: { name: input.name, type: input.type, isActive: input.isActive },
 		metadata: { ownerId }
 	});
 
@@ -99,8 +101,8 @@ export async function createAccommodationForOwner(
 		],
 		properties: {
 			accommodationId,
-			accommodationName: accommodation.name,
-			accommodationType: accommodation.type
+			accommodationName: input.name,
+			accommodationType: input.type
 		}
 	});
 

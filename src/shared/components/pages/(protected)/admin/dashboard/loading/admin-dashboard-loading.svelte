@@ -15,5 +15,3 @@
 		</Card.Root>
 	{/each}
 </div>
-
-<Skeleton class="h-72 rounded-xl" />

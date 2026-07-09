@@ -65,9 +65,23 @@
 		description
 	}: Props = $props();
 
+	// Internal pending state so the spinner/disabled markup renders even when the
+	// caller doesn't drive `isPending`. Combined with the parent-supplied prop below.
+	// (bits-ui's AlertDialog.Action does NOT auto-close — unlike Cancel/Close — so
+	// the dialog stays open until we set `open = false` after the action settles.)
+	let running = $state(false);
+	const pending = $derived(isPending || running);
+
 	async function handleAction() {
-		await actionFunction();
-		open = false;
+		if (pending) return;
+
+		running = true;
+		try {
+			await actionFunction();
+			open = false;
+		} finally {
+			running = false;
+		}
 	}
 </script>
 
@@ -96,7 +110,7 @@
 			<AlertDialogCancel
 				type="button"
 				onclick={() => (onOpenChange ? onOpenChange(false) : (open = false))}
-				disabled={isPending}
+				disabled={pending}
 			>
 				{m['AlertDialogButton.cancel']()}
 			</AlertDialogCancel>
@@ -107,9 +121,9 @@
 					onclick={handleAction}
 					class={actionClass}
 					variant={isDestructive ? 'destructive' : 'default'}
-					disabled={isPending || actionDisabled}
+					disabled={pending || actionDisabled}
 				>
-					{#if isPending}
+					{#if pending}
 						<Loader class="h-3 w-3 animate-spin" />
 					{/if}
 					{m['AlertDialogButton.proceed']()}

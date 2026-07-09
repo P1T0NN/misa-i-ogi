@@ -9,7 +9,7 @@
 
 	// CONFIG
 	import { PROTECTED_PAGE_ENDPOINTS } from '@/shared/page-endpoints.js';
-	import { PARTNERSHIP_BENEFIT_MAX_LENGTH } from '@/shared/config.js';
+	import { PARTNERSHIP_BENEFIT_MAX_LENGTH, SUBSCRIPTION_ENABLED } from '@/shared/config.js';
 
 	// CLASSES
 	import { authClass } from '@/features/auth/classes/authClass.svelte';
@@ -17,7 +17,7 @@
 	// COMPONENTS
 	import ConvexMutationForm from '@/shared/components/ui/mutation-form/convex-mutation-form.svelte';
 	import CreateCustomPartnershipFormActions from '@/shared/components/pages/(protected)/create-custom-partnership/create-custom-partnership-form-actions.svelte';
-	import SelectMyAccommodationDialog from '@/features/accommodations/components/select-my-accommodation-dialog/select-my-accommodation-dialog.svelte';
+	import SelectAccommodationDialog from '@/features/accommodations/components/select-accommodation-dialog/select-accommodation-dialog.svelte';
 	import CustomPartnershipTrialNotice from '@/shared/components/pages/(protected)/create-custom-partnership/custom-partnership-trial-notice.svelte';
 	import { Input } from '@/shared/components/ui/input/index.js';
 	import { FieldDescription } from '@/shared/components/ui/field/index.js';
@@ -51,26 +51,28 @@
 
 	const access = $derived(hasProAccess(authClass.currentUser));
 
-	const connectPreview = useQuery(
-		api.tables.hospitalities.queries.fetchConnectCodePreview.fetchConnectCodePreview,
+	/** Form-only: resolve typed connect code → venue preview + own-vs-partner UX flags. */
+	const connectCodeVenueLookup = useQuery(
+		api.tables.hospitalities.queries.lookupCustomPartnershipFormVenueByConnectCode
+			.lookupCustomPartnershipFormVenueByConnectCode,
 		() =>
 			values.connectCode.length === CONNECT_CODE_LENGTH
 				? { connectCode: values.connectCode }
 				: 'skip'
 	);
 
-	const isOwnVenue = $derived(connectPreview.data?.isOwnHospitality === true);
-	const awaitingPreview = $derived(
+	const isOwnVenue = $derived(connectCodeVenueLookup.data?.isOwnHospitality === true);
+	const awaitingConnectCodeVenueLookup = $derived(
 		values.connectCode.length === CONNECT_CODE_LENGTH &&
-			connectPreview.data === undefined &&
-			connectPreview.isLoading
+			connectCodeVenueLookup.data === undefined &&
+			connectCodeVenueLookup.isLoading
 	);
 	const submitDisabled = $derived(
-		awaitingPreview || (isOwnVenue && !(values.benefit ?? '').trim())
+		awaitingConnectCodeVenueLookup || (isOwnVenue && !(values.benefit ?? '').trim())
 	);
 </script>
 
-{#if access === 'trial-expired'}
+{#if SUBSCRIPTION_ENABLED && access === 'trial-expired'}
 	<CustomPartnershipTrialNotice />
 {:else}
 	<ConvexMutationForm
@@ -78,8 +80,7 @@
 		{sections}
 		bind:values
 		schema={myPartnershipAddFormSchema}
-		runFunction={api.tables.partnerships.mutations.createCustomPartnership
-			.createCustomPartnership}
+		runFunction={api.tables.partnerships.mutations.createCustomPartnership.createCustomPartnership}
 		customFields={{
 			accommodationId: accommodationField,
 			connectCode: connectCodeField
@@ -93,17 +94,19 @@
 		}}
 	>
 		{#snippet extraFields()}
-			{#if connectPreview.data}
+			{#if connectCodeVenueLookup.data}
 				<div class="flex flex-col gap-2 rounded-lg border border-border bg-muted/30 px-3 py-2.5">
 					<div class="flex flex-wrap items-center gap-2">
-						<span class="text-sm font-medium">{connectPreview.data.hospitalityName}</span>
-						{#if connectPreview.data.isOwnHospitality}
+						<span class="text-sm font-medium">{connectCodeVenueLookup.data.hospitalityName}</span>
+						{#if connectCodeVenueLookup.data.isOwnHospitality}
 							<Badge variant="outline">
 								{m['CreateCustomPartnershipPage.CreateCustomPartnershipForm.ownVenueBadge']()}
 							</Badge>
 						{/if}
 					</div>
-					<span class="text-xs text-muted-foreground">{connectPreview.data.hospitalityCity}</span>
+					<span class="text-xs text-muted-foreground">
+						{connectCodeVenueLookup.data.hospitalityCity}
+					</span>
 				</div>
 			{/if}
 
@@ -113,22 +116,22 @@
 						<span class="text-sm font-medium">
 							{m['CreateCustomPartnershipPage.CreateCustomPartnershipForm.benefitLabel']()}
 						</span>
-						
-						<span class="shrink-0 text-xs tabular-nums text-muted-foreground">
+						<span class="shrink-0 text-xs text-muted-foreground tabular-nums">
 							{(values.benefit ?? '').length}/{PARTNERSHIP_BENEFIT_MAX_LENGTH}
 						</span>
 					</div>
-
 					<Input
 						bind:value={values.benefit}
 						maxlength={PARTNERSHIP_BENEFIT_MAX_LENGTH}
-						placeholder={m['CreateCustomPartnershipPage.CreateCustomPartnershipForm.benefitPlaceholder']()}
+						placeholder={m[
+							'CreateCustomPartnershipPage.CreateCustomPartnershipForm.benefitPlaceholder'
+						]()}
 					/>
 					<FieldDescription>
 						{m['CreateCustomPartnershipPage.CreateCustomPartnershipForm.ownVenueBenefitHint']()}
 					</FieldDescription>
 				</label>
-			{:else if connectPreview.data}
+			{:else if connectCodeVenueLookup.data}
 				<p class="text-sm text-muted-foreground">
 					{m['CreateCustomPartnershipPage.CreateCustomPartnershipForm.partnerVenueBenefitHint']()}
 				</p>
@@ -140,7 +143,7 @@
 				{busy}
 				{isOwnVenue}
 				{submitDisabled}
-				showTrialHint={access === 'trial-available'}
+				showTrialHint={SUBSCRIPTION_ENABLED && access === 'trial-available'}
 			/>
 		{/snippet}
 	</ConvexMutationForm>
@@ -151,7 +154,7 @@
 	value,
 	setValue
 }: MutationFormFieldSnippetProps<MyPartnershipAddFormInputs>)}
-	<SelectMyAccommodationDialog
+	<SelectAccommodationDialog
 		{inputId}
 		value={typeof value === 'string' ? value : ''}
 		setValue={(next) => {

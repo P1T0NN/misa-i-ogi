@@ -8,7 +8,12 @@ import type { ReservationStatus } from '@/convex/tables/reservations/types/reser
  * `migrations/backfillCountersInternal:backfillCounters`.
  */
 export const COUNTER_KEYS = {
-	GUESTS_TOTAL: 'guests.total'
+	GUESTS_TOTAL: 'guests.total',
+	ACCOMMODATIONS_TOTAL: 'accommodations.total',
+	HOSPITALITIES_TOTAL: 'hospitalities.total',
+	// Every partnership row, active or trial-deactivated (soft-deactivation keeps
+	// the row, so this is a pure insert/delete count — never bumped on isActive flips).
+	PARTNERSHIPS_TOTAL: 'partnerships.total'
 } as const;
 
 export const RESERVATION_STATUSES: ReservationStatus[] = [
@@ -22,10 +27,25 @@ export function reservationStatusCounterKey(status: ReservationStatus): string {
 	return `reservations.${status}`;
 }
 
+/** Per hospitality-owner reservation counts by status. */
+export function ownerReservationStatusCounterKey(
+	ownerId: string,
+	status: ReservationStatus
+): string {
+	return `reservations.owner.${ownerId}.${status}`;
+}
+
 /**
- * Active custom partnerships per accommodation owner — the free-tier quota
- * counter. Bumped only when a row lands in `partnerships` (instant connect,
- * create-my-hospitality, request accept), never on request send.
+ * Active partnership links touching a user (accommodation or hospitality owner).
+ * +1 on insert/reactivate, −1 on revoke/soft-deactivate.
+ */
+export function activePartnershipsCounterKey(userId: string): string {
+	return `activePartnerships.count:${userId}`;
+}
+
+/**
+ * Live custom partnerships per accommodation owner. +1 on first insert or
+ * reactivation, −1 on trial deactivation or revoke. Never touched on request send.
  */
 export function customPartnershipsCounterKey(userId: string): string {
 	return `customPartnerships.count:${userId}`;

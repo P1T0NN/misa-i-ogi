@@ -1,3 +1,16 @@
-# allow crawling everything by default
+# Public marketing + guest-stay pages are crawlable; the authenticated app shell
+# is not (these 302 to /login anyway, but keep crawlers out of them explicitly).
 User-agent: *
-Disallow:
+Disallow: /admin
+Disallow: /dashboard
+Disallow: /analytics
+Disallow: /my-accommodations
+Disallow: /my-hospitalities
+Disallow: /add-accommodation
+Disallow: /add-hospitality
+Disallow: /edit-accommodation
+Disallow: /edit-hospitality
+Disallow: /partnerships
+Disallow: /reservations
+Disallow: /create-custom-partnership
+Disallow: /api/

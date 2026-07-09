@@ -21,7 +21,10 @@ export const partnershipAddFormSchema = v.object({
 		v.string(),
 		v.trim(),
 		v.minLength(1, m['ValidationMessages.CreateCustomPartnershipSchema.benefitRequired']()),
-		v.maxLength(PARTNERSHIP_BENEFIT_MAX_LENGTH, m['ValidationMessages.CreateCustomPartnershipSchema.benefitMaxLength']())
+		v.maxLength(
+			PARTNERSHIP_BENEFIT_MAX_LENGTH,
+			m['ValidationMessages.CreateCustomPartnershipSchema.benefitMaxLength']()
+		)
 	)
 });
 
@@ -49,7 +52,10 @@ export const myPartnershipAddFormSchema = v.object({
 		v.pipe(
 			v.string(),
 			v.trim(),
-			v.maxLength(PARTNERSHIP_BENEFIT_MAX_LENGTH, m['ValidationMessages.CreateCustomPartnershipSchema.benefitMaxLength']())
+			v.maxLength(
+				PARTNERSHIP_BENEFIT_MAX_LENGTH,
+				m['ValidationMessages.CreateCustomPartnershipSchema.benefitMaxLength']()
+			)
 		)
 	)
 });

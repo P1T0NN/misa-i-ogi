@@ -90,7 +90,7 @@
 					</div>
 				{/if}
 
-				<div class={hideHeader ? undefined : 'mt-4'}>
+				<div class={hideHeader ? 'flex min-h-0 flex-1 flex-col' : 'mt-4'}>
 					{@render children()}
 				</div>
 			</div>

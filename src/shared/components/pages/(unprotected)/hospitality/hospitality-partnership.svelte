@@ -6,26 +6,15 @@
 	import * as Card from '@/shared/components/ui/card/index.js';
 
 	// TYPES
-	import type { HospitalityPartnershipBenefit } from '@/convex/tables/hospitalities/types/hospitalitiesTypes';
+	import type { PartnershipBenefitSafe } from '@/convex/tables/partnerships/types/partnershipsTypes';
 
 	let {
 		partnership,
 		hospitalityName
 	}: {
-		partnership: HospitalityPartnershipBenefit | null;
+		partnership: PartnershipBenefitSafe | null;
 		hospitalityName: string;
 	} = $props();
-
-	const benefitTitle = $derived(
-		partnership
-			? (partnership.benefit ??
-				(partnership.discountPercentage == null
-					? m['HospitalityPage.HospitalityPartnership.genericTitle']()
-					: m['HospitalityPage.HospitalityPartnership.legacyDiscountTitle']({
-							percent: partnership.discountPercentage
-						})))
-			: ''
-	);
 </script>
 
 {#if partnership}
@@ -35,7 +24,7 @@
 				{m['HospitalityPage.HospitalityPartnership.eyebrow']()}
 			</p>
 
-			<Card.Title class="font-serif text-3xl leading-none">{benefitTitle}</Card.Title>
+			<Card.Title class="font-serif text-3xl leading-none">{partnership?.benefit}</Card.Title>
 		</Card.Header>
 
 		<Card.Content class="space-y-3">

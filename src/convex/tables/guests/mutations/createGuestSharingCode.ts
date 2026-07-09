@@ -1,6 +1,8 @@
 // LIBRARIES
 import { v } from 'convex/values';
 import { mutation } from '@/convex/_generated/server';
+import { enforceRateLimit } from '@/convex/rateLimits/enforceRateLimit';
+import { rateLimitKey } from '@/convex/rateLimits/keys';
 
 // HELPERS
 import { getActiveGuestSession } from '@/convex/tables/guests/helpers/getActiveGuestSession';
@@ -36,7 +38,7 @@ export const createGuestSharingCode = mutation({
 	},
 	returns: createGuestSharingCodeResult,
 	handler: async (ctx, args) => {
-		const guest = await getActiveGuestSession(ctx, args.guestStayCookie);
+		const guest = await getActiveGuestSession(ctx, args.guestStayCookie, Date.now());
 		const payload = await verifyGuestSessionCookie(args.guestStayCookie);
 
 		if (!guest || !payload?.sessionToken) {
@@ -45,6 +47,9 @@ export const createGuestSharingCode = mutation({
 		if (guest.sharingCodeHash) {
 			return { status: 'missing' as const };
 		}
+
+		// Meter the unbounded uniqueness loop + patch below, per guest session.
+		await enforceRateLimit(ctx, 'createGuestSharingCode', rateLimitKey.guest(guest._id));
 
 		let sharingCode = generateGuestCredential('sharingCode');
 		let sharingCodeHash = hashGuestCredential('sharingCode', sharingCode);

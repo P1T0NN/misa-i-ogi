@@ -7,9 +7,14 @@ import { resolveStoredFileUrlAndSyncRow } from '@/convex/storage/r2/resolveStore
 
 // HELPERS
 import { analytics } from '@/convex/analytics';
+import { COUNTER_KEYS } from '@/convex/helpers/counterKeys';
 import { generateUniqueConnectCode } from '@/convex/tables/hospitalities/helpers/generateUniqueConnectCode';
-import { resolveMenuFile, normalizeMenuLink } from '@/convex/tables/hospitalities/helpers/resolveMenuFile';
+import {
+	resolveMenuFile,
+	normalizeMenuLink
+} from '@/convex/tables/hospitalities/helpers/resolveMenuFile';
 import { AUDIT_ACTIONS } from '@/convex/tables/auditLog/auditLogConfigs';
+import { parsePartnershipBenefit } from '@/convex/tables/partnerships/utils/parsePartnershipBenefit';
 
 // SCHEMAS
 import { mutationResultValidator, type MutationResult } from '@/convex/schemas/mutationResult';
@@ -40,6 +45,11 @@ export const createHospitality = adminMutation('createHospitality')({
 		description: v.string(),
 		contactPhone: v.string(),
 		reservationMode: v.literal('managed_request'),
+		// platform = public, linkable by every accommodation; user = private, reachable
+		// only via the owner's custom-partnership connect code. Missing defaults to platform.
+		createType: v.optional(v.union(v.literal('platform'), v.literal('user'))),
+		// Guest-facing offer for every venue.
+		benefit: v.string(),
 		ownerId: v.optional(v.string()),
 		isActive: v.boolean(),
 		// Set by `processUploadFields` after upload; required so every venue has a cover.
@@ -49,11 +59,20 @@ export const createHospitality = adminMutation('createHospitality')({
 	},
 	returns: mutationResultValidator,
 	handler: async (ctx, args): Promise<MutationResult> => {
-		const { coverImageKey: uploadedKey, ownerId, menuFileKey, menuLink: rawMenuLink, ...rest } = args;
-		const addressNumber = rest.addressNumber?.trim();
-		// Full street line in `address` (what displays read) + the bare number for the edit form.
-		const address = [rest.address.trim(), addressNumber].filter(Boolean).join(' ');
-		const selectedOwnerId = ownerId?.trim() || undefined;
+		const createType = args.createType ?? 'platform';
+		const visibility = createType === 'user' ? 'private' : 'public';
+
+		const benefit = parsePartnershipBenefit(args.benefit);
+		if (!benefit) {
+			return {
+				success: false,
+				message: { key: 'GenericMessages.PARTNERSHIP_BENEFIT_INVALID' }
+			};
+		}
+
+		const addressNumber = args.addressNumber?.trim();
+		const address = [args.address.trim(), addressNumber].filter(Boolean).join(' ');
+		const selectedOwnerId = args.ownerId?.trim() || undefined;
 		const resolvedOwnerId = selectedOwnerId ?? ctx.userId;
 
 		if (selectedOwnerId) {
@@ -68,7 +87,7 @@ export const createHospitality = adminMutation('createHospitality')({
 
 		const uploaded = await ctx.db
 			.query('uploadedFilesR2')
-			.withIndex('by_key', (q) => q.eq('key', uploadedKey))
+			.withIndex('by_key', (q) => q.eq('key', args.coverImageKey))
 			.unique();
 
 		if (!uploaded) {
@@ -80,40 +99,41 @@ export const createHospitality = adminMutation('createHospitality')({
 
 		const coverImageUrl = await resolveStoredFileUrlAndSyncRow(ctx, uploaded);
 
-		const menu = await resolveMenuFile(ctx, menuFileKey);
+		const menu = await resolveMenuFile(ctx, args.menuFileKey);
 		if (!menu.ok) return menu.error;
-		const menuLink = normalizeMenuLink(rawMenuLink);
+		const menuLink = normalizeMenuLink(args.menuLink);
 
 		const connectCode = await generateUniqueConnectCode(ctx);
 
-		const hospitality: typeof rest & {
-			coverImageKey: string;
-			coverImageUrl: string;
-			menuFileKey?: string;
-			menuFileUrl?: string;
-			menuLink?: string;
-			ownerId: string;
-			reservationMode: 'managed_request';
-			connectCode: string;
-		} = {
-			...rest,
+		const hospitalityId = await ctx.db.insert('hospitalities', {
+			name: args.name,
+			type: args.type,
 			address,
 			addressNumber: addressNumber || undefined,
+			city: args.city,
+			country: args.country,
+			latitude: args.latitude,
+			longitude: args.longitude,
+			description: args.description,
+			contactPhone: args.contactPhone,
+			reservationMode: args.reservationMode,
+			isActive: args.isActive,
+			benefit,
+			ownerId: resolvedOwnerId,
 			coverImageKey: uploaded.key,
 			coverImageUrl,
 			menuFileKey: menu.menuFileKey,
 			menuFileUrl: menu.menuFileUrl,
 			menuLink,
-			ownerId: resolvedOwnerId,
-			reservationMode: args.reservationMode,
+			createType,
+			visibility,
 			connectCode
-		};
-
-		const hospitalityId = await ctx.db.insert('hospitalities', hospitality);
+		});
+		await analytics.counters.bump(ctx, COUNTER_KEYS.HOSPITALITIES_TOTAL, 1);
 
 		ctx.audit(AUDIT_ACTIONS.HOSPITALITY_CREATE, {
 			resource: { table: 'hospitalities', id: hospitalityId },
-			after: { name: hospitality.name, type: hospitality.type, createType: 'platform' },
+			after: { name: args.name, type: args.type, createType, visibility },
 			metadata: { ownerId: resolvedOwnerId }
 		});
 
@@ -128,8 +148,8 @@ export const createHospitality = adminMutation('createHospitality')({
 			],
 			properties: {
 				hospitalityId,
-				hospitalityName: hospitality.name,
-				hospitalityType: hospitality.type
+				hospitalityName: args.name,
+				hospitalityType: args.type
 			}
 		});
 

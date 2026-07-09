@@ -1,3 +1,6 @@
+// CONFIG
+import { SUBSCRIPTION_ENABLED } from '@/shared/config.js';
+
 // HELPERS
 import {
 	getProTrial,
@@ -34,6 +37,10 @@ export async function ensureCustomPartnershipAccess(
 ): Promise<MutationResult | null> {
 	const plan = await getUserPlan(ctx, accommodationOwnerId);
 	if (plan === 'pro') return null;
+
+	if (!SUBSCRIPTION_ENABLED) {
+		return { success: false, message: { key: 'GenericMessages.FORBIDDEN' } };
+	}
 
 	const trial = await getProTrial(ctx, accommodationOwnerId);
 

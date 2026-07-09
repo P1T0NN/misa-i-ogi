@@ -69,6 +69,7 @@
 	"Header": {
 		"navAriaLabel": "Glavna navigacija",
 		"mobileNavAriaLabel": "Glavna mobilna navigacija",
+		"linkHome": "Početna",
 		"linkBenefits": "Pogodnosti",
 		"linkHowItWorks": "Kako funkcioniše",
 		"linkFeatures": "Funkcionalnosti",
@@ -243,7 +244,9 @@
 		"typeHorseRide": "Jahanje",
 		"typeSpa": "Spa",
 		"typeTour": "Tura",
-		"typeOtherVenue": "Ostalo"
+		"typeOtherVenue": "Ostalo",
+		"partnerTypePlatform": "Platforma",
+		"partnerTypeUser": "Korisnik"
 	},
 	"ActivatePage": {
 		"SEO": {
@@ -261,7 +264,11 @@
 			"description": "Pregledajte detalje svog smeštaja i pogodnosti partnera."
 		},
 		"StayAccommodationData": {
-			"eyebrow": "Vaš smeštaj"
+			"eyebrow": "Vaš smeštaj",
+			"perksEyebrow": "Ekskluzivno za goste",
+			"perksTitle": "Vaš boravak otključava više od sobe",
+			"perksBody": "Kao gost ovog smeštaja, otključali ste pažljivo odabrane popuste i pogodnosti u restoranima, kafićima i omiljenim lokalnim mestima u blizini — partneri izabrani baš za one koji ovde borave. Skrolujte nadole da vidite sve što vas čeka.",
+			"addressLabel": "Adresa"
 		},
 		"StaySharingCode": {
 			"eyebrow": "Podelite ovaj smeštaj",
@@ -317,7 +324,8 @@
 		"StayLocationSection": {
 			"title": "Partneri u blizini",
 			"yourStay": "Vaš smeštaj",
-			"closePanel": "Zatvori detalje partnera"
+			"closePanel": "Zatvori detalje partnera",
+			"openMapMobile": "Pogledajte ih na mapi"
 		},
 		"StayPartnershipsSection": {
 			"partnerBenefitsEyebrow": "Uključeno u vaš smeštaj",
@@ -325,7 +333,6 @@
 			"partnersLead": "Pokažite ovu stranicu osoblju bilo kog partnerskog ugostiteljstva. Nije potrebna aplikacija niti nalog."
 		},
 		"StayPartnershipsSectionItem": {
-			"off": "popusta",
 			"viewDetails": "Pogledaj detalje",
 			"distanceAway": "Udaljeno {distance}"
 		}
@@ -345,7 +352,6 @@
 		},
 		"HospitalityPartnership": {
 			"eyebrow": "Benefit za vaš smeštaj",
-			"legacyDiscountTitle": "{percent}% popusta",
 			"genericTitle": "Partnerski benefit je aktivan",
 			"body": "Pokažite ovu stranicu smeštaja u objektu {hospitalityName}; osoblje može da ispuni navedeni benefit.",
 			"sourceNote": "Ovaj benefit dolazi iz smeštaja sa kog ste skenirali QR kod."
@@ -727,12 +733,12 @@
 	"AdminDashboardPage": {
 		"SEO": {
 			"title": "Administratorska kontrolna tabla",
-			"description": "Operativni pregled cele platforme: zdravlje podešavanja, obim rezervacija i nedavna aktivnost."
+			"description": "Operativni pregled cele platforme: korisnici, objekti, partnerstva i aktivnost gostiju na prvi pogled."
 		},
 		"AdminDashboardHeader": {
 			"eyebrow": "Vlasnik platforme",
 			"title": "Administratorska kontrolna tabla",
-			"description": "Operativni pregled cele platforme: zdravlje podešavanja, obim rezervacija i nedavna aktivnost."
+			"description": "Operativni pregled cele platforme: korisnici, objekti, partnerstva i aktivnost gostiju na prvi pogled."
 		},
 		"AdminDashboardMetrics": {
 			"cardTitle": "Ukupni brojevi platforme",
@@ -742,28 +748,6 @@
 			"hospitalities": "Ugostiteljstva",
 			"partnerships": "Aktivne veze",
 			"guests": "Sesije gostiju"
-		},
-		"AdminDashboardReservationMetrics": {
-			"cardTitle": "Obim rezervacija",
-			"cardDescription": "Trenutni ishodi rezervacija na celoj platformi."
-		},
-		"AdminDashboardSetupHealth": {
-			"cardTitle": "Zdravlje podešavanja",
-			"cardDescription": "Operativni nedostaci koji mogu sprečiti goste da otkriju ugostiteljstva.",
-			"inactiveAccommodations": "Neaktivni smeštaji",
-			"inactiveHospitalities": "Neaktivna ugostiteljstva",
-			"unlinkedAccommodations": "Smeštaji bez veza",
-			"unlinkedHospitalities": "Ugostiteljstva bez veza",
-			"pendingReservations": "Rezervacije na čekanju"
-		},
-		"AdminDashboardRecentReservations": {
-			"cardTitle": "Nedavne rezervacije",
-			"cardDescription": "Najnoviji zahtevi gostiju svih vlasnika ugostiteljstava."
-		},
-		"AdminDashboardRecentReservationsEmpty": {
-			"ariaLabel": "Nema nedavnih zahteva za rezervacije",
-			"title": "Još nema zahteva za rezervacije",
-			"description": "Kada gosti počnu da traže termine putem povezanih smeštaja, najnoviji zahtevi će se prikazivati ovde radi brzog pregleda platforme."
 		},
 		"errorTitle": "Nije moguće učitati administratorsku kontrolnu tablu",
 		"errorDescription": "Pregled platforme trenutno nije mogao da se učita. Pokušajte ponovo."
@@ -1010,7 +994,14 @@
 		"statusInactive": "Neaktivan",
 		"addAccommodation": "Dodaj smeštaj",
 		"columnQr": "QR",
-		"openQr": "Prikaži QR kod za {name}"
+		"openQr": "Prikaži QR kod za {name}",
+		"columnActions": "Radnje",
+		"edit": "Izmeni",
+		"DeleteAccommodationButton": {
+			"delete": "Obriši",
+			"title": "Obrisati ovaj smeštaj?",
+			"description": "Ovo trajno uklanja {accommodationName} sa platforme. Gosti više neće moći da skeniraju njegov QR kod. Aktivna sesija gosta ili partnerstvo moraju prvo biti uklonjeni."
+		}
 	},
 	"AdminAccommodationAddPage": {
 		"SEO": {
@@ -1035,10 +1026,15 @@
 		"fieldOwner": "Vlasnik",
 		"fieldAddress": "Adresa",
 		"fieldAddressPlaceholder": "Calle Mayor 14, 2nd floor",
+		"fieldAddressNumber": "Broj adrese",
+		"fieldAddressNumberPlaceholder": "14",
 		"fieldCity": "Grad",
 		"fieldCityPlaceholder": "Madrid",
 		"fieldCountry": "Država",
 		"fieldCountryPlaceholder": "Spain",
+		"fieldLatitude": "Geografska širina",
+		"fieldLongitude": "Geografska dužina",
+		"fieldCoordinatesPlaceholder": "Koordinate će se automatski popuniti kada unesete adresu",
 		"fieldDescription": "Opis",
 		"fieldDescriptionPlaceholder": "Kratak opis prikazan na stranici pogodnosti (opciono).",
 		"fieldIsActive": "Aktivan",
@@ -1060,7 +1056,6 @@
 		"columnBenefit": "Benefit",
 		"columnCreated": "Kreirano",
 		"benefitNone": "Bez benefita",
-		"legacyDiscountValue": "{percent}% popusta",
 		"addPartnership": "Dodaj partnerstvo"
 	},
 	"PartnershipsPage": {
@@ -1084,8 +1079,11 @@
 		},
 		"PartnershipsActiveTab": {
 			"caption": "Aktivna partnerstva",
+			"captionCustom": "Vaša prilagođena partnerstva",
+			"captionPlatform": "Platformski partneri",
 			"columnVenue": "Objekat",
 			"columnAccommodation": "Smeštaj",
+			"allAccommodations": "Svi smeštaji",
 			"columnBenefit": "Benefit",
 			"columnOwner": "Vlasništvo",
 			"columnCreated": "Kreirano",
@@ -1095,11 +1093,20 @@
 			"setBenefitDescription": "Gosti povezanog smeštaja videće ovu ponudu u vašem objektu.",
 			"columnActions": "Radnje",
 			"ownerYours": "Vaše",
-			"ownerPartner": "Partner"
+			"ownerPartner": "Partner",
+			"ownerPlatform": "Platformski partner"
 		},
 		"PartnershipsSentTab": {
+			"caption": "Poslati zahtevi za partnerstvo",
+			"columnVenue": "Objekat",
+			"columnSent": "Poslato",
+			"columnStatus": "Status",
 			"unknownVenue": "Obrisan objekat",
 			"sentOn": "Poslato {date}"
+		},
+		"PartnershipsReceivedTab": {
+			"caption": "Primljeni zahtevi za partnerstvo",
+			"columnRequest": "Zahtev"
 		},
 		"PartnershipRequestItem": {
 			"unknownProperty": "Obrisan smeštaj",
@@ -1141,34 +1148,12 @@
 		"sectionPartnersTitle": "Partneri",
 		"sectionPartnersDescription": "Nalepite Convex ID dokumenta sa admin listi smeštaja i ugostiteljstava.",
 		"fieldAccommodation": "Smeštaj",
-		"PartnershipsSelectAccommodationDialogEmpty": {
-			"description": "Još nema smeštaja."
-		},
 		"fieldHospitality": "Ugostiteljstva",
-		"PartnershipsSelectHospitalityDialogEmpty": {
-			"description": "Još nema ugostiteljstava."
-		},
 		"sectionOfferTitle": "Ponuda",
 		"sectionOfferDescription": "Kratak benefit za goste koji osoblje može da ispuni lično.",
 		"fieldBenefit": "Benefit",
 		"fieldBenefitPlaceholder": "15% popusta",
-		"fieldBenefitDescription": "Primer: 15% popusta",
-		"PartnershipsSelectAccommodationDialog": {
-			"selectAccommodation": "Izaberite smeštaj",
-			"modifyAccommodation": "Izmeni",
-			"selectAccommodationDialogTitle": "Izaberite smeštaj",
-			"selectAccommodationLoading": "Učitavanje smeštaja…",
-			"selectAccommodationTruncated": "Prikazuje se prvih {count} — dodajte više sa admin liste smeštaja."
-		},
-		"PartnershipsSelectHospitalityDialog": {
-			"selectHospitality": "Izaberite ugostiteljstva",
-			"modifyHospitality": "Izmeni",
-			"selectHospitalityDialogTitle": "Izaberite ugostiteljstva",
-			"selectHospitalityDone": "Gotovo",
-			"selectHospitalitySelectedCount": "Izabrano: {count}",
-			"selectHospitalityLoading": "Učitavanje ugostiteljstava…",
-			"selectHospitalityTruncated": "Prikazuje se prvih {count} — dodajte više sa admin liste ugostiteljstava."
-		}
+		"fieldBenefitDescription": "Primer: 15% popusta"
 	},
 	"AdminHospitalitiesPage": {
 		"SEO": {
@@ -1190,6 +1175,8 @@
 		"contactNone": "—",
 		"addHospitality": "Dodaj ugostiteljstvo",
 		"columnVisibility": "Vidljivost",
+		"columnActions": "Radnje",
+		"edit": "Izmeni",
 		"HospitalityVisibilityButton": {
 			"public": "Javno",
 			"private": "Privatno",
@@ -1197,6 +1184,11 @@
 			"makePrivateTitle": "Povući {name} iz objave?",
 			"makePublicDescription": "Drugi korisnici će moći da pronađu ovo ugostiteljstvo u toku povezivanja prilagođenog partnerstva i da pošalju zahtev za partnerstvo njegovom vlasniku.",
 			"makePrivateDescription": "Ovo ugostiteljstvo više neće biti vidljivo drugim korisnicima u toku povezivanja prilagođenog partnerstva. Postojeća partnerstva nisu pogođena."
+		},
+		"DeleteHospitalityButton": {
+			"delete": "Obriši",
+			"title": "Obrisati ovo ugostiteljstvo?",
+			"description": "Ovo trajno uklanja {hospitalityName} sa platforme. Gosti više neće moći da ga vide niti da šalju zahteve za rezervaciju. Aktivno partnerstvo ili otvorena rezervacija moraju prvo biti uklonjeni."
 		}
 	},
 	"AdminHospitalityAddPage": {
@@ -1236,6 +1228,11 @@
 		"fieldContactPhone": "Telefon",
 		"fieldContactPhonePlaceholder": "+34 600 000 000",
 		"fieldReservationMode": "Režim rezervacija",
+		"fieldPartnerType": "Tip partnera",
+		"fieldPartnerTypeHint": "Platforma: javno mesto koje se može povezati sa svakim smeštajem i prikazati kao pogodnost. Korisnik: privatno mesto koje samo njegov vlasnik može povezati preko koda za prilagođeno partnerstvo — nikada se ne pojavljuje u pogodnostima drugih smeštaja.",
+		"fieldBenefit": "Pogodnost za goste",
+		"fieldBenefitPlaceholder": "15% popusta",
+		"fieldBenefitHint": "Prikazuje se gostima svakog smeštaja za platform partnerske objekte.",
 		"fieldDescription": "Opis",
 		"fieldDescriptionPlaceholder": "Kratak opis prikazan na stranici pogodnosti.",
 		"fieldIsActive": "Aktivno",
@@ -1601,7 +1598,9 @@
 			"coordinatesRequired": "Izaberite adresu iz predloga kako bismo mogli postaviti pin na mapi.",
 			"descriptionRequired": "Opis je obavezan.",
 			"phoneRequired": "Broj telefona je obavezan.",
-			"coverRequired": "Dodajte naslovnu sliku."
+			"coverRequired": "Dodajte naslovnu sliku.",
+			"benefitRequired": "Benefit je obavezan.",
+			"benefitMaxLength": "Benefit mora imati najviše 15 karaktera."
 		},
 		"CreateCustomPartnershipSchema": {
 			"accommodationRequired": "Izaberite smeštaj.",
@@ -1621,7 +1620,30 @@
 			"timeInvalid": "Unesite ispravno vreme (HH:MM).",
 			"phoneRequired": "Broj telefona je obavezan.",
 			"emailInvalid": "Unesite ispravnu imejl adresu."
+		},
+		"CreateReportSchema": {
+			"messageRequired": "Molimo opišite šta se dogodilo.",
+			"messageMax": "Poruka može imati najviše {max} karaktera.",
+			"emailInvalid": "Unesite ispravnu imejl adresu."
 		}
+	},
+	"ReportPage": {
+		"SEO": {
+			"title": "Prijavite problem",
+			"description": "Recite nam ako ste naišli na grešku ili bilo šta drugo."
+		},
+		"title": "Recite nam šta se dogodilo",
+		"intro": "Naišli ste na grešku ili nešto što nije delovalo kako treba? Dovoljno je nekoliko reči — čitamo svaku prijavu.",
+		"categoryLabel": "O čemu se radi?",
+		"categoryBug": "Nešto ne radi",
+		"categoryIdea": "Imam ideju",
+		"categoryOther": "Nešto drugo",
+		"fieldMessage": "Detalji",
+		"fieldMessagePlaceholder": "Opišite šta ste radili i šta je pošlo naopako. Što više detalja, to brže možemo da popravimo.",
+		"fieldEmail": "Imejl (opciono)",
+		"fieldEmailPlaceholder": "vi@primer.com",
+		"fieldEmailDescription": "Ostavite imejl ako želite da vam se javimo.",
+		"submit": "Pošalji prijavu"
 	},
 	"CreateCustomPartnershipPage": {
 		"SEO": {
@@ -1675,10 +1697,21 @@
 		"title": "Obrisati ovo ugostiteljstvo?",
 		"description": "Ovo trajno uklanja {hospitalityName} sa vašeg naloga. Gosti više neće moći da ga pregledaju niti da šalju zahteve za rezervaciju. Otvorene rezervacije ili partnerstva moraju biti uklonjene pre brisanja."
 	},
-	"SelectMyAccommodationDialog": {
+	"SelectAccommodationDialog": {
 		"selectAccommodation": "Izaberi smeštaj",
 		"modifyAccommodation": "Promeni smeštaj",
-		"dialogTitle": "Izaberite smeštaj"
+		"dialogTitle": "Izaberite smeštaj",
+		"searchPlaceholder": "Pretražite smeštaje po imenu…",
+		"SelectAccommodationDialogError": {
+			"title": "Nije moguće učitati smeštaje",
+			"description": "Pokušajte ponovo za trenutak."
+		},
+		"SelectAccommodationDialogEmpty": {
+			"title": "Još nema smeštaja",
+			"description": "Dodajte smeštaj na nalog pre kreiranja partnerstva.",
+			"adminDescription": "Još nema smeštaja.",
+			"cta": "Dodaj smeštaj"
+		}
 	},
 	"StartProTrialDialog": {
 		"title": "Započeti besplatnu Pro probu?",
@@ -1743,6 +1776,9 @@
 			"sectionDetailsDescription": "Kratak opis prikazan na stranici pogodnosti.",
 			"fieldDescription": "Opis",
 			"fieldDescriptionPlaceholder": "Kratak opis prikazan na stranici pogodnosti.",
+			"fieldBenefit": "Benefit za goste",
+			"fieldBenefitPlaceholder": "15% popusta",
+			"fieldBenefitHint": "Kratak benefit koji gosti vide kada je ovo mesto povezano sa smeštajem.",
 			"submit": "Kreiraj ugostiteljstvo"
 		},
 		"AddHospitalityVisibilityNotice": {
@@ -1768,6 +1804,7 @@
 		"NOT_AUTHENTICATED": "Prijavite se da biste nastavili.",
 		"ADMIN_ACCESS_REQUIRED": "Ova radnja zahteva admin privilegije.",
 		"ADMIN_CANNOT_BE_DELETED": "Admini se ne mogu obrisati. Prvo degradirajte u \"korisnika\".",
+		"USER_HAS_OWNED_DATA": "Ovaj korisnik i dalje poseduje smeštaje, ugostiteljske objekte ili fajlove. Prvo ih obrišite.",
 		"USER_NOT_FOUND": "Korisnik nije pronađen.",
 		"ACCOMMODATION_CREATED": "Smeštaj je kreiran.",
 		"ACCOMMODATION_UPDATED": "Smeštaj je uspešno ažuriran!",
@@ -1778,6 +1815,7 @@
 		"ACCOMMODATION_CANNOT_DELETE_ACTIVE_GUEST": "Ovaj smeštaj se ne može obrisati. U njemu je aktivan gost koji koristi aplikaciju — sačekajte da sesija istekne i pokušajte ponovo.",
 		"ACCOMMODATION_CANNOT_DELETE_ACTIVE_PARTNERSHIP": "Ovaj smeštaj se ne može obrisati dok je povezan partnerstvom sa ugostiteljstvom. Prvo opozovite partnerstvo, zatim pokušajte ponovo.",
 		"GUEST_CREATED": "Smeštaj za goste je otključan.",
+		"REPORT_CREATED": "Hvala — vaša prijava je poslata.",
 		"GUEST_ALREADY_ACTIVE": "Ovaj smeštaj je već otključan.",
 		"GUEST_SHARING_CODE_INVALID": "Taj kod za deljenje nije ispravan ili je istekao.",
 		"GUEST_SHARED_ACCESS_GRANTED": "Pristup smeštaju je podeljen.",
@@ -1793,6 +1831,7 @@
 		"PARTNERSHIP_CREATED": "Partnerstvo je kreirano.",
 		"PARTNERSHIPS_CREATED": "Kreirana partnerstva: {count}.",
 		"PARTNERSHIP_PAIR_EXISTS": "Ovaj smeštaj je već povezan sa tim ugostiteljstvom.",
+		"PARTNERSHIP_PLATFORM_HOSPITALITY_IMPLICIT": "Platformska ugostiteljstva su već u partnerstvu sa svakim smeštajem. Podesite ponudu za goste na samom ugostiteljstvu.",
 		"PARTNERSHIP_BENEFIT_INVALID": "Benefit mora imati od 1 do 15 karaktera.",
 		"PARTNERSHIP_BENEFIT_UPDATED": "Benefit partnerstva je ažuriran.",
 		"PARTNERSHIP_REVOKED": "Partnerstvo je opozvano.",
@@ -1822,6 +1861,7 @@
 	"RequestReservationDialog": {
 		"trigger": "Zatraži rezervaciju",
 		"title": "Zatraži rezervaciju",
+		"quickTimesLabel": "Popularni termini",
 		"descriptionWithName": "Popunite svoje podatke i {hospitalityName} će vas kontaktirati radi potvrde.",
 		"description": "Popunite svoje podatke i ugostiteljstvo će vas kontaktirati radi potvrde.",
 		"fieldGuestName": "Ime gosta",
@@ -1861,14 +1901,30 @@
 		"title": "Rezervacije uz odobrenje",
 		"description": "Gosti šalju zahtev za termin rezervacije putem aplikacije. Možete pregledati i prihvatiti ili odbiti svaki zahtev, a sve rezervacije ostaju zabeležene na vašoj kontrolnoj tabli."
 	},
-	"SelectMyAccommodationDialogError": {
-		"title": "Nije moguće učitati smeštaje",
-		"description": "Pokušajte ponovo za trenutak."
+	"SearchDialog": {
+		"hint": "Kucajte za pretragu.",
+		"loading": "Pretražujem…",
+		"noResults": "Nema rezultata.",
+		"selectedCount": "Izabrano: {count}",
+		"done": "Gotovo"
 	},
-	"SelectMyAccommodationDialogEmpty": {
-		"title": "Još nema smeštaja",
-		"description": "Dodajte smeštaj na nalog pre kreiranja partnerstva.",
-		"cta": "Dodaj smeštaj"
+	"SelectHospitalityDialog": {
+		"selectHospitality": "Izaberite ugostiteljstva",
+		"modifyHospitality": "Promeni ugostiteljstva",
+		"dialogTitle": "Izaberite ugostiteljstva",
+		"searchPlaceholder": "Pretražite ugostiteljstva po imenu…",
+		"selectedCount": "Izabrano: {count}",
+		"done": "Gotovo",
+		"SelectHospitalityDialogError": {
+			"title": "Nije moguće učitati ugostiteljstva",
+			"description": "Pokušajte ponovo za trenutak."
+		},
+		"SelectHospitalityDialogEmpty": {
+			"title": "Još nema ugostiteljstava",
+			"description": "Dodajte ugostiteljstvo na nalog pre kreiranja partnerstva.",
+			"adminDescription": "Još nema ugostiteljstava.",
+			"cta": "Dodaj ugostiteljstvo"
+		}
 	},
 	"AnalyticsTopAccommodationsTable": {
 		"topTitle": "Najbolji smeštaji",

@@ -1,3 +1,6 @@
+// VALIDATORS
+import { accommodationStaySafe } from '@/convex/tables/accommodations/validators/accommodationQueryValidators';
+
 // TYPES
 import type { AccommodationStayDetailsSafe } from '@/convex/tables/accommodations/types/accommodationsTypes';
 import type { Id } from '@/convex/_generated/dataModel';
@@ -10,19 +13,8 @@ export async function getAccommodationByIdSafe(
 	ctx: QueryCtx,
 	accommodationId: Id<'accommodations'>
 ): Promise<AccommodationStayDetailsSafe | null> {
-	const a = await ctx.db.get(accommodationId);
-	if (!a?.isActive) return null;
+	const accommodation = await ctx.db.get(accommodationId);
+	if (!accommodation?.isActive) return null;
 
-	return {
-		_id: a._id,
-		name: a.name,
-		type: a.type,
-		address: a.address,
-		city: a.city,
-		country: a.country,
-		latitude: a.latitude,
-		longitude: a.longitude,
-		description: a.description,
-		coverImageUrl: a.coverImageUrl
-	};
+	return accommodationStaySafe.project(accommodation);
 }

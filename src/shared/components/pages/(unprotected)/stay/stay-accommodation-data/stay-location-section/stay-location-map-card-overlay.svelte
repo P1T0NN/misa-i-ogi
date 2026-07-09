@@ -13,7 +13,7 @@
 	import { labelHospitalityType } from '@/features/hospitalities/data/hospitalitiesData';
 
 	// TYPES
-	import type { typesPartnershipScanHospitalitySafe } from '@/features/partnerships/types/partnershipsTypes';
+	import type { PartnershipScanHospitalitySafe } from '@/convex/tables/partnerships/types/partnershipsTypes';
 
 	// LUCIDE ICONS
 	import MapPinIcon from '@lucide/svelte/icons/map-pin';
@@ -27,8 +27,8 @@
 		distanceLabel = null,
 		onClose
 	}: {
-		hospitality: typesPartnershipScanHospitalitySafe;
-		benefit?: string | null;
+		hospitality: PartnershipScanHospitalitySafe;
+		benefit: string | null;
 		distanceLabel?: string | null;
 		onClose: () => void;
 	} = $props();

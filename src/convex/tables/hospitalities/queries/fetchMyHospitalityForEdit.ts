@@ -4,70 +4,26 @@ import { query } from '@/convex/_generated/server';
 
 // HELPERS
 import { getAuthUserId } from '@/convex/auth/helpers/getAuthUserId';
-import { getOwnedHospitality } from '@/convex/tables/hospitalities/helpers/getOwnedHospitality';
+import { getHospitalityForEdit } from '@/convex/tables/hospitalities/helpers/getHospitalityForEdit';
+import { hospitalityForEdit } from '@/convex/tables/hospitalities/validators/hospitalityQueryValidators';
 
-const hospitalityForEditValidator = v.object({
-	_id: v.id('hospitalities'),
-	name: v.string(),
-	type: v.union(
-		v.literal('restaurant'),
-		v.literal('cafe'),
-		v.literal('bar'),
-		v.literal('night_club'),
-		v.literal('horse_ride'),
-		v.literal('spa'),
-		v.literal('tour'),
-		v.literal('other')
-	),
-	address: v.string(),
-	city: v.string(),
-	country: v.string(),
-	addressNumber: v.optional(v.string()),
-	latitude: v.optional(v.number()),
-	longitude: v.optional(v.number()),
-	description: v.string(),
-	contactPhone: v.string(),
-	reservationMode: v.literal('managed_request'),
-	isActive: v.boolean(),
-	coverImageUrl: v.optional(v.string()),
-	menuFileUrl: v.optional(v.string()),
-	menuLink: v.optional(v.string())
-});
-
-/** Owner-scoped hospitality row for the edit form. */
+/** Owner- or admin-scoped hospitality row for the edit form. */
 export const fetchMyHospitalityForEdit = query({
 	args: {
 		hospitalityId: v.id('hospitalities')
 	},
-	returns: v.union(hospitalityForEditValidator, v.null()),
+	returns: v.union(hospitalityForEdit.validator, v.null()),
 	handler: async (ctx, args) => {
-		const ownerId = await getAuthUserId(ctx);
-		if (!ownerId) {
+		const userId = await getAuthUserId(ctx);
+		if (!userId) {
 			return null;
 		}
 
-		const doc = await getOwnedHospitality(ctx, args.hospitalityId, ownerId);
+		const doc = await getHospitalityForEdit(ctx, args.hospitalityId, userId);
 		if (!doc) {
 			return null;
 		}
 
-		return {
-			_id: doc._id,
-			name: doc.name,
-			type: doc.type,
-			address: doc.address,
-			city: doc.city,
-			country: doc.country,
-			addressNumber: doc.addressNumber,
-			latitude: doc.latitude,
-			longitude: doc.longitude,
-			description: doc.description,
-			contactPhone: doc.contactPhone,
-			reservationMode: doc.reservationMode,
-			isActive: doc.isActive,
-			coverImageUrl: doc.coverImageUrl,
-			menuFileUrl: doc.menuFileUrl,
-			menuLink: doc.menuLink
-		};
+		return hospitalityForEdit.project(doc);
 	}
 });

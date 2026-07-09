@@ -4,18 +4,19 @@ import { query } from '@/convex/_generated/server';
 
 // HELPERS
 import { getAuthUserId } from '@/convex/auth/helpers/getAuthUserId';
-import { getReservations } from '@/convex/tables/reservations/helpers/getReservations';
+import { getOwnerReservationCounts } from '@/convex/helpers/ownerCounterHelpers';
+
+// VALIDATORS
+import { fetchReservationsSummaryResultValidator } from '@/convex/tables/reservations/validators/reservationQueryValidators';
 
 // TYPES
 import type { ConvexErrorPayload } from '@/convex/types/convexTypes';
-import type {
-	FetchReservationsSummaryResult,
-	ReservationCounts
-} from '@/convex/tables/reservations/types/reservationsTypes';
+import type { FetchReservationsSummaryResult } from '@/convex/tables/reservations/types/reservationsTypes';
 
-/** Owner-scoped reservation list plus tab metadata. */
+/** Owner-scoped reservation tab metadata (counts + filter venue names). */
 export const fetchReservationsSummary = query({
 	args: {},
+	returns: fetchReservationsSummaryResultValidator,
 	handler: async (ctx): Promise<FetchReservationsSummaryResult> => {
 		const ownerId = await getAuthUserId(ctx);
 		if (!ownerId) {
@@ -25,25 +26,16 @@ export const fetchReservationsSummary = query({
 			} satisfies ConvexErrorPayload);
 		}
 
-		const reservations = await getReservations(ctx, ownerId);
-
-		const hospitalityNames = [
-			...new Set(reservations.map((reservation) => reservation.hospitalityName))
-		].sort();
-
-		const counts: ReservationCounts = {
-			pending: 0,
-			confirmed: 0,
-			cancelled: 0,
-			no_show: 0
-		};
-
-		for (const reservation of reservations) {
-			counts[reservation.status] += 1;
-		}
+		const [counts, hospitalities] = await Promise.all([
+			getOwnerReservationCounts(ctx, ownerId),
+			ctx.db
+				.query('hospitalities')
+				.withIndex('by_owner', (q) => q.eq('ownerId', ownerId))
+				.collect()
+		]);
 
 		return {
-			hospitalityNames,
+			hospitalityNames: hospitalities.map((hospitality) => hospitality.name).sort(),
 			counts
 		};
 	}

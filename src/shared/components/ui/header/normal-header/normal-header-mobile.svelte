@@ -3,13 +3,15 @@
 	import { afterNavigate } from '$app/navigation';
 	import { page } from '$app/state';
 
+	// LIBRARIES
+	import { m } from '@/shared/lib/paraglide/messages';
+
 	// CONFIG
 	import { COMPANY_DATA } from '@/shared/constants.js';
 	import { UNPROTECTED_PAGE_ENDPOINTS } from '@/shared/page-endpoints.js';
 
 	// CLASSES
 	import { authClass } from '@/features/auth/classes/authClass.svelte';
-	import { m } from '@/shared/lib/paraglide/messages';
 	import {
 		getNormalHeaderNavItems,
 		isHeaderNavActive,

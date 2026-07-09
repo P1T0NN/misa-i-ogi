@@ -5,15 +5,22 @@ import { authComponent } from '@/convex/auth/auth';
 
 // HELPERS
 import { getActiveGuestSessionFromAuth } from '@/convex/tables/guests/helpers/getActiveGuestSessionFromAuth';
-import { getActiveAccommodationHospitalityPartnership } from '@/convex/tables/partnerships/helpers/getAccommodationPartnerships';
+import { resolveGuestPartnershipForDetail } from '@/convex/tables/partnerships/helpers/resolveGuestPartnershipOffer';
 import { getGuestActiveHospitalityReservation } from '@/convex/tables/reservations/helpers/getGuestActiveHospitalityReservation';
 
 // UTILS
 import { isGuestStayIdentity } from '@/convex/tables/guests/utils/isGuestStayIdentity';
 
+// VALIDATORS
+import {
+	hospitalityDetailsSafe,
+	projectHospitalityGuestReservation
+} from '@/convex/tables/hospitalities/validators/hospitalityQueryValidators';
+
 // TYPES
 import type { Doc } from '@/convex/_generated/dataModel';
 import type { HospitalityDetailsResult } from '@/convex/tables/hospitalities/types/hospitalitiesTypes';
+import type { PartnershipBenefitSafe } from '@/convex/tables/partnerships/types/partnershipsTypes';
 
 /**
  * Hospitality detail gated at the Convex boundary.
@@ -38,20 +45,22 @@ export const fetchHospitalityDetails = query({
 		const identity = await ctx.auth.getUserIdentity();
 		const activeGuest = await getActiveGuestSessionFromAuth(ctx);
 
-		let activePartnership: Doc<'partnerships'> | null = null;
 		let guestReservation: Doc<'reservations'> | null = null;
+		let partnership: PartnershipBenefitSafe | null = null;
 
 		if (isGuestStayIdentity(identity) && !activeGuest) {
 			return { status: 'not_found' };
 		}
 
 		if (activeGuest) {
-			activePartnership = await getActiveAccommodationHospitalityPartnership(
+			const guestPartnership = await resolveGuestPartnershipForDetail(
 				ctx,
 				activeGuest.accommodationId,
-				hospitality._id
+				hospitality
 			);
-			if (!activePartnership) return { status: 'not_partnered' };
+			if (!guestPartnership.hasAccess) return { status: 'not_partnered' };
+
+			partnership = guestPartnership.offer;
 
 			guestReservation = await getGuestActiveHospitalityReservation(
 				ctx,
@@ -68,37 +77,10 @@ export const fetchHospitalityDetails = query({
 
 		return {
 			status: 'available',
-			hospitality: {
-				_id: hospitality._id,
-				name: hospitality.name,
-				type: hospitality.type,
-				address: hospitality.address,
-				city: hospitality.city,
-				country: hospitality.country,
-				latitude: hospitality.latitude,
-				longitude: hospitality.longitude,
-				description: hospitality.description,
-				contactPhone: hospitality.contactPhone,
-				coverImageUrl: hospitality.coverImageUrl,
-				menuFileUrl: hospitality.menuFileUrl,
-				menuLink: hospitality.menuLink
-			},
-			partnership: activePartnership
-				? {
-						_id: activePartnership._id,
-						benefit: activePartnership.benefit,
-						discountPercentage: activePartnership.discountPercentage
-					}
-				: null,
+			hospitality: hospitalityDetailsSafe.project(hospitality),
+			partnership,
 			guestReservation: guestReservation
-				? {
-						guestName: guestReservation.guestName,
-						email: guestReservation.email,
-						phone: guestReservation.phone,
-						guestCount: guestReservation.guestCount,
-						requestedTime: guestReservation.requestedTime,
-						status: guestReservation.status === 'confirmed' ? 'confirmed' : 'pending'
-					}
+				? projectHospitalityGuestReservation(guestReservation)
 				: null
 		};
 	}

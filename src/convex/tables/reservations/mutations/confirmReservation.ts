@@ -5,6 +5,7 @@ import { authMutation } from '@/convex/auth/middleware/authMiddleware';
 // HELPERS
 import { analytics } from '@/convex/analytics';
 import { reservationStatusCounterKey } from '@/convex/helpers/counterKeys';
+import { transferOwnerReservationStatus } from '@/convex/helpers/ownerCounterHelpers';
 import { AUDIT_ACTIONS } from '@/convex/tables/auditLog/auditLogConfigs';
 
 // UTILS
@@ -19,10 +20,8 @@ export const confirmReservation = authMutation('confirmReservation')({
 	},
 	returns: mutationResultValidator,
 	handler: async (ctx, args): Promise<MutationResult> => {
-		const ownerId = ctx.userId;
-
 		const reservation = await ctx.db.get(args.reservationId);
-		if (!reservation || reservation.hospitalityOwnerId !== ownerId) {
+		if (!reservation || reservation.hospitalityOwnerId !== ctx.userId) {
 			return { success: false, message: { key: 'GenericMessages.RESERVATION_NOT_FOUND' } };
 		}
 
@@ -33,6 +32,12 @@ export const confirmReservation = authMutation('confirmReservation')({
 		await ctx.db.patch(args.reservationId, { status: 'confirmed' });
 		await analytics.counters.bump(ctx, reservationStatusCounterKey('pending'), -1);
 		await analytics.counters.bump(ctx, reservationStatusCounterKey('confirmed'), 1);
+		await transferOwnerReservationStatus(
+			ctx,
+			reservation.hospitalityOwnerId,
+			'pending',
+			'confirmed'
+		);
 
 		ctx.audit(AUDIT_ACTIONS.RESERVATION_CONFIRM, {
 			resource: { table: 'reservations', id: args.reservationId },

@@ -31,9 +31,9 @@ export const adminCreateAccommodation = adminMutation('adminCreateAccommodation'
 		address: v.string(),
 		city: v.string(),
 		country: v.string(),
+		addressNumber: v.optional(v.string()),
 		latitude: v.optional(v.number()),
 		longitude: v.optional(v.number()),
-		description: v.optional(v.string()),
 		ownerId: v.optional(v.string()),
 		isActive: v.boolean(),
 		// Set by `processUploadFields` after upload; required so every listing has a cover.
@@ -41,8 +41,7 @@ export const adminCreateAccommodation = adminMutation('adminCreateAccommodation'
 	},
 	returns: mutationResultValidator,
 	handler: async (ctx, args): Promise<MutationResult> => {
-		const { coverImageKey: uploadedKey, ownerId, ...rest } = args;
-		const selectedOwnerId = ownerId?.trim() || undefined;
+		const selectedOwnerId = args.ownerId?.trim() || undefined;
 		const resolvedOwnerId = selectedOwnerId ?? ctx.userId;
 
 		if (selectedOwnerId) {
@@ -55,11 +54,22 @@ export const adminCreateAccommodation = adminMutation('adminCreateAccommodation'
 			}
 		}
 
+		const addressNumber = args.addressNumber?.trim();
+		const address = [args.address.trim(), addressNumber].filter(Boolean).join(' ');
+
 		return createAccommodationForOwner(
 			ctx,
 			{
-				...rest,
-				coverImageKey: uploadedKey,
+				name: args.name,
+				type: args.type,
+				address,
+				city: args.city,
+				country: args.country,
+				addressNumber: addressNumber || undefined,
+				latitude: args.latitude,
+				longitude: args.longitude,
+				isActive: args.isActive,
+				coverImageKey: args.coverImageKey,
 				ownerId: resolvedOwnerId
 			},
 			{ actorId: ctx.userId }

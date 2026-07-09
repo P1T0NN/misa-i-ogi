@@ -227,6 +227,14 @@ export type CreateDeleteMutationOptions<T extends TableNames> = {
 	 * batch throws, the schedule entry rolls back with everything else.
 	 */
 	audit?: false | { action?: AuditAction };
+	/**
+	 * Optional `analytics.counters` key holding the table's total row count. When
+	 * set, the factory decrements it by the number of rows actually removed —
+	 * ONCE per batch, after Phase 2 — so it stays safe under `phase2Strategy:
+	 * 'optimized'` (a per-row decrement would lose updates when rows run in
+	 * parallel). Keep the matching insert-side `+1` bump in the create mutations.
+	 */
+	totalCounterKey?: string;
 };
 
 export type DeleteMutationData = {
@@ -337,7 +345,8 @@ export function createDeleteMutation<T extends TableNames>(
 		maxBatchSize = DEFAULT_MAX_BATCH_SIZE,
 		skipRateLimit,
 		phase2Strategy = 'sequential',
-		audit: auditOption
+		audit: auditOption,
+		totalCounterKey
 	} = options;
 
 	// Resolve once, not per row. `false` ΓåÆ opt-out; otherwise default action key
@@ -531,6 +540,13 @@ export function createDeleteMutation<T extends TableNames>(
 
 			const deletedCount = existing.length;
 			const missingCount = uniqueIds.length - deletedCount;
+
+			// Keep the table's total-row counter in step. Once per batch (not per row)
+			// so parallel Phase 2 can't lose updates. Shares this mutation's txn, so a
+			// rollback above un-does it too.
+			if (totalCounterKey && deletedCount > 0) {
+				await analytics.counters.bump(ctx, totalCounterKey, -deletedCount);
+			}
 
 			return {
 				success: true,

@@ -5,10 +5,12 @@ import { createAnalyticsScopeId } from '@piton-/analytics-convex';
 // CONFIG
 import { analytics } from '@/convex/analytics';
 import { mutation } from '@/convex/_generated/server';
+import { enforceRateLimit } from '@/convex/rateLimits/enforceRateLimit';
+import { rateLimitKey } from '@/convex/rateLimits/keys';
 
 // HELPERS
 import { getActiveGuestSession } from '@/convex/tables/guests/helpers/getActiveGuestSession';
-import { hasActiveAccommodationHospitalityPartnership } from '@/convex/tables/partnerships/helpers/getAccommodationPartnerships';
+import { hasActivePartnership } from '@/convex/tables/partnerships/helpers/hasActivePartnership';
 
 export const viewHospitality = mutation({
 	args: {
@@ -19,14 +21,18 @@ export const viewHospitality = mutation({
 	handler: async (ctx, args) => {
 		const [hospitality, guest] = await Promise.all([
 			ctx.db.get(args.hospitalityId),
-			getActiveGuestSession(ctx, args.guestStayCookie)
+			getActiveGuestSession(ctx, args.guestStayCookie, Date.now())
 		]);
 		if (!hospitality?.isActive) return null;
 		if (!guest) return null;
 
+		// Meter the per-guest DB fan-out below. The early-exits above are cheap
+		// reads; charge only once we've confirmed a real guest session.
+		await enforceRateLimit(ctx, 'viewHospitality', rateLimitKey.guest(guest._id));
+
 		const [accommodation, isPartnered] = await Promise.all([
 			ctx.db.get(guest.accommodationId),
-			hasActiveAccommodationHospitalityPartnership(ctx, guest.accommodationId, args.hospitalityId)
+			hasActivePartnership(ctx, guest.accommodationId, args.hospitalityId)
 		]);
 		// Only partnered venues are reachable from the stay page — anything else is a
 		// hand-crafted call and must not inflate view counts.

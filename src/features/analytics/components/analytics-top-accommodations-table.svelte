@@ -71,9 +71,7 @@
 				: variant === 'admin'
 					? m['AnalyticsTopAccommodationsTable.adminDescription']()
 					: variant === 'detailPerformance' || variant === 'dummy'
-						? m[
-								'AnalyticsTopAccommodationsTable.detailPerformanceDescription'
-							]()
+						? m['AnalyticsTopAccommodationsTable.detailPerformanceDescription']()
 						: m['AnalyticsTopAccommodationsTable.topDescription']())
 	);
 

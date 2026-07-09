@@ -207,7 +207,11 @@
 }: MutationFormFieldSnippetProps<CreateReservationInput>)}
 	{@const current = String(value ?? '')}
 	<div class="flex flex-col gap-2">
-		<div class="flex flex-wrap gap-2" role="group" aria-label={m['RequestReservationDialog.quickTimesLabel']()}>
+		<div
+			class="flex flex-wrap gap-2"
+			role="group"
+			aria-label={m['RequestReservationDialog.quickTimesLabel']()}
+		>
 			{#each QUICK_TIMES as time (time)}
 				{@const active = current === time}
 				<button

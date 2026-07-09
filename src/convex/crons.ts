@@ -9,6 +9,7 @@ import { internal } from './_generated/api';
 import { registerStorageCrons } from './storage/registerStorageCrons';
 import { registerAuditLogCrons } from './tables/auditLog/registerAuditLogCrons';
 import { registerProTrialCrons } from './tables/proTrials/registerProTrialCrons';
+import { registerGuestCrons } from './tables/guests/registerGuestCrons';
 
 /**
  * Scheduled jobs. Convex requires this file at the convex root, default-exporting
@@ -19,6 +20,7 @@ const crons = cronJobs();
 registerStorageCrons(crons, internal);
 registerAuditLogCrons(crons, internal);
 registerProTrialCrons(crons, internal);
+registerGuestCrons(crons, internal);
 analytics.registerCrons(crons, internal.analytics);
 
 export default crons;

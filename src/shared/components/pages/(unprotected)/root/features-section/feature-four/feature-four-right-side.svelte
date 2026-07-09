@@ -37,8 +37,8 @@
 
 			<p class="mt-3 mb-0 max-w-136 text-base leading-relaxed text-muted-foreground">
 				On top of the included benefits, you will soon be able to form your own partnerships
-				directly with other hospitalities, with the discounts or perks you arrange yourself.
-				Pricing has not been finalized yet.
+				directly with other hospitalities, with the discounts or perks you arrange yourself. Pricing
+				has not been finalized yet.
 			</p>
 		</div>
 	</div>

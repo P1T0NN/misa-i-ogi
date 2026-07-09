@@ -9,10 +9,9 @@ import { assertTrustedServer } from '@/convex/auth/assertTrustedServer';
 import { GUEST_STAY } from '@/shared/config.js';
 
 // HELPERS
-import { getGuestSessionsByAccommodationId } from '@/convex/tables/guests/helpers/getGuestSessionsByAccommodationId';
-import { getAccommodationByScanTokenSafe } from '@/convex/tables/accommodations/helpers/getAccommodationByScanTokenSafe';
 import { getActivePartnershipsByAccommodation } from '@/convex/tables/partnerships/helpers/getActivePartnershipsByAccommodation';
 import { getHospitalitiesByIds } from '@/convex/tables/hospitalities/helpers/getHospitalitiesByIds';
+import { cancelPendingReservationsForGuest } from '@/convex/tables/reservations/helpers/cancelPendingReservationsForGuest';
 import { analytics } from '@/convex/analytics';
 import { COUNTER_KEYS } from '@/convex/helpers/counterKeys';
 
@@ -45,16 +44,11 @@ export const createGuest = mutation({
 		assertTrustedServer(args.secret);
 		await enforceRateLimit(ctx, 'createGuest', rateLimitKey.ip(args.ip));
 
-		const accommodation = await getAccommodationByScanTokenSafe(ctx, args.scanToken);
-		if (!accommodation) {
-			return {
-				success: false,
-				message: { key: 'GenericMessages.ACCOMMODATION_NOT_FOUND' }
-			};
-		}
-
-		const accommodationDoc = await ctx.db.get(accommodation._id);
-		if (!accommodationDoc) {
+		const accommodation = await ctx.db
+			.query('accommodations')
+			.withIndex('by_scan_token', (q) => q.eq('scanToken', args.scanToken))
+			.unique();
+		if (!accommodation?.isActive) {
 			return {
 				success: false,
 				message: { key: 'GenericMessages.ACCOMMODATION_NOT_FOUND' }
@@ -64,28 +58,40 @@ export const createGuest = mutation({
 		const now = Date.now();
 		const accommodationOwnerScope = {
 			scopeType: 'organization' as const,
-			scopeId: createAnalyticsScopeId('accommodationOwner', accommodationDoc.ownerId)
+			scopeId: createAnalyticsScopeId('accommodationOwner', accommodation.ownerId)
 		};
 
-		const existingGuests = await getGuestSessionsByAccommodationId(ctx, accommodation._id);
+		const activeGuest = await ctx.db
+			.query('guests')
+			.withIndex('by_accommodation_expires', (q) =>
+				q.eq('accommodationId', accommodation._id).gte('expiresAt', now)
+			)
+			.first();
+
+		const expiredGuests = await ctx.db
+			.query('guests')
+			.withIndex('by_accommodation_expires', (q) =>
+				q.eq('accommodationId', accommodation._id).lt('expiresAt', now)
+			)
+			.collect();
 
 		let expiredRemoved = 0;
-		for (const guest of existingGuests) {
-			if (guest.expiresAt < now) {
-				await ctx.db.delete(guest._id);
-				expiredRemoved++;
-			}
+		for (const guest of expiredGuests) {
+			// A gone guest can't show up — cancel their still-pending reservations
+			// (bounded: at most one expired session per accommodation in practice).
+			await cancelPendingReservationsForGuest(ctx, guest._id);
+			await ctx.db.delete(guest._id);
+			expiredRemoved++;
 		}
 		if (expiredRemoved > 0) {
 			await analytics.counters.bump(ctx, COUNTER_KEYS.GUESTS_TOTAL, -expiredRemoved);
 		}
 
-		const activeGuest = existingGuests.find((guest) => guest.expiresAt >= now);
 		if (activeGuest) {
 			await analytics.track(ctx, 'qr.scanned', {
 				actorId: activeGuest._id,
 				subject: { type: 'accommodation', id: accommodation._id },
-				organizationId: accommodationDoc.ownerId,
+				organizationId: accommodation.ownerId,
 				scopes: [accommodationOwnerScope],
 				properties: {
 					accommodationId: accommodation._id,
@@ -144,7 +150,7 @@ export const createGuest = mutation({
 					name: 'qr.scanned',
 					actorId: guestId,
 					subject: { type: 'accommodation', id: accommodation._id },
-					organizationId: accommodationDoc.ownerId,
+					organizationId: accommodation.ownerId,
 					scopes: [accommodationOwnerScope],
 					properties: {
 						accommodationId: accommodation._id,
@@ -156,7 +162,7 @@ export const createGuest = mutation({
 					name: 'guest.activated',
 					actorId: guestId,
 					subject: { type: 'accommodation', id: accommodation._id },
-					organizationId: accommodationDoc.ownerId,
+					organizationId: accommodation.ownerId,
 					scopes: [accommodationOwnerScope, ...partnerHospitalityOwnerScopes],
 					properties: {
 						accommodationId: accommodation._id,

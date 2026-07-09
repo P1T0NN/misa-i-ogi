@@ -6,6 +6,7 @@ import { query } from '@/convex/_generated/server';
 
 // HELPERS
 import { getAuthUserId } from '@/convex/auth/helpers/getAuthUserId';
+import { getOwnerReservationStatusCount } from '@/convex/helpers/ownerCounterHelpers';
 import { getUserDashboardStats } from '../helpers/getUserDashboardStats';
 
 // TYPES
@@ -24,7 +25,7 @@ export const fetchUserDashboardStats = query({
 			} satisfies ConvexErrorPayload);
 		}
 
-		const [accommodations, hospitalities, pendingReservations] = await Promise.all([
+		const [accommodations, hospitalities, pendingReservationsCount] = await Promise.all([
 			ctx.db
 				.query('accommodations')
 				.withIndex('by_owner', (q) => q.eq('ownerId', userId))
@@ -33,18 +34,14 @@ export const fetchUserDashboardStats = query({
 				.query('hospitalities')
 				.withIndex('by_owner', (q) => q.eq('ownerId', userId))
 				.collect(),
-			ctx.db
-				.query('reservations')
-				.withIndex('by_hospitality_owner_status', (q) =>
-					q.eq('hospitalityOwnerId', userId).eq('status', 'pending')
-				)
-				.collect()
+			getOwnerReservationStatusCount(ctx, userId, 'pending')
 		]);
 
 		return await getUserDashboardStats(ctx, {
+			userId,
 			accommodations,
 			hospitalities,
-			pendingReservationsCount: pendingReservations.length
+			pendingReservationsCount
 		});
 	}
 });

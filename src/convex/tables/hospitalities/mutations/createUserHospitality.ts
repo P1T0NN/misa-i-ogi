@@ -6,13 +6,21 @@ import { resolveStoredFileUrlAndSyncRow } from '@/convex/storage/r2/resolveStore
 
 // HELPERS
 import { analytics } from '@/convex/analytics';
+import { COUNTER_KEYS } from '@/convex/helpers/counterKeys';
 import { generateUniqueConnectCode } from '@/convex/tables/hospitalities/helpers/generateUniqueConnectCode';
 import { ensureHospitalityCreateAccess } from '@/convex/tables/hospitalities/helpers/ensureHospitalityCreateAccess';
-import { resolveMenuFile, normalizeMenuLink } from '@/convex/tables/hospitalities/helpers/resolveMenuFile';
+import {
+	resolveMenuFile,
+	normalizeMenuLink
+} from '@/convex/tables/hospitalities/helpers/resolveMenuFile';
 import { AUDIT_ACTIONS } from '@/convex/tables/auditLog/auditLogConfigs';
+import { parsePartnershipBenefit } from '@/convex/tables/partnerships/utils/parsePartnershipBenefit';
 
 // SCHEMAS
 import { mutationResultValidator, type MutationResult } from '@/convex/schemas/mutationResult';
+
+// CONFIG
+import { SUBSCRIPTION_ENABLED } from '@/shared/config.js';
 
 /**
  * Self-service venue creation (the owner-facing Add Hospitality page). Creates
@@ -43,15 +51,26 @@ export const createUserHospitality = authMutation('createUserHospitality')({
 		description: v.string(),
 		contactPhone: v.string(),
 		reservationMode: v.literal('managed_request'),
+		benefit: v.string(),
 		coverImageKey: v.string(),
 		menuFileKey: v.optional(v.string()),
 		menuLink: v.optional(v.string())
 	},
 	returns: mutationResultValidator,
 	handler: async (ctx, args): Promise<MutationResult> => {
+		// Paid tier is closed for launch — refuse even if a stale client reaches here.
+		if (!SUBSCRIPTION_ENABLED) {
+			return { success: false, message: { key: 'GenericMessages.FORBIDDEN' } };
+		}
+
 		// Trial/Pro gate — the client hides the form too, but the server decides.
 		const denied = await ensureHospitalityCreateAccess(ctx, ctx.userId);
 		if (denied) return denied;
+
+		const benefit = parsePartnershipBenefit(args.benefit);
+		if (!benefit) {
+			return { success: false, message: { key: 'GenericMessages.PARTNERSHIP_BENEFIT_INVALID' } };
+		}
 
 		const uploaded = await ctx.db
 			.query('uploadedFilesR2')
@@ -59,6 +78,9 @@ export const createUserHospitality = authMutation('createUserHospitality')({
 			.unique();
 		if (!uploaded) {
 			return { success: false, message: { key: 'GenericMessages.STORAGE_URL_UNAVAILABLE' } };
+		}
+		if (uploaded.ownerId !== ctx.userId) {
+			return { success: false, message: { key: 'GenericMessages.FORBIDDEN' } };
 		}
 
 		const coverImageUrl = await resolveStoredFileUrlAndSyncRow(ctx, uploaded);
@@ -85,6 +107,7 @@ export const createUserHospitality = authMutation('createUserHospitality')({
 			description: args.description,
 			contactPhone: args.contactPhone,
 			reservationMode: args.reservationMode,
+			benefit,
 			ownerId: ctx.userId,
 			coverImageKey: uploaded.key,
 			coverImageUrl,
@@ -96,6 +119,7 @@ export const createUserHospitality = authMutation('createUserHospitality')({
 			connectCode,
 			isActive: true
 		});
+		await analytics.counters.bump(ctx, COUNTER_KEYS.HOSPITALITIES_TOTAL, 1);
 
 		ctx.audit(AUDIT_ACTIONS.HOSPITALITY_CREATE, {
 			resource: { table: 'hospitalities', id: hospitalityId },

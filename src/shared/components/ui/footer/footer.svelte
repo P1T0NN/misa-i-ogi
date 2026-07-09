@@ -1,10 +1,7 @@
 <script lang="ts">
 	// CONFIG
 	import { COMPANY_DATA } from '@/shared/constants.js';
-	import {
-		PROTECTED_PAGE_ENDPOINTS,
-		UNPROTECTED_PAGE_ENDPOINTS,
-	} from '@/shared/page-endpoints.js';
+	import { PROTECTED_PAGE_ENDPOINTS, UNPROTECTED_PAGE_ENDPOINTS } from '@/shared/page-endpoints.js';
 
 	// LIBRARIES
 	import { m } from '@/shared/lib/paraglide/messages';

@@ -132,15 +132,20 @@ hooks.server.ts              paraglide → convex auth → security headers
 
 ## Production checklist
 
+**The launch gate lives in [`ProductionTODOS.md`](./ProductionTODOS.md)** — Section A (blockers),
+Section B (the ordered deploy runbook: env prep + migration order), and post-launch work in C/D.
+Read it before deploying; the items below are the quick residual reminders.
+
 Before deploying:
 
-- [ ] Tighten CSP in `src/shared/utils/securityHeaders.ts` — current config allows `'unsafe-inline'` / `'unsafe-eval'`. Migrate to SvelteKit's `kit.csp` nonce mode.
+- [ ] CSP is already hash-based (no `'unsafe-eval'`; `'unsafe-inline'` only on `style-src`) via `kit.csp` in `svelte.config.js` — nothing to tighten there.
 - [ ] Set `SITE_URL` to your production URL (and update Google redirect URI).
 - [ ] Set SvelteKit `PUBLIC_SITE_URL` to the same production origin as Convex `SITE_URL`, including protocol and `www` choice.
-- [ ] Use a verified sender domain in Resend (`onboarding@resend.dev` only delivers to the account owner).
-- [ ] Add per-email / per-IP buckets to BA rate limit (`auth.ts` `customRules`).
+- [ ] Use a verified sender domain in Resend (`onboarding@resend.dev` only delivers to the account owner). See ProductionTODOS.md A1.
+- [ ] Add per-email / per-IP buckets to BA rate limit (`auth.ts` `customRules`). See ProductionTODOS.md Section C.
 - [ ] Rate-limit R2 upload mutations (`src/convex/storage/r2/r2.ts`).
 - [ ] Enable `FEATURES.AUDIT_LOGS` and wire `logAudit` into admin / destructive paths.
+- [ ] Run the Section B migration sequence (ProductionTODOS.md) in order — `dropAccommodationDescription` before the schema push; the backfills after deploy.
 
 ## Scripts
 

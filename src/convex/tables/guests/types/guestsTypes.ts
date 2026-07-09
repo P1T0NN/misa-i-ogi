@@ -1,6 +1,7 @@
 // TYPES
-import type { Doc } from '@/convex/_generated/dataModel';
+import type { ProjectionType } from '@/convex/helpers/createProjection';
 import type { ConvexMutationResult } from '@/convex/types/convexTypes';
+import type { guestSessionSafe } from '@/convex/tables/guests/validators/guestQueryValidators';
 
 export type GuestStatus = 'active' | 'expired' | 'missing';
 
@@ -13,11 +14,8 @@ export type GuestCookiePayload = {
 	exp: number;
 };
 
-/** Public-safe guest session row — no `sessionTokenHash`. */
-export type GuestSessionSafe = Pick<
-	Doc<'guests'>,
-	'_id' | 'accommodationId' | 'expiresAt' | 'createdAt' | 'lastSeenAt'
->;
+/** Public-safe guest session row — field list lives on `guestSessionSafe`. */
+export type GuestSessionSafe = ProjectionType<typeof guestSessionSafe>;
 
 /** Resolved guest session from the signed HttpOnly cookie. */
 export type CurrentGuest = {

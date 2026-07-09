@@ -310,7 +310,9 @@
 		id={inputId}
 		accept={field.accept}
 		existingPreviewUrl={hospitality.coverImageUrl}
-		existingPreviewAlt={m['EditHospitalityPage.EditHospitalityForm.currentCoverAlt']({ name: hospitality.name })}
+		existingPreviewAlt={m['EditHospitalityPage.EditHospitalityForm.currentCoverAlt']({
+			name: hospitality.name
+		})}
 		bind:file={() => (value as File | null) ?? null, (next) => setValue(next)}
 	/>
 {/snippet}

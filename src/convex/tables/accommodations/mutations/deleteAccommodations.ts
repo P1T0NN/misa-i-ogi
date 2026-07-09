@@ -3,6 +3,8 @@ import { ConvexError } from 'convex/values';
 
 // HELPERS
 import { createDeleteMutation } from '@/convex/helpers/createDeleteMutation';
+import { COUNTER_KEYS } from '@/convex/helpers/counterKeys';
+import { cascadeAccommodationChildren } from '@/convex/tables/accommodations/helpers/cascadeAccommodationChildren';
 import { cleanupAccommodationCoverImages } from '@/convex/tables/accommodations/helpers/cleanupAccommodationCoverImages';
 import { accommodationHasActiveGuest } from '@/convex/tables/guests/helpers/accommodationHasActiveGuest';
 import { hasActiveAccommodationPartnership } from '@/convex/tables/partnerships/helpers/hasActivePartnership';
@@ -32,10 +34,15 @@ import type { ConvexErrorPayload } from '@/convex/types/convexTypes';
  */
 export const deleteAccommodations = createDeleteMutation('deleteAccommodations', {
 	table: 'accommodations',
+	totalCounterKey: COUNTER_KEYS.ACCOMMODATIONS_TOTAL,
 	runStorageDelete: cleanupAccommodationCoverImages,
-	// Safe here: no `onDelete` hook means Phase 2 has no cross-row writes that
-	// could race. Audit inserts go to a separate table and are independent.
-	phase2Strategy: 'optimized',
+	// Sequential: the cascade below decrements shared per-owner counters, which
+	// would lose updates if two rows ran their `onDelete` in parallel.
+	phase2Strategy: 'sequential',
+	// Remove the inactive partnership + expired-guest rows that hang off each
+	// accommodation (the authorize guard already blocked the ACTIVE ones), keeping
+	// PARTNERSHIPS_TOTAL / GUESTS_TOTAL and the per-owner counters in step.
+	onDelete: (ctx, doc) => cascadeAccommodationChildren(ctx, doc._id),
 	authorize: async (ctx, doc) => {
 		if (await accommodationHasActiveGuest(ctx, doc._id)) {
 			throw new ConvexError({

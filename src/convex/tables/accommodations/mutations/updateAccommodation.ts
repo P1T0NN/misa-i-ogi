@@ -2,7 +2,7 @@
 import { v } from 'convex/values';
 
 // HELPERS
-import { getOwnedAccommodation } from '@/convex/tables/accommodations/helpers/getOwnedAccommodation';
+import { getAccommodationForEdit } from '@/convex/tables/accommodations/helpers/getAccommodationForEdit';
 import { AUDIT_ACTIONS } from '@/convex/tables/auditLog/auditLogConfigs';
 
 // UTILS
@@ -13,7 +13,7 @@ import { resolveStoredFileUrlAndSyncRow } from '@/convex/storage/r2/resolveStore
 // SCHEMAS
 import { mutationResultValidator, type MutationResult } from '@/convex/schemas/mutationResult';
 
-/** Owner-scoped update. Does not change `ownerId` or `scanToken`. */
+/** Owner- or admin-scoped update. Does not change `ownerId` or `scanToken`. */
 export const updateAccommodation = authMutation('updateAccommodation')({
 	args: {
 		accommodationId: v.id('accommodations'),
@@ -31,13 +31,12 @@ export const updateAccommodation = authMutation('updateAccommodation')({
 		addressNumber: v.optional(v.string()),
 		latitude: v.number(),
 		longitude: v.number(),
-		description: v.optional(v.string()),
 		isActive: v.boolean(),
 		coverImageKey: v.optional(v.string())
 	},
 	returns: mutationResultValidator,
 	handler: async (ctx, args): Promise<MutationResult> => {
-		const doc = await getOwnedAccommodation(ctx, args.accommodationId, ctx.userId);
+		const doc = await getAccommodationForEdit(ctx, args.accommodationId, ctx.userId);
 		if (!doc) {
 			return {
 				success: false,
@@ -60,6 +59,12 @@ export const updateAccommodation = authMutation('updateAccommodation')({
 					message: { key: 'GenericMessages.STORAGE_URL_UNAVAILABLE' }
 				};
 			}
+			if (uploaded.ownerId !== ctx.userId) {
+				return {
+					success: false,
+					message: { key: 'GenericMessages.FORBIDDEN' }
+				};
+			}
 
 			coverImageUrl = await resolveStoredFileUrlAndSyncRow(ctx, uploaded);
 			coverImageKey = uploaded.key;
@@ -72,7 +77,6 @@ export const updateAccommodation = authMutation('updateAccommodation')({
 			doc.coverImageKey !== coverImageKey ? doc.coverImageKey : undefined
 		]);
 
-		const description = args.description?.trim();
 		const addressNumber = args.addressNumber?.trim();
 		await ctx.db.patch(args.accommodationId, {
 			name: args.name.trim(),
@@ -84,7 +88,6 @@ export const updateAccommodation = authMutation('updateAccommodation')({
 			country: args.country.trim(),
 			latitude: args.latitude,
 			longitude: args.longitude,
-			description: description ? description : undefined,
 			isActive: args.isActive,
 			coverImageKey,
 			coverImageUrl

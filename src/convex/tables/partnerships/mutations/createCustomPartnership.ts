@@ -10,7 +10,10 @@ import { CUSTOM_PARTNERSHIP_ENABLED } from '@/shared/config.js';
 import { analytics } from '@/convex/analytics';
 import { customPartnershipsCounterKey } from '@/convex/helpers/counterKeys';
 import { ensureCustomPartnershipAccess } from '@/convex/tables/partnerships/helpers/ensureCustomPartnershipAccess';
+import { insertPartnership } from '@/convex/tables/partnerships/helpers/insertPartnership';
+import { reactivatePartnership } from '@/convex/tables/partnerships/helpers/reactivatePartnership';
 import { normalizeConnectCode } from '@/convex/tables/hospitalities/helpers/connectCode';
+import { isPlatformHospitality } from '@/convex/tables/hospitalities/utils/isPlatformHospitality';
 import { parsePartnershipBenefit } from '@/convex/tables/partnerships/utils/parsePartnershipBenefit';
 
 // UTILS
@@ -59,6 +62,12 @@ export const createCustomPartnership = authMutation('createCustomPartnership')({
 		if (!hospitality || !hospitality.isActive) {
 			return { success: false, message: { key: 'GenericMessages.HOSPITALITY_NOT_FOUND' } };
 		}
+		if (isPlatformHospitality(hospitality)) {
+			return {
+				success: false,
+				message: { key: 'GenericMessages.PARTNERSHIP_PLATFORM_HOSPITALITY_IMPLICIT' }
+			};
+		}
 
 		const isOwnHospitality = hospitality.ownerId === ctx.userId;
 
@@ -68,7 +77,7 @@ export const createCustomPartnership = authMutation('createCustomPartnership')({
 				q.eq('accommodationId', args.accommodationId).eq('hospitalityId', hospitality._id)
 			)
 			.unique();
-		if (existingPartnership) {
+		if (existingPartnership?.isActive) {
 			return { success: false, message: { key: 'GenericMessages.PARTNERSHIP_PAIR_EXISTS' } };
 		}
 
@@ -136,51 +145,27 @@ export const createCustomPartnership = authMutation('createCustomPartnership')({
 			return { success: false, message: { key: 'GenericMessages.PARTNERSHIP_BENEFIT_INVALID' } };
 		}
 
-		const partnershipId = await ctx.db.insert('partnerships', {
-			accommodationId: args.accommodationId,
-			accommodationScanToken: accommodation.scanToken,
-			hospitalityId: hospitality._id,
+		if (existingPartnership) {
+			await reactivatePartnership(ctx, {
+				partnershipId: existingPartnership._id,
+				partnership: existingPartnership,
+				accommodationOwnerId: ctx.userId,
+				hospitalityOwnerId: hospitality.ownerId,
+				benefit,
+				actorId: ctx.userId
+			});
+			return { success: true, message: { key: 'GenericMessages.PARTNERSHIP_CREATED' } };
+		}
+
+		const { event } = await insertPartnership(ctx, {
+			accommodation,
+			hospitality,
 			benefit,
 			createType: 'custom',
-			isActive: true
+			actorId: ctx.userId
 		});
 		await analytics.counters.bump(ctx, customPartnershipsCounterKey(ctx.userId), 1);
-
-		ctx.audit(AUDIT_ACTIONS.PARTNERSHIP_CREATE, {
-			resource: { table: 'partnerships', id: partnershipId },
-			after: {
-				accommodationId: args.accommodationId,
-				accommodationScanToken: accommodation.scanToken,
-				hospitalityId: hospitality._id,
-				benefit,
-				createType: 'custom',
-				isActive: true
-			}
-		});
-
-		await analytics.track(ctx, 'partnership.created', {
-			subject: { type: 'hospitality', id: hospitality._id },
-			organizationId: accommodation.ownerId,
-			scopes: [
-				{ scopeType: 'organization', scopeId: hospitality.ownerId },
-				{
-					scopeType: 'organization',
-					scopeId: createAnalyticsScopeId('accommodationOwner', accommodation.ownerId)
-				},
-				{
-					scopeType: 'organization',
-					scopeId: createAnalyticsScopeId('hospitalityOwner', hospitality.ownerId)
-				}
-			],
-			properties: {
-				accommodationId: accommodation._id,
-				accommodationName: accommodation.name,
-				hospitalityId: hospitality._id,
-				hospitalityName: hospitality.name,
-				benefit,
-				partnershipDelta: 1
-			}
-		});
+		await analytics.track(ctx, event);
 
 		return { success: true, message: { key: 'GenericMessages.PARTNERSHIP_CREATED' } };
 	}

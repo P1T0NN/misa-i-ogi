@@ -34,15 +34,7 @@
 	);
 
 	const hospitalityResult = $derived(detailQuery.data as HospitalityDetailsResult | undefined);
-	const hospitality = $derived(
-		hospitalityResult?.status === 'available' ? hospitalityResult.hospitality : null
-	);
-	const guestReservation = $derived(
-		hospitalityResult?.status === 'available' ? hospitalityResult.guestReservation : null
-	);
-	const partnership = $derived(
-		hospitalityResult?.status === 'available' ? hospitalityResult.partnership : null
-	);
+	const available = $derived(hospitalityResult?.status === 'available' ? hospitalityResult : null);
 	const isLoading = $derived(hospitalityResult === undefined && !detailQuery.error);
 	const isNotFound = $derived(hospitalityResult?.status === 'not_found');
 	const isNotPartnered = $derived(hospitalityResult?.status === 'not_partnered');
@@ -51,7 +43,10 @@
 	const loadTimeout = loadingTimeout(() => isLoading);
 </script>
 
-<SvelteHead title={hospitality?.name} description={m['HospitalityPage.SEO.description']()} />
+<SvelteHead
+	title={available?.hospitality.name}
+	description={m['HospitalityPage.SEO.description']()}
+/>
 
 <div class="bg-background text-foreground">
 	{#if detailQuery.error || loadTimeout.timedOut}
@@ -62,8 +57,8 @@
 		<HospitalityEmpty reason="notPartnered" />
 	{:else if isNotFound}
 		<HospitalityEmpty />
-	{:else if hospitality}
-		{@const h = hospitality}
+	{:else if available}
+		{@const { hospitality, partnership, guestReservation } = available}
 
 		<HospitalityHeader {hospitality} />
 
@@ -79,12 +74,15 @@
 			</div>
 
 			<aside class="space-y-6 lg:sticky lg:top-28">
-				<HospitalityPartnership {partnership} hospitalityName={h.name} />
+				<HospitalityPartnership {partnership} hospitalityName={hospitality.name} />
 
 				{#if guestReservation}
-					<GuestReservationCard reservation={guestReservation} hospitalityName={h.name} />
+					<GuestReservationCard reservation={guestReservation} hospitalityName={hospitality.name} />
 				{:else}
-					<RequestReservationDialog hospitalityName={h.name} hospitalityId={h._id} />
+					<RequestReservationDialog
+						hospitalityName={hospitality.name}
+						hospitalityId={hospitality._id}
+					/>
 				{/if}
 
 				<HospitalityDetails {hospitality} />

@@ -48,8 +48,12 @@
 	size="sm"
 	{isPending}
 	title={isPublic
-		? m['AdminHospitalitiesPage.HospitalityVisibilityButton.makePrivateTitle']({ name: hospitality.name })
-		: m['AdminHospitalitiesPage.HospitalityVisibilityButton.makePublicTitle']({ name: hospitality.name })}
+		? m['AdminHospitalitiesPage.HospitalityVisibilityButton.makePrivateTitle']({
+				name: hospitality.name
+			})
+		: m['AdminHospitalitiesPage.HospitalityVisibilityButton.makePublicTitle']({
+				name: hospitality.name
+			})}
 	description={isPublic
 		? m['AdminHospitalitiesPage.HospitalityVisibilityButton.makePrivateDescription']()
 		: m['AdminHospitalitiesPage.HospitalityVisibilityButton.makePublicDescription']()}

@@ -3,7 +3,10 @@ import { v } from 'convex/values';
 
 // UTILS
 import { action } from '@/convex/_generated/server';
-import { api } from '@/convex/_generated/api';
+import { api, internal } from '@/convex/_generated/api';
+import { assertTrustedServer } from '@/convex/auth/assertTrustedServer';
+import { enforceRateLimit } from '@/convex/rateLimits/enforceRateLimit';
+import { rateLimitKey } from '@/convex/rateLimits/keys';
 import { createGuestConvexJwt } from '@/convex/tables/guests/utils/guestConvexJwt';
 import { verifyGuestSessionCookie } from '@/convex/tables/guests/utils/guestStayCookieCrypto';
 
@@ -35,13 +38,22 @@ const createGuestConvexAuthTokenResult = v.union(
 /** Validates the HttpOnly guest cookie and creates a short-lived Convex guest JWT. */
 export const createGuestConvexAuthToken = action({
 	args: {
-		guestStayCookie: v.string()
+		guestStayCookie: v.string(),
+		ip: v.string(),
+		secret: v.string()
 	},
 	returns: createGuestConvexAuthTokenResult,
 	handler: async (ctx, args): Promise<CreateGuestConvexAuthTokenResult> => {
+		// Trusted-server only (our /api/guest-auth/token route holds the secret),
+		// then IP-metered — mirrors `createGuest`. Stops direct spamming of the JWT
+		// mint via PUBLIC_CONVEX_URL and throttles per-IP on shared WiFi.
+		assertTrustedServer(args.secret);
+		await enforceRateLimit(ctx, 'guestTokenMint', rateLimitKey.ip(args.ip));
+
 		const currentGuest = await ctx.runQuery(
-			api.tables.guests.queries.fetchGuestSessionFromCookie.fetchGuestSessionFromCookie,
-			{ guestStayCookie: args.guestStayCookie }
+			internal.tables.guests.queries.fetchGuestSessionFromCookieInternal
+				.fetchGuestSessionFromCookieInternal,
+			{ guestStayCookie: args.guestStayCookie, asOfMs: Date.now() }
 		);
 
 		if (currentGuest.status === 'missing') {
