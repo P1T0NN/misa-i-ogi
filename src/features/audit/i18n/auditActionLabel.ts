@@ -26,8 +26,6 @@ const AUDIT_ACTION_LABELS = {
 	[AUDIT_ACTIONS.ACCOMMODATION_UPDATE]: () => m['AuditActions.accommodationUpdate'](),
 	[AUDIT_ACTIONS.HOSPITALITY_CREATE]: () => m['AuditActions.hospitalityCreate'](),
 	[AUDIT_ACTIONS.HOSPITALITY_UPDATE]: () => m['AuditActions.hospitalityUpdate'](),
-	[AUDIT_ACTIONS.HOSPITALITY_VISIBILITY_UPDATE]: () =>
-		m['AuditActions.hospitalityVisibilityUpdate'](),
 	[AUDIT_ACTIONS.RESERVATION_CONFIRM]: () => m['AuditActions.reservationConfirm'](),
 	[AUDIT_ACTIONS.RESERVATION_CANCEL]: () => m['AuditActions.reservationCancel'](),
 	[AUDIT_ACTIONS.RESERVATION_NO_SHOW]: () => m['AuditActions.reservationNoShow'](),

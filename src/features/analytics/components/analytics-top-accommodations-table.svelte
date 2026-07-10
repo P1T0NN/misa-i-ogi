@@ -235,7 +235,7 @@
 			customCells={showAction ? { action: actionCell } : {}}
 			borderless
 			showPagination={false}
-			showMobileCards={!isPreview}
+			showMobileCards={false}
 			tableClass={isPreview ? 'text-xs sm:text-sm' : undefined}
 		/>
 	</CardContent>

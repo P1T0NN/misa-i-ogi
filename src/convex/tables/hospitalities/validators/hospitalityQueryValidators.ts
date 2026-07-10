@@ -9,17 +9,10 @@ import { createProjection } from '@/convex/helpers/createProjection';
 import { hospitalityFields } from '@/convex/tables/hospitalities/schemas/hospitalitiesSchemas';
 import { reservationFields } from '@/convex/tables/reservations/schemas/reservationsSchemas';
 
-// TYPES
-import type { Doc } from '@/convex/_generated/dataModel';
-import type { HospitalityGuestReservationSafe } from '@/convex/tables/hospitalities/types/hospitalitiesTypes';
-
-/** The venue-kind union, taken straight off the schema so it can't drift from it. */
-export const hospitalityTypeValidator = hospitalityFields.type;
-
 /**
  * Public-safe `hospitalities` projection for the guest venue page. Notably excludes
- * `connectCode` (whoever holds it can request a partnership), `visibility`, `ownerId`,
- * the storage keys, and the lifecycle columns.
+ * `connectCode` (whoever holds it can request a partnership), `ownerId`, and the
+ * lifecycle columns. `images[0]` is the cover — clients read `images[0].url`.
  */
 export const hospitalityDetailsSafe = createProjection({
 	_id: v.id('hospitalities'),
@@ -34,7 +27,7 @@ export const hospitalityDetailsSafe = createProjection({
 		'description',
 		'benefit',
 		'contactPhone',
-		'coverImageUrl',
+		'images',
 		'menuFileUrl',
 		'menuLink'
 	])
@@ -52,16 +45,7 @@ export const hospitalityGuestReservationSafe = createProjection({
 	status: v.union(v.literal('pending'), v.literal('confirmed'))
 });
 
-export function projectHospitalityGuestReservation(
-	doc: Doc<'reservations'>
-): HospitalityGuestReservationSafe {
-	return {
-		...pick(doc, ['guestName', 'email', 'phone', 'guestCount', 'requestedTime']),
-		status: doc.status === 'confirmed' ? 'confirmed' : 'pending'
-	};
-}
-
-/** Owner-scoped hospitality row for the edit form. */
+/** Owner-scoped hospitality row for the edit form. `images[0]` is the cover. */
 export const hospitalityForEdit = createProjection({
 	_id: v.id('hospitalities'),
 	...pick(hospitalityFields, [
@@ -77,8 +61,36 @@ export const hospitalityForEdit = createProjection({
 		'contactPhone',
 		'reservationMode',
 		'isActive',
-		'coverImageUrl',
+		'images',
 		'menuFileUrl',
 		'menuLink'
+	])
+});
+
+/**
+ * Admin edit projection — the owner edit fields PLUS the admin-only levers
+ * (`benefit` guest offer, `createType` platform/custom) so the admin edit form can
+ * prefill them. Never returned to owners (guarded by `requireAdmin` in the query).
+ */
+export const hospitalityForAdminEdit = createProjection({
+	_id: v.id('hospitalities'),
+	...pick(hospitalityFields, [
+		'name',
+		'type',
+		'address',
+		'city',
+		'country',
+		'addressNumber',
+		'latitude',
+		'longitude',
+		'description',
+		'contactPhone',
+		'reservationMode',
+		'isActive',
+		'images',
+		'menuFileUrl',
+		'menuLink',
+		'benefit',
+		'createType'
 	])
 });

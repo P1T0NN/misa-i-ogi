@@ -41,9 +41,9 @@
 >
 	<div class="flex gap-3">
 		<div class="relative size-14 shrink-0 overflow-hidden rounded-md bg-muted sm:size-16">
-			{#if hospitality.coverImageUrl}
+			{#if hospitality.images?.[0]?.url}
 				<img
-					src={hospitality.coverImageUrl}
+					src={hospitality.images[0].url}
 					alt=""
 					class="absolute inset-0 size-full object-cover"
 					loading="lazy"

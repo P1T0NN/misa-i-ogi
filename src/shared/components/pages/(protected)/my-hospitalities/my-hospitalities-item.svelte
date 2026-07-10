@@ -44,9 +44,9 @@
 >
 	<div class="grid gap-3 md:grid-cols-[4.5rem_minmax(0,1fr)_auto] md:items-center">
 		<div class="size-16 overflow-hidden rounded-lg border border-border bg-muted md:size-18">
-			{#if hospitality.coverImageUrl}
+			{#if hospitality.images?.[0]?.url}
 				<img
-					src={hospitality.coverImageUrl}
+					src={hospitality.images[0].url}
 					alt=""
 					class="size-full object-cover"
 					loading="lazy"

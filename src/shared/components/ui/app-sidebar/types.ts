@@ -18,6 +18,8 @@ export type AppSidebarNavItem = {
 
 export type AppSidebarNavSecondaryItem = Omit<AppSidebarNavItem, 'url' | 'items'> & {
 	url: string;
+	/** Render with an accented style so it stands apart from the other secondary links. */
+	highlight?: boolean;
 };
 
 export type AppSidebarNavChildItemWithActive = AppSidebarNavChildItem & {

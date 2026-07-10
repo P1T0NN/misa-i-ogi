@@ -1,119 +1,44 @@
 <script lang="ts">
-	// SVELTEKIT IMPORTS
-	import { SvelteSet } from 'svelte/reactivity';
-
 	// COMPONENTS
 	import UploadFileEmpty from '../upload-file-empty.svelte';
 	import UploadFileMultipleList from './upload-file-multiple-list.svelte';
 
 	// UTILS
 	import { cn } from '@/shared/utils/utils.js';
+	import { useFileUpload } from '../../utils/useFileUpload.svelte';
+
+	// TYPES
+	import type { UploadItem } from '../../types/uploadFileTypes';
 
 	type Props = {
 		class?: string;
-		/** Cleared in multi mode; kept bindable for parity with single. */
-		file?: File | null;
-		files?: File[];
+		/** Ordered mix of existing images ({key,url}) and newly picked Files; items[0] is the cover. */
+		items?: UploadItem[];
 		accept?: string;
 		disabled?: boolean;
 		id?: string;
+		/** Show a star control on each preview; the starred entry becomes `items[0]` (the cover). */
+		hasCoverImage?: boolean;
 	};
 
 	let {
 		class: className,
-		file = $bindable<File | null>(null),
-		files = $bindable<File[]>([]),
+		items = $bindable<UploadItem[]>([]),
 		accept,
 		disabled = false,
-		id: inputId
+		id: inputId,
+		hasCoverImage = false
 	}: Props = $props();
 
 	const pickerInputId = $derived(inputId ?? 'upload-file-input-multiple');
 
-	let inputRef: HTMLInputElement | null = $state(null);
-	let dragOver = $state(false);
-
-	const noSelection = $derived(files.length === 0);
-
-	function fileKey(f: File): string {
-		return `${f.name}-${f.size}-${f.lastModified}`;
-	}
-
-	function mergeUnique(existing: File[], incoming: File[]): File[] {
-		const seen = new SvelteSet(existing.map(fileKey));
-		const next = [...existing];
-
-		for (const f of incoming) {
-			const k = fileKey(f);
-			if (seen.has(k)) continue;
-			seen.add(k);
-			next.push(f);
-		}
-		return next;
-	}
-
-	function previewKey(f: File, index: number): string {
-		return `${fileKey(f)}#${index}`;
-	}
-
-	const displayList = $derived(files);
-
-	let previewUrls = $state<Record<string, string>>({});
-
-	const contentRows = $derived(
-		displayList.map((f, index) => ({
-			file: f,
-			index,
-			previewUrl: previewUrls[previewKey(f, index)] ?? null
-		}))
-	);
-
-	$effect(() => {
-		const list = displayList;
-		const next: Record<string, string> = {};
-		list.forEach((f, index) => {
-			if (f.type.startsWith('image/')) {
-				next[previewKey(f, index)] = URL.createObjectURL(f);
-			}
-		});
-		const revoke = next;
-		previewUrls = next;
-		return () => {
-			for (const u of Object.values(revoke)) URL.revokeObjectURL(u);
-		};
+	const upload = useFileUpload({
+		getItems: () => items,
+		setItems: (v) => {
+			items = v;
+		},
+		getDisabled: () => disabled
 	});
-
-	$effect(() => {
-		if (noSelection && inputRef) inputRef.value = '';
-	});
-
-	function applyPickedList(list: FileList | null) {
-		if (!list?.length) return;
-		files = mergeUnique(files, Array.from(list));
-		file = null;
-		if (inputRef) inputRef.value = '';
-	}
-
-	function onInputChange(e: Event) {
-		const input = e.currentTarget as HTMLInputElement;
-		applyPickedList(input.files);
-	}
-
-	function onDrop(e: DragEvent) {
-		e.preventDefault();
-		dragOver = false;
-		if (disabled) return;
-		const dropped = e.dataTransfer?.files;
-		if (!dropped?.length) return;
-		files = mergeUnique(files, Array.from(dropped));
-		file = null;
-		if (inputRef) inputRef.value = '';
-	}
-
-	function onDragOver(e: DragEvent) {
-		e.preventDefault();
-		if (!disabled && e.dataTransfer) e.dataTransfer.dropEffect = 'copy';
-	}
 </script>
 
 <div
@@ -130,26 +55,26 @@
 			{accept}
 			{disabled}
 			multipleFiles={true}
-			{dragOver}
-			bind:fileInputRef={inputRef}
-			onFileInputChange={onInputChange}
+			dragOver={upload.dragOver}
+			bind:fileInputRef={upload.inputRef}
+			onFileInputChange={upload.handleInputChange}
 			onDragEnter={() => {
-				if (!disabled) dragOver = true;
+				if (!disabled) upload.dragOver = true;
 			}}
 			onDragLeave={() => {
-				dragOver = false;
+				upload.dragOver = false;
 			}}
-			{onDragOver}
-			{onDrop}
+			onDragOver={upload.handleDragOver}
+			onDrop={upload.handleDrop}
 		/>
 
-		{#if files.length > 0}
+		{#if items.length > 0}
 			<UploadFileMultipleList
-				rows={contentRows}
-				bind:files
-				bind:selectedFile={file}
-				{onDragOver}
-				{onDrop}
+				rows={upload.contentRows}
+				bind:items
+				onDragOver={upload.handleDragOver}
+				onDrop={upload.handleDrop}
+				{hasCoverImage}
 			/>
 		{/if}
 	</div>

@@ -48,19 +48,33 @@ export type UserAnalyticsHospitalityTableRow = UserAnalyticsEntityTableRowBase &
 	guestViews: number;
 };
 
+export type UserAnalyticsOverviewPageMetrics = {
+	qrScans: UserAnalyticsComparedMetricSummary;
+	guestActivations: UserAnalyticsComparedMetricSummary;
+	requestsGenerated: UserAnalyticsComparedMetricSummary;
+	confirmedReservations: UserAnalyticsComparedMetricSummary;
+};
+
+/** One merged daily point across the overview trend series. */
+export type UserAnalyticsOverviewTrendPoint = {
+	date: number;
+	qrScans: number;
+	guestActivations: number;
+	reservations: number;
+};
+
 export type UserAnalyticsOverviewPageResult = {
-	qrScansChart: UserAnalyticsChartPoint[];
-	guestActivationsChart: UserAnalyticsChartPoint[];
-	reservationsChart: UserAnalyticsChartPoint[];
+	metrics: UserAnalyticsOverviewPageMetrics;
+	trendChart: UserAnalyticsOverviewTrendPoint[];
 	topAccommodations: UserAnalyticsAccommodationTableRow[];
 	topHospitalities: UserAnalyticsHospitalityTableRow[];
 };
 
 export type UserAnalyticsAccommodationsPageMetrics = {
-	trackedStays: UserAnalyticsStaticMetricSummary;
 	qrScans: UserAnalyticsComparedMetricSummary;
 	guestActivations: UserAnalyticsComparedMetricSummary;
 	requestsGenerated: UserAnalyticsComparedMetricSummary;
+	confirmedReservations: UserAnalyticsComparedMetricSummary;
 };
 
 export type UserAnalyticsAccommodationsPageResult = {
@@ -72,10 +86,10 @@ export type UserAnalyticsAccommodationsPageResult = {
 };
 
 export type UserAnalyticsHospitalitiesPageMetrics = {
-	trackedVenues: UserAnalyticsStaticMetricSummary;
 	hospitalityViews: UserAnalyticsComparedMetricSummary;
 	guestActivations: UserAnalyticsComparedMetricSummary;
 	requestsGenerated: UserAnalyticsComparedMetricSummary;
+	confirmedReservations: UserAnalyticsComparedMetricSummary;
 };
 
 export type UserAnalyticsHospitalitiesPageResult = {
@@ -87,7 +101,6 @@ export type UserAnalyticsHospitalitiesPageResult = {
 };
 
 export type UserAnalyticsReservationsPageMetrics = {
-	trackedVenues: UserAnalyticsStaticMetricSummary;
 	created: UserAnalyticsComparedMetricSummary;
 	confirmed: UserAnalyticsComparedMetricSummary;
 	cancelled: UserAnalyticsComparedMetricSummary;
@@ -126,6 +139,9 @@ export type UserAnalyticsPlaceDetailPerformanceRow<EntityType extends string = s
 	confirmed: number;
 };
 
+/** Accommodation detail shows the same funnel tiles as the accommodations list. */
+export type UserAnalyticsAccommodationDetailMetrics = UserAnalyticsAccommodationsPageMetrics;
+
 export type UserAnalyticsAccommodationDetailResult = {
 	accommodation: {
 		id: string;
@@ -133,9 +149,15 @@ export type UserAnalyticsAccommodationDetailResult = {
 		type: AccommodationType;
 		city: string;
 	};
-	metrics: UserAnalyticsAccommodationsPageMetrics;
-	activityData: { date: number; qrScans: number; guestActivations: number; reservations: number }[];
+	metrics: UserAnalyticsAccommodationDetailMetrics;
 	performance: { rows: UserAnalyticsPlaceDetailPerformanceRow<HospitalityType>[] };
+};
+
+/** Hospitality detail has no guest-activation stage (activations happen at accommodations). */
+export type UserAnalyticsHospitalityDetailMetrics = {
+	hospitalityViews: UserAnalyticsComparedMetricSummary;
+	requestsGenerated: UserAnalyticsComparedMetricSummary;
+	confirmedReservations: UserAnalyticsComparedMetricSummary;
 };
 
 export type UserAnalyticsHospitalityDetailResult = {
@@ -145,7 +167,6 @@ export type UserAnalyticsHospitalityDetailResult = {
 		type: HospitalityType;
 		city: string;
 	};
-	metrics: UserAnalyticsHospitalitiesPageMetrics;
-	activityData: { date: number; qrScans: number; guestActivations: number; reservations: number }[];
+	metrics: UserAnalyticsHospitalityDetailMetrics;
 	performance: { rows: UserAnalyticsPlaceDetailPerformanceRow<AccommodationType>[] };
 };

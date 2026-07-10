@@ -136,16 +136,17 @@
 			]
 		},
 		{
-			id: 'cover',
-			title: m['AdminHospitalityAddPage.sectionCoverTitle'](),
-			description: m['AdminHospitalityAddPage.sectionCoverDescription'](),
+			id: 'images',
+			title: m['AdminHospitalityAddPage.sectionImagesTitle'](),
+			description: m['AdminHospitalityAddPage.sectionImagesDescription'](),
 			columns: 1,
 			fields: [
 				{
-					id: 'coverImageKey',
-					kind: 'upload-single',
-					label: m['AdminHospitalityAddPage.fieldCoverImage'](),
-					accept: 'image/*'
+					id: 'images',
+					kind: 'upload-multiple',
+					label: m['AdminHospitalityAddPage.fieldImages'](),
+					accept: 'image/*',
+					hasCoverImage: true
 				}
 			]
 		},
@@ -233,7 +234,7 @@
 		benefit: '',
 		ownerId: '',
 		isActive: true,
-		coverImageKey: null,
+		images: [],
 		menuFileKey: null,
 		menuLink: ''
 	});

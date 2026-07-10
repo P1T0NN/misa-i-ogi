@@ -16,8 +16,7 @@
 	import AnalyticsHeader from '@/features/analytics/components/analytics-header.svelte';
 	import AnalyticsTopHospitalitiesTable from '@/features/analytics/components/analytics-top-hospitalities-table.svelte';
 	import UserAnalyticsAccommodationMetrics from '@/shared/components/pages/(protected)/user-analytics/user-analytics-accommodations/[id]/user-analytics-accommodation-metrics.svelte';
-	import UserAnalyticsAccommodationChart from '@/shared/components/pages/(protected)/user-analytics/user-analytics-accommodations/[id]/user-analytics-accommodation-chart.svelte';
-	import UserAnalyticsAccommodationsLoading from '@/shared/components/pages/(protected)/user-analytics/user-analytics-accommodations/loading/user-analytics-accommodations-loading.svelte';
+	import UserAnalyticsAccommodationDetailLoading from '@/shared/components/pages/(protected)/user-analytics/user-analytics-accommodations/loading/user-analytics-accommodation-detail-loading.svelte';
 	import { ErrorComponent } from '@/shared/components/ui/error-component/index.js';
 
 	// TYPES
@@ -47,7 +46,7 @@
 />
 
 {#if isLoading}
-	<UserAnalyticsAccommodationsLoading />
+	<UserAnalyticsAccommodationDetailLoading />
 {:else if hasError}
 	<ErrorComponent
 		variant="card"
@@ -66,8 +65,6 @@
 		/>
 
 		<UserAnalyticsAccommodationMetrics metrics={data.metrics} />
-
-		<UserAnalyticsAccommodationChart data={data.activityData} />
 
 		<AnalyticsTopHospitalitiesTable rows={data.performance.rows} variant="detailPerformance" />
 	</section>

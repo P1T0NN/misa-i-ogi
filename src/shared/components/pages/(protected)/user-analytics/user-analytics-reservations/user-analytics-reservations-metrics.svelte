@@ -33,4 +33,4 @@
 	]);
 </script>
 
-<AnalyticsMetrics metrics={displayMetrics} />
+<AnalyticsMetrics metrics={displayMetrics} columns={3} />

@@ -6,24 +6,14 @@
 	import AnalyticsMetrics from '@/features/analytics/components/analytics-metrics.svelte';
 
 	// UTILS
-	import {
-		createComparedAnalyticsMetric,
-		createStaticAnalyticsMetric
-	} from '@/features/analytics/utils/createAnalyticsMetric';
-	import { getPresenceAnalyticsLabel } from '@/features/analytics/utils/analyticsLabelUtils';
+	import { createComparedAnalyticsMetric } from '@/features/analytics/utils/createAnalyticsMetric';
 
 	// TYPES
-	import type { UserAnalyticsAccommodationsPageMetrics } from '@/convex/pages/userAnalytics/types/userAnalyticsTypes';
+	import type { UserAnalyticsAccommodationDetailMetrics } from '@/convex/pages/userAnalytics/types/userAnalyticsTypes';
 
-	let { metrics }: { metrics: UserAnalyticsAccommodationsPageMetrics } = $props();
+	let { metrics }: { metrics: UserAnalyticsAccommodationDetailMetrics } = $props();
 
 	const displayMetrics = $derived([
-		createStaticAnalyticsMetric({
-			id: 'tracked-stays',
-			label: m['AnalyticsAccommodationDetailPage.UserAnalyticsAccommodationMetrics.trackedStays'](),
-			metric: metrics.trackedStays,
-			analyticsLabel: getPresenceAnalyticsLabel(metrics.trackedStays.value)
-		}),
 		createComparedAnalyticsMetric({
 			id: 'qr-scans',
 			label: m['AnalyticsAccommodationDetailPage.UserAnalyticsAccommodationMetrics.qrScans'](),
@@ -39,6 +29,11 @@
 			id: 'requests-generated',
 			label: m['AnalyticsAccommodationDetailPage.UserAnalyticsAccommodationMetrics.reservations'](),
 			metric: metrics.requestsGenerated
+		}),
+		createComparedAnalyticsMetric({
+			id: 'confirmed',
+			label: m['AnalyticsAccommodationDetailPage.UserAnalyticsAccommodationMetrics.confirmed'](),
+			metric: metrics.confirmedReservations
 		})
 	]);
 </script>

@@ -7,7 +7,6 @@
 
 	// UTILS
 	import { createComparedAnalyticsMetric } from '@/features/analytics/utils/createAnalyticsMetric';
-	import { formatAnalyticsCount } from '@/features/analytics/utils/analyticsDisplayFormattersUtils';
 
 	// TYPES
 	import type { UserAnalyticsHospitalitiesPageMetrics } from '@/convex/pages/userAnalytics/types/userAnalyticsTypes';
@@ -15,11 +14,6 @@
 	let { metrics }: { metrics: UserAnalyticsHospitalitiesPageMetrics } = $props();
 
 	const displayMetrics = $derived([
-		{
-			id: 'hospitalities',
-			label: m['AnalyticsHospitalitiesPage.UserAnalyticsHospitalitiesMetrics.hospitalities'](),
-			value: formatAnalyticsCount(metrics.trackedVenues.value)
-		},
 		createComparedAnalyticsMetric({
 			id: 'guest-views',
 			label: m['AnalyticsHospitalitiesPage.UserAnalyticsHospitalitiesMetrics.guestViews'](),
@@ -34,6 +28,11 @@
 			id: 'requests-generated',
 			label: m['AnalyticsHospitalitiesPage.UserAnalyticsHospitalitiesMetrics.reservations'](),
 			metric: metrics.requestsGenerated
+		}),
+		createComparedAnalyticsMetric({
+			id: 'confirmed',
+			label: m['AnalyticsHospitalitiesPage.UserAnalyticsHospitalitiesMetrics.confirmed'](),
+			metric: metrics.confirmedReservations
 		})
 	]);
 </script>

@@ -100,16 +100,17 @@ export function addHospitalityFormSections(): MutationFormSection[] {
 			]
 		},
 		{
-			id: 'cover',
-			title: m['AddHospitalityPage.AddHospitalityForm.sectionCoverTitle'](),
-			description: m['AddHospitalityPage.AddHospitalityForm.sectionCoverDescription'](),
+			id: 'images',
+			title: m['AddHospitalityPage.AddHospitalityForm.sectionImagesTitle'](),
+			description: m['AddHospitalityPage.AddHospitalityForm.sectionImagesDescription'](),
 			columns: 1,
 			fields: [
 				{
-					id: 'coverImageKey',
-					kind: 'upload-single',
-					label: m['AddHospitalityPage.AddHospitalityForm.fieldCoverImage'](),
-					accept: 'image/*'
+					id: 'images',
+					kind: 'upload-multiple',
+					label: m['AddHospitalityPage.AddHospitalityForm.fieldImages'](),
+					accept: 'image/*',
+					hasCoverImage: true
 				}
 			]
 		},

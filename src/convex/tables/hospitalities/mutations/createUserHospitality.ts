@@ -2,11 +2,11 @@
 import { v } from 'convex/values';
 import { authMutation } from '@/convex/auth/middleware/authMiddleware';
 import { createAnalyticsScopeId } from '@piton-/analytics-convex';
-import { resolveStoredFileUrlAndSyncRow } from '@/convex/storage/r2/resolveStoredFileUrl.js';
 
 // HELPERS
 import { analytics } from '@/convex/analytics';
 import { COUNTER_KEYS } from '@/convex/helpers/counterKeys';
+import { resolveUploadedImages } from '@/convex/helpers/resolveUploadedImages';
 import { generateUniqueConnectCode } from '@/convex/tables/hospitalities/helpers/generateUniqueConnectCode';
 import { ensureHospitalityCreateAccess } from '@/convex/tables/hospitalities/helpers/ensureHospitalityCreateAccess';
 import {
@@ -26,8 +26,8 @@ import { SUBSCRIPTION_ENABLED } from '@/shared/config.js';
  * Self-service venue creation (the owner-facing Add Hospitality page). Creates
  * just the venue — no partnership, no quota: linking happens later on the
  * create-custom-partnership flow via the venue's connect code. Born
- * `createType: "user"` and `visibility: "private"` (only an admin can publish
- * it); the connect code is minted here so it's shareable immediately.
+ * `createType: "user"` (reachable only via its connect code); the connect code is
+ * minted here so it's shareable immediately.
  */
 export const createUserHospitality = authMutation('createUserHospitality')({
 	args: {
@@ -52,7 +52,7 @@ export const createUserHospitality = authMutation('createUserHospitality')({
 		contactPhone: v.string(),
 		reservationMode: v.literal('managed_request'),
 		benefit: v.string(),
-		coverImageKey: v.string(),
+		images: v.array(v.string()),
 		menuFileKey: v.optional(v.string()),
 		menuLink: v.optional(v.string())
 	},
@@ -72,18 +72,11 @@ export const createUserHospitality = authMutation('createUserHospitality')({
 			return { success: false, message: { key: 'GenericMessages.PARTNERSHIP_BENEFIT_INVALID' } };
 		}
 
-		const uploaded = await ctx.db
-			.query('uploadedFilesR2')
-			.withIndex('by_key', (q) => q.eq('key', args.coverImageKey))
-			.unique();
-		if (!uploaded) {
-			return { success: false, message: { key: 'GenericMessages.STORAGE_URL_UNAVAILABLE' } };
+		// Only the caller's own uploads count; images[0] is the cover.
+		const images = await resolveUploadedImages(ctx, args.images, ctx.userId);
+		if (images.length === 0) {
+			return { success: false, message: { key: 'GenericMessages.HOSPITALITY_IMAGE_REQUIRED' } };
 		}
-		if (uploaded.ownerId !== ctx.userId) {
-			return { success: false, message: { key: 'GenericMessages.FORBIDDEN' } };
-		}
-
-		const coverImageUrl = await resolveStoredFileUrlAndSyncRow(ctx, uploaded);
 
 		const menu = await resolveMenuFile(ctx, args.menuFileKey);
 		if (!menu.ok) return menu.error;
@@ -109,13 +102,11 @@ export const createUserHospitality = authMutation('createUserHospitality')({
 			reservationMode: args.reservationMode,
 			benefit,
 			ownerId: ctx.userId,
-			coverImageKey: uploaded.key,
-			coverImageUrl,
+			images,
 			menuFileKey: menu.menuFileKey,
 			menuFileUrl: menu.menuFileUrl,
 			menuLink,
 			createType: 'user',
-			visibility: 'private',
 			connectCode,
 			isActive: true
 		});
@@ -123,7 +114,7 @@ export const createUserHospitality = authMutation('createUserHospitality')({
 
 		ctx.audit(AUDIT_ACTIONS.HOSPITALITY_CREATE, {
 			resource: { table: 'hospitalities', id: hospitalityId },
-			after: { name: args.name, type: args.type, createType: 'user', visibility: 'private' }
+			after: { name: args.name, type: args.type, createType: 'user' }
 		});
 
 		await analytics.track(ctx, 'hospitality.claimed', {

@@ -43,7 +43,6 @@ export const AUDIT_ACTIONS = {
 	// Hospitalities
 	HOSPITALITY_CREATE: 'hospitality.create',
 	HOSPITALITY_UPDATE: 'hospitality.update',
-	HOSPITALITY_VISIBILITY_UPDATE: 'hospitality.visibility.update',
 
 	// Reservations (owner-side state transitions; guest-side create is analytics-only)
 	RESERVATION_CONFIRM: 'reservation.confirm',

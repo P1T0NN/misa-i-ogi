@@ -52,7 +52,7 @@
 		cardContentClass = 'px-2 sm:p-6',
 		containerClass = 'aspect-auto h-[250px] w-full',
 		controlsClass = 'flex',
-		controlClass = 'relative z-30 flex flex-1 flex-col justify-center gap-1 border-t px-6 py-4 text-start even:border-s data-[active=true]:bg-muted/50 sm:border-s sm:border-t-0 sm:px-8 sm:py-6',
+		controlClass = 'group/toggle relative z-30 flex flex-1 cursor-pointer flex-col justify-center gap-1 border-t px-6 py-4 text-start transition-colors outline-none even:border-s hover:bg-muted/40 focus-visible:bg-muted/40 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-inset data-[active=true]:bg-muted/50 sm:border-s sm:border-t-0 sm:px-8 sm:py-6',
 		lineChartProps,
 		tooltip: userTooltip
 	}: {
@@ -135,10 +135,27 @@
 					class={controlClass}
 					onclick={() => (activeChart = option.key)}
 				>
-					<span class="text-xs text-muted-foreground">
+					<!-- Series-colored bar marks the active tab and hints the segments are switchable. -->
+					<span
+						class="absolute inset-x-0 top-0 h-0.5 transition-opacity"
+						style="background-color: {option.color}; opacity: {isActive ? 1 : 0}"
+						aria-hidden="true"
+					></span>
+					<span
+						class="flex items-center gap-1.5 whitespace-nowrap text-xs text-muted-foreground"
+					>
+						<span
+							class="size-2 shrink-0 rounded-full transition-opacity"
+							style="background-color: {option.color}; opacity: {isActive ? 1 : 0.45}"
+							aria-hidden="true"
+						></span>
 						{option.label}
 					</span>
-					<span class="text-lg leading-none font-bold sm:text-3xl">
+					<span
+						class="text-lg leading-none font-bold transition-colors sm:text-3xl"
+						class:text-foreground={isActive}
+						class:text-muted-foreground={!isActive}
+					>
 						{resolvedValueFormatter(totals[option.key] ?? 0, option.key)}
 					</span>
 				</button>

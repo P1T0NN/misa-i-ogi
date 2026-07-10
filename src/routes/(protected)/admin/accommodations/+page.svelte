@@ -4,11 +4,7 @@
 	import { m } from '@/shared/lib/paraglide/messages';
 
 	// CONFIG
-	import {
-		ADMIN_PAGE_ENDPOINTS,
-		PROTECTED_PAGE_ENDPOINTS,
-		UNPROTECTED_PAGE_ENDPOINTS
-	} from '@/shared/page-endpoints.js';
+	import { ADMIN_PAGE_ENDPOINTS, UNPROTECTED_PAGE_ENDPOINTS } from '@/shared/page-endpoints.js';
 
 	// COMPONENTS
 	import SvelteHead from '@/shared/components/ui/svelte-head/svelte-head.svelte';
@@ -51,7 +47,7 @@
 	}
 
 	function editHref(row: Doc<'accommodations'>) {
-		return PROTECTED_PAGE_ENDPOINTS.EDIT_ACCOMMODATION.replace(':id', row._id);
+		return ADMIN_PAGE_ENDPOINTS.EDIT_ACCOMMODATION.replace(':id', row._id);
 	}
 
 	const columns: ColumnDef<Doc<'accommodations'>>[] = [

@@ -84,6 +84,7 @@
 		"groupProduct": "Proizvod",
 		"linkOverview": "Pregled",
 		"linkDashboard": "Kontrolna tabla",
+		"linkReport": "Povratne informacije",
 		"groupLegal": "Pravne informacije",
 		"linkTerms": "Uslovi korišćenja",
 		"groupAccount": "Nalog",
@@ -125,6 +126,11 @@
 		"bad": "Loše",
 		"clear": "Čisto"
 	},
+	"AnalyticsShared": {
+		"window": "Poslednjih 30 dana",
+		"deltaVsPrevious": "u odnosu na prethodnih 30 dana",
+		"deltaNoPrevious": "nema prethodne aktivnosti"
+	},
 	"AuditActions": {
 		"userCreate": "Korisnik kreiran",
 		"userUpdate": "Korisnik ažuriran",
@@ -146,7 +152,6 @@
 		"accommodationUpdate": "Smeštaj ažuriran",
 		"hospitalityCreate": "Ugostiteljstvo kreirano",
 		"hospitalityUpdate": "Ugostiteljstvo ažurirano",
-		"hospitalityVisibilityUpdate": "Vidljivost ugostiteljstva ažurirana",
 		"reservationConfirm": "Rezervacija potvrđena",
 		"reservationCancel": "Rezervacija otkazana",
 		"reservationNoShow": "Rezervacija označena kao neiskorišćena",
@@ -432,7 +437,10 @@
 		"UploadFileMultiple": {
 			"placeholder": "Otpremljene datoteke. Prevucite još datoteka ovde da biste dodali.",
 			"unknown": "Nepoznato",
-			"remove": "Ukloni {name}"
+			"remove": "Ukloni {name}",
+			"cover": "Naslovna",
+			"setCover": "Postavi {name} kao naslovnu sliku",
+			"existingImage": "Trenutna slika"
 		},
 		"UploadFileSingle": {
 			"remove": "Ukloni",
@@ -512,10 +520,10 @@
 			"description": "Uporedite svoje smeštaje po broju QR skeniranja, aktivacijama gostiju i generisanim zahtevima za rezervaciju."
 		},
 		"UserAnalyticsAccommodationsMetrics": {
-			"accommodations": "Smeštaji",
 			"qrScans": "QR skeniranja",
-			"guestActivations": "Aktivacije gostiju",
-			"reservations": "Rezervacije"
+			"guestActivations": "Gosti",
+			"reservations": "Rezervacije",
+			"confirmed": "Potvrđeno"
 		},
 		"UserAnalyticsAccommodationsChart": {
 			"reservations": "Rezervacije",
@@ -544,10 +552,10 @@
 			"description": "Pristup gostiju, potražnja partnera i tok rezervacija za ovaj smeštaj."
 		},
 		"UserAnalyticsAccommodationMetrics": {
-			"trackedStays": "Praćeni smeštaji",
 			"qrScans": "QR skeniranja",
-			"guestActivations": "Aktivacije gostiju",
-			"reservations": "Rezervacije"
+			"guestActivations": "Gosti",
+			"reservations": "Rezervacije",
+			"confirmed": "Potvrđeno"
 		},
 		"UserAnalyticsAccommodationChart": {
 			"qrScans": "QR skeniranja",
@@ -568,10 +576,10 @@
 			"description": "Pratite koja restorana, kafići, ture i wellness partneri gosti zaista otvaraju i traže."
 		},
 		"UserAnalyticsHospitalitiesMetrics": {
-			"hospitalities": "Ugostiteljstva",
 			"guestViews": "Pregledi gostiju",
-			"guestActivations": "Aktivacije gostiju",
-			"reservations": "Rezervacije"
+			"guestActivations": "Gosti",
+			"reservations": "Rezervacije",
+			"confirmed": "Potvrđeno"
 		},
 		"UserAnalyticsHospitalitiesChart": {
 			"reservations": "Rezervacije",
@@ -600,9 +608,9 @@
 			"description": "Potražnja gostiju, tok rezervacija i izvori smeštaja za ovo ugostiteljstvo."
 		},
 		"UserAnalyticsHospitalityMetrics": {
-			"trackedVenues": "Praćena ugostiteljstva",
 			"guestViews": "Pregledi gostiju",
-			"reservations": "Rezervacije"
+			"reservations": "Rezervacije",
+			"confirmed": "Potvrđeno"
 		},
 		"UserAnalyticsHospitalityChart": {
 			"guestViews": "Pregledi gostiju",
@@ -621,20 +629,23 @@
 			"title": "Pregled analitike",
 			"description": "Praktičan pregled aktivnosti gostiju, potražnje za rezervacijama i mesta koja zahtevaju pažnju."
 		},
-		"UserAnalyticsOverviewQrScans": {
+		"UserAnalyticsOverviewMetrics": {
 			"qrScans": "QR skeniranja",
-			"title": "QR skeniranja",
-			"description": "Skeniranja prijave gostiju sa povezanih smeštaja tokom vremena."
-		},
-		"UserAnalyticsOverviewGuestActivations": {
-			"guestActivations": "Aktivacije gostiju",
-			"title": "Aktivacije gostiju",
-			"description": "Aktivirane sesije gostiju tokom vremena."
-		},
-		"UserAnalyticsOverviewReservations": {
+			"guestActivations": "Gosti",
 			"reservations": "Rezervacije",
-			"title": "Rezervacije",
-			"description": "Zahtevi za rezervaciju kreirani u povezanim ugostiteljstvima."
+			"confirmed": "Potvrđeno"
+		},
+		"UserAnalyticsOverviewTrend": {
+			"qrScans": "QR skeniranja",
+			"guestActivations": "Gosti",
+			"reservations": "Rezervacije",
+			"title": "Trend aktivnosti gostiju",
+			"description": "QR skeniranja, aktivacije gostiju i zahtevi za rezervaciju u poslednjih 30 dana."
+		},
+		"UserAnalyticsOverviewTrendEmpty": {
+			"title": "Trend aktivnosti gostiju",
+			"description": "QR skeniranja, aktivacije gostiju i zahtevi za rezervaciju u poslednjih 30 dana.",
+			"body": "Aktivnost će se prikazati ovde kada gosti počnu da skeniraju i rezervišu."
 		},
 		"UserAnalyticsOverviewEmpty": {
 			"title": "Nemate dodeljen nijedan smeštaj ili ugostiteljstvo",
@@ -653,22 +664,22 @@
 			"description": "Razumite obim zahteva, zdravlje potvrda i obrasce otkazivanja."
 		},
 		"UserAnalyticsReservationsMetrics": {
-			"created": "Kreirano",
+			"created": "Zahtevi",
 			"confirmed": "Potvrđeno",
 			"cancelled": "Otkazano"
 		},
 		"UserAnalyticsReservationsStatusChart": {
-			"created": "Kreirano",
+			"created": "Zahtevi",
 			"confirmed": "Potvrđeno",
 			"cancelled": "Otkazano",
 			"title": "Trend rezervacija",
-			"description": "Dnevni ishodi rezervacija u povezanim mestima."
+			"description": "Dnevni zahtevi, potvrde i otkazivanja u povezanim mestima."
 		},
 		"UserAnalyticsReservationsTable": {
 			"title": "Izvori rezervacija",
 			"description": "Odakle dolaze zahtevi i kako se konvertuju.",
 			"source": "Izvor",
-			"created": "Kreirano",
+			"created": "Zahtevi",
 			"confirmed": "Potvrđeno",
 			"cancelled": "Otkazano",
 			"conversion": "Konverzija"
@@ -975,6 +986,75 @@
 		"errorTitle": "Nije bilo moguće učitati smeštaj",
 		"errorDescription": "Pokušajte ponovo za trenutak."
 	},
+	"AdminEditAccommodationPage": {
+		"back": "Nazad na smeštaje"
+	},
+	"AdminEditHospitalityPage": {
+		"back": "Nazad na ugostiteljstva",
+		"CreateType": {
+			"title": "Tip partnerstva",
+			"platform": "Platformsko",
+			"custom": "Prilagođeno",
+			"platformDescription": "Vidljivo svakom gostu kao implicitni partner svih smeštaja.",
+			"customDescription": "Dostupno samo putem koda za povezivanje prilagođenog partnerstva.",
+			"toCustom": "Pretvori u prilagođeno",
+			"toPlatform": "Pretvori u platformsko",
+			"toCustomTitle": "Pretvoriti {name} u mesto za prilagođeno partnerstvo?",
+			"toCustomDescription": "Prestaje da bude vidljivo svim gostima. Zadržava svoj kod za povezivanje i može se povezati putem prilagođenih partnerstava. Ništa se ne briše.",
+			"toPlatformTitle": "Pretvoriti {name} u platformsko mesto?",
+			"toPlatformDescription": "Postaje vidljivo svakom gostu kao implicitni partner. Dozvoljeno samo kada nema aktivnih partnerstava."
+		},
+		"AdminEditHospitalityForm": {
+			"sectionBasicsTitle": "Osnovno",
+			"sectionBasicsDescription": "Ono što gosti vide na listi pogodnosti.",
+			"sectionLocationTitle": "Lokacija",
+			"sectionLocationDescription": "Prikazuje se na vašoj javnoj stranici ugostiteljstva.",
+			"sectionContactTitle": "Kontakt",
+			"sectionContactDescription": "Broj telefona koji gosti mogu koristiti za kontakt sa ovim ugostiteljstvom.",
+			"sectionImagesTitle": "Slike",
+			"sectionImagesDescription": "Prva slika je naslovna. Promenite redosled označavanjem zvezdicom, uklonite one koje ne želite i dodajte nove datoteke.",
+			"fieldImages": "Slike",
+			"sectionMenuTitle": "Meni",
+			"sectionMenuDescription": "Opciono. Ostavite datoteku praznom da zadržite trenutni meni.",
+			"fieldMenuFile": "Datoteka menija",
+			"fieldMenuFileHint": "Otpremite sliku ili PDF menija.",
+			"fieldMenuLink": "Link menija",
+			"fieldMenuLinkPlaceholder": "https://your-menu-online.com",
+			"currentMenu": "Trenutni meni:",
+			"currentMenuView": "Pogledaj",
+			"sectionDetailsTitle": "Detalji",
+			"sectionDetailsDescription": "Opis, rezervacije i vidljivost.",
+			"fieldName": "Naziv",
+			"fieldNamePlaceholder": "La Tapería",
+			"fieldType": "Tip",
+			"fieldTypePlaceholder": "Izaberite tip",
+			"fieldAddress": "Adresa",
+			"fieldAddressPlaceholder": "Plaza del Sol 3",
+			"fieldAddressNumber": "Broj",
+			"fieldAddressNumberPlaceholder": "3",
+			"fieldCity": "Grad",
+			"fieldCityPlaceholder": "Madrid",
+			"fieldCountry": "Država",
+			"fieldCountryPlaceholder": "Španija",
+			"fieldLatitude": "Geografska širina",
+			"fieldLongitude": "Geografska dužina",
+			"fieldCoordinatesPlaceholder": "Automatski će se popuniti nakon što unesete adresu",
+			"fieldContactPhone": "Telefon",
+			"fieldContactPhonePlaceholder": "+34 600 000 000",
+			"fieldReservationMode": "Režim rezervacija",
+			"fieldDescription": "Opis",
+			"fieldDescriptionPlaceholder": "Kratak opis prikazan na stranici pogodnosti.",
+			"fieldIsActive": "Aktivno",
+			"fieldIsActiveDescription": "Neaktivna ugostiteljstva ostaju u bazi, ali se ne prikazuju na listama pogodnosti.",
+			"fieldCoverImage": "Zameni naslovnu sliku",
+			"sectionAdminTitle": "Administratorska podešavanja",
+			"sectionAdminDescription": "Polja koja može menjati samo administrator.",
+			"fieldBenefit": "Pogodnost za goste",
+			"fieldBenefitPlaceholder": "npr. 10% popusta na ukupan račun",
+			"fieldBenefitHint": "Ponuda prikazana gostima za ovo ugostiteljstvo.",
+			"submit": "Sačuvaj izmene"
+		}
+	},
 	"AdminAccommodationsPage": {
 		"SEO": {
 			"title": "Smeštaji",
@@ -1174,17 +1254,8 @@
 		"statusInactive": "Neaktivno",
 		"contactNone": "—",
 		"addHospitality": "Dodaj ugostiteljstvo",
-		"columnVisibility": "Vidljivost",
 		"columnActions": "Radnje",
 		"edit": "Izmeni",
-		"HospitalityVisibilityButton": {
-			"public": "Javno",
-			"private": "Privatno",
-			"makePublicTitle": "Objaviti {name}?",
-			"makePrivateTitle": "Povući {name} iz objave?",
-			"makePublicDescription": "Drugi korisnici će moći da pronađu ovo ugostiteljstvo u toku povezivanja prilagođenog partnerstva i da pošalju zahtev za partnerstvo njegovom vlasniku.",
-			"makePrivateDescription": "Ovo ugostiteljstvo više neće biti vidljivo drugim korisnicima u toku povezivanja prilagođenog partnerstva. Postojeća partnerstva nisu pogođena."
-		},
 		"DeleteHospitalityButton": {
 			"delete": "Obriši",
 			"title": "Obrisati ovo ugostiteljstvo?",
@@ -1205,8 +1276,9 @@
 		"sectionLocationDescription": "Koristi se na javnoj stranici pogodnosti i za filtriranje u adminu.",
 		"sectionContactTitle": "Kontakt",
 		"sectionContactDescription": "Broj telefona koji gosti mogu koristiti za kontakt sa ovim ugostiteljstvom.",
-		"sectionCoverTitle": "Naslovna slika",
-		"sectionCoverDescription": "Prikazuje se na javnoj stranici pogodnosti. Preporučeni su PNG ili JPG; poželjan je širok format.",
+		"sectionImagesTitle": "Slike",
+		"sectionImagesDescription": "Prva slika je naslovna. Dodajte jednu ili više; označite zvezdicom bilo koju sliku da postane naslovna.",
+		"fieldImages": "Slike",
 		"sectionDetailsTitle": "Detalji",
 		"sectionDetailsDescription": "Opis, rezervacije i vidljivost.",
 		"fieldName": "Naziv",
@@ -1267,9 +1339,9 @@
 			"sectionLocationDescription": "Prikazuje se na vašoj javnoj stranici ugostiteljstva.",
 			"sectionContactTitle": "Kontakt",
 			"sectionContactDescription": "Broj telefona koji gosti mogu koristiti za kontakt sa ovim ugostiteljstvom.",
-			"sectionCoverTitle": "Naslovna slika",
-			"sectionCoverDescription": "Ostavite prazno da zadržite trenutnu sliku. Preporučeni su PNG ili JPG.",
-			"currentCoverAlt": "Trenutna naslovna slika za {name}",
+			"sectionImagesTitle": "Slike",
+			"sectionImagesDescription": "Prva slika je naslovna. Promenite redosled označavanjem zvezdicom, uklonite one koje ne želite i dodajte nove datoteke.",
+			"fieldImages": "Slike",
 			"sectionMenuTitle": "Meni",
 			"sectionMenuDescription": "Opciono. Ostavite datoteku praznom da zadržite trenutni meni.",
 			"fieldMenuFile": "Datoteka menija",
@@ -1598,7 +1670,7 @@
 			"coordinatesRequired": "Izaberite adresu iz predloga kako bismo mogli postaviti pin na mapi.",
 			"descriptionRequired": "Opis je obavezan.",
 			"phoneRequired": "Broj telefona je obavezan.",
-			"coverRequired": "Dodajte naslovnu sliku.",
+			"imagesRequired": "Dodajte bar jednu sliku.",
 			"benefitRequired": "Benefit je obavezan.",
 			"benefitMaxLength": "Benefit mora imati najviše 15 karaktera."
 		},
@@ -1632,8 +1704,10 @@
 			"title": "Prijavite problem",
 			"description": "Recite nam ako ste naišli na grešku ili bilo šta drugo."
 		},
-		"title": "Recite nam šta se dogodilo",
-		"intro": "Naišli ste na grešku ili nešto što nije delovalo kako treba? Dovoljno je nekoliko reči — čitamo svaku prijavu.",
+		"ReportHeader": {
+			"title": "Recite nam šta se dogodilo",
+			"intro": "Naišli ste na grešku ili nešto što nije delovalo kako treba? Dovoljno je nekoliko reči — čitamo svaku prijavu."
+		},
 		"categoryLabel": "O čemu se radi?",
 		"categoryBug": "Nešto ne radi",
 		"categoryIdea": "Imam ideju",
@@ -1763,9 +1837,9 @@
 			"sectionContactDescription": "Broj telefona koji gosti mogu koristiti za kontakt sa ovim ugostiteljstvom.",
 			"fieldContactPhone": "Telefon",
 			"fieldContactPhonePlaceholder": "+34 600 000 000",
-			"sectionCoverTitle": "Naslovna slika",
-			"sectionCoverDescription": "Prikazuje se na javnoj stranici pogodnosti. Preporučeni su PNG ili JPG; poželjan je širok format.",
-			"fieldCoverImage": "Naslovna slika",
+			"sectionImagesTitle": "Slike",
+			"sectionImagesDescription": "Prva slika je naslovna. Dodajte jednu ili više; označite zvezdicom bilo koju sliku da postane naslovna.",
+			"fieldImages": "Slike",
 			"sectionMenuTitle": "Meni",
 			"sectionMenuDescription": "Opciono. Otpremite datoteku menija i/ili unesite link ka online meniju.",
 			"fieldMenuFile": "Datoteka menija",
@@ -1811,6 +1885,7 @@
 		"ACCOMMODATION_SCAN_TOKEN_FAILED": "Token za skeniranje nije mogao biti generisan. Pokušajte ponovo.",
 		"HOSPITALITY_CREATED": "Ugostiteljstvo je kreirano.",
 		"HOSPITALITY_UPDATED": "Ugostiteljstvo je uspešno ažurirano!",
+		"HOSPITALITY_IMAGE_REQUIRED": "Potrebna je najmanje jedna slika.",
 		"ACCOMMODATION_NOT_FOUND": "Smeštaj nije pronađen.",
 		"ACCOMMODATION_CANNOT_DELETE_ACTIVE_GUEST": "Ovaj smeštaj se ne može obrisati. U njemu je aktivan gost koji koristi aplikaciju — sačekajte da sesija istekne i pokušajte ponovo.",
 		"ACCOMMODATION_CANNOT_DELETE_ACTIVE_PARTNERSHIP": "Ovaj smeštaj se ne može obrisati dok je povezan partnerstvom sa ugostiteljstvom. Prvo opozovite partnerstvo, zatim pokušajte ponovo.",
@@ -1845,7 +1920,8 @@
 		"PRO_TRIAL_STARTED": "Besplatna proba je započeta — imate pun pristup narednih mesec dana.",
 		"PRO_TRIAL_REQUIRED": "Još nemate pristup ovoj funkciji. Prvo započnite besplatnu probu.",
 		"PRO_TRIAL_EXPIRED": "Vaša besplatna proba je završena. Nadogradnja na Pro plan još nije dostupna.",
-		"HOSPITALITY_VISIBILITY_UPDATED": "Vidljivost ugostiteljstva je ažurirana.",
+		"HOSPITALITY_CREATE_TYPE_UPDATED": "Tip partnerstva je ažuriran.",
+		"HOSPITALITY_CREATE_TYPE_HAS_PARTNERSHIPS": "Ovo mesto još uvek ima aktivna partnerstva. Opozovite ih pre nego što ga pretvorite u platformsko mesto.",
 		"USER_PLAN_UPDATED": "Plan korisnika je ažuriran.",
 		"USER_DELETED": "Korisnik je obrisan.",
 		"USER_CREATED": "Korisnik je kreiran.",
@@ -1931,8 +2007,8 @@
 		"topDescription": "Smeštaji sa najjačom aktivnošću gostiju i rezervacija.",
 		"performanceTitle": "Performanse smeštaja",
 		"performanceDescription": "Koristite ovo da pronađete uspešne smeštaje i slabije QR pozicije.",
-		"detailPerformanceTitle": "Performanse smeštaja",
-		"detailPerformanceDescription": "Smeštaji koji upućuju goste na ovo ugostiteljstvo.",
+		"detailPerformanceTitle": "Partnerski smeštaji",
+		"detailPerformanceDescription": "Smeštaji povezani sa ovim ugostiteljstvom, sa aktivnošću u poslednjih 30 dana.",
 		"adminTitle": "Najbolji smeštaji",
 		"adminDescription": "Smeštaji koji generišu najjaču aktivnost gostiju i potražnju za rezervacije.",
 		"entity": "Smeštaj",
@@ -1940,7 +2016,7 @@
 		"city": "Grad",
 		"views": "Pregledi",
 		"scans": "Skeniranja",
-		"guestActivations": "Aktivacije gostiju",
+		"guestActivations": "Gosti",
 		"reservations": "Rezervacije",
 		"confirmed": "Potvrđeno",
 		"conversion": "Konverzija",
@@ -1953,8 +2029,8 @@
 		"topDescription": "Ugostiteljstva koja gosti otkrivaju i pretvaraju u rezervacije.",
 		"performanceTitle": "Performanse ugostiteljstva",
 		"performanceDescription": "Koristite ovo da pronađete uspešna ugostiteljstva i slabije puteve otkrivanja za goste.",
-		"detailPerformanceTitle": "Performanse partnera",
-		"detailPerformanceDescription": "Ugostiteljstva koja su gosti otvorili sa ovog smeštaja.",
+		"detailPerformanceTitle": "Partnerska ugostiteljstva",
+		"detailPerformanceDescription": "Ugostiteljstva povezana sa ovim smeštajem, sa aktivnošću u poslednjih 30 dana.",
 		"adminTitle": "Najbolja ugostiteljstva",
 		"adminDescription": "Ugostiteljstva koja pretvaraju otkrivanje u zahteve za rezervaciju.",
 		"entity": "Ugostiteljstvo",

@@ -15,8 +15,7 @@
 	import AnalyticsHeader from '@/features/analytics/components/analytics-header.svelte';
 	import AnalyticsTopAccommodationsTable from '@/features/analytics/components/analytics-top-accommodations-table.svelte';
 	import UserAnalyticsHospitalityMetrics from '@/shared/components/pages/(protected)/user-analytics/user-analytics-hospitalities/[id]/user-analytics-hospitality-metrics.svelte';
-	import UserAnalyticsHospitalityChart from '@/shared/components/pages/(protected)/user-analytics/user-analytics-hospitalities/[id]/user-analytics-hospitality-chart.svelte';
-	import UserAnalyticsHospitalitiesLoading from '@/shared/components/pages/(protected)/user-analytics/user-analytics-hospitalities/loading/user-analytics-hospitalities-loading.svelte';
+	import UserAnalyticsHospitalityDetailLoading from '@/shared/components/pages/(protected)/user-analytics/user-analytics-hospitalities/loading/user-analytics-hospitality-detail-loading.svelte';
 	import { ErrorComponent } from '@/shared/components/ui/error-component/index.js';
 
 	// DATA
@@ -49,7 +48,7 @@
 />
 
 {#if isLoading}
-	<UserAnalyticsHospitalitiesLoading />
+	<UserAnalyticsHospitalityDetailLoading />
 {:else if hasError}
 	<ErrorComponent
 		variant="card"
@@ -68,8 +67,6 @@
 		/>
 
 		<UserAnalyticsHospitalityMetrics metrics={data.metrics} />
-
-		<UserAnalyticsHospitalityChart data={data.activityData} />
 
 		<AnalyticsTopAccommodationsTable rows={data.performance.rows} variant="detailPerformance" />
 	</section>

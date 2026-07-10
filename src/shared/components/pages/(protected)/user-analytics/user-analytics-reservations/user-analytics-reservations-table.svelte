@@ -70,6 +70,13 @@
 	</CardHeader>
 
 	<CardContent>
-		<DataTable data={rows} {columns} getRowId={(row) => row.id} borderless showPagination={false} />
+		<DataTable
+			data={rows}
+			{columns}
+			getRowId={(row) => row.id}
+			borderless
+			showPagination={false}
+			showMobileCards={false}
+		/>
 	</CardContent>
 </Card>

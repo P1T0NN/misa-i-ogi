@@ -12,7 +12,7 @@
 					<Skeleton class="h-3 w-24" />
 					<Skeleton class="mt-3 h-8 w-20" />
 				</div>
-				<Skeleton class="h-6 w-16 rounded-full" />
+				<Skeleton class="h-4 w-28" />
 			</CardContent>
 		</Card>
 	{/each}

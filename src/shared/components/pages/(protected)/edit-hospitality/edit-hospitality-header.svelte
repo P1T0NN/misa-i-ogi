@@ -10,6 +10,12 @@
 
 	// LUCIDE ICONS
 	import ArrowLeftIcon from '@lucide/svelte/icons/arrow-left';
+
+	/** Back-link target + label — default to the owner's list; the admin route overrides both. */
+	let {
+		backHref = PROTECTED_PAGE_ENDPOINTS.MY_HOSPITALITIES,
+		backLabel = m['EditHospitalityPage.EditHospitalityHeader.back']()
+	}: { backHref?: string; backLabel?: string } = $props();
 </script>
 
 <header class="flex w-full flex-col gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
@@ -21,12 +27,8 @@
 			{m['EditHospitalityPage.EditHospitalityHeader.description']()}
 		</p>
 	</div>
-	<Button
-		variant="outline"
-		href={PROTECTED_PAGE_ENDPOINTS.MY_HOSPITALITIES}
-		class="w-full shrink-0 sm:w-auto sm:self-center"
-	>
+	<Button variant="outline" href={backHref} class="w-full shrink-0 sm:w-auto sm:self-center">
 		<ArrowLeftIcon data-icon="inline-start" />
-		{m['EditHospitalityPage.EditHospitalityHeader.back']()}
+		{backLabel}
 	</Button>
 </header>

@@ -6,24 +6,14 @@
 	import AnalyticsMetrics from '@/features/analytics/components/analytics-metrics.svelte';
 
 	// UTILS
-	import {
-		createComparedAnalyticsMetric,
-		createStaticAnalyticsMetric
-	} from '@/features/analytics/utils/createAnalyticsMetric';
-	import { getPresenceAnalyticsLabel } from '@/features/analytics/utils/analyticsLabelUtils';
+	import { createComparedAnalyticsMetric } from '@/features/analytics/utils/createAnalyticsMetric';
 
 	// TYPES
-	import type { UserAnalyticsHospitalitiesPageMetrics } from '@/convex/pages/userAnalytics/types/userAnalyticsTypes';
+	import type { UserAnalyticsHospitalityDetailMetrics } from '@/convex/pages/userAnalytics/types/userAnalyticsTypes';
 
-	let { metrics }: { metrics: UserAnalyticsHospitalitiesPageMetrics } = $props();
+	let { metrics }: { metrics: UserAnalyticsHospitalityDetailMetrics } = $props();
 
 	const displayMetrics = $derived([
-		createStaticAnalyticsMetric({
-			id: 'tracked-venues',
-			label: m['AnalyticsHospitalityDetailPage.UserAnalyticsHospitalityMetrics.trackedVenues'](),
-			metric: metrics.trackedVenues,
-			analyticsLabel: getPresenceAnalyticsLabel(metrics.trackedVenues.value)
-		}),
 		createComparedAnalyticsMetric({
 			id: 'guest-views',
 			label: m['AnalyticsHospitalityDetailPage.UserAnalyticsHospitalityMetrics.guestViews'](),
@@ -33,8 +23,13 @@
 			id: 'requests-generated',
 			label: m['AnalyticsHospitalityDetailPage.UserAnalyticsHospitalityMetrics.reservations'](),
 			metric: metrics.requestsGenerated
+		}),
+		createComparedAnalyticsMetric({
+			id: 'confirmed',
+			label: m['AnalyticsHospitalityDetailPage.UserAnalyticsHospitalityMetrics.confirmed'](),
+			metric: metrics.confirmedReservations
 		})
 	]);
 </script>
 
-<AnalyticsMetrics metrics={displayMetrics} />
+<AnalyticsMetrics metrics={displayMetrics} columns={3} />

@@ -37,6 +37,7 @@
 	import Link2Icon from '@lucide/svelte/icons/link-2';
 	import HomeIcon from '@lucide/svelte/icons/home';
 	import CirclePlusIcon from '@lucide/svelte/icons/circle-plus';
+	import MessageCircleIcon from '@lucide/svelte/icons/message-circle';
 
 	let { children } = $props();
 
@@ -66,6 +67,12 @@
 				name: m['ProtectedSidebar.backToHome'](),
 				url: UNPROTECTED_PAGE_ENDPOINTS.ROOT,
 				icon: HomeIcon
+			},
+			{
+				name: m['Footer.linkReport'](),
+				url: UNPROTECTED_PAGE_ENDPOINTS.REPORT,
+				icon: MessageCircleIcon,
+				highlight: true
 			}
 		];
 

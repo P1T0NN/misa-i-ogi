@@ -84,6 +84,7 @@
 		"groupProduct": "Product",
 		"linkOverview": "Overview",
 		"linkDashboard": "Dashboard",
+		"linkReport": "Feedback",
 		"groupLegal": "Legal",
 		"linkTerms": "Terms of service",
 		"groupAccount": "Account",
@@ -125,6 +126,11 @@
 		"bad": "Bad",
 		"clear": "Clear"
 	},
+	"AnalyticsShared": {
+		"window": "Last 30 days",
+		"deltaVsPrevious": "vs previous 30 days",
+		"deltaNoPrevious": "no prior activity"
+	},
 	"AuditActions": {
 		"userCreate": "User created",
 		"userUpdate": "User updated",
@@ -146,7 +152,6 @@
 		"accommodationUpdate": "Accommodation updated",
 		"hospitalityCreate": "Hospitality created",
 		"hospitalityUpdate": "Hospitality updated",
-		"hospitalityVisibilityUpdate": "Hospitality visibility updated",
 		"reservationConfirm": "Reservation confirmed",
 		"reservationCancel": "Reservation cancelled",
 		"reservationNoShow": "Reservation marked no-show",
@@ -432,7 +437,10 @@
 		"UploadFileMultiple": {
 			"placeholder": "Uploaded files. Drop more files here to add.",
 			"unknown": "Unknown",
-			"remove": "Remove {name}"
+			"remove": "Remove {name}",
+			"cover": "Cover",
+			"setCover": "Set {name} as cover image",
+			"existingImage": "Current image"
 		},
 		"UploadFileSingle": {
 			"remove": "Remove",
@@ -512,10 +520,10 @@
 			"description": "Compare your accommodations by QR scan volume, guest activations, and reservation requests generated."
 		},
 		"UserAnalyticsAccommodationsMetrics": {
-			"accommodations": "Accommodations",
 			"qrScans": "QR scans",
-			"guestActivations": "Guest activations",
-			"reservations": "Reservations"
+			"guestActivations": "Guests",
+			"reservations": "Reservations",
+			"confirmed": "Confirmed"
 		},
 		"UserAnalyticsAccommodationsChart": {
 			"reservations": "Reservations",
@@ -544,10 +552,10 @@
 			"description": "Guest access, partner demand, and reservation flow for this accommodation."
 		},
 		"UserAnalyticsAccommodationMetrics": {
-			"trackedStays": "Tracked accommodations",
 			"qrScans": "QR scans",
-			"guestActivations": "Guest activations",
-			"reservations": "Reservations"
+			"guestActivations": "Guests",
+			"reservations": "Reservations",
+			"confirmed": "Confirmed"
 		},
 		"UserAnalyticsAccommodationChart": {
 			"qrScans": "QR scans",
@@ -568,10 +576,10 @@
 			"description": "Track which restaurants, cafes, tours, and wellness partners guests actually open and request."
 		},
 		"UserAnalyticsHospitalitiesMetrics": {
-			"hospitalities": "Hospitalities",
 			"guestViews": "Guest views",
-			"guestActivations": "Guest activations",
-			"reservations": "Reservations"
+			"guestActivations": "Guests",
+			"reservations": "Reservations",
+			"confirmed": "Confirmed"
 		},
 		"UserAnalyticsHospitalitiesChart": {
 			"reservations": "Reservations",
@@ -600,9 +608,9 @@
 			"description": "Guest demand, reservation flow, and source accommodations for this hospitality."
 		},
 		"UserAnalyticsHospitalityMetrics": {
-			"trackedVenues": "Tracked hospitalities",
 			"guestViews": "Guest views",
-			"reservations": "Reservations"
+			"reservations": "Reservations",
+			"confirmed": "Confirmed"
 		},
 		"UserAnalyticsHospitalityChart": {
 			"guestViews": "Guest views",
@@ -621,20 +629,23 @@
 			"title": "Analytics overview",
 			"description": "A practical snapshot of guest activity, reservation demand, and places that need attention."
 		},
-		"UserAnalyticsOverviewQrScans": {
+		"UserAnalyticsOverviewMetrics": {
 			"qrScans": "QR scans",
-			"title": "QR scans",
-			"description": "Guest check-in scans from connected accommodations over time."
-		},
-		"UserAnalyticsOverviewGuestActivations": {
-			"guestActivations": "Guest activations",
-			"title": "Guest activations",
-			"description": "Guest sessions activated over time."
-		},
-		"UserAnalyticsOverviewReservations": {
+			"guestActivations": "Guests",
 			"reservations": "Reservations",
-			"title": "Reservations",
-			"description": "Reservation requests created across connected hospitalities."
+			"confirmed": "Confirmed"
+		},
+		"UserAnalyticsOverviewTrend": {
+			"qrScans": "QR scans",
+			"guestActivations": "Guests",
+			"reservations": "Reservations",
+			"title": "Guest activity trend",
+			"description": "QR scans, guest activations, and reservation requests over the last 30 days."
+		},
+		"UserAnalyticsOverviewTrendEmpty": {
+			"title": "Guest activity trend",
+			"description": "QR scans, guest activations, and reservation requests over the last 30 days.",
+			"body": "Activity will appear here once guests start scanning and booking."
 		},
 		"UserAnalyticsOverviewEmpty": {
 			"title": "You do not own any accommodations or hospitalities",
@@ -653,22 +664,22 @@
 			"description": "Understand request volume, confirmation health, and cancellation patterns."
 		},
 		"UserAnalyticsReservationsMetrics": {
-			"created": "Created",
+			"created": "Requests",
 			"confirmed": "Confirmed",
 			"cancelled": "Cancelled"
 		},
 		"UserAnalyticsReservationsStatusChart": {
-			"created": "Created",
+			"created": "Requests",
 			"confirmed": "Confirmed",
 			"cancelled": "Cancelled",
 			"title": "Reservation trend",
-			"description": "Daily reservation outcomes across connected places."
+			"description": "Daily requests, confirmations, and cancellations across connected places."
 		},
 		"UserAnalyticsReservationsTable": {
 			"title": "Reservation sources",
 			"description": "Where requests are coming from and how they convert.",
 			"source": "Source",
-			"created": "Created",
+			"created": "Requests",
 			"confirmed": "Confirmed",
 			"cancelled": "Cancelled",
 			"conversion": "Conversion"
@@ -975,6 +986,75 @@
 		"errorTitle": "Could not load accommodation",
 		"errorDescription": "Please try again in a moment."
 	},
+	"AdminEditAccommodationPage": {
+		"back": "Back to accommodations"
+	},
+	"AdminEditHospitalityPage": {
+		"back": "Back to hospitalities",
+		"CreateType": {
+			"title": "Partnership type",
+			"platform": "Platform",
+			"custom": "Custom",
+			"platformDescription": "Visible to every guest as an implicit partner of all accommodations.",
+			"customDescription": "Reachable only through a custom-partnership connect code.",
+			"toCustom": "Convert to custom",
+			"toPlatform": "Convert to platform",
+			"toCustomTitle": "Convert {name} to a custom-partnership venue?",
+			"toCustomDescription": "It stops being visible to all guests. It keeps its connect code and can be linked via custom partnerships. Nothing is deleted.",
+			"toPlatformTitle": "Convert {name} to a platform venue?",
+			"toPlatformDescription": "It becomes visible to every guest as an implicit partner. Only allowed when it has no active partnerships."
+		},
+		"AdminEditHospitalityForm": {
+			"sectionBasicsTitle": "Basics",
+			"sectionBasicsDescription": "What guests will see in the benefits list.",
+			"sectionLocationTitle": "Location",
+			"sectionLocationDescription": "Shown on your public hospitality page.",
+			"sectionContactTitle": "Contact",
+			"sectionContactDescription": "Phone number guests can use to contact this hospitality.",
+			"sectionImagesTitle": "Images",
+			"sectionImagesDescription": "The first image is the cover. Reorder by starring any image, remove ones you don't want, and drop in new files.",
+			"fieldImages": "Images",
+			"sectionMenuTitle": "Menu",
+			"sectionMenuDescription": "Optional. Leave the file empty to keep the current menu.",
+			"fieldMenuFile": "Menu file",
+			"fieldMenuFileHint": "Upload an image or a PDF of your menu.",
+			"fieldMenuLink": "Menu link",
+			"fieldMenuLinkPlaceholder": "https://your-menu-online.com",
+			"currentMenu": "Current menu:",
+			"currentMenuView": "View",
+			"sectionDetailsTitle": "Details",
+			"sectionDetailsDescription": "Description, reservations, and visibility.",
+			"fieldName": "Name",
+			"fieldNamePlaceholder": "La Tapería",
+			"fieldType": "Type",
+			"fieldTypePlaceholder": "Pick a type",
+			"fieldAddress": "Address",
+			"fieldAddressPlaceholder": "Plaza del Sol 3",
+			"fieldAddressNumber": "Address number",
+			"fieldAddressNumberPlaceholder": "3",
+			"fieldCity": "City",
+			"fieldCityPlaceholder": "Madrid",
+			"fieldCountry": "Country",
+			"fieldCountryPlaceholder": "Spain",
+			"fieldLatitude": "Latitude",
+			"fieldLongitude": "Longitude",
+			"fieldCoordinatesPlaceholder": "These will automatically populate once you wrote the address",
+			"fieldContactPhone": "Phone",
+			"fieldContactPhonePlaceholder": "+34 600 000 000",
+			"fieldReservationMode": "Reservation mode",
+			"fieldDescription": "Description",
+			"fieldDescriptionPlaceholder": "Short description shown on the benefits page.",
+			"fieldIsActive": "Active",
+			"fieldIsActiveDescription": "Inactive hospitalities stay in the database but won't appear in benefit lists.",
+			"fieldCoverImage": "Replace cover image",
+			"sectionAdminTitle": "Admin settings",
+			"sectionAdminDescription": "Fields only an admin can edit.",
+			"fieldBenefit": "Guest benefit",
+			"fieldBenefitPlaceholder": "e.g. 10% off the total bill",
+			"fieldBenefitHint": "The offer shown to guests for this hospitality.",
+			"submit": "Save changes"
+		}
+	},
 	"AdminAccommodationsPage": {
 		"SEO": {
 			"title": "Accommodations",
@@ -1174,17 +1254,8 @@
 		"statusInactive": "Inactive",
 		"contactNone": "—",
 		"addHospitality": "Add hospitality",
-		"columnVisibility": "Visibility",
 		"columnActions": "Actions",
 		"edit": "Edit",
-		"HospitalityVisibilityButton": {
-			"public": "Public",
-			"private": "Private",
-			"makePublicTitle": "Publish {name}?",
-			"makePrivateTitle": "Unpublish {name}?",
-			"makePublicDescription": "Other users will be able to find this hospitality in their custom-partnership connect flow and send partnership requests to its owner.",
-			"makePrivateDescription": "This hospitality will no longer appear in other users' custom-partnership connect flow. Existing partnerships are not affected."
-		},
 		"DeleteHospitalityButton": {
 			"delete": "Delete",
 			"title": "Delete this hospitality?",
@@ -1205,8 +1276,9 @@
 		"sectionLocationDescription": "Used for the public benefits page and admin filtering.",
 		"sectionContactTitle": "Contact",
 		"sectionContactDescription": "Phone number guests can use to contact this hospitality.",
-		"sectionCoverTitle": "Cover image",
-		"sectionCoverDescription": "Shown on the public benefits page. PNG or JPG recommended; aim for a wide aspect ratio.",
+		"sectionImagesTitle": "Images",
+		"sectionImagesDescription": "The first image is the cover. Add one or more; star any image to make it the cover.",
+		"fieldImages": "Images",
 		"sectionDetailsTitle": "Details",
 		"sectionDetailsDescription": "Description, reservations, and visibility.",
 		"fieldName": "Name",
@@ -1267,9 +1339,9 @@
 			"sectionLocationDescription": "Shown on your public hospitality page.",
 			"sectionContactTitle": "Contact",
 			"sectionContactDescription": "Phone number guests can use to contact this hospitality.",
-			"sectionCoverTitle": "Cover image",
-			"sectionCoverDescription": "Leave empty to keep the current image. PNG or JPG recommended.",
-			"currentCoverAlt": "Current cover for {name}",
+			"sectionImagesTitle": "Images",
+			"sectionImagesDescription": "The first image is the cover. Reorder by starring any image, remove ones you don't want, and drop in new files.",
+			"fieldImages": "Images",
 			"sectionMenuTitle": "Menu",
 			"sectionMenuDescription": "Optional. Leave the file empty to keep the current menu.",
 			"fieldMenuFile": "Menu file",
@@ -1598,7 +1670,7 @@
 			"coordinatesRequired": "Pick an address from the suggestions so we can place the map pin.",
 			"descriptionRequired": "Description is required.",
 			"phoneRequired": "Phone number is required.",
-			"coverRequired": "Add a cover image.",
+			"imagesRequired": "Add at least one image.",
 			"benefitRequired": "Benefit is required.",
 			"benefitMaxLength": "Benefit must be 15 characters or fewer."
 		},
@@ -1632,8 +1704,10 @@
 			"title": "Report an issue",
 			"description": "Tell us about a bug or anything else you ran into."
 		},
-		"title": "Tell us what happened",
-		"intro": "Found a bug or something that didn't feel right? A few words is all we need — we read every report.",
+		"ReportHeader": {
+			"title": "Tell us what happened",
+			"intro": "Found a bug or something that didn't feel right? A few words is all we need — we read every report."
+		},
 		"categoryLabel": "What's this about?",
 		"categoryBug": "Something is broken",
 		"categoryIdea": "I have an idea",
@@ -1763,9 +1837,9 @@
 			"sectionContactDescription": "Phone number guests can use to contact this hospitality.",
 			"fieldContactPhone": "Phone",
 			"fieldContactPhonePlaceholder": "+34 600 000 000",
-			"sectionCoverTitle": "Cover image",
-			"sectionCoverDescription": "Shown on the public benefits page. PNG or JPG recommended; aim for a wide aspect ratio.",
-			"fieldCoverImage": "Cover image",
+			"sectionImagesTitle": "Images",
+			"sectionImagesDescription": "The first image is the cover. Add one or more; star any image to make it the cover.",
+			"fieldImages": "Images",
 			"sectionMenuTitle": "Menu",
 			"sectionMenuDescription": "Optional. Upload a menu file and/or link to an online menu.",
 			"fieldMenuFile": "Menu file",
@@ -1811,6 +1885,7 @@
 		"ACCOMMODATION_SCAN_TOKEN_FAILED": "Could not generate a scan token. Please try again.",
 		"HOSPITALITY_CREATED": "Hospitality created.",
 		"HOSPITALITY_UPDATED": "Hospitality updated successfully!",
+		"HOSPITALITY_IMAGE_REQUIRED": "At least one image is required.",
 		"ACCOMMODATION_NOT_FOUND": "Accommodation not found.",
 		"ACCOMMODATION_CANNOT_DELETE_ACTIVE_GUEST": "This accommodation cannot be deleted. There is an active guest in it using the app, please wait for it to expire and then try again!",
 		"ACCOMMODATION_CANNOT_DELETE_ACTIVE_PARTNERSHIP": "This accommodation cannot be deleted while it is linked to a hospitality partnership. Revoke the partnership first, then try again.",
@@ -1845,7 +1920,8 @@
 		"PRO_TRIAL_STARTED": "Free trial started — you have full access for the next month.",
 		"PRO_TRIAL_REQUIRED": "You don't have access to this feature yet. Start the free trial first.",
 		"PRO_TRIAL_EXPIRED": "Your free trial has ended. Pro plan upgrades aren't available yet.",
-		"HOSPITALITY_VISIBILITY_UPDATED": "Hospitality visibility updated.",
+		"HOSPITALITY_CREATE_TYPE_UPDATED": "Partnership type updated.",
+		"HOSPITALITY_CREATE_TYPE_HAS_PARTNERSHIPS": "This venue still has active partnerships. Revoke them before converting it to a platform venue.",
 		"USER_PLAN_UPDATED": "User plan updated.",
 		"USER_DELETED": "User deleted.",
 		"USER_CREATED": "User created.",
@@ -1931,8 +2007,8 @@
 		"topDescription": "Accommodations creating the strongest guest and reservation activity.",
 		"performanceTitle": "Accommodation performance",
 		"performanceDescription": "Use this to find strong accommodations and quiet QR placements.",
-		"detailPerformanceTitle": "Accommodation performance",
-		"detailPerformanceDescription": "Accommodations that send guests to this hospitality.",
+		"detailPerformanceTitle": "Partner accommodations",
+		"detailPerformanceDescription": "Accommodations partnered with this hospitality, with their last-30-day activity.",
 		"adminTitle": "Top accommodations",
 		"adminDescription": "Accommodations generating the strongest guest access and reservation demand.",
 		"entity": "Accommodation",
@@ -1940,7 +2016,7 @@
 		"city": "City",
 		"views": "Views",
 		"scans": "Scans",
-		"guestActivations": "Guest activations",
+		"guestActivations": "Guests",
 		"reservations": "Reservations",
 		"confirmed": "Confirmed",
 		"conversion": "Conversion",
@@ -1953,8 +2029,8 @@
 		"topDescription": "Hospitalities guests are discovering and turning into reservations.",
 		"performanceTitle": "Hospitality performance",
 		"performanceDescription": "Use this to find strong hospitalities and quiet guest discovery paths.",
-		"detailPerformanceTitle": "Partner performance",
-		"detailPerformanceDescription": "Hospitalities guests opened from this accommodation.",
+		"detailPerformanceTitle": "Partner hospitalities",
+		"detailPerformanceDescription": "Hospitalities partnered with this accommodation, with their last-30-day activity.",
 		"adminTitle": "Top hospitalities",
 		"adminDescription": "Hospitalities converting discovery into reservation requests.",
 		"entity": "Hospitality",

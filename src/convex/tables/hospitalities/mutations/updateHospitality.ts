@@ -5,6 +5,8 @@ import { v } from 'convex/values';
 import { isAdminUser } from '@/convex/auth/helpers/isAdminUser';
 import { getHospitalityForEdit } from '@/convex/tables/hospitalities/helpers/getHospitalityForEdit';
 import { getUserPlan } from '@/convex/tables/proTrials/helpers/proTrial';
+import { parsePartnershipBenefit } from '@/convex/tables/partnerships/utils/parsePartnershipBenefit';
+import { resolveUploadedImages } from '@/convex/helpers/resolveUploadedImages';
 import {
 	resolveMenuFile,
 	normalizeMenuLink
@@ -14,12 +16,17 @@ import { AUDIT_ACTIONS } from '@/convex/tables/auditLog/auditLogConfigs';
 // UTILS
 import { authMutation } from '@/convex/auth/middleware/authMiddleware';
 import { deleteUploadedFilesByKeys } from '@/convex/storage/r2/deleteUploadedFilesByKeys';
-import { resolveStoredFileUrlAndSyncRow } from '@/convex/storage/r2/resolveStoredFileUrl.js';
 
 // SCHEMAS
 import { mutationResultValidator, type MutationResult } from '@/convex/schemas/mutationResult';
 
-/** Owner- or admin-scoped update. Does not change `ownerId`. */
+/**
+ * Owner- or admin-scoped update. Does not change `ownerId`.
+ *
+ * `benefit` is an ADMIN-ONLY lever (the guest-facing offer): owners never edit it,
+ * so it is validated + patched only when the caller is an admin. Non-admin callers
+ * that send it are silently ignored.
+ */
 export const updateHospitality = authMutation('updateHospitality')({
 	args: {
 		hospitalityId: v.id('hospitalities'),
@@ -44,9 +51,11 @@ export const updateHospitality = authMutation('updateHospitality')({
 		contactPhone: v.string(),
 		reservationMode: v.literal('managed_request'),
 		isActive: v.boolean(),
-		coverImageKey: v.optional(v.string()),
+		// Ordered R2 refs (existing keys + new uploads); images[0] is the cover.
+		images: v.optional(v.array(v.string())),
 		menuFileKey: v.optional(v.string()),
-		menuLink: v.optional(v.string())
+		menuLink: v.optional(v.string()),
+		benefit: v.optional(v.string())
 	},
 	returns: mutationResultValidator,
 	handler: async (ctx, args): Promise<MutationResult> => {
@@ -58,10 +67,11 @@ export const updateHospitality = authMutation('updateHospitality')({
 			};
 		}
 
+		const callerIsAdmin = await isAdminUser(ctx);
+
 		// Cron-deactivated venue (expired pro trial): only Pro (or admin) may switch it back on.
 		let deactivationReason = doc.deactivationReason;
 		if (doc.deactivationReason === 'trial_expired' && args.isActive) {
-			const callerIsAdmin = await isAdminUser(ctx);
 			if (!callerIsAdmin) {
 				const plan = await getUserPlan(ctx, ctx.userId);
 				if (plan !== 'pro') {
@@ -74,30 +84,37 @@ export const updateHospitality = authMutation('updateHospitality')({
 			deactivationReason = undefined;
 		}
 
-		let coverImageKey = doc.coverImageKey;
-		let coverImageUrl = doc.coverImageUrl;
-
-		if (args.coverImageKey) {
-			const uploaded = await ctx.db
-				.query('uploadedFilesR2')
-				.withIndex('by_key', (q) => q.eq('key', args.coverImageKey!))
-				.unique();
-
-			if (!uploaded) {
+		// Admin-only guest-offer edit. Owners can't reach this (field hidden + gate here).
+		let benefit = doc.benefit;
+		if (callerIsAdmin && args.benefit !== undefined) {
+			const parsedBenefit = parsePartnershipBenefit(args.benefit);
+			if (!parsedBenefit) {
 				return {
 					success: false,
-					message: { key: 'GenericMessages.STORAGE_URL_UNAVAILABLE' }
+					message: { key: 'GenericMessages.PARTNERSHIP_BENEFIT_INVALID' }
 				};
 			}
-			if (uploaded.ownerId !== ctx.userId) {
+			benefit = parsedBenefit;
+		}
+
+		// The edit form submits the full ordered gallery — surviving existing keys plus
+		// any new upload keys, images[0] the cover. Replace the whole array; keys that
+		// dropped out get their R2 objects reclaimed below.
+		let images = doc.images ?? [];
+		let removedImageKeys: string[] = [];
+		if (args.images !== undefined) {
+			const resolved = await resolveUploadedImages(ctx, args.images, ctx.userId);
+			if (resolved.length === 0) {
 				return {
 					success: false,
-					message: { key: 'GenericMessages.FORBIDDEN' }
+					message: { key: 'GenericMessages.HOSPITALITY_IMAGE_REQUIRED' }
 				};
 			}
-
-			coverImageUrl = await resolveStoredFileUrlAndSyncRow(ctx, uploaded);
-			coverImageKey = uploaded.key;
+			const nextKeys = new Set(resolved.map((image) => image.key));
+			removedImageKeys = (doc.images ?? [])
+				.map((image) => image.key)
+				.filter((key) => !nextKeys.has(key));
+			images = resolved;
 		}
 
 		// A new upload replaces the menu file; otherwise keep whatever's there.
@@ -118,7 +135,7 @@ export const updateHospitality = authMutation('updateHospitality')({
 		// uploadedFilesR2 row and R2 object stay consistent with each other, so the
 		// orphan cron never reclaims them once the doc stops referencing the key.
 		await deleteUploadedFilesByKeys(ctx, [
-			doc.coverImageKey !== coverImageKey ? doc.coverImageKey : undefined,
+			...removedImageKeys,
 			doc.menuFileKey !== menuFileKey ? doc.menuFileKey : undefined
 		]);
 
@@ -138,8 +155,8 @@ export const updateHospitality = authMutation('updateHospitality')({
 			reservationMode: args.reservationMode,
 			isActive: args.isActive,
 			deactivationReason,
-			coverImageKey,
-			coverImageUrl,
+			benefit,
+			images,
 			menuFileKey,
 			menuFileUrl,
 			menuLink

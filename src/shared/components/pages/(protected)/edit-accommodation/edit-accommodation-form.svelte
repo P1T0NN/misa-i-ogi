@@ -35,7 +35,11 @@
 		>
 	>;
 
-	let { accommodation }: { accommodation: AccommodationForEdit } = $props();
+	let {
+		accommodation,
+		/** Where to land after a successful save — defaults to the owner list; admin route overrides. */
+		successHref = PROTECTED_PAGE_ENDPOINTS.MY_ACCOMMODATIONS
+	}: { accommodation: AccommodationForEdit; successHref?: string } = $props();
 
 	/** Recover just the street name from the stored full address. We append the number ourselves on
 	 *  save, so stripping that exact known suffix is precise — no fuzzy address parsing. */
@@ -204,7 +208,7 @@
 	submitLabel={m['EditAccommodationPage.EditAccommodationForm.submit']()}
 	resetOnSuccess={false}
 	customFields={{ address: addressField, coverImageKey: coverField }}
-	onSuccess={() => appGoto(PROTECTED_PAGE_ENDPOINTS.MY_ACCOMMODATIONS)}
+	onSuccess={() => appGoto(successHref)}
 />
 
 {#snippet addressField({

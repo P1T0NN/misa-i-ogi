@@ -3,7 +3,10 @@
 	import { authClass } from '@/features/auth/classes/authClass.svelte';
 
 	// CONFIG
-	import { PROTECTED_PAGE_ENDPOINTS } from '@/shared/page-endpoints.js';
+	import { PROTECTED_PAGE_ENDPOINTS, UNPROTECTED_PAGE_ENDPOINTS } from '@/shared/page-endpoints.js';
+
+	// LIBRARIES
+	import { m } from '@/shared/lib/paraglide/messages';
 
 	// COMPONENTS
 	import LogoutButton from '@/features/auth/components/logout-button/logout-button.svelte';
@@ -18,6 +21,7 @@
 
 	// LUCIDE ICONS
 	import LayoutDashboardIcon from '@lucide/svelte/icons/layout-dashboard';
+	import MessageCircleIcon from '@lucide/svelte/icons/message-circle';
 
 	// TYPES
 	import type { ClassValue } from 'clsx';
@@ -40,6 +44,10 @@
 
 	const goToDashboard = () => {
 		appGoto(PROTECTED_PAGE_ENDPOINTS.DASHBOARD);
+	};
+
+	const goToReport = () => {
+		appGoto(UNPROTECTED_PAGE_ENDPOINTS.REPORT);
 	};
 </script>
 
@@ -104,8 +112,16 @@
 			<span>Dashboard</span>
 		</DropdownMenu.Item>
 
+		<DropdownMenu.Item onclick={goToReport}>
+			<MessageCircleIcon />
+			<span>{m['Footer.linkReport']()}</span>
+		</DropdownMenu.Item>
+
 		<DropdownMenu.Separator />
 
-		<LogoutButton bind:isLoggingOut />
+		<LogoutButton
+			bind:isLoggingOut
+			class="mt-0.5 bg-destructive/5 font-medium hover:bg-destructive/10"
+		/>
 	</DropdownMenu.Content>
 </DropdownMenu.Root>

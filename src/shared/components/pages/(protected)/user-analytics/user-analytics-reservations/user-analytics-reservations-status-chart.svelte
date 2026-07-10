@@ -1,9 +1,10 @@
 <script lang="ts">
 	// LIBRARIES
 	import { m } from '@/shared/lib/paraglide/messages';
+	import { getLocale } from '@/shared/lib/paraglide/runtime';
 
 	// COMPONENTS
-	import AreaChartInteractive from '@/shared/components/ui/custom-charts/area-chart-interactive.svelte';
+	import LineChartInteractive from '@/shared/components/ui/custom-charts/line-chart-interactive.svelte';
 	import UserAnalyticsReservationsStatusChartEmpty from './empty/user-analytics-reservations-status-chart-empty.svelte';
 
 	// TYPES
@@ -11,6 +12,8 @@
 	import type { UserAnalyticsReservationStatusChartPoint } from '@/convex/pages/userAnalytics/types/userAnalyticsTypes';
 
 	let { data }: { data: UserAnalyticsReservationStatusChartPoint[] } = $props();
+
+	const locale = $derived(getLocale());
 
 	const hasStatusData = $derived(
 		data.some((row) => row.created > 0 || row.confirmed > 0 || row.cancelled > 0)
@@ -24,7 +27,7 @@
 		},
 		confirmed: {
 			label: m['AnalyticsReservationsPage.UserAnalyticsReservationsStatusChart.confirmed'](),
-			color: 'var(--chart-2)'
+			color: 'var(--success)'
 		},
 		cancelled: {
 			label: m['AnalyticsReservationsPage.UserAnalyticsReservationsStatusChart.cancelled'](),
@@ -36,16 +39,15 @@
 {#if !hasStatusData}
 	<UserAnalyticsReservationsStatusChartEmpty />
 {:else}
-	<AreaChartInteractive
+	<LineChartInteractive
 		data={chartData}
 		x="date"
 		config={chartConfig}
-		timeRange="30d"
 		title={m['AnalyticsReservationsPage.UserAnalyticsReservationsStatusChart.title']()}
 		description={m['AnalyticsReservationsPage.UserAnalyticsReservationsStatusChart.description']()}
-		cardContentClass="px-2 pb-4 sm:px-4"
+		cardClass="py-0"
 		containerClass="aspect-auto h-80 w-full"
 		tooltipIndicator="dot"
-		yAxisFormat={(value) => Number(value).toLocaleString('en-US')}
+		yAxisFormat={(value) => Number(value).toLocaleString(locale)}
 	/>
 {/if}

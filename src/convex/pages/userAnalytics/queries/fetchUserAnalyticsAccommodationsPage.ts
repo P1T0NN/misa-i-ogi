@@ -37,7 +37,6 @@ export const fetchUserAnalyticsAccommodationsPage = query({
 		if (accommodations.length === 0) {
 			return {
 				metrics: {
-					trackedStays: { value: 0 },
 					qrScans: {
 						value: 0,
 						comparison: emptyMetricComparison()
@@ -47,6 +46,10 @@ export const fetchUserAnalyticsAccommodationsPage = query({
 						comparison: emptyMetricComparison()
 					},
 					requestsGenerated: {
+						value: 0,
+						comparison: emptyMetricComparison()
+					},
+					confirmedReservations: {
 						value: 0,
 						comparison: emptyMetricComparison()
 					}
@@ -65,7 +68,7 @@ export const fetchUserAnalyticsAccommodationsPage = query({
 		const [dashboard, qrScanTotals, guestActivationTotals, reservationTotals, confirmedTotals] =
 			await Promise.all([
 				analytics.fetchDashboardMetrics(ctx, {
-					metrics: ['qrScans', 'guestActivations', 'newReservations'],
+					metrics: ['qrScans', 'guestActivations', 'newReservations', 'confirmedReservations'],
 					scope: ownerScope,
 					from,
 					to: todayStart,
@@ -100,12 +103,10 @@ export const fetchUserAnalyticsAccommodationsPage = query({
 
 		return {
 			metrics: {
-				trackedStays: {
-					value: accommodations.length
-				},
 				qrScans: toComparedMetric(dashboard.metrics.qrScans),
 				guestActivations: toComparedMetric(dashboard.metrics.guestActivations),
-				requestsGenerated: toComparedMetric(dashboard.metrics.newReservations)
+				requestsGenerated: toComparedMetric(dashboard.metrics.newReservations),
+				confirmedReservations: toComparedMetric(dashboard.metrics.confirmedReservations)
 			},
 			chart: {
 				data: buildUserAnalyticsChartData({

@@ -52,7 +52,6 @@ const schema = defineSchema({
 		.index('by_city', ['city'])
 		.index('by_type', ['type'])
 		.index('by_name', ['name'])
-		.index('by_visibility', ['visibility'])
 		.index('by_connect_code', ['connectCode'])
 		// Implicit platform partners: fetch every active platform venue in one indexed scan.
 		.index('by_create_type_active', ['createType', 'isActive'])

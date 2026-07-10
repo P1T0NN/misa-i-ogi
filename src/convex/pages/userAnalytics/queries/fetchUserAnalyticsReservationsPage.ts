@@ -82,7 +82,6 @@ export const fetchUserAnalyticsReservationsPage = query({
 		if (hospitalities.length === 0) {
 			return {
 				metrics: {
-					trackedVenues: { value: 0 },
 					created: {
 						value: 0,
 						comparison: emptyMetricComparison()
@@ -167,9 +166,6 @@ export const fetchUserAnalyticsReservationsPage = query({
 
 		return {
 			metrics: {
-				trackedVenues: {
-					value: hospitalities.length
-				},
 				created: toComparedMetric(dashboard.metrics.newReservations),
 				confirmed: toComparedMetric(dashboard.metrics.confirmedReservations),
 				cancelled: toComparedMetric(dashboard.metrics.cancelledReservations)

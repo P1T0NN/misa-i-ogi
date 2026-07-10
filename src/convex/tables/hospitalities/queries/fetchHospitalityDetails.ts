@@ -1,4 +1,5 @@
 // LIBRARIES
+import { pick } from 'convex-helpers';
 import { v } from 'convex/values';
 import { query } from '@/convex/_generated/server';
 import { authComponent } from '@/convex/auth/auth';
@@ -12,10 +13,7 @@ import { getGuestActiveHospitalityReservation } from '@/convex/tables/reservatio
 import { isGuestStayIdentity } from '@/convex/tables/guests/utils/isGuestStayIdentity';
 
 // VALIDATORS
-import {
-	hospitalityDetailsSafe,
-	projectHospitalityGuestReservation
-} from '@/convex/tables/hospitalities/validators/hospitalityQueryValidators';
+import { hospitalityDetailsSafe } from '@/convex/tables/hospitalities/validators/hospitalityQueryValidators';
 
 // TYPES
 import type { Doc } from '@/convex/_generated/dataModel';
@@ -80,7 +78,16 @@ export const fetchHospitalityDetails = query({
 			hospitality: hospitalityDetailsSafe.project(hospitality),
 			partnership,
 			guestReservation: guestReservation
-				? projectHospitalityGuestReservation(guestReservation)
+				? {
+						...pick(guestReservation, [
+							'guestName',
+							'email',
+							'phone',
+							'guestCount',
+							'requestedTime'
+						]),
+						status: guestReservation.status === 'confirmed' ? 'confirmed' : 'pending'
+					}
 				: null
 		};
 	}

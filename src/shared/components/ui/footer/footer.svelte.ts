@@ -30,7 +30,8 @@ export function getFooterLinkGroups(): FooterLinkGroup[] {
 					href: PROTECTED_PAGE_ENDPOINTS.DASHBOARD,
 					label: m['Footer.linkDashboard'](),
 					visibility: 'user'
-				}
+				},
+				{ href: UNPROTECTED_PAGE_ENDPOINTS.REPORT, label: m['Footer.linkReport']() }
 			]
 		},
 		{

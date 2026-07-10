@@ -153,7 +153,7 @@ export const convexRateLimitRegistry = {
 	declinePartnershipRequest: limitPresets.interactiveWrite,
 	updatePartnershipBenefit: limitPresets.interactiveWrite,
 	revokePartnership: limitPresets.interactiveWrite,
-	setHospitalityVisibility: limitPresets.interactiveWrite,
+	setHospitalityCreateType: limitPresets.interactiveWrite,
 
 	// Admin user management
 	createUser: limitPresets.interactiveWrite,

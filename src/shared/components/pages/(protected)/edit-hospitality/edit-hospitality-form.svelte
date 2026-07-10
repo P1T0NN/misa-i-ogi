@@ -140,16 +140,17 @@
 			]
 		},
 		{
-			id: 'cover',
-			title: m['EditHospitalityPage.EditHospitalityForm.sectionCoverTitle'](),
-			description: m['EditHospitalityPage.EditHospitalityForm.sectionCoverDescription'](),
+			id: 'images',
+			title: m['EditHospitalityPage.EditHospitalityForm.sectionImagesTitle'](),
+			description: m['EditHospitalityPage.EditHospitalityForm.sectionImagesDescription'](),
 			columns: 1,
 			fields: [
 				{
-					id: 'coverImageKey',
-					kind: 'upload-single',
-					label: m['EditHospitalityPage.EditHospitalityForm.fieldCoverImage'](),
-					accept: 'image/*'
+					id: 'images',
+					kind: 'upload-multiple',
+					label: m['EditHospitalityPage.EditHospitalityForm.fieldImages'](),
+					accept: 'image/*',
+					hasCoverImage: true
 				}
 			]
 		},
@@ -218,7 +219,7 @@
 		contactPhone: '',
 		reservationMode: 'managed_request',
 		isActive: true,
-		coverImageKey: null,
+		images: [],
 		menuFileKey: null,
 		menuLink: ''
 	});
@@ -248,7 +249,7 @@
 			contactPhone: row.contactPhone,
 			reservationMode: row.reservationMode,
 			isActive: row.isActive,
-			coverImageKey: null,
+			images: [...(row.images ?? [])],
 			menuFileKey: null,
 			menuLink: row.menuLink ?? ''
 		};
@@ -266,7 +267,6 @@
 	resetOnSuccess={false}
 	customFields={{
 		address: addressField,
-		coverImageKey: coverField,
 		menuFileKey: menuFileField,
 		reservationMode: reservationModeField
 	}}
@@ -298,23 +298,6 @@
 		}}
 	/>
 	<LocationMap lat={values.latitude} lng={values.longitude} class="mt-3" />
-{/snippet}
-
-{#snippet coverField({
-	value,
-	setValue,
-	inputId,
-	field
-}: MutationFormFieldSnippetProps<HospitalityEditFormInputs>)}
-	<UploadFileSingle
-		id={inputId}
-		accept={field.accept}
-		existingPreviewUrl={hospitality.coverImageUrl}
-		existingPreviewAlt={m['EditHospitalityPage.EditHospitalityForm.currentCoverAlt']({
-			name: hospitality.name
-		})}
-		bind:file={() => (value as File | null) ?? null, (next) => setValue(next)}
-	/>
 {/snippet}
 
 {#snippet menuFileField({

@@ -11,7 +11,6 @@ import { getActivePartnershipsByHospitality } from '@/convex/tables/partnerships
 import { getAccommodationsByIds } from '@/convex/tables/accommodations/helpers/getAccommodationsByIds';
 
 // UTILS
-import { buildActivityData } from '@/convex/analytics/utils/buildActivityData';
 import { buildAnalyticsRows } from '@/convex/analytics/utils/buildAnalyticsRows';
 import { toComparedMetricWithValue } from '@/convex/analytics/utils/comparedMetricUtils';
 import { getAnalyticsMetricValue } from '@/convex/analytics/utils/getAnalyticsMetricValue';
@@ -46,18 +45,15 @@ export const fetchUserAnalyticsHospitalityPage = query({
 		const [
 			dashboard,
 			hospitalityViewSourceTotals,
-			guestActivationTotals,
 			reservationTotals,
 			confirmedTotals,
 			hospitalityViewTotals,
 			hospitalityReservationTotals,
-			hospitalityViewsSeries,
-			guestActivationsSeries,
-			reservationsSeries,
+			hospitalityConfirmedTotals,
 			partnershipGroups
 		] = await Promise.all([
 			analytics.fetchDashboardMetrics(ctx, {
-				metrics: ['hospitalityViews', 'guestActivations', 'newReservations'],
+				metrics: ['hospitalityViews', 'newReservations', 'confirmedReservations'],
 				scope: ownerScope,
 				from,
 				to: todayStart,
@@ -67,12 +63,6 @@ export const fetchUserAnalyticsHospitalityPage = query({
 			// --- Aggregate source accommodation totals for partner rows ---
 			analytics.fetchMetricTotalsByDimension(ctx, {
 				metric: 'hospitalityViews',
-				scope: ownerScope,
-				dimensionKey: 'accommodationId',
-				days: ANALYTICS_QUERY_RANGE_DAYS
-			}),
-			analytics.fetchMetricTotalsByDimension(ctx, {
-				metric: 'guestActivations',
 				scope: ownerScope,
 				dimensionKey: 'accommodationId',
 				days: ANALYTICS_QUERY_RANGE_DAYS
@@ -90,7 +80,7 @@ export const fetchUserAnalyticsHospitalityPage = query({
 				days: ANALYTICS_QUERY_RANGE_DAYS
 			}),
 
-			// --- Guest views and reservations for this specific hospitality ---
+			// --- Guest views, reservations, confirmations for this specific hospitality ---
 			analytics.fetchMetricTotalsByDimension(ctx, {
 				metric: 'hospitalityViews',
 				scope: ownerScope,
@@ -103,28 +93,11 @@ export const fetchUserAnalyticsHospitalityPage = query({
 				dimensionKey: 'hospitalityId',
 				days: ANALYTICS_QUERY_RANGE_DAYS
 			}),
-
-			// --- Time series for activity chart ---
-			analytics.fetchTimeSeries(ctx, {
-				metric: 'hospitalityViews',
+			analytics.fetchMetricTotalsByDimension(ctx, {
+				metric: 'confirmedReservations',
 				scope: ownerScope,
-				from,
-				to: todayStart,
-				fill: true
-			}),
-			analytics.fetchTimeSeries(ctx, {
-				metric: 'guestActivations',
-				scope: ownerScope,
-				from,
-				to: todayStart,
-				fill: true
-			}),
-			analytics.fetchTimeSeries(ctx, {
-				metric: 'newReservations',
-				scope: ownerScope,
-				from,
-				to: todayStart,
-				fill: true
+				dimensionKey: 'hospitalityId',
+				days: ANALYTICS_QUERY_RANGE_DAYS
 			}),
 
 			// --- Partner accommodations ---
@@ -137,18 +110,12 @@ export const fetchUserAnalyticsHospitalityPage = query({
 		const accommodations = await getAccommodationsByIds(ctx, accommodationIds);
 
 		// --- Metric values for this hospitality only ---
-		// Activations happen at accommodations, so attribute them via this venue's partner stays.
-		const partnerAccommodationIds = new Set<string>(accommodationIds);
-		let guestActivationValue = 0;
-		for (const [accommodationId, value] of guestActivationTotals) {
-			if (partnerAccommodationIds.has(accommodationId)) guestActivationValue += value;
-		}
-
 		const reservationValue = getAnalyticsMetricValue(
 			hospitalityReservationTotals,
 			args.hospitalityId
 		);
 		const hospitalityViewValue = getAnalyticsMetricValue(hospitalityViewTotals, args.hospitalityId);
+		const confirmedValue = getAnalyticsMetricValue(hospitalityConfirmedTotals, args.hospitalityId);
 
 		return {
 			hospitality: {
@@ -158,28 +125,19 @@ export const fetchUserAnalyticsHospitalityPage = query({
 				city: hospitality.city
 			},
 			metrics: {
-				trackedVenues: { value: 1 },
 				hospitalityViews: toComparedMetricWithValue(
 					dashboard.metrics.hospitalityViews,
 					hospitalityViewValue
 				),
-				guestActivations: toComparedMetricWithValue(
-					dashboard.metrics.guestActivations,
-					guestActivationValue
-				),
 				requestsGenerated: toComparedMetricWithValue(
 					dashboard.metrics.newReservations,
 					reservationValue
+				),
+				confirmedReservations: toComparedMetricWithValue(
+					dashboard.metrics.confirmedReservations,
+					confirmedValue
 				)
 			},
-			activityData: buildActivityData({
-				qrScansSeries: hospitalityViewsSeries.data.map((point) => ({
-					...point,
-					qrScans: point.hospitalityViews ?? 0
-				})),
-				guestActivationsSeries: guestActivationsSeries.data,
-				reservationsSeries: reservationsSeries.data
-			}),
 			performance: {
 				rows: buildAnalyticsRows({
 					output: 'performance',

@@ -66,12 +66,10 @@ export const hospitalityAddFormSchema = v.object({
 	benefit: hospitalityBenefit,
 	ownerId: v.optional(v.pipe(v.string(), v.trim())),
 	isActive: v.boolean(),
-	coverImageKey: v.pipe(
-		v.union([v.null(), v.file()]),
-		v.check(
-			(input) => input instanceof File,
-			m['ValidationMessages.CreateHospitalitySchema.coverRequired']()
-		)
+	// Ordered gallery — the first image is the cover. At least one is required.
+	images: v.pipe(
+		v.array(v.file()),
+		v.minLength(1, m['ValidationMessages.CreateHospitalitySchema.imagesRequired']())
 	),
 	menuFileKey: v.optional(v.union([v.null(), v.file()])),
 	menuLink: v.optional(v.pipe(v.string(), v.trim()))
@@ -129,9 +127,21 @@ export const hospitalityEditFormSchema = v.object({
 	longitude: hospitalityCoordinate,
 	reservationMode: v.literal('managed_request'),
 	isActive: v.boolean(),
-	coverImageKey: v.optional(v.union([v.null(), v.file()])),
+	// Ordered gallery — existing images ({key,url}) and/or newly picked Files; first is the cover.
+	images: v.pipe(
+		v.array(v.union([v.file(), v.object({ key: v.string(), url: v.string() })])),
+		v.minLength(1, m['ValidationMessages.CreateHospitalitySchema.imagesRequired']())
+	),
 	menuFileKey: v.optional(v.union([v.null(), v.file()])),
 	menuLink: v.optional(v.pipe(v.string(), v.trim()))
 });
 
 export type HospitalityEditFormInputs = v.InferInput<typeof hospitalityEditFormSchema>;
+
+/** Admin edit form — the owner edit fields PLUS the admin-only `benefit` (guest offer). */
+export const hospitalityAdminEditFormSchema = v.object({
+	...hospitalityEditFormSchema.entries,
+	benefit: hospitalityBenefit
+});
+
+export type HospitalityAdminEditFormInputs = v.InferInput<typeof hospitalityAdminEditFormSchema>;

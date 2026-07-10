@@ -1,6 +1,6 @@
 // UTILS
-import { getPresenceAnalyticsLabel } from './analyticsLabelUtils';
 import { formatAnalyticsCount } from './analyticsDisplayFormattersUtils';
+import { buildMetricDelta } from './metricDeltaUtils';
 
 // TYPES
 import type {
@@ -42,6 +42,6 @@ export function createComparedAnalyticsMetric({
 		id,
 		label,
 		value: formatAnalyticsCount(metric.value),
-		analyticsLabel: getPresenceAnalyticsLabel(metric.value)
+		delta: buildMetricDelta(metric.comparison, metric.evaluation)
 	};
 }

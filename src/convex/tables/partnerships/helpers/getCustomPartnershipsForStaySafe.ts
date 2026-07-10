@@ -2,7 +2,7 @@
 import { getHospitalitiesByIds } from '@/convex/tables/hospitalities/helpers/getHospitalitiesByIds';
 
 // VALIDATORS
-import { projectPartnershipAccommodationSafe } from '@/convex/tables/partnerships/validators/partnershipQueryValidators';
+import { partnershipScanHospitalitySafe } from '@/convex/tables/partnerships/validators/partnershipQueryValidators';
 
 // TYPES
 import type { Id } from '@/convex/_generated/dataModel';
@@ -36,7 +36,10 @@ export async function getCustomPartnershipsForStaySafe(
 	for (const partnership of customPartnerships) {
 		const hospitality = customHospitalityById.get(partnership.hospitalityId);
 		if (!hospitality) continue;
-		items.push(projectPartnershipAccommodationSafe(partnership, hospitality));
+		items.push({
+			benefit: partnership.benefit,
+			hospitality: partnershipScanHospitalitySafe.project(hospitality)
+		});
 	}
 
 	return items.sort((a, b) => a.hospitality.name.localeCompare(b.hospitality.name));

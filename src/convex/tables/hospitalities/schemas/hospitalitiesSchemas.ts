@@ -32,8 +32,15 @@ export const hospitalityFields = {
 
 	ownerId: v.string(),
 
-	coverImageKey: v.optional(v.string()),
-	coverImageUrl: v.optional(v.string()),
+	/**
+	 * Ordered gallery — `images[0]` is ALWAYS the cover (no separate cover column).
+	 * Each entry caches the R2 `{ key, url }` so reads never touch storage. Optional
+	 * so pre-existing rows validate; `backfillHospitalityImagesInternal` moves the
+	 * legacy `coverImageKey`/`coverImageUrl` into `images[0]` and both create paths
+	 * write it going forward. Clients read `images[0].url` for the cover — there is
+	 * no `coverImageUrl` field anywhere (stored or projected).
+	 */
+	images: v.optional(v.array(v.object({ key: v.string(), url: v.string() }))),
 
 	/**
 	 * Who created the row: `platform` = admin `createHospitality`, `user` =
@@ -48,14 +55,6 @@ export const hospitalityFields = {
 	 * offer comes from the custom partnership when linked.
 	 */
 	benefit: v.string(),
-	/**
-	 * Whether *other* users can pick this venue in the custom-partnership
-	 * connect flow. Admin-toggled only (`setHospitalityVisibility`) — owners
-	 * never get this lever. Missing = `public` (all legacy rows are
-	 * admin-created); user-created rows are born `private`.
-	 */
-	visibility: v.optional(v.union(v.literal('private'), v.literal('public'))),
-
 	/**
 	 * Short shareable code (see `connectCode.ts`) an owner hands out so an
 	 * accommodation owner can request a custom partnership without browsing a

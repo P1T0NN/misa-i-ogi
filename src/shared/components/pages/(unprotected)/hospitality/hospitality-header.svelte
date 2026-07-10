@@ -20,7 +20,7 @@
 			class="relative aspect-16/10 max-h-[min(70vh,32rem)] w-full max-lg:max-h-[min(52vh,24rem)]"
 		>
 			<img
-				src={hospitality.coverImageUrl}
+				src={hospitality.images?.[0]?.url}
 				alt=""
 				class="absolute inset-0 size-full object-cover"
 				decoding="async"

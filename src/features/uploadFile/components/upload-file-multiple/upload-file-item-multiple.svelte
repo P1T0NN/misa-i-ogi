@@ -7,28 +7,42 @@
 
 	// UTILS
 	import { cn } from '@/shared/utils/utils.js';
+	import { isExistingImage, type UploadItem } from '../../types/uploadFileTypes';
 
 	// LUCIDE ICONS
 	import FileTextIcon from '@lucide/svelte/icons/file-text';
+	import StarIcon from '@lucide/svelte/icons/star';
 	import XIcon from '@lucide/svelte/icons/x';
 
 	type Props = {
 		class?: string;
-		file: File;
+		item: UploadItem;
 		index: number;
-		files?: File[];
-		selectedFile?: File | null;
+		items?: UploadItem[];
 		previewUrl?: string | null;
+		hasCoverImage?: boolean;
 	};
 
 	let {
 		class: className,
-		file,
+		item,
 		index,
-		files = $bindable<File[]>([]),
-		selectedFile = $bindable<File | null>(null),
-		previewUrl = null
+		items = $bindable<UploadItem[]>([]),
+		previewUrl = null,
+		hasCoverImage = false
 	}: Props = $props();
+
+	// ponytail: cover image is always items[0] — starring moves the entry to the front,
+	// so removal/reorder needs no separate cover state.
+	const isCover = $derived(hasCoverImage && index === 0);
+	const existing = $derived(isExistingImage(item));
+	const displayName = $derived(
+		existing ? m['UploadFile.UploadFileMultiple.existingImage']() : (item as File).name
+	);
+
+	function setAsCover() {
+		items = [item, ...items.filter((_, j) => j !== index)];
+	}
 
 	function formatBytes(bytes: number): string {
 		if (bytes === 0) return '0 B';
@@ -39,22 +53,46 @@
 	}
 
 	function remove() {
-		files = files.filter((_, j) => j !== index);
+		items = items.filter((_, j) => j !== index);
 	}
 </script>
 
 <div
 	class={cn(
-		'group/item relative overflow-hidden rounded-xl border border-input bg-card shadow-sm',
+		'border-input bg-card group/item relative overflow-hidden rounded-xl border shadow-sm',
 		className
 	)}
 >
-	<div class="relative aspect-square max-h-56 w-full bg-muted/30">
+	<div class="bg-muted/30 relative aspect-square max-h-56 w-full">
 		{#if previewUrl}
 			<img src={previewUrl} alt="" class="size-full object-cover" draggable="false" />
 		{:else}
-			<div class="flex size-full items-center justify-center text-muted-foreground">
+			<div class="text-muted-foreground flex size-full items-center justify-center">
 				<FileTextIcon class="size-12" aria-hidden="true" />
+			</div>
+		{/if}
+
+		{#if hasCoverImage}
+			<div class="absolute start-1.5 top-1.5">
+				{#if isCover}
+					<span
+						class="bg-primary text-primary-foreground flex items-center gap-1 rounded-md px-1.5 py-1 text-[0.65rem] font-medium shadow-md"
+					>
+						<StarIcon class="size-3.5 fill-current" aria-hidden="true" />
+						{m['UploadFile.UploadFileMultiple.cover']()}
+					</span>
+				{:else}
+					<Button
+						type="button"
+						variant="secondary"
+						size="icon-sm"
+						class="shadow-md"
+						onclick={setAsCover}
+						aria-label={m['UploadFile.UploadFileMultiple.setCover']({ name: displayName })}
+					>
+						<StarIcon class="size-3.5" aria-hidden="true" />
+					</Button>
+				{/if}
 			</div>
 		{/if}
 
@@ -65,7 +103,7 @@
 				size="icon-sm"
 				class="shadow-md"
 				onclick={remove}
-				aria-label={m['UploadFile.UploadFileMultiple.remove']({ name: file.name })}
+				aria-label={m['UploadFile.UploadFileMultiple.remove']({ name: displayName })}
 			>
 				<XIcon class="size-3.5" aria-hidden="true" />
 			</Button>
@@ -73,12 +111,16 @@
 	</div>
 
 	<div class="space-y-0.5 px-2.5 py-2">
-		<p class="truncate text-xs font-medium text-foreground" title={file.name}>
-			{file.name}
+		<p class="text-foreground truncate text-xs font-medium" title={displayName}>
+			{displayName}
 		</p>
 
-		<p class="text-[0.65rem] leading-tight text-muted-foreground">
-			{file.type || m['UploadFile.UploadFileMultiple.unknown']()} · {formatBytes(file.size)}
-		</p>
+		{#if !existing}
+			<p class="text-muted-foreground text-[0.65rem] leading-tight">
+				{(item as File).type || m['UploadFile.UploadFileMultiple.unknown']()} · {formatBytes(
+					(item as File).size
+				)}
+			</p>
+		{/if}
 	</div>
 </div>

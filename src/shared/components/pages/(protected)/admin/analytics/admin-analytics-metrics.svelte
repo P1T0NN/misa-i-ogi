@@ -50,4 +50,4 @@
 	]);
 </script>
 
-<AnalyticsMetrics metrics={displayMetrics} class="xl:grid-cols-5" />
+<AnalyticsMetrics metrics={displayMetrics} columns={5} />

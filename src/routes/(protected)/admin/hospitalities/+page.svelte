@@ -4,11 +4,7 @@
 	import { m } from '@/shared/lib/paraglide/messages';
 
 	// CONFIG
-	import {
-		ADMIN_PAGE_ENDPOINTS,
-		PROTECTED_PAGE_ENDPOINTS,
-		UNPROTECTED_PAGE_ENDPOINTS
-	} from '@/shared/page-endpoints.js';
+	import { ADMIN_PAGE_ENDPOINTS, UNPROTECTED_PAGE_ENDPOINTS } from '@/shared/page-endpoints.js';
 
 	// FEATURES
 	import { labelHospitalityType } from '@/features/hospitalities/data/hospitalitiesData';
@@ -19,7 +15,6 @@
 	import Link from '@/shared/components/ui/link/link.svelte';
 	import { Badge } from '@/shared/components/ui/badge/index.js';
 	import { Button } from '@/shared/components/ui/button/index.js';
-	import HospitalityVisibilityButton from '@/shared/components/pages/(protected)/admin/hospitalities/hospitality-visibility-button.svelte';
 	import DeleteHospitalityButton from '@/shared/components/pages/(protected)/admin/hospitalities/delete-hospitality-button.svelte';
 
 	// TYPES
@@ -47,7 +42,7 @@
 	}
 
 	function editHref(row: Doc<'hospitalities'>) {
-		return PROTECTED_PAGE_ENDPOINTS.EDIT_HOSPITALITY.replace(':id', row._id);
+		return ADMIN_PAGE_ENDPOINTS.EDIT_HOSPITALITY.replace(':id', row._id);
 	}
 
 	const columns: ColumnDef<Doc<'hospitalities'>>[] = [
@@ -90,12 +85,6 @@
 			id: 'status',
 			header: m['AdminHospitalitiesPage.columnStatus'](),
 			accessor: (r) => r.isActive,
-			hideBelow: 'md'
-		},
-		{
-			id: 'visibility',
-			header: m['AdminHospitalitiesPage.columnVisibility'](),
-			accessor: (r) => r.visibility ?? 'public',
 			hideBelow: 'md'
 		},
 		{
@@ -145,8 +134,7 @@
 		customCells={{
 			name: nameCell,
 			actions: actionsCell,
-			status: statusCell,
-			visibility: visibilityCell
+			status: statusCell
 		}}
 		bind:sortColumn
 		bind:sortDirection
@@ -172,10 +160,6 @@
 	>
 		{row.name}
 	</Link>
-{/snippet}
-
-{#snippet visibilityCell({ row }: DataTableCellSnippetProps<Doc<'hospitalities'>>)}
-	<HospitalityVisibilityButton hospitality={row} />
 {/snippet}
 
 {#snippet statusCell({ row }: DataTableCellSnippetProps<Doc<'hospitalities'>>)}

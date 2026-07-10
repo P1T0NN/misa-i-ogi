@@ -66,9 +66,9 @@
 		<div
 			class="relative aspect-square w-24 shrink-0 self-stretch overflow-hidden bg-muted sm:aspect-4/3 sm:w-full"
 		>
-			{#if hospitality.coverImageUrl}
+			{#if hospitality.images?.[0]?.url}
 				<img
-					src={hospitality.coverImageUrl}
+					src={hospitality.images[0].url}
 					alt=""
 					class="absolute inset-0 size-full object-cover transition-transform duration-300 group-hover:scale-105"
 					loading="lazy"

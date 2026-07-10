@@ -7,27 +7,34 @@
 
 	// UTILS
 	import { cn } from '@/shared/utils/utils.js';
+	import { isExistingImage } from '../../types/uploadFileTypes';
 
 	// TYPES
-	import type { UploadFileRow } from '@/features/uploadFile/types/uploadFileTypes';
+	import type { UploadItem, UploadFileMultiRow } from '../../types/uploadFileTypes';
 
 	type Props = {
-		rows: UploadFileRow[];
-		files?: File[];
-		selectedFile?: File | null;
+		rows: UploadFileMultiRow[];
+		items?: UploadItem[];
 		onDragOver?: (e: DragEvent) => void;
 		onDrop?: (e: DragEvent) => void;
+		hasCoverImage?: boolean;
 		class?: string;
 	};
 
 	let {
 		rows,
-		files = $bindable<File[]>([]),
-		selectedFile = $bindable<File | null>(null),
+		items = $bindable<UploadItem[]>([]),
 		onDragOver,
 		onDrop,
+		hasCoverImage = false,
 		class: className
 	}: Props = $props();
+
+	function rowKey(row: UploadFileMultiRow): string {
+		return isExistingImage(row.item)
+			? `existing-${row.item.key}`
+			: `file-${row.item.name}-${row.item.size}-${row.item.lastModified}-${row.index}`;
+	}
 </script>
 
 <!-- Input lives on `UploadFileEmpty`; this region only lists previews + accepts drops. -->
@@ -39,13 +46,13 @@
 	ondragover={onDragOver}
 	ondrop={onDrop}
 >
-	{#each rows as row (`${row.file.name}-${row.file.size}-${row.file.lastModified}-${row.index}`)}
+	{#each rows as row (rowKey(row))}
 		<UploadFileItemMultiple
-			file={row.file}
+			item={row.item}
 			index={row.index}
-			bind:files
-			bind:selectedFile
+			bind:items
 			previewUrl={row.previewUrl}
+			{hasCoverImage}
 		/>
 	{/each}
 </div>

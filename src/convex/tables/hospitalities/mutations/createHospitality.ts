@@ -3,11 +3,11 @@ import { v } from 'convex/values';
 import { adminMutation } from '@/convex/auth/middleware/authMiddleware';
 import { authComponent } from '@/convex/auth/auth';
 import { createAnalyticsScopeId } from '@piton-/analytics-convex';
-import { resolveStoredFileUrlAndSyncRow } from '@/convex/storage/r2/resolveStoredFileUrl.js';
 
 // HELPERS
 import { analytics } from '@/convex/analytics';
 import { COUNTER_KEYS } from '@/convex/helpers/counterKeys';
+import { resolveUploadedImages } from '@/convex/helpers/resolveUploadedImages';
 import { generateUniqueConnectCode } from '@/convex/tables/hospitalities/helpers/generateUniqueConnectCode';
 import {
 	resolveMenuFile,
@@ -52,15 +52,14 @@ export const createHospitality = adminMutation('createHospitality')({
 		benefit: v.string(),
 		ownerId: v.optional(v.string()),
 		isActive: v.boolean(),
-		// Set by `processUploadFields` after upload; required so every venue has a cover.
-		coverImageKey: v.string(),
+		// Ordered R2 refs set by `processUploadFields`; images[0] is the cover.
+		images: v.array(v.string()),
 		menuFileKey: v.optional(v.string()),
 		menuLink: v.optional(v.string())
 	},
 	returns: mutationResultValidator,
 	handler: async (ctx, args): Promise<MutationResult> => {
 		const createType = args.createType ?? 'platform';
-		const visibility = createType === 'user' ? 'private' : 'public';
 
 		const benefit = parsePartnershipBenefit(args.benefit);
 		if (!benefit) {
@@ -85,19 +84,14 @@ export const createHospitality = adminMutation('createHospitality')({
 			}
 		}
 
-		const uploaded = await ctx.db
-			.query('uploadedFilesR2')
-			.withIndex('by_key', (q) => q.eq('key', args.coverImageKey))
-			.unique();
-
-		if (!uploaded) {
+		// Admin uploads the images themselves; images[0] is the cover.
+		const images = await resolveUploadedImages(ctx, args.images, ctx.userId);
+		if (images.length === 0) {
 			return {
 				success: false,
-				message: { key: 'GenericMessages.STORAGE_URL_UNAVAILABLE' }
+				message: { key: 'GenericMessages.HOSPITALITY_IMAGE_REQUIRED' }
 			};
 		}
-
-		const coverImageUrl = await resolveStoredFileUrlAndSyncRow(ctx, uploaded);
 
 		const menu = await resolveMenuFile(ctx, args.menuFileKey);
 		if (!menu.ok) return menu.error;
@@ -120,20 +114,18 @@ export const createHospitality = adminMutation('createHospitality')({
 			isActive: args.isActive,
 			benefit,
 			ownerId: resolvedOwnerId,
-			coverImageKey: uploaded.key,
-			coverImageUrl,
+			images,
 			menuFileKey: menu.menuFileKey,
 			menuFileUrl: menu.menuFileUrl,
 			menuLink,
 			createType,
-			visibility,
 			connectCode
 		});
 		await analytics.counters.bump(ctx, COUNTER_KEYS.HOSPITALITIES_TOTAL, 1);
 
 		ctx.audit(AUDIT_ACTIONS.HOSPITALITY_CREATE, {
 			resource: { table: 'hospitalities', id: hospitalityId },
-			after: { name: args.name, type: args.type, createType, visibility },
+			after: { name: args.name, type: args.type, createType },
 			metadata: { ownerId: resolvedOwnerId }
 		});
 

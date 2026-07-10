@@ -12,8 +12,10 @@ export const ADMIN_PAGE_ENDPOINTS = {
 	PARTNERSHIP_ADD: resolve('/admin/partnerships/add-partnership'),
 	USERS: resolve('/admin/users'),
 	USER_ADD: resolve('/admin/users/add-user'),
-	// Template filled at the call site via .replace(':id', …) — not a concrete route, so not resolve()d.
-	USER: '/admin/users/:id'
+	// Templates filled at the call site via .replace(':id', …) — not concrete routes, so not resolve()d.
+	USER: '/admin/users/:id',
+	EDIT_ACCOMMODATION: '/admin/edit-accommodation/:id',
+	EDIT_HOSPITALITY: '/admin/edit-hospitality/:id'
 };
 
 export const PROTECTED_PAGE_ENDPOINTS = {
@@ -40,6 +42,8 @@ export const UNPROTECTED_PAGE_ENDPOINTS = {
 	TERMS_OF_SERVICE: resolve('/terms'),
 	SIGNUP: resolve('/signup'),
 	FORGOT_PASSWORD: resolve('/forgot-password'),
+	/** Public feedback / bug-report form. */
+	REPORT: resolve('/report'),
 	/** Anchor to the contact section on the landing — not a route, so it must NOT be wrapped in resolve(). */
 	CONTACT: '/#contact',
 	/** Sets the guest-stay cookie then redirects to {@link STAY}. Encoded in printed QRs. */

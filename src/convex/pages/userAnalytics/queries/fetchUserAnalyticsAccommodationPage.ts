@@ -13,7 +13,6 @@ import { getActivePartnershipsByAccommodation } from '@/convex/tables/partnershi
 import { getHospitalitiesByIds } from '@/convex/tables/hospitalities/helpers/getHospitalitiesByIds';
 
 // UTILS
-import { buildActivityData } from '@/convex/analytics/utils/buildActivityData';
 import { buildAnalyticsRows } from '@/convex/analytics/utils/buildAnalyticsRows';
 import { toComparedMetricWithValue } from '@/convex/analytics/utils/comparedMetricUtils';
 import { getAnalyticsMetricValue } from '@/convex/analytics/utils/getAnalyticsMetricValue';
@@ -50,16 +49,14 @@ export const fetchUserAnalyticsAccommodationPage = query({
 			qrScanTotals,
 			guestActivationTotals,
 			reservationTotals,
+			confirmedTotals,
 			guestViewHospitalityTotals,
 			partnerReservationTotals,
 			partnerConfirmedTotals,
-			qrScansSeries,
-			guestActivationsSeries,
-			reservationsSeries,
 			partnershipGroups
 		] = await Promise.all([
 			analytics.fetchDashboardMetrics(ctx, {
-				metrics: ['qrScans', 'guestActivations', 'newReservations'],
+				metrics: ['qrScans', 'guestActivations', 'newReservations', 'confirmedReservations'],
 				scope: ownerScope,
 				from,
 				to: todayStart,
@@ -85,6 +82,12 @@ export const fetchUserAnalyticsAccommodationPage = query({
 				dimensionKey: 'accommodationId',
 				days: ANALYTICS_QUERY_RANGE_DAYS
 			}),
+			analytics.fetchMetricTotalsByDimension(ctx, {
+				metric: 'confirmedReservations',
+				scope: ownerScope,
+				dimensionKey: 'accommodationId',
+				days: ANALYTICS_QUERY_RANGE_DAYS
+			}),
 
 			// --- Partner venue rows: totals keyed by hospitality ---
 			analytics.fetchMetricTotalsByDimension(ctx, {
@@ -106,29 +109,6 @@ export const fetchUserAnalyticsAccommodationPage = query({
 				days: ANALYTICS_QUERY_RANGE_DAYS
 			}),
 
-			// --- Time series for activity chart ---
-			analytics.fetchTimeSeries(ctx, {
-				metric: 'qrScans',
-				scope: ownerScope,
-				from,
-				to: todayStart,
-				fill: true
-			}),
-			analytics.fetchTimeSeries(ctx, {
-				metric: 'guestActivations',
-				scope: ownerScope,
-				from,
-				to: todayStart,
-				fill: true
-			}),
-			analytics.fetchTimeSeries(ctx, {
-				metric: 'newReservations',
-				scope: ownerScope,
-				from,
-				to: todayStart,
-				fill: true
-			}),
-
 			// --- Partner hospitalities ---
 			getActivePartnershipsByAccommodation(ctx, [args.accommodationId])
 		]);
@@ -145,6 +125,7 @@ export const fetchUserAnalyticsAccommodationPage = query({
 			args.accommodationId
 		);
 		const reservationValue = getAnalyticsMetricValue(reservationTotals, args.accommodationId);
+		const confirmedValue = getAnalyticsMetricValue(confirmedTotals, args.accommodationId);
 
 		return {
 			accommodation: {
@@ -154,7 +135,6 @@ export const fetchUserAnalyticsAccommodationPage = query({
 				city: accommodation.city
 			},
 			metrics: {
-				trackedStays: { value: 1 },
 				qrScans: toComparedMetricWithValue(dashboard.metrics.qrScans, qrScanValue),
 				guestActivations: toComparedMetricWithValue(
 					dashboard.metrics.guestActivations,
@@ -163,13 +143,12 @@ export const fetchUserAnalyticsAccommodationPage = query({
 				requestsGenerated: toComparedMetricWithValue(
 					dashboard.metrics.newReservations,
 					reservationValue
+				),
+				confirmedReservations: toComparedMetricWithValue(
+					dashboard.metrics.confirmedReservations,
+					confirmedValue
 				)
 			},
-			activityData: buildActivityData({
-				qrScansSeries: qrScansSeries.data,
-				guestActivationsSeries: guestActivationsSeries.data,
-				reservationsSeries: reservationsSeries.data
-			}),
 			performance: {
 				rows: buildAnalyticsRows({
 					output: 'performance',

@@ -2,11 +2,10 @@
 import { internalMutation } from '@/convex/_generated/server';
 
 /**
- * One-off backfill for the custom-partnership fields on `hospitalities` —
- * every pre-existing row was admin-created, so it becomes `createType:
- * "platform"`, `visibility: "public"` (the `by_visibility` index only matches
- * rows where the field is actually set). Idempotent: rows that already carry
- * both fields are skipped.
+ * One-off backfill for `hospitalities.createType` — every pre-existing row was
+ * admin-created, so it becomes `createType: "platform"` (the
+ * `by_create_type_active` index only matches rows where the field is actually
+ * set). Idempotent: rows that already carry it are skipped.
  *
  * Run: bunx convex run migrations/backfillHospitalityCreateTypeInternal:backfillHospitalityCreateType
  */
@@ -17,10 +16,9 @@ export const backfillHospitalityCreateType = internalMutation({
 
 		let patched = 0;
 		for (const hospitality of hospitalities) {
-			if (hospitality.createType !== undefined && hospitality.visibility !== undefined) continue;
+			if (hospitality.createType !== undefined) continue;
 			await ctx.db.patch(hospitality._id, {
-				createType: hospitality.createType ?? 'platform',
-				visibility: hospitality.visibility ?? 'public'
+				createType: hospitality.createType ?? 'platform'
 			});
 			patched++;
 		}

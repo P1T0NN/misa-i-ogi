@@ -27,7 +27,7 @@
 				name: hospitality.name,
 				type: hospitality.type,
 				city: hospitality.city,
-				coverImageUrl: hospitality.coverImageUrl,
+				images: hospitality.images,
 				latitude: hospitality.latitude,
 				longitude: hospitality.longitude
 			}

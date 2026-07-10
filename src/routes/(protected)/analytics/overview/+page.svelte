@@ -10,9 +10,8 @@
 	// COMPONENTS
 	import SvelteHead from '@/shared/components/ui/svelte-head/svelte-head.svelte';
 	import AnalyticsHeader from '@/features/analytics/components/analytics-header.svelte';
-	import UserAnalyticsOverviewQrScans from '@/shared/components/pages/(protected)/user-analytics/user-analytics-overview/user-analytics-overview-qr-scans.svelte';
-	import UserAnalyticsOverviewGuestActivations from '@/shared/components/pages/(protected)/user-analytics/user-analytics-overview/user-analytics-overview-guest-activations.svelte';
-	import UserAnalyticsOverviewReservations from '@/shared/components/pages/(protected)/user-analytics/user-analytics-overview/user-analytics-overview-reservations.svelte';
+	import UserAnalyticsOverviewMetrics from '@/shared/components/pages/(protected)/user-analytics/user-analytics-overview/user-analytics-overview-metrics.svelte';
+	import UserAnalyticsOverviewTrend from '@/shared/components/pages/(protected)/user-analytics/user-analytics-overview/user-analytics-overview-trend.svelte';
 	import AnalyticsTopAccommodationsTable from '@/features/analytics/components/analytics-top-accommodations-table.svelte';
 	import AnalyticsTopHospitalitiesTable from '@/features/analytics/components/analytics-top-hospitalities-table.svelte';
 	import UserAnalyticsOverviewLoading from '@/shared/components/pages/(protected)/user-analytics/user-analytics-overview/loading/user-analytics-overview-loading.svelte';
@@ -62,11 +61,9 @@
 			showRetry={false}
 		/>
 	{:else if pageData}
-		<UserAnalyticsOverviewQrScans data={pageData.qrScansChart} />
+		<UserAnalyticsOverviewMetrics metrics={pageData.metrics} />
 
-		<UserAnalyticsOverviewGuestActivations data={pageData.guestActivationsChart} />
-
-		<UserAnalyticsOverviewReservations data={pageData.reservationsChart} />
+		<UserAnalyticsOverviewTrend data={pageData.trendChart} />
 
 		<AnalyticsTopAccommodationsTable rows={pageData.topAccommodations} variant="top" />
 

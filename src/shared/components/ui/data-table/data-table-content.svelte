@@ -99,7 +99,9 @@
 		<div
 			class={cn(
 				'flex flex-col gap-0',
-				!borderless && 'hidden rounded-xl border bg-card text-card-foreground shadow-sm md:flex'
+				// Hide the wide table on mobile only when stacked cards replace it, independent of border styling.
+				showMobileCards && 'hidden md:flex',
+				!borderless && 'rounded-xl border bg-card text-card-foreground shadow-sm'
 			)}
 			role="region"
 			aria-busy={isLoading}

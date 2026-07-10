@@ -1,6 +1,7 @@
 <script lang="ts">
 	import UploadFileSingle from '@/features/uploadFile/components/upload-file-single/upload-file-single.svelte';
 	import UploadFileMultiple from '@/features/uploadFile/components/upload-file-multiple/upload-file-multiple.svelte';
+	import type { UploadItem } from '@/features/uploadFile/types/uploadFileTypes';
 	import type { MutationFormFieldDef } from './types.js';
 
 	let {
@@ -28,6 +29,7 @@
 		id={inputId}
 		accept={field.accept}
 		disabled={field.disabled}
-		bind:files={() => (value as File[]) ?? [], (v) => setValue(v)}
+		hasCoverImage={field.hasCoverImage}
+		bind:items={() => (value as UploadItem[]) ?? [], (v) => setValue(v)}
 	/>
 {/if}

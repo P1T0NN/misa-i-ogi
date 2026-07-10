@@ -43,7 +43,7 @@
 		benefit: '',
 		// Managed in-app for every venue — no owner-facing choice, so no field.
 		reservationMode: 'managed_request',
-		coverImageKey: null,
+		images: [],
 		menuFileKey: null,
 		menuLink: ''
 	});

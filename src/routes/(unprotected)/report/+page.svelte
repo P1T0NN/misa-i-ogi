@@ -8,6 +8,7 @@
 	import Section from '@/shared/components/ui/section/section.svelte';
 	import ConvexMutationForm from '@/shared/components/ui/mutation-form/convex-mutation-form.svelte';
 	import { Button } from '@/shared/components/ui/button/index.js';
+	import ReportHeader from '@/shared/components/pages/(unprotected)/report/report-header.svelte';
 
 	// SCHEMAS
 	import {
@@ -81,15 +82,7 @@
      appears once the visitor scrolls (a percentage min-h-full can't resolve
      inside the layout's flex-grown wrapper). -->
 <Section class="min-h-dvh" yPadding="lg" containerClass="max-w-xl">
-	<!-- Header -->
-	<div class="text-center">
-		<h1 class="mb-0 font-serif text-3xl leading-tight font-medium tracking-tight sm:text-4xl">
-			{m['ReportPage.title']()}
-		</h1>
-		<p class="mx-auto mt-3 max-w-md text-sm leading-relaxed text-muted-foreground sm:text-base">
-			{m['ReportPage.intro']()}
-		</p>
-	</div>
+	<ReportHeader />
 
 	<ConvexMutationForm
 		class="mt-10"
