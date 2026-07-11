@@ -7,7 +7,7 @@
 
 	// CONFIG
 	import { COMPANY_DATA } from '@/shared/constants.js';
-	import { PROTECTED_PAGE_ENDPOINTS } from '@/shared/page-endpoints.js';
+	import { ADMIN_PAGE_ENDPOINTS, PROTECTED_PAGE_ENDPOINTS } from '@/shared/page-endpoints.js';
 
 	// CLASSES
 	import { breadcrumbLabel } from '@/shared/components/ui/breadcrumb/breadcrumbClass.svelte.js';
@@ -79,6 +79,10 @@
 			];
 		}
 
+		if (routeId === '/(protected)/analytics/overview') {
+			return [{ label: m['ProtectedSidebar.analyticsOverview']() }];
+		}
+
 		const pathname = deLocalizeUrl(page.url).pathname;
 		const segments = pathname.split('/').filter(Boolean);
 		const hidden = new Set(hidePaths);
@@ -98,6 +102,12 @@
 	});
 
 	const overridden = $derived(pageName !== undefined);
+
+	const homeHref = $derived.by(() => {
+		const pathname = deLocalizeUrl(page.url).pathname;
+		const isAdminRoute = pathname === '/admin' || pathname.startsWith('/admin/');
+		return isAdminRoute ? ADMIN_PAGE_ENDPOINTS.DASHBOARD : PROTECTED_PAGE_ENDPOINTS.DASHBOARD;
+	});
 </script>
 
 <header class="sticky top-0 z-50 flex w-full items-center border-b bg-background">
@@ -111,7 +121,7 @@
 		<Breadcrumb.Root class="hidden sm:block">
 			<Breadcrumb.List>
 				<Breadcrumb.Item>
-					<Breadcrumb.Link href="##">{COMPANY_DATA.NAME}</Breadcrumb.Link>
+					<Breadcrumb.Link href={homeHref}>{COMPANY_DATA.NAME}</Breadcrumb.Link>
 				</Breadcrumb.Item>
 
 				{#if overridden}

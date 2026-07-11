@@ -30,6 +30,15 @@ export function renderDetailsTable(
 	return `<table style="border-collapse: collapse; width: 100%;">${renderedRows}</table>`;
 }
 
+export function renderEmailNotice({ title, body }: { title: string; body: string }): string {
+	return `
+		<div style="background: #f9ede8; border: 1px solid #e8c4b4; border-left: 4px solid #c96442; border-radius: 12px; margin-top: 20px; padding: 16px 18px;">
+			<p style="color: #c96442; font-size: 12px; font-weight: 700; letter-spacing: 0.08em; margin: 0 0 8px; text-transform: uppercase;">${escapeHtml(title)}</p>
+			<p style="color: #141413; font-size: 14px; font-weight: 600; line-height: 1.55; margin: 0;">${escapeHtml(body)}</p>
+		</div>
+	`;
+}
+
 export function senderAddress(): string {
 	return `${COMPANY_DATA.NAME} <${COMPANY_DATA.RESEND_EMAIL}>`;
 }

@@ -4,6 +4,7 @@
 
 	// CONFIG
 	import { PROTECTED_PAGE_ENDPOINTS } from '@/shared/page-endpoints';
+	import { SUBSCRIPTION_ENABLED } from '@/shared/config';
 
 	// COMPONENTS
 	import { Button } from '@/shared/components/ui/button/index.js';
@@ -28,9 +29,11 @@
 			{m['MyHospitalitiesPage.MyHospitalitiesEmpty.description']()}
 		</p>
 
-		<Button href={PROTECTED_PAGE_ENDPOINTS.MY_HOSPITALITY_ADD} class="mt-2">
-			<PlusIcon data-icon="inline-start" />
-			{m['MyHospitalitiesPage.MyHospitalitiesEmpty.cta']()}
-		</Button>
+		{#if SUBSCRIPTION_ENABLED}
+			<Button href={PROTECTED_PAGE_ENDPOINTS.MY_HOSPITALITY_ADD} class="mt-2">
+				<PlusIcon data-icon="inline-start" />
+				{m['MyHospitalitiesPage.MyHospitalitiesEmpty.cta']()}
+			</Button>
+		{/if}
 	</div>
 </div>

@@ -41,7 +41,7 @@
 	description={m['MyAccommodationsPage.SEO.description']()}
 />
 
-<section class="mx-auto flex w-full max-w-7xl flex-col gap-6 p-4 md:p-6 lg:p-8">
+<section class="flex w-full flex-col gap-6 py-4 md:py-6 lg:gap-8">
 	<MyAccommodationsHeader
 		isLoading={summaryLoading}
 		hasError={Boolean(summaryQuery.error)}

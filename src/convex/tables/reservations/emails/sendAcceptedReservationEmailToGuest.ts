@@ -3,7 +3,11 @@ import { renderBaseEmailTemplate } from '@/convex/email/templates/baseEmailTempl
 
 // UTILS
 import { resend } from '@/convex/resend';
-import { renderDetailsTable, senderAddress } from '@/convex/email/utils/convexEmailUtils';
+import {
+	renderDetailsTable,
+	renderEmailNotice,
+	senderAddress
+} from '@/convex/email/utils/convexEmailUtils';
 
 // TYPES
 import type { MutationCtx } from '@/convex/_generated/server';
@@ -27,13 +31,19 @@ export async function sendAcceptedReservationEmailToGuest(
 		title: `${details.hospitalityName} confirmed your reservation`,
 		description:
 			'Your reservation is confirmed. We look forward to seeing you at the requested time.',
-		children: renderDetailsTable([
-			{ label: 'Preferred time', value: details.requestedTime },
-			{ label: 'Guest name', value: details.guestName },
-			{ label: 'Number of guests', value: String(details.guestCount) },
-			{ label: 'Phone', value: details.phone },
-			{ label: 'Email', value: details.guestEmail }
-		])
+		children: [
+			renderDetailsTable([
+				{ label: 'Preferred time', value: details.requestedTime },
+				{ label: 'Guest name', value: details.guestName },
+				{ label: 'Number of guests', value: String(details.guestCount) },
+				{ label: 'Phone', value: details.phone },
+				{ label: 'Email', value: details.guestEmail }
+			]),
+			renderEmailNotice({
+				title: 'Important',
+				body: 'The hospitality may contact you via WhatsApp or phone to coordinate your visit. Please check your messages and respond promptly—if we do not hear from you within a reasonable timeframe, your reservation may be cancelled.'
+			})
+		].join('')
 	});
 
 	const text = [
@@ -45,7 +55,10 @@ export async function sendAcceptedReservationEmailToGuest(
 		`Guest name: ${details.guestName}`,
 		`Number of guests: ${details.guestCount}`,
 		`Phone: ${details.phone}`,
-		`Email: ${details.guestEmail}`
+		`Email: ${details.guestEmail}`,
+		'',
+		'IMPORTANT',
+		'The hospitality may contact you via WhatsApp or phone to coordinate your visit. Please check your messages and respond promptly—if we do not hear from you within a reasonable timeframe, your reservation may be cancelled.'
 	].join('\n');
 
 	await resend.sendEmail(ctx, {

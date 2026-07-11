@@ -66,11 +66,37 @@ export function createGuestAuth(fallbackFetchAccessToken: FetchAccessToken) {
 	function attach() {
 		const convexClient = getConvexClient();
 
+		// Guest auth must own the Convex client while /stay is mounted. The root
+		// Better Auth integration re-runs `client.setAuth` whenever its session
+		// atom refreshes (tab refocus, cross-tab broadcast, polling), which would
+		// silently swap the client back to the logged-in user's identity mid-stay
+		// — every guest query then loses its session (skeletons, then the layout
+		// error). Shadow `setAuth` with a no-op so competing callers are ignored;
+		// the shadow is removed on cleanup.
+		const setAuth = convexClient.setAuth.bind(convexClient);
+		convexClient.setAuth = () => {};
+
+		let retryTimer: ReturnType<typeof setTimeout> | undefined;
+		let retryAttempt = 0;
+
 		const apply = () => {
-			convexClient.setAuth(fetchGuestToken, (isAuthenticated) => {
+			clearTimeout(retryTimer);
+			setAuth(fetchGuestToken, (isAuthenticated) => {
 				if (isAuthenticated) {
 					status = 'authenticated';
 					established = true;
+					retryAttempt = 0;
+					return;
+				}
+
+				// The Convex client treats one failed token refresh as terminal: it
+				// clears auth and never retries, leaving every guest query paused
+				// (infinite skeletons) until a tab switch re-applies auth. A definitive
+				// 401 sets status to 'missing'/'expired' (real end of session — don't
+				// retry); anything else is transient, so re-apply with backoff.
+				if (status === 'authenticated' || status === 'error') {
+					const delay = Math.min(30_000, 1_000 * 2 ** retryAttempt++);
+					retryTimer = setTimeout(apply, delay);
 				}
 			});
 		};
@@ -91,9 +117,13 @@ export function createGuestAuth(fallbackFetchAccessToken: FetchAccessToken) {
 		document.addEventListener('visibilitychange', onVisibilityChange);
 
 		return () => {
+			clearTimeout(retryTimer);
 			window.removeEventListener('pageshow', onPageshow);
 			document.removeEventListener('visibilitychange', onVisibilityChange);
-			convexClient.setAuth(fallbackFetchAccessToken);
+			// Remove the shadow (restores the prototype method), then hand the
+			// client back to the regular Better Auth token.
+			delete (convexClient as { setAuth?: unknown }).setAuth;
+			setAuth(fallbackFetchAccessToken);
 		};
 	}
 

@@ -57,7 +57,9 @@
 	);
 
 	let platformPage = $state<Doc<'hospitalities'>[]>([]);
-	let platformQueryPending = $state(false);
+	// Starts true: `isEmpty` gates the ConvexDataList that runs the platform query,
+	// so a false start would lock in the empty state before the query ever mounts.
+	let platformQueryPending = $state(true);
 
 	const customPartnerships = $derived(customQuery.data ?? []);
 	const customReady = $derived(customQuery.data !== undefined || Boolean(customQuery.error));
