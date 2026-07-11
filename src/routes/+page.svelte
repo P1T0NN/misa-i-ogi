@@ -1,4 +1,7 @@
 <script lang="ts">
+	// LIBRARIES
+	import { m } from '@/shared/lib/paraglide/messages';
+
 	// COMPONENTS
 	import HeroSection from '@/shared/components/pages/(unprotected)/root/hero-section.svelte';
 	import BenefitsSection from '@/shared/components/pages/(unprotected)/root/benefits-section.svelte';
@@ -12,8 +15,8 @@
 </script>
 
 <SvelteHead
-	title="Guest benefits for accommodations and hospitalities"
-	description="A premium QR benefits network for accommodations and hospitalities. Guests scan in-room, discover curated local offers, and send reservation requests."
+	title={m['HomePage.SEO.title']()}
+	description={m['HomePage.SEO.description']()}
 />
 
 <main id="content" class="bg-background text-foreground">

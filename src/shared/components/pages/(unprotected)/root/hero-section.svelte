@@ -1,4 +1,7 @@
 <script lang="ts">
+	// LIBRARIES
+	import { m } from '@/shared/lib/paraglide/messages';
+
 	// CONFIG
 	import { UNPROTECTED_PAGE_ENDPOINTS } from '@/shared/page-endpoints';
 
@@ -15,7 +18,7 @@
 >
 	<img
 		src="/images/landing/hero-image.png"
-		alt="Warm accommodation room with a blank welcome card on a bedside table"
+		alt={m['HomePage.HeroSection.imageAlt']()}
 		class="absolute inset-0 -z-20 size-full object-cover object-[70%_50%] sm:object-center"
 		width="1680"
 		height="945"
@@ -45,15 +48,13 @@
 				id="home-hero-heading"
 				class="reveal reveal-2 mx-auto mt-5 max-w-[13ch] font-display text-5xl leading-[0.96] font-medium tracking-normal text-balance text-ivory sm:mx-0 sm:text-6xl md:text-7xl xl:text-8xl"
 			>
-				The best local places, the moment guests arrive.
+				{m['HomePage.HeroSection.heading']()}
 			</h1>
 
 			<p
 				class="reveal reveal-3 mx-auto mt-7 max-w-[58ch] text-lg leading-relaxed text-silver sm:mx-0 sm:text-xl"
 			>
-				Guests scan one QR code in the room, unlock curated local benefits, and request reservations
-				from partner hospitalities. Accommodations join free. Hospitality partners receive guests
-				who are already minutes away.
+				{m['HomePage.HeroSection.description']()}
 			</p>
 
 			<div
@@ -64,7 +65,7 @@
 					size="lg"
 					class="h-11 gap-2 bg-primary px-5 text-button text-primary-foreground hover:bg-primary/90"
 				>
-					Register free
+					{m['HomePage.HeroSection.registerFree']()}
 					<ArrowRight data-icon="inline-end" class="size-4" aria-hidden="true" />
 				</Button>
 
@@ -74,7 +75,7 @@
 					size="lg"
 					class="h-11 border-ivory/30 bg-ivory/10 px-5 text-button text-ivory hover:bg-ivory/20 hover:text-ivory"
 				>
-					Contact us
+					{m['HomePage.HeroSection.contactUs']()}
 				</Button>
 			</div>
 		</div>

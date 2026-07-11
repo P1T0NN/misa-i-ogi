@@ -1,14 +1,17 @@
 <script lang="ts">
+	// LIBRARIES
+	import { m } from '@/shared/lib/paraglide/messages';
+
 	// COMPONENTS
 	import Section from '@/shared/components/ui/section/section.svelte';
 	import StandardsSectionItem from './standards-section-item.svelte';
 
-	const items = [
-		'Walking-distance-first recommendations.',
-		'Real benefits staff can honor in person.',
-		'No guest app, account, or login wall.',
-		'Property-specific partner lists, never an ad-ranked directory.'
-	];
+	const items = $derived([
+		m['HomePage.StandardsSection.item1'](),
+		m['HomePage.StandardsSection.item2'](),
+		m['HomePage.StandardsSection.item3'](),
+		m['HomePage.StandardsSection.item4']()
+	]);
 </script>
 
 <!-- The page's dark chapter: the editorial policy that earns the word "premium". -->
@@ -19,18 +22,17 @@
 	containerClass="max-w-5xl"
 	ariaLabelledby="trust-standards-heading"
 >
-	<p class="landing-section-eyebrow text-accent-2">The standard</p>
+	<p class="landing-section-eyebrow text-accent-2">{m['HomePage.StandardsSection.eyebrow']()}</p>
 
 	<h2
 		id="trust-standards-heading"
 		class="mt-5 font-display text-4xl leading-tight font-medium text-ivory sm:text-5xl"
 	>
-		Curated means both sides look good.
+		{m['HomePage.StandardsSection.heading']()}
 	</h2>
 
 	<p class="mt-3 max-w-[52ch] text-lg leading-relaxed text-silver">
-		If a partnership does not improve the guest experience and send the right kind of demand to the
-		hospitality partner, it does not belong on the page.
+		{m['HomePage.StandardsSection.lead']()}
 	</p>
 
 	<ol class="mt-14 grid gap-x-14 gap-y-10 sm:grid-cols-2">

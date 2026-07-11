@@ -1,4 +1,7 @@
 <script lang="ts">
+	// LIBRARIES
+	import { m } from '@/shared/lib/paraglide/messages';
+
 	// CONFIG
 	import { COMPANY_DATA } from '@/shared/constants';
 
@@ -8,24 +11,25 @@
 </script>
 
 <div>
-	<p class="landing-section-eyebrow mb-3 text-accent-2">Contact</p>
+	<p class="landing-section-eyebrow mb-3 text-accent-2">
+		{m['ContactSection.ContactLeftContent.eyebrow']()}
+	</p>
 
 	<h2
 		id="contact-heading"
 		class="max-w-[11ch] font-display text-4xl leading-[1.05] font-medium text-ivory md:text-5xl"
 	>
-		Plan your<br />
-		<span class="text-accent-2">guest network</span>
+		{m['ContactSection.ContactLeftContent.headingLine1']()}<br />
+		<span class="text-accent-2">{m['ContactSection.ContactLeftContent.headingAccent']()}</span>
 	</h2>
 
 	<p class="mt-6 max-w-sm text-base leading-relaxed text-silver">
-		Large operators, boutique accommodations, restaurants, bars, spas, tours, and local experiences
-		can all enter through the same conversation.
+		{m['ContactSection.ContactLeftContent.description']()}
 	</p>
 
 	<div class="my-10 h-px bg-linear-to-r from-ivory/20 to-transparent"></div>
 
-	<p class="mb-5 text-sm text-silver">Prefer email?</p>
+	<p class="mb-5 text-sm text-silver">{m['ContactSection.ContactLeftContent.preferEmail']()}</p>
 
 	<div class="flex flex-col gap-4">
 		<a

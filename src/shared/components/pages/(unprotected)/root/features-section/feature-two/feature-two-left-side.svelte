@@ -1,4 +1,7 @@
 <script lang="ts">
+	// LIBRARIES
+	import { m } from '@/shared/lib/paraglide/messages';
+
 	// COMPONENTS
 	import AnalyticsTopAccommodationsTable from '@/features/analytics/components/analytics-top-accommodations-table.svelte';
 	import AnalyticsTopHospitalitiesTable from '@/features/analytics/components/analytics-top-hospitalities-table.svelte';
@@ -15,7 +18,7 @@
 
 <div
 	class="relative grid min-w-0 gap-5 sm:gap-6 lg:block lg:min-h-188"
-	aria-label="Example partner performance dashboard tables"
+	aria-label={m['HomePage.FeatureTwoLeftSide.ariaLabel']()}
 >
 	<div
 		class="pointer-events-none absolute inset-x-6 top-12 h-52 rounded-full bg-primary/10 blur-3xl"
@@ -28,8 +31,8 @@
 		<AnalyticsTopAccommodationsTable
 			rows={landingOwnerFeaturesHospitalityAnalyticsTopAccommodationsTableRows}
 			variant="dummy"
-			title="Accommodation performance"
-			description="Example source accommodations sending guests to this hospitality."
+			title={m['HomePage.FeatureTwoLeftSide.accommodationTableTitle']()}
+			description={m['HomePage.FeatureTwoLeftSide.accommodationTableDescription']()}
 		/>
 	</div>
 
@@ -39,8 +42,8 @@
 		<AnalyticsTopHospitalitiesTable
 			rows={landingOwnerFeaturesAccommodationAnalyticsTopHospitalitiesTableRows}
 			variant="dummy"
-			title="Hospitality performance"
-			description="Example partner hospitalities receiving attention from this accommodation."
+			title={m['HomePage.FeatureTwoLeftSide.hospitalityTableTitle']()}
+			description={m['HomePage.FeatureTwoLeftSide.hospitalityTableDescription']()}
 		/>
 	</div>
 </div>

@@ -1,5 +1,6 @@
 <script lang="ts">
 	// LIBRARIES
+	import { m } from '@/shared/lib/paraglide/messages';
 	import { ArrowRight, BedDouble, ConciergeBell } from '@lucide/svelte';
 
 	// CONFIG
@@ -17,60 +18,59 @@
 		learnMoreHref?: string;
 	};
 
-	const accommodationPoints: BenefitPoint[] = [
+	const accommodationPoints = $derived<BenefitPoint[]>([
 		{
-			title: 'Perks ready on day one',
-			body: 'The minute you join, your guests get real benefits at the hospitalities we already partner with. You set nothing up — it works from arrival.'
+			title: m['HomePage.BenefitsSection.accommodationPoint1Title'](),
+			body: m['HomePage.BenefitsSection.accommodationPoint1Body']()
 		},
 		{
-			title: 'Better reviews, more bookings',
-			body: 'Guests who arrive to a free local perk rate their accommodation higher. Better reviews bring more bookings. It compounds over every season.'
+			title: m['HomePage.BenefitsSection.accommodationPoint2Title'](),
+			body: m['HomePage.BenefitsSection.accommodationPoint2Body']()
 		},
 		{
-			title: 'Guests pick you first',
-			body: 'An accommodation with real perks nearby beats the one next door that offers nothing. Give them a reason before they even arrive.'
+			title: m['HomePage.BenefitsSection.accommodationPoint3Title'](),
+			body: m['HomePage.BenefitsSection.accommodationPoint3Body']()
 		},
 		{
-			title: 'Bring your own hospitality',
-			body: 'Know a local spot we do not partner with yet? The ability to pair up with them directly, one to one, is coming soon. Pricing for that feature has not been decided yet.',
-			tag: 'Coming soon'
+			title: m['HomePage.BenefitsSection.accommodationPoint4Title'](),
+			body: m['HomePage.BenefitsSection.accommodationPoint4Body'](),
+			tag: m['HomePage.BenefitsSection.comingSoon']()
 		}
-	];
+	]);
 
-	const hospitalityPoints: BenefitPoint[] = [
+	const hospitalityPoints = $derived<BenefitPoint[]>([
 		{
-			title: 'Guests are already next door',
-			body: 'Not random clicks. Real people staying minutes away, deciding where to go right now.'
+			title: m['HomePage.BenefitsSection.hospitalityPoint1Title'](),
+			body: m['HomePage.BenefitsSection.hospitalityPoint1Body']()
 		},
 		{
-			title: 'Get in front of every accommodation',
-			body: 'Become a partner hospitality and you are shown to every apartment and hotel on the platform at once — automatically, without chasing each one.'
+			title: m['HomePage.BenefitsSection.hospitalityPoint2Title'](),
+			body: m['HomePage.BenefitsSection.hospitalityPoint2Body']()
 		},
 		{
-			title: 'You control the offer, we bring the guests',
-			body: 'We work with you to design a perk that fills your quiet hours. You approve it, you honor it — no surprises, nothing imposed.'
+			title: m['HomePage.BenefitsSection.hospitalityPoint3Title'](),
+			body: m['HomePage.BenefitsSection.hospitalityPoint3Body']()
 		},
 		{
-			title: 'Pay only when guests actually show up',
-			body: 'No upfront fee, no monthly bill. Our commission is tied to real, verified redemptions — nothing we cannot both see and count.'
+			title: m['HomePage.BenefitsSection.hospitalityPoint4Title'](),
+			body: m['HomePage.BenefitsSection.hospitalityPoint4Body']()
 		}
-	];
+	]);
 </script>
 
 <Section id="benefits" yPadding="xl" class="bg-background" ariaLabelledby="benefits-heading">
 	<div class="mx-auto max-w-2xl text-center">
-		<p class="landing-section-eyebrow text-primary">For owners</p>
+		<p class="landing-section-eyebrow text-primary">{m['HomePage.BenefitsSection.eyebrow']()}</p>
 
 		<h2
 			id="benefits-heading"
 			class="mt-4 font-display text-4xl leading-tight font-medium text-foreground sm:text-5xl"
 		>
-			What you get, in plain words.
+			{m['HomePage.BenefitsSection.heading']()}
 		</h2>
 
 		<p class="lead mx-auto mt-5 max-w-[52ch]">
-			Two kinds of owners use the platform. Find the one that is you, and read straight down the
-			list.
+			{m['HomePage.BenefitsSection.lead']()}
 		</p>
 	</div>
 
@@ -88,19 +88,26 @@
 					</span>
 
 					<div>
-						<p class="landing-eyebrow mb-1 text-primary">For accommodations</p>
-						<p class="mb-0 font-display text-2xl leading-tight text-foreground">You host guests</p>
-						<p class="mb-0 text-sm text-muted-foreground">Apartments · villas · hotels</p>
+						<p class="landing-eyebrow mb-1 text-primary">
+							{m['HomePage.BenefitsSection.accommodationsEyebrow']()}
+						</p>
+						<p class="mb-0 font-display text-2xl leading-tight text-foreground">
+							{m['HomePage.BenefitsSection.accommodationsTitle']()}
+						</p>
+						<p class="mb-0 text-sm text-muted-foreground">
+							{m['HomePage.BenefitsSection.accommodationsSubtitle']()}
+						</p>
 					</div>
 				</div>
 
-				<Badge variant="success" class="shrink-0">Free to join</Badge>
+				<Badge variant="success" class="shrink-0">
+					{m['HomePage.BenefitsSection.accommodationsBadge']()}
+				</Badge>
 			</div>
 
 			<div class="flex flex-1 flex-col p-6 sm:p-8">
 				<p class="mb-0 text-base leading-relaxed text-foreground">
-					List your place for free. Your guests get real perks nearby — and that makes guests pick
-					you.
+					{m['HomePage.BenefitsSection.accommodationsIntro']()}
 				</p>
 
 				<ol class="mt-7 space-y-5">
@@ -121,7 +128,7 @@
 									{point.body}{#if point.learnMoreHref != null}&nbsp;<a
 											href={point.learnMoreHref}
 											class="font-medium text-foreground underline underline-offset-2 hover:text-primary"
-											>What is Pro?</a
+											>{m['HomePage.BenefitsSection.whatIsPro']()}</a
 										>{/if}
 								</p>
 							</div>
@@ -131,7 +138,7 @@
 
 				<div class="mt-auto pt-8">
 					<Button href={UNPROTECTED_PAGE_ENDPOINTS.SIGNUP} class="w-full sm:w-fit">
-						Register free
+						{m['HomePage.BenefitsSection.registerFree']()}
 						<ArrowRight data-icon="inline-end" class="size-4" aria-hidden="true" />
 					</Button>
 				</div>
@@ -151,19 +158,26 @@
 					</span>
 
 					<div>
-						<p class="landing-eyebrow mb-1 text-primary">For hospitalities</p>
-						<p class="mb-0 font-display text-2xl leading-tight text-foreground">You serve guests</p>
-						<p class="mb-0 text-sm text-muted-foreground">Restaurants · bars · spas · tours</p>
+						<p class="landing-eyebrow mb-1 text-primary">
+							{m['HomePage.BenefitsSection.hospitalitiesEyebrow']()}
+						</p>
+						<p class="mb-0 font-display text-2xl leading-tight text-foreground">
+							{m['HomePage.BenefitsSection.hospitalitiesTitle']()}
+						</p>
+						<p class="mb-0 text-sm text-muted-foreground">
+							{m['HomePage.BenefitsSection.hospitalitiesSubtitle']()}
+						</p>
 					</div>
 				</div>
 
-				<Badge variant="success" class="shrink-0">No upfront cost</Badge>
+				<Badge variant="success" class="shrink-0">
+					{m['HomePage.BenefitsSection.hospitalitiesBadge']()}
+				</Badge>
 			</div>
 
 			<div class="flex flex-1 flex-col p-6 sm:p-8">
 				<p class="mb-0 text-base leading-relaxed text-foreground">
-					Partner with us and reach guests who are already nearby — staying in the apartments and
-					hotels around you.
+					{m['HomePage.BenefitsSection.hospitalitiesIntro']()}
 				</p>
 
 				<ol class="mt-7 space-y-5">
@@ -187,11 +201,11 @@
 						variant="outline"
 						class="w-full sm:w-fit"
 					>
-						Become a partner hospitality
+						{m['HomePage.BenefitsSection.becomePartner']()}
 						<ArrowRight data-icon="inline-end" class="size-4" aria-hidden="true" />
 					</Button>
 					<p class="mt-3 mb-0 text-sm text-muted-foreground">
-						Prefer a direct conversation? Reach us on Viber or WhatsApp.
+						{m['HomePage.BenefitsSection.preferDirectConversation']()}
 					</p>
 				</div>
 			</div>
@@ -199,9 +213,9 @@
 	</div>
 
 	<p class="mx-auto mt-10 max-w-2xl text-center text-sm leading-relaxed text-muted-foreground">
-		<span class="font-medium text-foreground"
-			>Free for hosts, pay-per-result for hospitalities.</span
-		>
-		Each side makes the other more valuable — and that balance is the whole platform.
+		<span class="font-medium text-foreground">
+			{m['HomePage.BenefitsSection.footerBold']()}
+		</span>
+		{m['HomePage.BenefitsSection.footer']()}
 	</p>
 </Section>

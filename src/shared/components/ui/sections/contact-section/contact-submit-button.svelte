@@ -1,6 +1,7 @@
 <script lang="ts">
 	// LIBRARIES
 	import { safeParse } from 'valibot';
+	import { m } from '@/shared/lib/paraglide/messages';
 
 	// CLASSES
 	import { contactSectionClass } from './contactSection.svelte.ts';
@@ -61,5 +62,5 @@
 	{#if submitting}
 		<Spinner />
 	{/if}
-	Send message
+	{m['ContactSection.ContactSubmitButton.submit']()}
 </Button>

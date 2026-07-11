@@ -1,4 +1,7 @@
 <script lang="ts">
+	// LIBRARIES
+	import { m } from '@/shared/lib/paraglide/messages';
+
 	// COMPONENTS
 	import { Badge } from '@/shared/components/ui/badge/index.js';
 	import {
@@ -16,7 +19,7 @@
 	import { landingOwnerFeaturesPartnershipPartners } from '@/shared/data/dummyData';
 </script>
 
-<div class="relative" aria-label="Example partnership benefits">
+<div class="relative" aria-label={m['HomePage.FeatureFourLeftSide.ariaLabel']()}>
 	<div
 		class="pointer-events-none absolute inset-x-6 top-10 h-48 rounded-full bg-primary/10 blur-3xl"
 		aria-hidden="true"
@@ -30,11 +33,11 @@
 				class="flex flex-row items-start justify-between gap-3 border-b border-border-2 px-4 py-4 sm:px-5"
 			>
 				<div class="min-w-0">
-					<CardTitle class="text-base">Partnerships</CardTitle>
-					<CardDescription>Benefits guests unlock on this accommodation.</CardDescription>
+					<CardTitle class="text-base">{m['HomePage.FeatureFourLeftSide.cardTitle']()}</CardTitle>
+					<CardDescription>{m['HomePage.FeatureFourLeftSide.cardDescription']()}</CardDescription>
 				</div>
 
-				<Badge variant="success">Free</Badge>
+				<Badge variant="success">{m['HomePage.FeatureFourLeftSide.freeBadge']()}</Badge>
 			</CardHeader>
 
 			<CardContent class="px-3 pt-3 pb-4 sm:px-4">

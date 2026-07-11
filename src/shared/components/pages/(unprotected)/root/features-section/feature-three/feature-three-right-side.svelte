@@ -1,4 +1,7 @@
 <script lang="ts">
+	// LIBRARIES
+	import { m } from '@/shared/lib/paraglide/messages';
+
 	// COMPONENTS
 	import { Badge } from '@/shared/components/ui/badge/index.js';
 	import {
@@ -22,7 +25,7 @@
 
 <div
 	class="relative grid min-w-0 gap-5 sm:gap-6 lg:block lg:min-h-188"
-	aria-label="Example reservation management dashboard"
+	aria-label={m['HomePage.FeatureThreeRightSide.ariaLabel']()}
 >
 	<div
 		class="pointer-events-none absolute inset-x-6 top-10 h-48 rounded-full bg-primary/10 blur-3xl"
@@ -34,8 +37,8 @@
 			class="shadow-dashboard-card overflow-hidden rounded-2xl border border-border-2 bg-card py-0"
 		>
 			<CardHeader class="border-b border-border-2 px-4 py-4">
-				<CardTitle class="text-base">Reservation requests</CardTitle>
-				<CardDescription>Example dashboard data for one hospitality.</CardDescription>
+				<CardTitle class="text-base">{m['HomePage.FeatureThreeRightSide.requestsTitle']()}</CardTitle>
+				<CardDescription>{m['HomePage.FeatureThreeRightSide.requestsDescription']()}</CardDescription>
 			</CardHeader>
 
 			<CardContent class="px-3 pt-3 pb-4 sm:px-4">
@@ -80,8 +83,8 @@
 			class="shadow-dashboard-card overflow-hidden rounded-2xl border border-border-2 bg-card py-0"
 		>
 			<CardHeader class="border-b border-border-2 px-4 py-4">
-				<CardTitle class="text-base">This week</CardTitle>
-				<CardDescription>Every request stays tracked.</CardDescription>
+				<CardTitle class="text-base">{m['HomePage.FeatureThreeRightSide.weekTitle']()}</CardTitle>
+				<CardDescription>{m['HomePage.FeatureThreeRightSide.weekDescription']()}</CardDescription>
 			</CardHeader>
 
 			<CardContent class="grid grid-cols-2 gap-3 px-3 pt-4 pb-4 sm:px-4">

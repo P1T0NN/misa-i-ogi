@@ -1,4 +1,7 @@
 <script lang="ts">
+	// LIBRARIES
+	import { m } from '@/shared/lib/paraglide/messages';
+
 	// COMPONENTS
 	import Section from '@/shared/components/ui/section/section.svelte';
 	import FeatureOne from './feature-one/feature-one.svelte';
@@ -14,18 +17,17 @@
 	ariaLabelledby="owner-features-heading"
 >
 	<div class="mx-auto max-w-2xl text-center">
-		<p class="landing-section-eyebrow text-primary">The platform</p>
+		<p class="landing-section-eyebrow text-primary">{m['HomePage.FeaturesSection.eyebrow']()}</p>
 
 		<h2
 			id="owner-features-heading"
 			class="mt-4 font-display text-4xl leading-tight font-medium text-foreground sm:text-5xl lg:text-6xl"
 		>
-			Behind the scan, a dashboard you actually run.
+			{m['HomePage.FeaturesSection.heading']()}
 		</h2>
 
 		<p class="lead mx-auto mt-5 max-w-[54ch]">
-			Your guest sees one clean page. Underneath it, you get the real thing — the partnerships they
-			unlock, the reservations they send, and the numbers behind every visit.
+			{m['HomePage.FeaturesSection.lead']()}
 		</p>
 	</div>
 

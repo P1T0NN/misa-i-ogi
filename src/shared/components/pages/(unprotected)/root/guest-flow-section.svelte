@@ -1,4 +1,7 @@
 <script lang="ts">
+	// LIBRARIES
+	import { m } from '@/shared/lib/paraglide/messages';
+
 	// COMPONENTS
 	import CustomCarousel from '@/shared/components/ui/custom-carousel/custom-carousel.svelte';
 	import PhoneMockup from '@/shared/components/ui/phone-mockup/phone-mockup.svelte';
@@ -16,39 +19,39 @@
 	const flowSteps = $derived([
 		{
 			kicker: '01',
-			title: 'QR code waits in the accommodation',
-			body: 'A guest arrives and finds one QR card inside the accommodation. No app, no account, no reception explanation needed.',
+			title: m['HomePage.GuestFlowSection.step1Title'](),
+			body: m['HomePage.GuestFlowSection.step1Body'](),
 			image: '/images/landing/flow-section/step1.png',
 			fit: 'cover'
 		},
 		{
 			kicker: '02',
-			title: 'Guest opens the accommodation benefits page',
-			body: 'The page is tied to that accommodation and shows benefits selected for that exact accommodation.',
+			title: m['HomePage.GuestFlowSection.step2Title'](),
+			body: m['HomePage.GuestFlowSection.step2Body'](),
 			image: '/images/landing/flow-section/step2.png'
 		},
 		{
 			kicker: '03',
-			title: 'Guest selects a hospitality partner',
-			body: 'They open a partner page, check the offer, location, and details, then decide if it fits their plan.',
+			title: m['HomePage.GuestFlowSection.step3Title'](),
+			body: m['HomePage.GuestFlowSection.step3Body'](),
 			image: '/images/landing/flow-section/step3.png'
 		},
 		{
 			kicker: '04',
-			title: 'Guest requests a reservation',
-			body: 'If reservations are enabled, the guest sends a short request with name, guest count, time, phone, and optional email.',
+			title: m['HomePage.GuestFlowSection.step4Title'](),
+			body: m['HomePage.GuestFlowSection.step4Body'](),
 			image: '/images/landing/flow-section/step4.png'
 		},
 		{
 			kicker: '05',
-			title: 'The request is sent and tracked',
-			body: 'The hospitality owner receives the request, contacts the guest if needed, then confirms or declines it from the dashboard.',
+			title: m['HomePage.GuestFlowSection.step5Title'](),
+			body: m['HomePage.GuestFlowSection.step5Body'](),
 			image: '/images/landing/flow-section/step5.png'
 		},
 		{
 			kicker: '06',
-			title: 'Hospitality owner confirms the reservation',
-			body: 'The guest sees the reservation confirmed, and the hospitality owner has the visit recorded in the dashboard.',
+			title: m['HomePage.GuestFlowSection.step6Title'](),
+			body: m['HomePage.GuestFlowSection.step6Body'](),
 			image: '/images/landing/flow-section/step6.png'
 		}
 	] satisfies FlowStep[]);
@@ -58,7 +61,7 @@
 	}
 
 	function getStepDotLabel(_step: FlowStep, index: number) {
-		return `Go to step ${index + 1}`;
+		return m['HomePage.GuestFlowSection.goToStep']({ step: index + 1 });
 	}
 </script>
 
@@ -70,17 +73,16 @@
 >
 	<div class="grid gap-8 lg:grid-cols-[minmax(0,0.78fr)_minmax(0,1fr)] lg:items-end">
 		<div>
-			<p class="landing-section-eyebrow text-primary">How it works</p>
+			<p class="landing-section-eyebrow text-primary">{m['HomePage.GuestFlowSection.eyebrow']()}</p>
 			<h2
 				id="guest-flow-heading"
 				class="mt-4 max-w-[15ch] font-display text-4xl leading-tight font-medium text-foreground sm:text-5xl"
 			>
-				From room scan to confirmed reservation.
+				{m['HomePage.GuestFlowSection.heading']()}
 			</h2>
 		</div>
 		<p class="lead max-w-[58ch] lg:justify-self-end">
-			The entire journey is visible, short, and understandable. No download, no guest account, no
-			confusing handoff.
+			{m['HomePage.GuestFlowSection.lead']()}
 		</p>
 	</div>
 
@@ -88,9 +90,9 @@
 		items={flowSteps}
 		getKey={getStepKey}
 		getDotLabel={getStepDotLabel}
-		ariaLabel="Guest flow"
-		previousLabel="Previous step"
-		nextLabel="Next step"
+		ariaLabel={m['HomePage.GuestFlowSection.carouselAriaLabel']()}
+		previousLabel={m['HomePage.GuestFlowSection.previousStep']()}
+		nextLabel={m['HomePage.GuestFlowSection.nextStep']()}
 		class="mt-14"
 		viewportClass="rounded-[2rem] border border-border-2 bg-card"
 	>
@@ -144,7 +146,10 @@
 
 					<div class="mt-10 border-t border-border-2 pt-5">
 						<p class="landing-eyebrow mb-0 text-muted-foreground">
-							Step {index + 1} of {flowSteps.length}
+							{m['HomePage.GuestFlowSection.stepProgress']({
+								current: index + 1,
+								total: flowSteps.length
+							})}
 						</p>
 					</div>
 				</div>

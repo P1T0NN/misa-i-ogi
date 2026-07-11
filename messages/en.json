@@ -1697,6 +1697,13 @@
 			"messageRequired": "Please describe what happened.",
 			"messageMax": "Keep your message under {max} characters.",
 			"emailInvalid": "Enter a valid email address."
+		},
+		"ContactSection": {
+			"nameMinLength": "Name must be at least 3 characters.",
+			"nameMaxLength": "Name must be at most 100 characters.",
+			"invalidEmail": "Please enter a valid email address.",
+			"messageMinLength": "Message must be at least 10 characters.",
+			"messageMaxLength": "Message must be at most 5000 characters."
 		}
 	},
 	"ReportPage": {
@@ -2044,5 +2051,238 @@
 		"open": "Open",
 		"details": "Details",
 		"detailsAriaLabel": "Open analytics details for {name}"
+	},
+	"HomePage": {
+		"SEO": {
+			"title": "Guest benefits for accommodations and hospitalities",
+			"description": "A premium QR benefits network for accommodations and hospitalities. Guests scan in-room, discover curated local offers, and send reservation requests."
+		},
+		"HeroSection": {
+			"imageAlt": "Warm accommodation room with a blank welcome card on a bedside table",
+			"heading": "The best local places, the moment guests arrive.",
+			"description": "Guests scan one QR code in the room, unlock curated local benefits, and request reservations from partner hospitalities. Accommodations join free. Hospitality partners receive guests who are already minutes away.",
+			"registerFree": "Register free",
+			"contactUs": "Contact us"
+		},
+		"BenefitsSection": {
+			"eyebrow": "For owners",
+			"heading": "What you get, in plain words.",
+			"lead": "Two kinds of owners use the platform. Find the one that is you, and read straight down the list.",
+			"accommodationsEyebrow": "For accommodations",
+			"accommodationsTitle": "You host guests",
+			"accommodationsSubtitle": "Apartments · villas · hotels",
+			"accommodationsBadge": "Free to join",
+			"accommodationsIntro": "List your place for free. Your guests get real perks nearby — and that makes guests pick you.",
+			"accommodationPoint1Title": "Perks ready on day one",
+			"accommodationPoint1Body": "The minute you join, your guests get real benefits at the hospitalities we already partner with. You set nothing up — it works from arrival.",
+			"accommodationPoint2Title": "Better reviews, more bookings",
+			"accommodationPoint2Body": "Guests who arrive to a free local perk rate their accommodation higher. Better reviews bring more bookings. It compounds over every season.",
+			"accommodationPoint3Title": "Guests pick you first",
+			"accommodationPoint3Body": "An accommodation with real perks nearby beats the one next door that offers nothing. Give them a reason before they even arrive.",
+			"accommodationPoint4Title": "Bring your own hospitality",
+			"accommodationPoint4Body": "Know a local spot we do not partner with yet? The ability to pair up with them directly, one to one, is coming soon. Pricing for that feature has not been decided yet.",
+			"comingSoon": "Coming soon",
+			"whatIsPro": "What is Pro?",
+			"registerFree": "Register free",
+			"hospitalitiesEyebrow": "For hospitalities",
+			"hospitalitiesTitle": "You serve guests",
+			"hospitalitiesSubtitle": "Restaurants · bars · spas · tours",
+			"hospitalitiesBadge": "No upfront cost",
+			"hospitalitiesIntro": "Partner with us and reach guests who are already nearby — staying in the apartments and hotels around you.",
+			"hospitalityPoint1Title": "Guests are already next door",
+			"hospitalityPoint1Body": "Not random clicks. Real people staying minutes away, deciding where to go right now.",
+			"hospitalityPoint2Title": "Get in front of every accommodation",
+			"hospitalityPoint2Body": "Become a partner hospitality and you are shown to every apartment and hotel on the platform at once — automatically, without chasing each one.",
+			"hospitalityPoint3Title": "You control the offer, we bring the guests",
+			"hospitalityPoint3Body": "We work with you to design a perk that fills your quiet hours. You approve it, you honor it — no surprises, nothing imposed.",
+			"hospitalityPoint4Title": "Pay only when guests actually show up",
+			"hospitalityPoint4Body": "No upfront fee, no monthly bill. Our commission is tied to real, verified redemptions — nothing we cannot both see and count.",
+			"becomePartner": "Become a partner hospitality",
+			"preferDirectConversation": "Prefer a direct conversation? Reach us on Viber or WhatsApp.",
+			"footerBold": "Free for hosts, pay-per-result for hospitalities.",
+			"footer": "Each side makes the other more valuable — and that balance is the whole platform."
+		},
+		"GuestFlowSection": {
+			"eyebrow": "How it works",
+			"heading": "From room scan to confirmed reservation.",
+			"lead": "The entire journey is visible, short, and understandable. No download, no guest account, no confusing handoff.",
+			"carouselAriaLabel": "Guest flow",
+			"previousStep": "Previous step",
+			"nextStep": "Next step",
+			"goToStep": "Go to step {step}",
+			"stepProgress": "Step {current} of {total}",
+			"step1Title": "QR code waits in the accommodation",
+			"step1Body": "A guest arrives and finds one QR card inside the accommodation. No app, no account, no reception explanation needed.",
+			"step2Title": "Guest opens the accommodation benefits page",
+			"step2Body": "The page is tied to that accommodation and shows benefits selected for that exact accommodation.",
+			"step3Title": "Guest selects a hospitality partner",
+			"step3Body": "They open a partner page, check the offer, location, and details, then decide if it fits their plan.",
+			"step4Title": "Guest requests a reservation",
+			"step4Body": "If reservations are enabled, the guest sends a short request with name, guest count, time, phone, and optional email.",
+			"step5Title": "The request is sent and tracked",
+			"step5Body": "The hospitality owner receives the request, contacts the guest if needed, then confirms or declines it from the dashboard.",
+			"step6Title": "Hospitality owner confirms the reservation",
+			"step6Body": "The guest sees the reservation confirmed, and the hospitality owner has the visit recorded in the dashboard."
+		},
+		"FeaturesSection": {
+			"eyebrow": "The platform",
+			"heading": "Behind the scan, a dashboard you actually run.",
+			"lead": "Your guest sees one clean page. Underneath it, you get the real thing — the partnerships they unlock, the reservations they send, and the numbers behind every visit."
+		},
+		"FeatureFourRightSide": {
+			"eyebrow": "Partnerships",
+			"heading": "Benefits from the day you register.",
+			"includedEyebrow": "Included with free registration",
+			"includedBadge": "Included",
+			"includedBody": "Register your accommodation for free and your guests instantly unlock benefits from our platform's partner hospitalities — real discounts at the best places nearby. No setup, no negotiation, guaranteed from day one.",
+			"customEyebrow": "Coming soon — your own custom partnerships",
+			"customBadge": "In development",
+			"customBody": "On top of the included benefits, you will soon be able to form your own partnerships directly with other hospitalities, with the discounts or perks you arrange yourself. Pricing has not been finalized yet.",
+			"learnMore": "Learn how partnerships work"
+		},
+		"FeatureFourLeftSide": {
+			"ariaLabel": "Example partnership benefits",
+			"cardTitle": "Partnerships",
+			"cardDescription": "Benefits guests unlock on this accommodation.",
+			"freeBadge": "Free"
+		},
+		"FeatureThreeLeftSide": {
+			"eyebrow": "Reservation management",
+			"heading": "Requests never disappear into a form.",
+			"hospitalityEyebrow": "For hospitality owners",
+			"hospitalityBody": "Review each request, reach the guest by phone, then confirm, decline, or mark a no-show. Every outcome stays on your dashboard.",
+			"accommodationEyebrow": "For accommodation owners",
+			"accommodationBody": "Your guests never hit a dead end. They can see whether a request is still pending or already confirmed, straight from the accommodation page."
+		},
+		"FeatureThreeRightSide": {
+			"ariaLabel": "Example reservation management dashboard",
+			"requestsTitle": "Reservation requests",
+			"requestsDescription": "Example dashboard data for one hospitality.",
+			"weekTitle": "This week",
+			"weekDescription": "Every request stays tracked."
+		},
+		"FeatureTwoRightSide": {
+			"eyebrow": "Partner performance",
+			"heading": "Know which partnerships are working.",
+			"accommodationEyebrow": "For accommodation owners",
+			"accommodationBody": "Rank the hospitality partners guests open most often, so your benefit list can stay relevant.",
+			"hospitalityEyebrow": "For hospitality owners",
+			"hospitalityBody": "Rank the accommodations sending the most guest attention and reservation intent to your hospitality."
+		},
+		"FeatureTwoLeftSide": {
+			"ariaLabel": "Example partner performance dashboard tables",
+			"accommodationTableTitle": "Accommodation performance",
+			"accommodationTableDescription": "Example source accommodations sending guests to this hospitality.",
+			"hospitalityTableTitle": "Hospitality performance",
+			"hospitalityTableDescription": "Example partner hospitalities receiving attention from this accommodation."
+		},
+		"FeatureOneLeftSide": {
+			"eyebrow": "Accommodation & Hospitality Analytics",
+			"heading": "See where guest demand is moving.",
+			"accommodationEyebrow": "Accommodation view",
+			"accommodationBody": "Track QR scans, guest activations, partner performance, and reservation requests for each accommodation.",
+			"hospitalityEyebrow": "Hospitality view",
+			"hospitalityBody": "See which accommodations introduce guests to your hospitality, then follow the path from view to reservation request."
+		},
+		"FeatureOneRightSide": {
+			"guestViews": "Guest views",
+			"reservationRequests": "Reservation requests",
+			"qrScans": "QR scans",
+			"guestActivations": "Guest activations",
+			"last30Days": "Last 30 days",
+			"last7Days": "Last 7 days",
+			"ariaLabel": "Example dashboard data",
+			"accommodationTitle": "Accommodation analytics",
+			"accommodationDescription": "Example dashboard data for one accommodation.",
+			"hospitalityTitle": "Hospitality analytics",
+			"hospitalityDescription": "Example dashboard data for one hospitality."
+		},
+		"PricingSection": {
+			"eyebrow": "What it costs",
+			"heading": "Almost all of it is free.",
+			"lead": "No card to sign up, no monthly bill to use it. You only pay if you choose extras — and even then, only in the way that fits your side.",
+			"footer": "No credit card to start. You upgrade only if — and when — it actually helps you."
+		},
+		"PricingSectionAccommodations": {
+			"title": "If you host guests",
+			"price": "Free",
+			"priceSuffix": "forever",
+			"feature1": "Guest perks from platform partners, from day one",
+			"feature2": "Full analytics — every scan, activation, and reservation",
+			"customTitle": "Custom partnerships",
+			"comingSoon": "Coming soon",
+			"customBody": "Forming your own partnerships directly with other hospitalities is on our roadmap. Pricing for that feature has not been set yet — everything above stays free either way.",
+			"registerFree": "Register free"
+		},
+		"PricingSectionHospitalities": {
+			"title": "If you serve guests",
+			"price": "€0",
+			"priceSuffix": "upfront",
+			"feature1": "List your hospitality for free",
+			"feature2": "Shown to every accommodation on the platform",
+			"feature3": "We help you shape the guest offer",
+			"payTitle": "You only pay on real results",
+			"payBadge": "Pay as you go",
+			"payBody": "No monthly fee. When a guest actually redeems an offer, we share a small commission on that visit — verified, and only on guests we genuinely bring you.",
+			"talkToUs": "Talk to us"
+		},
+		"StandardsSection": {
+			"eyebrow": "The standard",
+			"heading": "Curated means both sides look good.",
+			"lead": "If a partnership does not improve the guest experience and send the right kind of demand to the hospitality partner, it does not belong on the page.",
+			"item1": "Walking-distance-first recommendations.",
+			"item2": "Real benefits staff can honor in person.",
+			"item3": "No guest app, account, or login wall.",
+			"item4": "Property-specific partner lists, never an ad-ranked directory."
+		},
+		"FaqSection": {
+			"eyebrow": "Questions",
+			"heading": "Still wondering? Start here.",
+			"lead": "The short, honest answers to what owners ask us most.",
+			"q1Question": "Is it really free for accommodations?",
+			"q1Answer": "Yes. Registering and using the core platform is free, forever. Your guests get perks from partner hospitalities and you get full analytics — no card required to start. Forming your own custom partnerships is coming soon.",
+			"q2Question": "What does it cost a hospitality?",
+			"q2Answer": "Nothing upfront and no monthly fee. You share a small commission only when a guest actually redeems one of your offers — so you pay on real results, never on a number you have to report.",
+			"q3Question": "How do you know a guest came from us?",
+			"q3Answer": "Every benefit is redeemed in person against an offer tied to a real transaction, so both sides see the same thing. We never ask for your books, your POS, or your turnover.",
+			"q4Question": "Do guests need an app or an account?",
+			"q4Answer": "No. A guest scans one QR code in the room and the page opens instantly — no install, no login, no sign-up between arrival and discovery.",
+			"q5Question": "How do I get my QR code?",
+			"q5Answer": "It is generated automatically the moment you register your accommodation. Print it, place it in the room, and it works from the next guest who arrives.",
+			"q6Question": "What about custom partnerships?",
+			"q6Answer": "Forming your own partnership directly with a specific hospitality is coming soon and currently in development. We have not finalized pricing for it yet — everything else on the platform stays free regardless.",
+			"q7Question": "Where are you available?",
+			"q7Answer": "We are starting in Belgrade and saturating it first, then expanding from there. If you operate nearby, reach out — early partners help shape where we go next."
+		}
+	},
+	"ContactSection": {
+		"ContactLeftContent": {
+			"eyebrow": "Contact",
+			"headingLine1": "Plan your",
+			"headingAccent": "guest network",
+			"description": "Large operators, boutique accommodations, restaurants, bars, spas, tours, and local experiences can all enter through the same conversation.",
+			"preferEmail": "Prefer email?"
+		},
+		"ContactRightContent": {
+			"formTitle": "Send a message",
+			"formDescription": "Tell us whether you run accommodations, hospitalities, or both. We will reply with the best next step for your network.",
+			"nameLabel": "Your name",
+			"namePlaceholder": "Your full name",
+			"emailLabel": "Email",
+			"emailPlaceholder": "you@example.com",
+			"messageLabel": "Message",
+			"messagePlaceholder": "City, number of accommodations or hospitalities, and what kind of partnership you want to build.",
+			"honeypotLabel": "Website",
+			"footer": "No spam. Just a practical reply about your accommodation or hospitality network."
+		},
+		"ContactSubmitButton": {
+			"submit": "Send message"
+		}
+	},
+	"TermsPage": {
+		"SEO": {
+			"title": "Terms of Service"
+		},
+		"title": "Terms of Service"
 	}
 }

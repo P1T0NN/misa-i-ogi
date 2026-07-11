@@ -1,4 +1,8 @@
 <script lang="ts">
+	// LIBRARIES
+	import { m } from '@/shared/lib/paraglide/messages';
+	import { BedDouble, Check, ArrowRight } from '@lucide/svelte';
+
 	// CONFIG
 	import { UNPROTECTED_PAGE_ENDPOINTS } from '@/shared/page-endpoints';
 
@@ -6,13 +10,10 @@
 	import { Badge } from '@/shared/components/ui/badge/index.js';
 	import { Button } from '@/shared/components/ui/button/index.js';
 
-	// LUCIDE ICONS
-	import { BedDouble, Check, ArrowRight } from '@lucide/svelte';
-
-	const accommodationFree: string[] = [
-		'Guest perks from platform partners, from day one',
-		'Full analytics — every scan, activation, and reservation'
-	];
+	const accommodationFree = $derived([
+		m['HomePage.PricingSectionAccommodations.feature1'](),
+		m['HomePage.PricingSectionAccommodations.feature2']()
+	]);
 </script>
 
 <article class="flex flex-col rounded-3xl border border-border-2 bg-card p-6 sm:p-8">
@@ -20,12 +21,18 @@
 		<span class="grid size-11 shrink-0 place-items-center rounded-2xl bg-primary/10 text-primary">
 			<BedDouble class="size-5" aria-hidden="true" />
 		</span>
-		<p class="mb-0 font-display text-xl leading-tight text-foreground">If you host guests</p>
+		<p class="mb-0 font-display text-xl leading-tight text-foreground">
+			{m['HomePage.PricingSectionAccommodations.title']()}
+		</p>
 	</div>
 
 	<div class="mt-6 flex items-baseline gap-2">
-		<span class="font-display text-5xl leading-none font-medium text-foreground">Free</span>
-		<span class="text-base text-muted-foreground">forever</span>
+		<span class="font-display text-5xl leading-none font-medium text-foreground">
+			{m['HomePage.PricingSectionAccommodations.price']()}
+		</span>
+		<span class="text-base text-muted-foreground">
+			{m['HomePage.PricingSectionAccommodations.priceSuffix']()}
+		</span>
 	</div>
 
 	<ul class="mt-7 space-y-3.5">
@@ -43,18 +50,19 @@
 
 	<div class="mt-7 border-t border-border-2 pt-5">
 		<div class="flex items-center gap-2">
-			<p class="mb-0 text-sm font-medium text-foreground">Custom partnerships</p>
-			<Badge variant="secondary">Coming soon</Badge>
+			<p class="mb-0 text-sm font-medium text-foreground">
+				{m['HomePage.PricingSectionAccommodations.customTitle']()}
+			</p>
+			<Badge variant="secondary">{m['HomePage.PricingSectionAccommodations.comingSoon']()}</Badge>
 		</div>
 		<p class="mt-1.5 mb-0 text-sm leading-relaxed text-muted-foreground">
-			Forming your own partnerships directly with other hospitalities is on our roadmap. Pricing for
-			that feature has not been set yet — everything above stays free either way.
+			{m['HomePage.PricingSectionAccommodations.customBody']()}
 		</p>
 	</div>
 
 	<div class="mt-auto pt-8">
 		<Button href={UNPROTECTED_PAGE_ENDPOINTS.SIGNUP} class="w-full sm:w-fit">
-			Register free
+			{m['HomePage.PricingSectionAccommodations.registerFree']()}
 			<ArrowRight data-icon="inline-end" class="size-4" aria-hidden="true" />
 		</Button>
 	</div>
