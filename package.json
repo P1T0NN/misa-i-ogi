@@ -60,6 +60,7 @@
 		"@convex-dev/r2": "^0.10.1",
 		"@convex-dev/rate-limiter": "^0.3.2",
 		"@convex-dev/resend": "^0.2.4",
+		"@googlemaps/markerclusterer": "^2.6.2",
 		"@mmailaender/convex-better-auth-svelte": "^0.7.3",
 		"@mmailaender/convex-svelte": "^0.18.0",
 		"@oslojs/crypto": "^1.0.1",
