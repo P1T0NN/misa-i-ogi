@@ -49,6 +49,7 @@
 		extraFields,
 		actions,
 		convexClient,
+		uploadKeyPrefix,
 		class: className
 	}: {
 		/** Flat field list. Renders as a single plain section. Mutually exclusive with `sections`. */
@@ -68,6 +69,8 @@
 		extraFields?: Snippet;
 		actions?: Snippet<[{ busy: boolean }]>;
 		convexClient?: ConvexClient;
+		/** R2 object-key folder for uploaded files, e.g. `accommodations/{id}` (see `ALLOWED_KEY_PREFIX`). */
+		uploadKeyPrefix?: string;
 		class?: string;
 	} = $props();
 
@@ -93,7 +96,7 @@
 			sections,
 			args,
 			progress,
-			uploadOne: (file) => uploadFileToR2(convex, file)
+			uploadOne: (file) => uploadFileToR2(convex, file, uploadKeyPrefix)
 		});
 	};
 

@@ -205,6 +205,7 @@
 	bind:values
 	schema={accommodationEditFormSchema}
 	runFunction={api.tables.accommodations.mutations.updateAccommodation.updateAccommodation}
+	uploadKeyPrefix="accommodations"
 	submitLabel={m['EditAccommodationPage.EditAccommodationForm.submit']()}
 	resetOnSuccess={false}
 	customFields={{ address: addressField, coverImageKey: coverField }}

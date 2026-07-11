@@ -33,6 +33,15 @@ const ALLOWED_CONTENT_TYPES = new Set<string>([
 ]);
 
 /**
+ * Object-key prefixes we allow clients to request, so bucket contents stay browsable by
+ * entity type: `accommodations/<uuid>` or `hospitalities/<uuid>`. Strict allowlist — a
+ * free-form prefix from the client would let users write anywhere in the bucket
+ * namespace. Ownership lives in the DB rows (`uploadedFilesR2`, `coverImageKey`,
+ * `images`), not in the key path, so no per-entity-id folders are needed.
+ */
+const ALLOWED_KEY_PREFIX = /^(accommodations|hospitalities)$/;
+
+/**
  * Custom upload-URL minter. We DO NOT export the package's built-in `generateUploadUrl`
  * because its `checkUpload` hook only gets a `QueryCtx` — there's no way to charge a
  * rate-limit token there. If we did rate-limit later in `onUpload`, a throw on a full
@@ -41,7 +50,10 @@ const ALLOWED_CONTENT_TYPES = new Set<string>([
  * minted: any failure means no URL, no PUT, no orphan possible.
  */
 export const generateUploadUrl = authMutation('generateUploadUrl')({
-	args: {},
+	args: {
+		/** Optional folder prefix for the object key — see {@link ALLOWED_KEY_PREFIX}. */
+		prefix: v.optional(v.string())
+	},
 	returns: v.object({
 		success: v.boolean(),
 		message: v.object({
@@ -50,9 +62,14 @@ export const generateUploadUrl = authMutation('generateUploadUrl')({
 		}),
 		data: v.optional(v.object({ url: v.string(), key: v.string() }))
 	}),
-	handler: async (): Promise<ConvexMutationResult<{ url: string; key: string }>> => {
+	handler: async (_ctx, args): Promise<ConvexMutationResult<{ url: string; key: string }>> => {
 		// `authMutation` already handled auth + rate-limit before we got here.
-		const minted = await r2.generateUploadUrl();
+		if (args.prefix !== undefined && !ALLOWED_KEY_PREFIX.test(args.prefix)) {
+			throw new Error(`Invalid upload key prefix: ${args.prefix}`);
+		}
+		const minted = await r2.generateUploadUrl(
+			args.prefix ? `${args.prefix}/${crypto.randomUUID()}` : undefined
+		);
 		return {
 			success: true,
 			message: { key: 'GenericMessages.UPLOAD_URL_READY' },

@@ -55,6 +55,7 @@
 	bind:values
 	schema={addHospitalityFormSchema}
 	runFunction={api.tables.hospitalities.mutations.createUserHospitality.createUserHospitality}
+	uploadKeyPrefix="hospitalities"
 	customFields={{
 		address: addressField
 	}}

@@ -222,6 +222,7 @@
 			schema={accommodationAddFormSchema}
 			runFunction={api.tables.accommodations.mutations.adminCreateAccommodation
 				.adminCreateAccommodation}
+			uploadKeyPrefix="accommodations"
 			submitLabel={m['AdminAccommodationAddPage.submit']()}
 			customFields={{ ownerId: ownerField, address: addressField }}
 			resetOnSuccess={false}

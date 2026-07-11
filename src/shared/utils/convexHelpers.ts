@@ -49,8 +49,14 @@ import type { ConvexClient } from 'convex/browser';
  * @returns the R2 object `key` on success (the row's stable identifier in `uploadedFilesR2`),
  *          or `null` when an error was already toasted.
  */
-export async function uploadFileToR2(client: ConvexClient, file: File): Promise<string | null> {
-	const minted = await safeMutation(client, api.storage.r2.r2.generateUploadUrl, {});
+export async function uploadFileToR2(
+	client: ConvexClient,
+	file: File,
+	keyPrefix?: string
+): Promise<string | null> {
+	const minted = await safeMutation(client, api.storage.r2.r2.generateUploadUrl, {
+		...(keyPrefix ? { prefix: keyPrefix } : {})
+	});
 	if (!minted || !minted.success || !minted.data) return null;
 
 	const { url, key } = minted.data;

@@ -8,6 +8,9 @@ import { reservationStatusCounterKey } from '@/convex/helpers/counterKeys';
 import { transferOwnerReservationStatus } from '@/convex/helpers/ownerCounterHelpers';
 import { AUDIT_ACTIONS } from '@/convex/tables/auditLog/auditLogConfigs';
 
+// EMAILS
+import { sendAcceptedReservationEmailToGuest } from '@/convex/tables/reservations/emails/sendAcceptedReservationEmailToGuest';
+
 // UTILS
 import { createAnalyticsResourceScope, createAnalyticsScopeId } from '@piton-/analytics-convex';
 
@@ -80,6 +83,17 @@ export const confirmReservation = authMutation('confirmReservation')({
 				...(accommodation ? { accommodationName: accommodation.name } : {})
 			}
 		});
+
+		if (reservation.email) {
+			await sendAcceptedReservationEmailToGuest(ctx, {
+				guestEmail: reservation.email,
+				hospitalityName: hospitality?.name ?? reservation.hospitalityName,
+				guestName: reservation.guestName,
+				guestCount: reservation.guestCount,
+				phone: reservation.phone,
+				requestedTime: reservation.requestedTime
+			});
+		}
 
 		return { success: true, message: { key: 'GenericMessages.RESERVATION_CONFIRMED' } };
 	}

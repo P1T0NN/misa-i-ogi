@@ -274,6 +274,7 @@
 			bind:values
 			schema={hospitalityAddFormSchema}
 			runFunction={api.tables.hospitalities.mutations.createHospitality.createHospitality}
+			uploadKeyPrefix="hospitalities"
 			submitLabel={m['AdminHospitalityAddPage.submit']()}
 			customFields={{
 				address: addressField,

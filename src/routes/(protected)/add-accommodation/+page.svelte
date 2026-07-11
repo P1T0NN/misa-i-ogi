@@ -200,6 +200,7 @@
 			schema={accommodationMyAddFormSchema}
 			customFields={{ address: addressField }}
 			runFunction={api.tables.accommodations.mutations.createMyAccommodation.createMyAccommodation}
+			uploadKeyPrefix="accommodations"
 			submitLabel={m['AddAccommodationPage.submit']()}
 			resetOnSuccess={false}
 			onSuccess={() => appGoto(PROTECTED_PAGE_ENDPOINTS.MY_ACCOMMODATIONS)}

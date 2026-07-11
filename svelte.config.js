@@ -41,7 +41,7 @@ const config = {
 				],
 				'worker-src': ['self', 'blob:'],
 				'style-src': ['self', 'unsafe-inline'],
-				'img-src': ['self', 'data:', 'https:', 'blob:'],
+				'img-src': ['self', 'data:', 'https:', 'blob:', 'https://storage.kurosava.com'],
 				'font-src': ['self', 'data:'],
 				'connect-src': [
 					'self',
@@ -55,6 +55,7 @@ const config = {
 					// Cloudflare R2 — direct browser PUT to signed upload URLs and GET on public objects
 					'https://*.r2.cloudflarestorage.com',
 					'https://*.r2.dev',
+					'https://storage.kurosava.com',
 					'https://umami-sable-iota.vercel.app',
 					// Google Maps/Places (New) fetch calls + Maps vector tiles
 					'https://maps.googleapis.com',

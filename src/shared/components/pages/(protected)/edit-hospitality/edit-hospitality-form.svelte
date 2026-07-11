@@ -263,6 +263,7 @@
 	bind:values
 	schema={hospitalityEditFormSchema}
 	runFunction={api.tables.hospitalities.mutations.updateHospitality.updateHospitality}
+	uploadKeyPrefix="hospitalities"
 	submitLabel={m['EditHospitalityPage.EditHospitalityForm.submit']()}
 	resetOnSuccess={false}
 	customFields={{

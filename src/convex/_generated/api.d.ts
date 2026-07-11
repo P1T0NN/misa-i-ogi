@@ -214,6 +214,8 @@ import type * as tables_proTrials_schemas_proTrialsSchemas from "../tables/proTr
 import type * as tables_reports_mutations_createReport from "../tables/reports/mutations/createReport.js";
 import type * as tables_reports_queries_fetchReports from "../tables/reports/queries/fetchReports.js";
 import type * as tables_reports_schemas_reportsSchemas from "../tables/reports/schemas/reportsSchemas.js";
+import type * as tables_reservations_emails_sendAcceptedReservationEmailToGuest from "../tables/reservations/emails/sendAcceptedReservationEmailToGuest.js";
+import type * as tables_reservations_emails_sendCancelledReservationEmailToGuest from "../tables/reservations/emails/sendCancelledReservationEmailToGuest.js";
 import type * as tables_reservations_emails_sendReservationEmailToGuest from "../tables/reservations/emails/sendReservationEmailToGuest.js";
 import type * as tables_reservations_emails_sendReservationEmailToHospitalityOwner from "../tables/reservations/emails/sendReservationEmailToHospitalityOwner.js";
 import type * as tables_reservations_helpers_cancelPendingReservationsForGuest from "../tables/reservations/helpers/cancelPendingReservationsForGuest.js";
@@ -450,6 +452,8 @@ declare const fullApi: ApiFromModules<{
   "tables/reports/mutations/createReport": typeof tables_reports_mutations_createReport;
   "tables/reports/queries/fetchReports": typeof tables_reports_queries_fetchReports;
   "tables/reports/schemas/reportsSchemas": typeof tables_reports_schemas_reportsSchemas;
+  "tables/reservations/emails/sendAcceptedReservationEmailToGuest": typeof tables_reservations_emails_sendAcceptedReservationEmailToGuest;
+  "tables/reservations/emails/sendCancelledReservationEmailToGuest": typeof tables_reservations_emails_sendCancelledReservationEmailToGuest;
   "tables/reservations/emails/sendReservationEmailToGuest": typeof tables_reservations_emails_sendReservationEmailToGuest;
   "tables/reservations/emails/sendReservationEmailToHospitalityOwner": typeof tables_reservations_emails_sendReservationEmailToHospitalityOwner;
   "tables/reservations/helpers/cancelPendingReservationsForGuest": typeof tables_reservations_helpers_cancelPendingReservationsForGuest;

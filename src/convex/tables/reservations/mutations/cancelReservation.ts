@@ -8,6 +8,9 @@ import { reservationStatusCounterKey } from '@/convex/helpers/counterKeys';
 import { transferOwnerReservationStatus } from '@/convex/helpers/ownerCounterHelpers';
 import { AUDIT_ACTIONS } from '@/convex/tables/auditLog/auditLogConfigs';
 
+// EMAILS
+import { sendCancelledReservationEmailToGuest } from '@/convex/tables/reservations/emails/sendCancelledReservationEmailToGuest';
+
 // UTILS
 import { createAnalyticsResourceScope, createAnalyticsScopeId } from '@piton-/analytics-convex';
 
@@ -81,6 +84,17 @@ export const cancelReservation = authMutation('cancelReservation')({
 				reason: 'owner_cancelled'
 			}
 		});
+
+		if (reservation.email) {
+			await sendCancelledReservationEmailToGuest(ctx, {
+				guestEmail: reservation.email,
+				hospitalityName: hospitality?.name ?? reservation.hospitalityName,
+				guestName: reservation.guestName,
+				guestCount: reservation.guestCount,
+				phone: reservation.phone,
+				requestedTime: reservation.requestedTime
+			});
+		}
 
 		return { success: true, message: { key: 'GenericMessages.RESERVATION_CANCELLED' } };
 	}

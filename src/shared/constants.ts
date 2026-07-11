@@ -1,6 +1,6 @@
 export const COMPANY_DATA = {
 	NAME: 'Kurosava',
-	EMAIL: 'kurosava@gmail.com',
+	EMAIL: 'info@kurosava.com',
 	RESEND_EMAIL: 'onboarding@resend.dev', // default email for the Resend provider
 	DOMAIN: 'kurosava.com',
 	LOCATION: 'Belgrade, Serbia',
