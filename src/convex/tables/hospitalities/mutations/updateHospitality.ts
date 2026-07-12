@@ -103,7 +103,17 @@ export const updateHospitality = authMutation('updateHospitality')({
 		let images = doc.images ?? [];
 		let removedImageKeys: string[] = [];
 		if (args.images !== undefined) {
-			const resolved = await resolveUploadedImages(ctx, args.images, ctx.userId);
+			// Keys already on the doc were authorized when first attached (possibly by a
+			// different account — admin vs owner), so they bypass the ownership check;
+			// only new upload keys must resolve as the caller's own uploads.
+			const existingByKey = new Map((doc.images ?? []).map((image) => [image.key, image]));
+			const newKeys = args.images.filter((key) => !existingByKey.has(key));
+			const resolvedNew = new Map(
+				(await resolveUploadedImages(ctx, newKeys, ctx.userId)).map((image) => [image.key, image])
+			);
+			const resolved = args.images
+				.map((key) => existingByKey.get(key) ?? resolvedNew.get(key))
+				.filter((image) => image !== undefined);
 			if (resolved.length === 0) {
 				return {
 					success: false,

@@ -76,6 +76,7 @@
 		"convex-helpers": "^0.1.115",
 		"d3-scale": "^4.0.2",
 		"d3-shape": "^3.2.0",
+		"embla-carousel-svelte": "^8.6.0",
 		"layerchart": "2.0.0-next.48",
 		"nuqs-svelte": "^1.2.2",
 		"qrcode": "^1.5.4",

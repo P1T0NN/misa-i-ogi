@@ -21,7 +21,6 @@
 
 	// LUCIDE ICONS
 	import MapPinIcon from '@lucide/svelte/icons/map-pin';
-	import SparklesIcon from '@lucide/svelte/icons/sparkles';
 	import MapIcon from '@lucide/svelte/icons/map';
 
 	let {
@@ -82,53 +81,71 @@
 	</div>
 
 	<div class="mx-auto w-full max-w-420 px-4 pt-6 sm:px-6 sm:pt-8 lg:px-8">
-		<!-- Top row: address + platform teaser (left, fluid) sit on the same line as
-		     the sharing code card (right rail, aligned to the map column below). -->
+		<!-- One grid: address + partners (left, fluid) · sharing code + sticky map
+		     (right rail). DOM keeps the sharing code first so it stays on top on mobile. -->
 		<div
 			class={cn(
 				'grid grid-cols-1 gap-8 lg:items-start lg:gap-10',
 				hasCoords && 'lg:grid-cols-[minmax(0,1fr)_26rem]'
 			)}
 		>
-			<!-- Sharing code -->
+			<!-- Right rail: sharing code + map. self-stretch (overriding items-start) so the
+			     sticky map can travel the full height of the partner list. -->
 			<div
-				class="rounded-2xl border border-primary/25 bg-primary/5 p-5 sm:p-6 lg:col-start-2 lg:row-start-1"
+				class="flex min-w-0 flex-col gap-8 lg:col-start-2 lg:row-start-1 lg:gap-10 lg:self-stretch"
 			>
-				<div class="flex flex-col gap-4">
-					<div class="flex min-w-0 flex-col gap-1">
-						<p class="mb-0 font-mono text-[10px] tracking-eyebrow text-primary uppercase">
-							{m['StayPage.StaySharingCode.eyebrow']()}
-						</p>
-						<h2
-							id="share-stay-heading"
-							class="mb-0 font-serif text-xl leading-snug font-medium sm:text-2xl"
-						>
-							{m['StayPage.StaySharingCode.title']()}
-						</h2>
-						<p class="mb-0 max-w-prose text-sm leading-relaxed text-muted-foreground">
-							{m['StayPage.StaySharingCode.body']()}
-						</p>
-					</div>
-
-					<div class="flex flex-col gap-2">
-						<div
-							class="flex items-center gap-3 rounded-lg border border-border bg-background px-4 py-3"
-						>
-							<code class="font-mono text-xl tracking-eyebrow text-foreground">{sharingCode}</code>
-							<CopyButton
-								value={sharingCode}
-								label={m['StayPage.StaySharingCode.copy']()}
-								class="shrink-0 text-muted-foreground"
-							/>
+				<!-- Sharing code -->
+				<div class="rounded-2xl border border-primary/25 bg-primary/5 p-5 sm:p-6">
+					<div class="flex flex-col gap-4">
+						<div class="flex min-w-0 flex-col gap-1">
+							<p class="mb-0 font-mono text-[10px] tracking-eyebrow text-primary uppercase">
+								{m['StayPage.StaySharingCode.eyebrow']()}
+							</p>
+							<h2
+								id="share-stay-heading"
+								class="mb-0 font-serif text-xl leading-snug font-medium sm:text-2xl"
+							>
+								{m['StayPage.StaySharingCode.title']()}
+							</h2>
+							<p class="mb-0 max-w-prose text-sm leading-relaxed text-muted-foreground">
+								{m['StayPage.StaySharingCode.body']()}
+							</p>
 						</div>
-						<p class="mb-0 text-xs leading-relaxed text-muted-foreground">
-							{m['StayPage.StaySharingCode.privacy']()}
-						</p>
+
+						<div class="flex flex-col gap-2">
+							<div
+								class="flex items-center gap-3 rounded-lg border border-border bg-background px-4 py-3"
+							>
+								<code class="font-mono text-xl tracking-eyebrow text-foreground">{sharingCode}</code
+								>
+								<CopyButton
+									value={sharingCode}
+									label={m['StayPage.StaySharingCode.copy']()}
+									class="shrink-0 text-muted-foreground"
+								/>
+							</div>
+							<p class="mb-0 text-xs leading-relaxed text-muted-foreground">
+								{m['StayPage.StaySharingCode.privacy']()}
+							</p>
+						</div>
 					</div>
 				</div>
+
+				{#if hasCoords}
+					<div class="hidden lg:sticky lg:top-20 lg:block">
+						<StayLocationSection
+							latitude={accommodation.latitude as number}
+							longitude={accommodation.longitude as number}
+							accommodationId={accommodation._id}
+							accommodationName={accommodation.name}
+							{partnerships}
+							focusedId={hoveredHospitalityId}
+						/>
+					</div>
+				{/if}
 			</div>
 
-			<!-- Address + platform teaser -->
+			<!-- Address + partners -->
 			<div class="flex min-w-0 flex-col gap-6 lg:col-start-1 lg:row-start-1">
 				<p class="mb-0 flex items-start gap-2 text-sm text-muted-foreground">
 					<MapPinIcon class="mt-0.5 size-4 shrink-0 text-primary" aria-hidden="true" />
@@ -140,54 +157,17 @@
 					</span>
 				</p>
 
-				<div class="flex flex-col gap-2">
-					<p
-						class="mb-0 flex items-center gap-1.5 font-mono text-[10px] tracking-eyebrow text-primary uppercase"
-					>
-						<SparklesIcon class="size-3.5" aria-hidden="true" />
-						{m['StayPage.StayAccommodationData.perksEyebrow']()}
-					</p>
-					<h2 class="mb-0 font-serif text-xl leading-snug font-medium sm:text-2xl">
-						{m['StayPage.StayAccommodationData.perksTitle']()}
-					</h2>
-					<p class="mb-0 max-w-prose text-sm leading-relaxed text-muted-foreground">
-						{m['StayPage.StayAccommodationData.perksBody']()}
-					</p>
-				</div>
-			</div>
-		</div>
-
-		<!-- Partners (left, fluid — cards flow into 2 columns when wide) · map rail
-		     (right, sticky). -->
-		<div
-			class={cn(
-				'mt-8 grid grid-cols-1 gap-8 lg:mt-10 lg:items-start lg:gap-10',
-				hasCoords && 'lg:grid-cols-[minmax(0,1fr)_26rem]'
-			)}
-		>
-			<div class="min-w-0">
-				<StayPartnershipsSection
-					city={accommodation.city}
-					enabled={partnersUnlocked}
-					bind:partnerships
-					originLat={accommodation.latitude}
-					originLng={accommodation.longitude}
-					onHover={(id) => (hoveredHospitalityId = id)}
-				/>
-			</div>
-
-			{#if hasCoords}
-				<div class="hidden lg:sticky lg:top-20 lg:block">
-					<StayLocationSection
-						latitude={accommodation.latitude as number}
-						longitude={accommodation.longitude as number}
-						accommodationId={accommodation._id}
-						accommodationName={accommodation.name}
-						{partnerships}
-						focusedId={hoveredHospitalityId}
+				<div class="min-w-0">
+					<StayPartnershipsSection
+						city={accommodation.city}
+						enabled={partnersUnlocked}
+						bind:partnerships
+						originLat={accommodation.latitude}
+						originLng={accommodation.longitude}
+						onHover={(id) => (hoveredHospitalityId = id)}
 					/>
 				</div>
-			{/if}
+			</div>
 		</div>
 	</div>
 

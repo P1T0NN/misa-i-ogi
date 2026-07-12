@@ -270,9 +270,6 @@
 		},
 		"StayAccommodationData": {
 			"eyebrow": "Your accommodation",
-			"perksEyebrow": "Exclusive to guests",
-			"perksTitle": "Your stay unlocks more than a room",
-			"perksBody": "As a guest of this accommodation, you've unlocked handpicked discounts and perks at restaurants, cafés, and local favourites nearby — partners chosen just for the people who stay here. Scroll down to see everything waiting for you.",
 			"addressLabel": "Address"
 		},
 		"StaySharingCode": {
@@ -347,7 +344,8 @@
 			"description": "View hospitality details and request a reservation."
 		},
 		"HospitalityHeader": {
-			"addressLineMeta": "{address} · {city} · {country}"
+			"addressLineMeta": "{address} · {city} · {country}",
+			"thumbnailLabel": "Show image {index} of {total}"
 		},
 		"HospitalityMenu": {
 			"title": "Menu",
