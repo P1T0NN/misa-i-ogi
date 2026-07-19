@@ -31,10 +31,6 @@
 		{m['HomePage.StandardsSection.heading']()}
 	</h2>
 
-	<p class="mt-3 max-w-[52ch] text-lg leading-relaxed text-silver">
-		{m['HomePage.StandardsSection.lead']()}
-	</p>
-
 	<ol class="mt-14 grid gap-x-14 gap-y-10 sm:grid-cols-2">
 		{#each items as item, index (item)}
 			<StandardsSectionItem {item} {index} />

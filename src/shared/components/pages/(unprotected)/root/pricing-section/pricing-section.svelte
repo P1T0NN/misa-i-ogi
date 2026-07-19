@@ -34,8 +34,4 @@
 
 		<PricingSectionHospitalities />
 	</div>
-
-	<p class="mx-auto mt-10 max-w-2xl text-center text-sm leading-relaxed text-muted-foreground">
-		{m['HomePage.PricingSection.footer']()}
-	</p>
 </Section>

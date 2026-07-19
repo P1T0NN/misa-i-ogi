@@ -19,10 +19,6 @@
 			answer: m['HomePage.FaqSection.q2Answer']()
 		},
 		{
-			question: m['HomePage.FaqSection.q3Question'](),
-			answer: m['HomePage.FaqSection.q3Answer']()
-		},
-		{
 			question: m['HomePage.FaqSection.q4Question'](),
 			answer: m['HomePage.FaqSection.q4Answer']()
 		},

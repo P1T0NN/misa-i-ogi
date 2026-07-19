@@ -13,7 +13,7 @@
 
 	type BenefitPoint = {
 		title: string;
-		body: string;
+		body?: string;
 		tag?: string;
 		learnMoreHref?: string;
 	};
@@ -33,7 +33,7 @@
 		},
 		{
 			title: m['HomePage.BenefitsSection.accommodationPoint4Title'](),
-			body: m['HomePage.BenefitsSection.accommodationPoint4Body'](),
+			//body: m['HomePage.BenefitsSection.accommodationPoint4Body'](),
 			tag: m['HomePage.BenefitsSection.comingSoon']()
 		}
 	]);
@@ -90,9 +90,6 @@
 					<div>
 						<p class="landing-eyebrow mb-1 text-primary">
 							{m['HomePage.BenefitsSection.accommodationsEyebrow']()}
-						</p>
-						<p class="mb-0 font-display text-2xl leading-tight text-foreground">
-							{m['HomePage.BenefitsSection.accommodationsTitle']()}
 						</p>
 						<p class="mb-0 text-sm text-muted-foreground">
 							{m['HomePage.BenefitsSection.accommodationsSubtitle']()}
@@ -161,9 +158,7 @@
 						<p class="landing-eyebrow mb-1 text-primary">
 							{m['HomePage.BenefitsSection.hospitalitiesEyebrow']()}
 						</p>
-						<p class="mb-0 font-display text-2xl leading-tight text-foreground">
-							{m['HomePage.BenefitsSection.hospitalitiesTitle']()}
-						</p>
+
 						<p class="mb-0 text-sm text-muted-foreground">
 							{m['HomePage.BenefitsSection.hospitalitiesSubtitle']()}
 						</p>
@@ -211,11 +206,4 @@
 			</div>
 		</article>
 	</div>
-
-	<p class="mx-auto mt-10 max-w-2xl text-center text-sm leading-relaxed text-muted-foreground">
-		<span class="font-medium text-foreground">
-			{m['HomePage.BenefitsSection.footerBold']()}
-		</span>
-		{m['HomePage.BenefitsSection.footer']()}
-	</p>
 </Section>

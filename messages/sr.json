@@ -2057,48 +2057,44 @@
 		},
 		"HeroSection": {
 			"imageAlt": "Topla soba za smeštaj sa praznom dobrodošlicom na noćnom stolu",
-			"heading": "Najbolja lokalna mesta, čim gosti stignu.",
+			"heading": "Najbolja lokalna mesta za goste hotela i apartmana",
 			"description": "Gosti skeniraju jedan QR kod u sobi, otključavaju lokalne pogodnosti i šalju zahteve za rezervaciju partnerskim ugostiteljstvima. Smeštaji se prijavljuju besplatno. Partnerska ugostiteljstva dobijaju goste koji su već na nekoliko minuta udaljenosti.",
 			"registerFree": "Registruj se besplatno",
 			"contactUs": "Kontaktiraj nas"
 		},
 		"BenefitsSection": {
 			"eyebrow": "Za vlasnike",
-			"heading": "Šta dobijate, jednostavnim rečima.",
-			"lead": "Platformu koriste dve vrste vlasnika. Pronađite onu koja ste vi i pročitajte listu odozgo nadole.",
+			"heading": "Šta dobijate",
+			"lead": "Platformu koriste dve vrste vlasnika.",
 			"accommodationsEyebrow": "Za smeštaje",
-			"accommodationsTitle": "Vi primite goste",
 			"accommodationsSubtitle": "Apartmani · vile · hoteli",
 			"accommodationsBadge": "Besplatna prijava",
-			"accommodationsIntro": "Objavite smeštaj besplatno. Vaši gosti dobijaju prave pogodnosti u blizini — i zato biraju baš vas.",
+			"accommodationsIntro": "Objavite smeštaj besplatno. Vaši gosti dobijaju unikatne pogodnosti u blizini — i zato biraju baš vas.",
 			"accommodationPoint1Title": "Pogodnosti od prvog dana",
-			"accommodationPoint1Body": "Čim se pridružite, vaši gosti dobijaju prave benefite u ugostiteljstvima sa kojima već sarađujemo. Ništa ne podešavate — radi od dolaska.",
+			"accommodationPoint1Body": "Čim se pridružite, vaši gosti dobijaju prave benefite u ugostiteljstvima sa kojima već sarađujemo. Ništa ne podešavate — gost sam sve radi.",
 			"accommodationPoint2Title": "Bolje recenzije, više rezervacija",
-			"accommodationPoint2Body": "Gosti koji stignu do besplatne lokalne pogodnosti bolje ocenjuju smeštaj. Bolje recenzije donose više rezervacija. To se gomila svake sezone.",
-			"accommodationPoint3Title": "Gosti biraju vas prve",
-			"accommodationPoint3Body": "Smeštaj sa pravim pogodnostima u blizini pobedi susedni koji ne nudi ništa. Dajte im razlog pre nego što stignu.",
+			"accommodationPoint2Body": "Gosti koji stignu do preporučene lokalne pogodnosti pozitivno će oceniti vaš smeštaj. Bolje recenzije donose više rezervacija.",
+			"accommodationPoint3Title": "Gosti biraju",
+			"accommodationPoint3Body": "Smeštaj sa lokalnim pogodnostima, budite razlog da gosti dodju kod vas.",
 			"accommodationPoint4Title": "Dovedite svoje ugostiteljstvo",
 			"accommodationPoint4Body": "Znate lokalno mesto sa kojim još ne sarađujemo? Mogućnost direktnog partnerstva jedan na jedan stiže uskoro. Cena te funkcije još nije odlučena.",
 			"comingSoon": "Uskoro",
 			"whatIsPro": "Šta je Pro?",
 			"registerFree": "Registruj se besplatno",
 			"hospitalitiesEyebrow": "Za ugostiteljstva",
-			"hospitalitiesTitle": "Vi služite goste",
 			"hospitalitiesSubtitle": "Restorani · barovi · spa · ture",
-			"hospitalitiesBadge": "Bez početnih troškova",
+			"hospitalitiesBadge": "Bez troškova",
 			"hospitalitiesIntro": "Sarađujte sa nama i dođite do gostiju koji su već u blizini — u apartmanima i hotelima oko vas.",
-			"hospitalityPoint1Title": "Gosti su već u susedstvu",
-			"hospitalityPoint1Body": "Ne nasumični klikovi. Pravi ljudi na nekoliko minuta udaljenosti, koji odmah biraju gde će.",
-			"hospitalityPoint2Title": "Budite pred svakim smeštajem",
-			"hospitalityPoint2Body": "Postanite partnersko ugostiteljstvo i prikazujete se svakom apartmanu i hotelu na platformi odjednom — automatski, bez jurenja svakog posebno.",
+			"hospitalityPoint1Title": "Gosti su svugde oko vas",
+			"hospitalityPoint1Body": "Gosti su u vašoj neposrednoj blizini i mogu izabrati baš vas.",
+			"hospitalityPoint2Title": "Budite u svakom smeštaju",
+			"hospitalityPoint2Body": "Budite prisutni u svakom apartmanu i hotelu koji se nalaze na našoj platformi.",
 			"hospitalityPoint3Title": "Vi definišete ponudu, mi dovodimo goste",
-			"hospitalityPoint3Body": "Zajedno osmišljavamo pogodnost za mirnije termine. Vi je odobrite i ispunite — bez iznenađenja i nametanja.",
-			"hospitalityPoint4Title": "Plaćate samo kad gosti stvarno dođu",
-			"hospitalityPoint4Body": "Bez početne naknade i mesečne pretplate. Naša provizija vezana je za stvarne, proverene realizacije — ništa što oboje ne vidimo i ne brojimo.",
+			"hospitalityPoint3Body": "Vaša ponuda ide direktno do gosta našeg apartmana. Vi je odobrite i ispunite — bez iznenađenja i nametanja.",
+			"hospitalityPoint4Title": "Saradnja",
+			"hospitalityPoint4Body": "Saradnja se ostvaruje bez bilo kakve naknade i mesečne pretplate.",
 			"becomePartner": "Postani partnersko ugostiteljstvo",
-			"preferDirectConversation": "Više volite direktan razgovor? Pišite nam na Viber ili WhatsApp.",
-			"footerBold": "Besplatno za domaćine, plaćanje po rezultatu za ugostiteljstva.",
-			"footer": "Svaka strana čini drugu vrednijom — i ta ravnoteža je cela platforma."
+			"preferDirectConversation": "Više volite direktan razgovor? Pišite nam na Viber ili WhatsApp."
 		},
 		"GuestFlowSection": {
 			"eyebrow": "Kako radi",
@@ -2110,7 +2106,7 @@
 			"goToStep": "Idi na korak {step}",
 			"stepProgress": "Korak {current} od {total}",
 			"step1Title": "QR kod čeka u smeštaju",
-			"step1Body": "Gost stigne i pronađe jednu QR karticu u smeštaju. Bez aplikacije, naloga i objašnjenja na recepciji.",
+			"step1Body": "Gost čeka QR kod u smeštaju. Bez aplikacije i naloga.",
 			"step2Title": "Gost otvara stranicu pogodnosti smeštaja",
 			"step2Body": "Stranica je vezana za taj smeštaj i prikazuje pogodnosti odabrane baš za njega.",
 			"step3Title": "Gost bira partnersko ugostiteljstvo",
@@ -2124,8 +2120,8 @@
 		},
 		"FeaturesSection": {
 			"eyebrow": "Platforma",
-			"heading": "Iza skeniranja — kontrolna tabla kojom zaista upravljate.",
-			"lead": "Vaš gost vidi jednu čistu stranicu. Ispod nje vi dobijate pravu stvar — partnerstva koja otključavaju, rezervacije koje šalju i brojeve iza svake posete."
+			"heading": "Uvid u kompletnu analitiku vašeg biznisa",
+			"lead": "Na jednom mestu možete našom analitikom pratiti skeniranje, rezervaciju i performanse partnera."
 		},
 		"FeatureFourRightSide": {
 			"eyebrow": "Partnerstva",
@@ -2134,23 +2130,23 @@
 			"includedBadge": "Uključeno",
 			"includedBody": "Registrujte smeštaj besplatno i vaši gosti odmah otključavaju pogodnosti partnerskih ugostiteljstava platforme — prave popuste na najboljim mestima u blizini. Bez podešavanja, pregovaranja, garantovano od prvog dana.",
 			"customEyebrow": "Uskoro — vaša sopstvena partnerstva",
-			"customBadge": "U razvoju",
-			"customBody": "Pored uključenih pogodnosti, uskoro ćete moći da formirate sopstvena partnerstva direktno sa drugim ugostiteljstvima, sa popustima ili pogodnostima koje sami dogovorite. Cena još nije konačna.",
+			"customBadge": "Uskoro",
+			"customBody": "Pored uključenih pogodnosti, uskoro će biti uključen i GOLDEN WINDOW o kojem ćete blagovremeno biti obavešteni.",
 			"learnMore": "Saznaj kako partnerstva rade"
 		},
 		"FeatureFourLeftSide": {
 			"ariaLabel": "Primer pogodnosti iz partnerstva",
 			"cardTitle": "Partnerstva",
-			"cardDescription": "Pogodnosti koje gosti otključavaju na ovom smeštaju.",
+			"cardDescription": "Pogodnosti koje gosti otključavaju u smeštaju.",
 			"freeBadge": "Besplatno"
 		},
 		"FeatureThreeLeftSide": {
 			"eyebrow": "Upravljanje rezervacijama",
-			"heading": "Zahtevi ne nestaju u formi.",
+			"heading": "Upravljajte rezervacijama gostiju direktno",
 			"hospitalityEyebrow": "Za vlasnike ugostiteljstava",
-			"hospitalityBody": "Pregledajte svaki zahtev, kontaktirajte gosta telefonom, pa potvrdite, odbijte ili označite nedolazak. Svaki ishod ostaje u kontrolnoj tabli.",
-			"accommodationEyebrow": "Za vlasnike smeštaja",
-			"accommodationBody": "Vaši gosti nikad ne zapnu. Vide da li je zahtev još na čekanju ili već potvrđen, direktno sa stranice smeštaja."
+			"hospitalityBody": "Pregledajte svaki zahtev, kontaktirajte gosta telefonom, pa potvrdite, odbijte ili označite nedolazak. Svaki ishod ostaje u našoj analitici.",
+			"accommodationEyebrow": "Za goste smeštaja",
+			"accommodationBody": "Mogu videti da li je zahtev još na čekanju ili je potvrđen."
 		},
 		"FeatureThreeRightSide": {
 			"ariaLabel": "Primer kontrolne table za upravljanje rezervacijama",
@@ -2161,26 +2157,26 @@
 		},
 		"FeatureTwoRightSide": {
 			"eyebrow": "Performanse partnera",
-			"heading": "Znajte koja partnerstva rade.",
+			"heading": "Transparentnost u saradnji",
 			"accommodationEyebrow": "Za vlasnike smeštaja",
-			"accommodationBody": "Rangirajte partnerska ugostiteljstva koja gosti najčešće otvaraju, da lista pogodnosti ostane relevantna.",
+			"accommodationBody": "Rangirajte partnerska ugostiteljstva koja gosti najčešće otvaraju.",
 			"hospitalityEyebrow": "Za vlasnike ugostiteljstava",
-			"hospitalityBody": "Rangirajte smeštaje koji šalju najviše pažnje gostiju i namera za rezervaciju vašem ugostiteljstvu."
+			"hospitalityBody": "Rangirajte smeštaje koji šalju najviše gostiju i rezervacije ka vašem ugostiteljstvu."
 		},
 		"FeatureTwoLeftSide": {
 			"ariaLabel": "Primer tabela performansi partnera",
 			"accommodationTableTitle": "Performanse smeštaja",
-			"accommodationTableDescription": "Primer izvornih smeštaja koji šalju goste ovom ugostiteljstvu.",
+			"accommodationTableDescription": "Primer smeštaja koji šalju goste ugostiteljstvu.",
 			"hospitalityTableTitle": "Performanse ugostiteljstava",
-			"hospitalityTableDescription": "Primer partnerskih ugostiteljstava koja dobijaju pažnju sa ovog smeštaja."
+			"hospitalityTableDescription": "Primer partnerskih ugostiteljstava i aktivnost gosta u smeštaju."
 		},
 		"FeatureOneLeftSide": {
 			"eyebrow": "Analitika smeštaja i ugostiteljstava",
-			"heading": "Vidite gde se pomera potražnja gostiju.",
+			"heading": "Vidite aktivnost gostiju.",
 			"accommodationEyebrow": "Pregled za smeštaj",
 			"accommodationBody": "Pratite QR skeniranja, aktivacije gostiju, performanse partnera i zahteve za rezervaciju za svaki smeštaj.",
 			"hospitalityEyebrow": "Pregled za ugostiteljstvo",
-			"hospitalityBody": "Vidite koji smeštaji upoznaju goste sa vašim ugostiteljstvom, pa pratite put od pregleda do zahteva za rezervaciju."
+			"hospitalityBody": "Imajte uvid u aktivnost svakog gosta."
 		},
 		"FeatureOneRightSide": {
 			"guestViews": "Pregledi gostiju",
@@ -2196,20 +2192,18 @@
 			"hospitalityDescription": "Primer podataka kontrolne table za jedno ugostiteljstvo."
 		},
 		"PricingSection": {
-			"eyebrow": "Šta košta",
-			"heading": "Skoro sve je besplatno.",
-			"lead": "Bez kartice za prijavu, bez mesečne pretplate. Plaćate samo ako izaberete dodatke — i tada na način koji odgovara vašoj strani.",
-			"footer": "Bez kreditne kartice za početak. Nadograđujete samo ako — i kada — vam zaista pomogne."
+			"eyebrow": "O Ceni",
+			"heading": "Apsolutno besplatno.",
+			"lead": "Bez kreditne kartice za prijavu, bez mesečne pretplate."
 		},
 		"PricingSectionAccommodations": {
-			"title": "Ako primite goste",
+			"title": "Gost u vašem smeštaju",
 			"price": "Besplatno",
 			"priceSuffix": "zauvek",
 			"feature1": "Pogodnosti od partnerskih ugostiteljstava platforme, od prvog dana",
 			"feature2": "Puna analitika — svako skeniranje, aktivacija i rezervacija",
-			"customTitle": "Prilagođena partnerstva",
+			"customTitle": "Partnerstva po zahtevu",
 			"comingSoon": "Uskoro",
-			"customBody": "Formiranje sopstvenih partnerstava direktno sa drugim ugostiteljstvima je u planu. Cena te funkcije još nije određena — sve gore navedeno ostaje besplatno.",
 			"registerFree": "Registruj se besplatno"
 		},
 		"PricingSectionHospitalities": {
@@ -2219,38 +2213,33 @@
 			"feature1": "Objavite ugostiteljstvo besplatno",
 			"feature2": "Prikazano svakom smeštaju na platformi",
 			"feature3": "Pomažemo vam da oblikujete ponudu za goste",
-			"payTitle": "Plaćate samo na stvarne rezultate",
-			"payBadge": "Plaćanje po korišćenju",
-			"payBody": "Bez mesečne naknade. Kada gost stvarno iskoristi ponudu, delimo malu proviziju na toj poseti — provereno i samo za goste koje zaista dovedemo.",
+			"payBody": "Bez mesečne naknade.",
 			"talkToUs": "Razgovarajte sa nama"
 		},
 		"StandardsSection": {
-			"eyebrow": "Standard",
-			"heading": "Kurirano znači da obe strane izgledaju dobro.",
-			"lead": "Ako partnerstvo ne poboljšava iskustvo gosta i ne šalje pravu vrstu potražnje partnerskom ugostiteljstvu, ne pripada na stranici.",
-			"item1": "Preporuke u pešačkoj udaljenosti.",
-			"item2": "Prave pogodnosti koje osoblje može da ispoštuje uživo.",
+			"eyebrow": "Pogodnosti",
+			"heading": "Zašto bas mi?",
+			"item1": "Preporuke u vašoj blizini.",
+			"item2": "Lokalne preporuke na jednom mestu.",
 			"item3": "Bez aplikacije, naloga ili prijavljivanja za goste.",
-			"item4": "Liste partnera po objektu, nikad direktorijum rangiran reklamama."
+			"item4": "Jedinstveni sistem rezervacije iz vašeg smeštaja."
 		},
 		"FaqSection": {
 			"eyebrow": "Pitanja",
-			"heading": "Još razmišljate? Počnite ovde.",
+			"heading": "Još razmišljate?",
 			"lead": "Kratki, iskreni odgovori na ono što nas vlasnici najčešće pitaju.",
 			"q1Question": "Da li je za smeštaje zaista besplatno?",
-			"q1Answer": "Da. Registracija i korišćenje osnovne platforme je besplatno, zauvek. Vaši gosti dobijaju pogodnosti od partnerskih ugostiteljstava i vi dobijate punu analitiku — bez kartice za početak. Formiranje sopstvenih prilagođenih partnerstava stiže uskoro.",
-			"q2Question": "Šta košta ugostiteljstvo?",
-			"q2Answer": "Ništa unapred i bez mesečne naknade. Delite malu proviziju samo kada gost stvarno iskoristi jednu od vaših ponuda — plaćate na stvarne rezultate, nikad na broj koji morate da prijavite.",
-			"q3Question": "Kako znate da je gost došao od vas?",
-			"q3Answer": "Svaka pogodnost se realizuje uživo uz ponudu vezanu za stvarnu transakciju, tako da obe strane vide isto. Nikad ne tražimo vaše knjige, POS ili promet.",
+			"q1Answer": "Da. Registracija i korišćenje osnovne platforme je besplatno, zauvek. Vaši gosti dobijaju pogodnosti od partnerskih ugostiteljstava i vi dobijate punu analitiku.",
+			"q2Question": "Koliko košta za ugostiteljstvo?",
+			"q2Answer": "Nema mesečne i godišnje naknade.",
 			"q4Question": "Da li gostima treba aplikacija ili nalog?",
-			"q4Answer": "Ne. Gost skenira jedan QR kod u sobi i stranica se odmah otvara — bez instalacije, prijave i registracije između dolaska i otkrivanja.",
+			"q4Answer": "Ne. Gost skenira QR kod u svom smeštaju, bez instalacije, prijave ili registracije.",
 			"q5Question": "Kako dobijam QR kod?",
-			"q5Answer": "Generiše se automatski čim registrujete smeštaj. Odštampajte ga, stavite u sobu i radi od sledećeg gosta koji stigne.",
+			"q5Answer": "Generiše se automatski čim registrujete smeštaj. Odštampajte ga, stavite u sobu.",
 			"q6Question": "Šta je sa prilagođenim partnerstvima?",
-			"q6Answer": "Formiranje sopstvenog partnerstva direktno sa određenim ugostiteljstvom stiže uskoro i trenutno je u razvoju. Cenu još nismo finalizovali — sve ostalo na platformi ostaje besplatno.",
+			"q6Answer": "Uskoro.",
 			"q7Question": "Gde ste dostupni?",
-			"q7Answer": "Počinjemo u Beogradu i prvo ga zasićujemo, pa širimo dalje. Ako poslujete u blizini, javite se — rani partneri pomažu da oblikujemo gde idemo sledeće."
+			"q7Answer": "Trenutno u Srbiji."
 		}
 	},
 	"ContactSection": {

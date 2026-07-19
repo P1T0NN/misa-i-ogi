@@ -7,7 +7,6 @@
 	import { UNPROTECTED_PAGE_ENDPOINTS } from '@/shared/page-endpoints';
 
 	// COMPONENTS
-	import { Badge } from '@/shared/components/ui/badge/index.js';
 	import { Button } from '@/shared/components/ui/button/index.js';
 
 	const hospitalityFree = $derived([
@@ -51,12 +50,6 @@
 	</ul>
 
 	<div class="mt-7 border-t border-border-2 pt-5">
-		<div class="flex items-center gap-2">
-			<p class="mb-0 text-sm font-medium text-foreground">
-				{m['HomePage.PricingSectionHospitalities.payTitle']()}
-			</p>
-			<Badge variant="secondary">{m['HomePage.PricingSectionHospitalities.payBadge']()}</Badge>
-		</div>
 		<p class="mt-1.5 mb-0 text-sm leading-relaxed text-muted-foreground">
 			{m['HomePage.PricingSectionHospitalities.payBody']()}
 		</p>

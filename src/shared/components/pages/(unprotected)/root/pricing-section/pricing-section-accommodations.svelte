@@ -55,9 +55,6 @@
 			</p>
 			<Badge variant="secondary">{m['HomePage.PricingSectionAccommodations.comingSoon']()}</Badge>
 		</div>
-		<p class="mt-1.5 mb-0 text-sm leading-relaxed text-muted-foreground">
-			{m['HomePage.PricingSectionAccommodations.customBody']()}
-		</p>
 	</div>
 
 	<div class="mt-auto pt-8">

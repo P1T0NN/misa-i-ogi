@@ -2067,7 +2067,6 @@
 			"heading": "What you get, in plain words.",
 			"lead": "Two kinds of owners use the platform. Find the one that is you, and read straight down the list.",
 			"accommodationsEyebrow": "For accommodations",
-			"accommodationsTitle": "You host guests",
 			"accommodationsSubtitle": "Apartments · villas · hotels",
 			"accommodationsBadge": "Free to join",
 			"accommodationsIntro": "List your place for free. Your guests get real perks nearby — and that makes guests pick you.",
@@ -2083,7 +2082,6 @@
 			"whatIsPro": "What is Pro?",
 			"registerFree": "Register free",
 			"hospitalitiesEyebrow": "For hospitalities",
-			"hospitalitiesTitle": "You serve guests",
 			"hospitalitiesSubtitle": "Restaurants · bars · spas · tours",
 			"hospitalitiesBadge": "No upfront cost",
 			"hospitalitiesIntro": "Partner with us and reach guests who are already nearby — staying in the apartments and hotels around you.",
@@ -2096,9 +2094,7 @@
 			"hospitalityPoint4Title": "Pay only when guests actually show up",
 			"hospitalityPoint4Body": "No upfront fee, no monthly bill. Our commission is tied to real, verified redemptions — nothing we cannot both see and count.",
 			"becomePartner": "Become a partner hospitality",
-			"preferDirectConversation": "Prefer a direct conversation? Reach us on Viber or WhatsApp.",
-			"footerBold": "Free for hosts, pay-per-result for hospitalities.",
-			"footer": "Each side makes the other more valuable — and that balance is the whole platform."
+			"preferDirectConversation": "Prefer a direct conversation? Reach us on Viber or WhatsApp."
 		},
 		"GuestFlowSection": {
 			"eyebrow": "How it works",
@@ -2198,8 +2194,7 @@
 		"PricingSection": {
 			"eyebrow": "What it costs",
 			"heading": "Almost all of it is free.",
-			"lead": "No card to sign up, no monthly bill to use it. You only pay if you choose extras — and even then, only in the way that fits your side.",
-			"footer": "No credit card to start. You upgrade only if — and when — it actually helps you."
+			"lead": "No card to sign up, no monthly bill to use it. You only pay if you choose extras — and even then, only in the way that fits your side."
 		},
 		"PricingSectionAccommodations": {
 			"title": "If you host guests",
@@ -2209,7 +2204,6 @@
 			"feature2": "Full analytics — every scan, activation, and reservation",
 			"customTitle": "Custom partnerships",
 			"comingSoon": "Coming soon",
-			"customBody": "Forming your own partnerships directly with other hospitalities is on our roadmap. Pricing for that feature has not been set yet — everything above stays free either way.",
 			"registerFree": "Register free"
 		},
 		"PricingSectionHospitalities": {
@@ -2220,14 +2214,12 @@
 			"feature2": "Shown to every accommodation on the platform",
 			"feature3": "We help you shape the guest offer",
 			"payTitle": "You only pay on real results",
-			"payBadge": "Pay as you go",
-			"payBody": "No monthly fee. When a guest actually redeems an offer, we share a small commission on that visit — verified, and only on guests we genuinely bring you.",
+	
 			"talkToUs": "Talk to us"
 		},
 		"StandardsSection": {
 			"eyebrow": "The standard",
 			"heading": "Curated means both sides look good.",
-			"lead": "If a partnership does not improve the guest experience and send the right kind of demand to the hospitality partner, it does not belong on the page.",
 			"item1": "Walking-distance-first recommendations.",
 			"item2": "Real benefits staff can honor in person.",
 			"item3": "No guest app, account, or login wall.",
@@ -2241,8 +2233,6 @@
 			"q1Answer": "Yes. Registering and using the core platform is free, forever. Your guests get perks from partner hospitalities and you get full analytics — no card required to start. Forming your own custom partnerships is coming soon.",
 			"q2Question": "What does it cost a hospitality?",
 			"q2Answer": "Nothing upfront and no monthly fee. You share a small commission only when a guest actually redeems one of your offers — so you pay on real results, never on a number you have to report.",
-			"q3Question": "How do you know a guest came from us?",
-			"q3Answer": "Every benefit is redeemed in person against an offer tied to a real transaction, so both sides see the same thing. We never ask for your books, your POS, or your turnover.",
 			"q4Question": "Do guests need an app or an account?",
 			"q4Answer": "No. A guest scans one QR code in the room and the page opens instantly — no install, no login, no sign-up between arrival and discovery.",
 			"q5Question": "How do I get my QR code?",
